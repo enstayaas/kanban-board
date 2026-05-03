@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="filters">
+  <select id="priorityFilter">
+    <option value="">All priorities</option>
+    <option value="high">High</option>
+    <option value="medium">Medium</option>
+    <option value="low">Low</option>
+  </select>
+
+  <input id="userFilter" placeholder="User ID" />
+
+  <button onclick="loadTasks()">Apply Filter</button>
+</div>
+
+<div id="board"></div>
+
+<!-- МОДАЛКА -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h3>Edit Task</h3>
+
+    <input id="editTitle" placeholder="Title" />
+    <textarea id="editDesc" placeholder="Description"></textarea>
+
+    <br><br>
+
+    <button onclick="saveTask()">Save</button>
+    <button onclick="closeModal()">Cancel</button>
+    <button onclick="window.location.href='users.html'">
+  Participants
+</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+

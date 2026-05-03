@@ -1,0 +1,66 @@
+/* Общие настройки */
+body { font-family: 'Inter', sans-serif; background-color: #f4f7f9; margin: 0; color: #333; }
+
+/* Шапка сайта */
+.navbar { background: #1e293b; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 24px; font-weight: bold; }
+.logo span { color: #38bdf8; }
+
+/* Сетка для карточек */
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+
+/* Сами карточки проектов */
+.board-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e2e8f0;
+}
+.board-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    border-color: #38bdf8;
+}
+
+/* Кнопка */
+.btn-add { background: #38bdf8; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.btn-add:hover { background: #0ea5e9; }
+.board-wrapper {
+    display: flex;
+    overflow-x: auto;
+    padding: 20px;
+    height: calc(100vh - 80px);
+}
+
+.columns-grid {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.column {
+    background: #ebecf0;
+    border-radius: 8px;
+    width: 300px;
+    min-height: 100px;
+    padding: 10px;+
+    display: flex;
+    flex-direction: column;
+}
+
+.task-list {
+    min-height: 50px; /* Чтобы можно было закинуть задачу в пустую колонку */
+}
+
+.task-card {
+    background: white;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    cursor: grab;
+}

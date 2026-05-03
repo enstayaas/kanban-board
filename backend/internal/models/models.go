@@ -12,12 +12,12 @@ type User struct {
 }
 
 type Board struct {
-	ID          int
-	Title       string
-	Description string
-	OwnerID     int
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	ID          int       `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	OwnerID     int       `json:"owner_id"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type Column struct {
@@ -53,4 +53,11 @@ type Comment struct {
 	Content   string
 	CreatedAt time.Time
 	DeletedAt *time.Time
+}
+
+type BoardMember struct {
+	ID      int    `json:"id"`
+	BoardID int    `json:"board_id"`
+	UserID  int    `json:"user_id"`
+	Role    string `json:"role"`
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+</head>
+<body>
+
+<h2>User Profile</h2>
+
+<div id="profile"></div>
+
+<script>
+async function loadUser() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  const res = await fetch(`http://localhost:8080/users/${id}`);
+  const user = await res.json();
+
+  const div = document.getElementById("profile");
+
+  div.innerHTML = `
+    <h3>${user.name}</h3>
+    <p>Email: ${user.email}</p>
+  `;
+}
+
+loadUser();
+</script>
+
+</body>
+</html>

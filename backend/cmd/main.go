@@ -55,6 +55,9 @@ func main() {
 	http.Handle("/", http.FileServer(http.Dir("../frontend")))
 	fmt.Println("Serving frontend from ../frontend")
 
+	http.HandleFunc("/users", handlers.GetUsers)
+	http.HandleFunc("/users/", handlers.GetUserByID)
+
 	// http.Handle("/", http.FileServer(http.Dir("./frontend")))
 
 	fmt.Println("Server started at :8080")

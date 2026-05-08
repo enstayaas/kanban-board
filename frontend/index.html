@@ -26,7 +26,8 @@
 
     <input id="userFilter" placeholder="👤 Assigned User ID" type="number" />
 
-    <button onclick="loadTasks()">🔍 Apply Filter</button>
+    <!-- <button onclick="loadTasks()">🔍 Apply Filter</button> -->
+     <button onclick="applyFilter()">🔍 Apply Filter</button>
     <button onclick="clearFilters()">🗑️ Clear Filters</button>
   </div>
 
@@ -49,6 +50,43 @@
         <h4>Фильтр по меткам:</h4>
         <div id="labelFilters" class="label-filters"></div>
         <button onclick="clearLabelFilter()">✖️ Очистить фильтр меток</button>
+    </div>
+</div>
+
+<!-- Панель сортировки и пагинации -->
+<div class="sort-pagination-panel">
+    <div class="sort-section">
+        <label>📊 Сортировать по:</label>
+        <select id="sortBy">
+            <option value="priority">Приоритету</option>
+            <option value="created_at">Дате создания</option>
+            <option value="title">Названию</option>
+            <option value="assigned_to">Исполнителю</option>
+        </select>
+        
+        <select id="sortOrder">
+            <option value="asc">📈 По возрастанию</option>
+            <option value="desc">📉 По убыванию</option>
+        </select>
+        
+        <button onclick="applySortAndPage()">🔄 Применить</button>
+    </div>
+    
+    <div class="pagination-section">
+        <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button>
+        <span id="pageInfo">Страница 1 из 1</span>
+        <button onclick="nextPage()" id="nextBtn" disabled>Вперед ▶</button>
+        
+        <div class="per-page">
+            <label>Показывать:</label>
+            <select id="perPage" onchange="changePerPage()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>задач</span>
+        </div>
     </div>
 </div>
 

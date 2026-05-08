@@ -3,6 +3,12 @@
 // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
 let currentTask = null;
 let isLoading = false;
+// ========== ПЕРЕМЕННЫЕ ДЛЯ ПАГИНАЦИИ ==========
+let currentPage = 1;
+let perPage = 10;
+let currentSortBy = 'priority';
+let currentSortOrder = 'desc';
+let allTasks = [];
 
 // API URL (можно вынести в .env позже)
 // const API_BASE_URL = 'http://localhost:8080';
@@ -169,53 +175,82 @@ function validateTask(title, description) {
   return true;
 }
 
-// ========== ЗАГРУЗКА ЗАДАЧ ==========
 async function loadTasks() {
-  if (isLoading) return;
-  
-  isLoading = true;
-  const boardDiv = document.getElementById('board');
-  
-  if (boardDiv) {
-    boardDiv.innerHTML = '<div style="text-align:center; padding:40px;"><span class="loader"></span> Loading tasks...</div>';
-  }
-  
-  try {
-    // const tasks = await fetchAPI(`${API_BASE_URL}/tasks`);
-    const tasks = await fetchAPI('/tasks');
+    if (isLoading) return;
     
-    let filteredTasks = tasks || [];
-    const priority = document.getElementById('priorityFilter')?.value;
-    const userId = document.getElementById('userFilter')?.value;
+    isLoading = true;
+    const boardDiv = document.getElementById('board');
     
-    if (priority) {
-      filteredTasks = filteredTasks.filter(t => t.Priority === priority);
-    }
-    if (userId) {
-      filteredTasks = filteredTasks.filter(t => t.AssignedTo === parseInt(userId));
-    }
-
-    // Фильтрация по меткам
-if (typeof filterTasksByLabels === 'function') {
-    filteredTasks = filterTasksByLabels(filteredTasks);
-}
-
-    
-    renderBoard(filteredTasks);
-  } catch (error) {
-    console.error('Load tasks error:', error);
     if (boardDiv) {
-      if (error.message && error.message.includes('доступ')) {
-    boardDiv.innerHTML = '<div class="empty-state">🔒 У вас нет доступа к этим задачам</div>';
-} else {
-    boardDiv.innerHTML = '<div class="empty-state">⚠️ Не удалось загрузить задачи. Проверьте сервер.</div>';
-}
-      // boardDiv.innerHTML = '<div class="empty-state">⚠️ Failed to load tasks. Check console.</div>';
+        boardDiv.innerHTML = '<div style="text-align:center; padding:40px;"><span class="loader"></span> Loading tasks...</div>';
     }
-  } finally {
-    isLoading = false;
-  }
+    
+    try {
+        allTasks = await fetchAPI('/tasks');
+        
+        // Применяем сортировку и пагинацию
+        applySortAndPage();
+        
+    } catch (error) {
+        console.error('Load tasks error:', error);
+        if (boardDiv) {
+            if (error.message && error.message.includes('доступ')) {
+                boardDiv.innerHTML = '<div class="empty-state">🔒 У вас нет доступа к этим задачам</div>';
+            } else {
+                boardDiv.innerHTML = '<div class="empty-state">⚠️ Не удалось загрузить задачи. Проверьте сервер.</div>';
+            }
+        }
+    } finally {
+        isLoading = false;
+    }
 }
+// ========== ЗАГРУЗКА ЗАДАЧ ==========
+// async function loadTasks() {
+//   if (isLoading) return;
+  
+//   isLoading = true;
+//   const boardDiv = document.getElementById('board');
+  
+//   if (boardDiv) {
+//     boardDiv.innerHTML = '<div style="text-align:center; padding:40px;"><span class="loader"></span> Loading tasks...</div>';
+//   }
+  
+//   try {
+//     // const tasks = await fetchAPI(`${API_BASE_URL}/tasks`);
+//     const tasks = await fetchAPI('/tasks');
+    
+//     let filteredTasks = tasks || [];
+//     const priority = document.getElementById('priorityFilter')?.value;
+//     const userId = document.getElementById('userFilter')?.value;
+    
+//     if (priority) {
+//       filteredTasks = filteredTasks.filter(t => t.Priority === priority);
+//     }
+//     if (userId) {
+//       filteredTasks = filteredTasks.filter(t => t.AssignedTo === parseInt(userId));
+//     }
+
+//     // Фильтрация по меткам
+// if (typeof filterTasksByLabels === 'function') {
+//     filteredTasks = filterTasksByLabels(filteredTasks);
+// }
+
+    
+//     renderBoard(filteredTasks);
+//   } catch (error) {
+//     console.error('Load tasks error:', error);
+//     if (boardDiv) {
+//       if (error.message && error.message.includes('доступ')) {
+//     boardDiv.innerHTML = '<div class="empty-state">🔒 У вас нет доступа к этим задачам</div>';
+// } else {
+//     boardDiv.innerHTML = '<div class="empty-state">⚠️ Не удалось загрузить задачи. Проверьте сервер.</div>';
+// }
+//       // boardDiv.innerHTML = '<div class="empty-state">⚠️ Failed to load tasks. Check console.</div>';
+//     }
+//   } finally {
+//     isLoading = false;
+//   }
+// }
 
  //========== ОТРИСОВКА ДОСКИ ==========
 function renderBoard(tasks) {
@@ -488,6 +523,12 @@ function clearFilters() {
   loadTasks();
 }
 
+// ========== ПРИМЕНЕНИЕ ФИЛЬТРОВ ==========
+function applyFilter() {
+    currentPage = 1;
+    applySortAndPage();
+}
+
 // ========== ЗАГРУЗКА ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ФИЛЬТРА ==========
 async function loadUsersForFilter() {
   try {
@@ -520,6 +561,124 @@ function initEventListeners() {
       }
     });
   }
+}
+
+
+// ========== СОРТИРОВКА ==========
+function sortTasks(tasks) {
+    const sortBy = document.getElementById('sortBy')?.value || currentSortBy;
+    const sortOrder = document.getElementById('sortOrder')?.value || currentSortOrder;
+    
+    currentSortBy = sortBy;
+    currentSortOrder = sortOrder;
+    
+    const sorted = [...tasks];
+    
+    sorted.sort((a, b) => {
+        let valA, valB;
+        
+        switch(sortBy) {
+            case 'priority':
+                const priorityWeight = { 'high': 3, 'medium': 2, 'low': 1 };
+                valA = priorityWeight[a.priority] || 0;
+                valB = priorityWeight[b.priority] || 0;
+                break;
+            case 'created_at':
+                valA = new Date(a.created_at || 0);
+                valB = new Date(b.created_at || 0);
+                break;
+            case 'title':
+                valA = (a.title || '').toLowerCase();
+                valB = (b.title || '').toLowerCase();
+                break;
+            case 'assigned_to':
+                valA = a.assigned_to || 0;
+                valB = b.assigned_to || 0;
+                break;
+            default:
+                valA = a.id || 0;
+                valB = b.id || 0;
+        }
+        
+        if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+        if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+    });
+    
+    return sorted;
+}
+
+// ========== ПАГИНАЦИЯ ==========
+function paginateTasks(tasks) {
+    const start = (currentPage - 1) * perPage;
+    const end = start + perPage;
+    return tasks.slice(start, end);
+}
+
+function updatePaginationButtons(totalTasks) {
+    const totalPages = Math.ceil(totalTasks / perPage);
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageInfo = document.getElementById('pageInfo');
+    
+    if (prevBtn) prevBtn.disabled = currentPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+    if (pageInfo) pageInfo.innerText = `Страница ${currentPage} из ${totalPages || 1}`;
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        applySortAndPage();
+    }
+}
+
+function nextPage() {
+    const totalPages = Math.ceil(allTasks.length / perPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        applySortAndPage();
+    }
+}
+
+function changePerPage() {
+    const newPerPage = parseInt(document.getElementById('perPage')?.value || 10);
+    perPage = newPerPage;
+    currentPage = 1;
+    applySortAndPage();
+}
+
+function applySortAndPage() {
+    // Получаем текущие значения фильтров
+    const priority = document.getElementById('priorityFilter')?.value;
+    const userId = document.getElementById('userFilter')?.value;
+    
+    let filteredTasks = [...allTasks];
+    
+    // Применяем фильтры
+    if (priority) {
+        filteredTasks = filteredTasks.filter(t => t.priority === priority);
+    }
+    if (userId) {
+        filteredTasks = filteredTasks.filter(t => t.assigned_to === parseInt(userId));
+    }
+    
+    // Фильтрация по меткам
+    if (typeof filterTasksByLabels === 'function') {
+        filteredTasks = filterTasksByLabels(filteredTasks);
+    }
+    
+    // Сортировка
+    const sortedTasks = sortTasks(filteredTasks);
+    
+    // Сохраняем для пагинации
+    const paginatedTasks = paginateTasks(sortedTasks);
+    
+    // Обновляем кнопки пагинации
+    updatePaginationButtons(sortedTasks.length);
+    
+    // Отображаем
+    renderBoard(paginatedTasks);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

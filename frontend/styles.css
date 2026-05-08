@@ -532,6 +532,69 @@ h1 {
 }
 
 
+/* Панель сортировки и пагинации */
+.sort-pagination-panel {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.sort-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sort-section select, 
+.sort-section button,
+.pagination-section select,
+.pagination-section button {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.sort-section button:hover,
+.pagination-section button:hover {
+    background: #007bff;
+    color: white;
+}
+
+.pagination-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pagination-section button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.per-page {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-left: 15px;
+}
+
+#pageInfo {
+    font-weight: bold;
+    min-width: 120px;
+    text-align: center;
+}
+
 
 
 

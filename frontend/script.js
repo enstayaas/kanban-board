@@ -5,7 +5,9 @@ let currentTask = null;
 let isLoading = false;
 
 // API URL (можно вынести в .env позже)
-const API_BASE_URL = 'http://localhost:8080';
+// const API_BASE_URL = 'http://localhost:8080';
+// Используем конфиг
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
 
 // ========== ФУНКЦИИ УВЕДОМЛЕНИЙ ==========
 function showError(message) {
@@ -44,47 +46,111 @@ function showSuccess(message) {
 
 // ========== УНИВЕРСАЛЬНЫЙ FETCH С ОБРАБОТКОЙ ОШИБОК ==========
 async function fetchAPI(url, options = {}) {
-  try {
-    const response = await fetch(url, options);
+    // Автоматически подставляем базовый URL
+    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
     
-    if (!response.ok) {
-      let errorMessage = `HTTP ${response.status}`;
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.error || errorData.message || errorMessage;
-      } catch(e) {
-        errorMessage = response.statusText || errorMessage;
-      }
-      
-      if (response.status === 401) {
-        errorMessage = '❌ Unauthorized. Please login again.';
-      } else if (response.status === 403) {
-        errorMessage = '🔒 Access denied. You don\'t have permission.';
-      } else if (response.status === 404) {
-        errorMessage = '🔍 Resource not found.';
-      } else if (response.status === 400) {
-        errorMessage = '⚠️ Invalid request: ' + errorMessage;
-      } else if (response.status === 500) {
-        errorMessage = '🔥 Server error. Please try again later.';
-      }
-      
-      throw new Error(errorMessage);
-    }
+    // Таймаут (чтобы запрос не висел вечно)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
     
-    if (response.status === 204) {
-      return null;
+    try {
+        const response = await fetch(fullUrl, {
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers,
+            },
+            signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+            let errorMessage = `HTTP ${response.status}`;
+            try {
+                const errorData = await response.json();
+                errorMessage = errorData.error || errorData.message || errorMessage;
+            } catch(e) {
+                errorMessage = response.statusText || errorMessage;
+            }
+            
+            if (response.status === 401) {
+                errorMessage = '❌ Unauthorized. Please login again.';
+            } else if (response.status === 403) {
+                errorMessage = '🔒 Access denied. You don\'t have permission.';
+            } else if (response.status === 404) {
+                errorMessage = '🔍 Resource not found.';
+            } else if (response.status === 400) {
+                errorMessage = '⚠️ Invalid request: ' + errorMessage;
+            } else if (response.status === 500) {
+                errorMessage = '🔥 Server error. Please try again later.';
+            }
+            
+            throw new Error(errorMessage);
+        }
+        
+        if (response.status === 204) {
+            return null;
+        }
+        
+        return await response.json();
+    } catch (error) {
+        clearTimeout(timeoutId);
+        
+        if (error.name === 'AbortError') {
+            showError('⏱️ Сервер не отвечает. Попробуйте позже');
+        } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            showError('🌐 Network error: Cannot connect to server.');
+        } else {
+            showError(error.message);
+        }
+        throw error;
     }
-    
-    return await response.json();
-  } catch (error) {
-    if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      showError('🌐 Network error: Cannot connect to server.');
-    } else {
-      showError(error.message);
-    }
-    throw error;
-  }
 }
+
+// ========== УНИВЕРСАЛЬНЫЙ FETCH С ОБРАБОТКОЙ ОШИБОК ==========
+// async function fetchAPI(url, options = {}) {
+//   try {
+//     const response = await fetch(url, options);
+    
+//     if (!response.ok) {
+//       let errorMessage = `HTTP ${response.status}`;
+//       try {
+//         const errorData = await response.json();
+//         errorMessage = errorData.error || errorData.message || errorMessage;
+//       } catch(e) {
+//         errorMessage = response.statusText || errorMessage;
+//       }
+      
+//       if (response.status === 401) {
+//         errorMessage = '❌ Unauthorized. Please login again.';
+//       } else if (response.status === 403) {
+//         errorMessage = '🔒 Access denied. You don\'t have permission.';
+//       } else if (response.status === 404) {
+//         errorMessage = '🔍 Resource not found.';
+//       } else if (response.status === 400) {
+//         errorMessage = '⚠️ Invalid request: ' + errorMessage;
+//       } else if (response.status === 500) {
+//         errorMessage = '🔥 Server error. Please try again later.';
+//       }
+      
+//       throw new Error(errorMessage);
+//     }
+    
+//     if (response.status === 204) {
+//       return null;
+//     }
+    
+//     return await response.json();
+//   } catch (error) {
+//     if (error.name === 'TypeError' && error.message.includes('fetch')) {
+//       showError('🌐 Network error: Cannot connect to server.');
+//     } else {
+//       showError(error.message);
+//     }
+//     throw error;
+//   }
+// }
 
 // ========== ВАЛИДАЦИЯ ЗАДАЧИ ==========
 function validateTask(title, description) {

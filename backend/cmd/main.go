@@ -58,8 +58,24 @@ func main() {
 	http.HandleFunc("/tasks/archive", enableCORS(handlers.GetArchivedTasks))
 
 	// PATCH (перемещение + архив)
+	// http.HandleFunc("/tasks/", enableCORS(func(w http.ResponseWriter, r *http.Request) {
+	// 	if r.Method == http.MethodPatch && strings.HasSuffix(r.URL.Path, "/archive") {
+	// 		handlers.ArchiveTask(w, r)
+	// 	} else if r.Method == http.MethodPatch {
+	// 		handlers.UpdateTask(w, r)
+	// 	}
+	// }))
+
+	// PATCH (перемещение + архив) и метки задач
 	http.HandleFunc("/tasks/", enableCORS(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodPatch && strings.HasSuffix(r.URL.Path, "/archive") {
+		// Метки задач
+		if strings.Contains(r.URL.Path, "/labels") && r.Method == http.MethodPost {
+			handlers.AddLabelToTask(w, r)
+		} else if strings.Contains(r.URL.Path, "/labels") && r.Method == http.MethodDelete {
+			handlers.RemoveLabelFromTask(w, r)
+		} else if strings.Contains(r.URL.Path, "/labels") && r.Method == http.MethodGet {
+			handlers.GetTaskLabels(w, r)
+		} else if r.Method == http.MethodPatch && strings.HasSuffix(r.URL.Path, "/archive") {
 			handlers.ArchiveTask(w, r)
 		} else if r.Method == http.MethodPatch {
 			handlers.UpdateTask(w, r)
@@ -67,6 +83,20 @@ func main() {
 	}))
 
 	http.HandleFunc("/comments", enableCORS(handlers.CreateComment))
+
+	// Метки
+	http.HandleFunc("/labels", enableCORS(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			handlers.GetLabels(w, r)
+		} else if r.Method == http.MethodPost {
+			handlers.CreateLabel(w, r)
+		}
+	}))
+	http.HandleFunc("/labels/", enableCORS(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodDelete {
+			handlers.DeleteLabel(w, r)
+		}
+	}))
 
 	http.Handle("/", http.FileServer(http.Dir("../frontend")))
 	fmt.Println("Serving frontend from ../frontend")

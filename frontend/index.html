@@ -30,6 +30,28 @@
     <button onclick="clearFilters()">🗑️ Clear Filters</button>
   </div>
 
+  <!-- Панель меток -->
+<div class="labels-panel">
+    <h3>🏷️ Метки</h3>
+    
+    <!-- Список всех меток -->
+    <div id="labelsList" class="labels-list"></div>
+    
+    <!-- Форма создания метки -->
+    <div class="add-label-form">
+        <input type="text" id="newLabelName" placeholder="Название метки" maxlength="20">
+        <input type="color" id="newLabelColor" value="#3b82f6">
+        <button onclick="createLabel()">➕ Добавить метку</button>
+    </div>
+    
+    <!-- Фильтр по меткам -->
+    <div class="filter-by-labels">
+        <h4>Фильтр по меткам:</h4>
+        <div id="labelFilters" class="label-filters"></div>
+        <button onclick="clearLabelFilter()">✖️ Очистить фильтр меток</button>
+    </div>
+</div>
+
   <div class="board-container" id="board"></div>
 
   <!-- Модальное окно -->
@@ -48,6 +70,10 @@
       
       <input id="editAssignedTo" placeholder="Assigned User ID" type="number" />
       
+      <div class="modal-labels-section">
+    <h4>🏷️ Метки задачи:</h4>
+    <div id="modalTaskLabels" class="modal-labels-list"></div>
+</div>
       <div style="margin-top: 15px;">
         <button onclick="saveTask()">💾 Save</button>
         <button onclick="closeModal()">❌ Cancel</button>
@@ -57,8 +83,10 @@
 
   <script src="config.js"></script>
   <script src="script.js"></script>
+  <script src="labels.js"></script>
 </body>
 </html>
+
 
 
 

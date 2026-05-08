@@ -194,6 +194,12 @@ async function loadTasks() {
     if (userId) {
       filteredTasks = filteredTasks.filter(t => t.AssignedTo === parseInt(userId));
     }
+
+    // Фильтрация по меткам
+if (typeof filterTasksByLabels === 'function') {
+    filteredTasks = filterTasksByLabels(filteredTasks);
+}
+
     
     renderBoard(filteredTasks);
   } catch (error) {
@@ -211,7 +217,7 @@ async function loadTasks() {
   }
 }
 
-// ========== ОТРИСОВКА ДОСКИ ==========
+ //========== ОТРИСОВКА ДОСКИ ==========
 function renderBoard(tasks) {
   const boardDiv = document.getElementById('board');
   if (!boardDiv) return;
@@ -229,8 +235,8 @@ function renderBoard(tasks) {
     columnDiv.className = 'column';
     columnDiv.innerHTML = `<h3>${columnTitles[col]}</h3>`;
     
-    const tasksInColumn = tasks.filter(t => t.ColumnID === col);
-    
+    // const tasksInColumn = tasks.filter(t => t.ColumnID === col);
+    const tasksInColumn = tasks.filter(t => t.column_id === col);
     if (tasksInColumn.length === 0) {
       const emptyDiv = document.createElement('div');
       emptyDiv.className = 'empty-state';
@@ -241,9 +247,31 @@ function renderBoard(tasks) {
       tasksInColumn.forEach(task => {
         const taskDiv = document.createElement('div');
         taskDiv.className = 'task';
-        const emoji = priorityEmojis[task.Priority] || '⚪';
-        taskDiv.innerHTML = `${emoji} <strong>${escapeHtml(task.Title)}</strong>`;
-        taskDiv.title = `Assigned to: ${task.AssignedTo || 'unassigned'}\nPriority: ${task.Priority || 'medium'}`;
+        const emoji = priorityEmojis[task.piority] || '⚪';
+        
+        // ===== НОВЫЙ КОД: ПОЛУЧАЕМ МЕТКИ ЗАДАЧИ =====
+        let taskLabelsHtml = '';
+        // Проверяем, есть ли функция getTaskLabelsForTask
+        if (typeof getTaskLabelsForTask === 'function') {
+            const taskLabelsList = getTaskLabelsForTask(task.id);
+            if (taskLabelsList && taskLabelsList.length > 0) {
+                taskLabelsHtml = '<div class="task-labels">' + 
+                    taskLabelsList.map(label => 
+                        `<span class="task-label" style="background: ${label.color};">${escapeHtml(label.name)}</span>`
+                    ).join('') + 
+                '</div>';
+            }
+        }
+        // ===== КОНЕЦ НОВОГО КОДА =====
+        
+        // Собираем HTML карточки (с метками)
+        taskDiv.innerHTML = `
+            <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
+            ${taskLabelsHtml}
+            <div style="font-size: 10px; color: #888;">👤 ${task.AssignedTo || 'unassigned'}</div>
+        `;
+        
+        taskDiv.title = `Assigned to: ${task.AssignedTo || 'unassigned'}\nPriority: ${task.priority || 'medium'}`;
         taskDiv.onclick = () => openModal(task);
         columnDiv.appendChild(taskDiv);
       });
@@ -272,29 +300,139 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+// ========== ОТРИСОВКА ДОСКИ ==========
+// function renderBoard(tasks) {
+//   const boardDiv = document.getElementById('board');
+//   if (!boardDiv) return;
+  
+//   boardDiv.innerHTML = '';
+  
+//   const columns = [1, 2, 3];
+//   const columnTitles = { 1: '📋 To Do', 2: '⚙️ In Progress', 3: '✅ Done' };
+//   const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
+  
+//   let hasAnyTask = false;
+  
+//   columns.forEach(col => {
+//     const columnDiv = document.createElement('div');
+//     columnDiv.className = 'column';
+//     columnDiv.innerHTML = `<h3>${columnTitles[col]}</h3>`;
+    
+//     const tasksInColumn = tasks.filter(t => t.ColumnID === col);
+    
+//     if (tasksInColumn.length === 0) {
+//       const emptyDiv = document.createElement('div');
+//       emptyDiv.className = 'empty-state';
+//       emptyDiv.innerText = '✨ No tasks';
+//       columnDiv.appendChild(emptyDiv);
+//     } else {
+//       hasAnyTask = true;
+//       tasksInColumn.forEach(task => {
+//         const taskDiv = document.createElement('div');
+//         taskDiv.className = 'task';
+//         const emoji = priorityEmojis[task.Priority] || '⚪';
+//         taskDiv.innerHTML = `${emoji} <strong>${escapeHtml(task.Title)}</strong>`;
+//         taskDiv.title = `Assigned to: ${task.AssignedTo || 'unassigned'}\nPriority: ${task.Priority || 'medium'}`;
+//         taskDiv.onclick = () => openModal(task);
+//         columnDiv.appendChild(taskDiv);
+//       });
+//     }
+    
+//     boardDiv.appendChild(columnDiv);
+//   });
+  
+//   if (!hasAnyTask && tasks.length === 0) {
+//     const emptyMsg = document.createElement('div');
+//     emptyMsg.className = 'empty-state';
+//     emptyMsg.innerText = '📭 No tasks matching filters';
+//     emptyMsg.style.width = '100%';
+//     emptyMsg.style.textAlign = 'center';
+//     boardDiv.appendChild(emptyMsg);
+//   }
+// }
+
+// function escapeHtml(str) {
+//   if (!str) return '';
+//   return str
+//     .replace(/&/g, '&amp;')
+//     .replace(/</g, '&lt;')
+//     .replace(/>/g, '&gt;')
+//     .replace(/"/g, '&quot;')
+//     .replace(/'/g, '&#39;');
+// }
+
+
 // ========== МОДАЛЬНОЕ ОКНО ==========
 function openModal(task) {
-  currentTask = task;
-  
-  const titleInput = document.getElementById('editTitle');
-  const descInput = document.getElementById('editDesc');
-  const prioritySelect = document.getElementById('editPriority');
-  const assignedInput = document.getElementById('editAssignedTo');
-  
-  if (titleInput) titleInput.value = task.Title || '';
-  if (descInput) descInput.value = task.Description || '';
-  if (prioritySelect) prioritySelect.value = task.Priority || 'medium';
-  if (assignedInput) assignedInput.value = task.AssignedTo || '';
-  
-  const modal = document.getElementById('modal');
-  if (modal) modal.style.display = 'flex';
+    currentTask = task;
+    
+    const titleInput = document.getElementById('editTitle');
+    const descInput = document.getElementById('editDesc');
+    const prioritySelect = document.getElementById('editPriority');
+    const assignedInput = document.getElementById('editAssignedTo');
+    
+    if (titleInput) titleInput.value = task.title || '';
+    if (descInput) descInput.value = task.description || '';
+    if (prioritySelect) prioritySelect.value = task.priority || 'medium';
+    if (assignedInput) assignedInput.value = task.assigned_to || '';
+    
+    // ===== ДОБАВЛЯЕМ МЕТКИ В МОДАЛЬНОЕ ОКНО =====
+    const container = document.getElementById('modalTaskLabels');
+    if (container && typeof labels !== 'undefined' && labels.length > 0) {
+        // Получаем ID меток, которые уже есть у задачи
+        let taskLabelIds = [];
+        if (typeof getTaskLabelsFromStorage === 'function') {
+            taskLabelIds = getTaskLabelsFromStorage(task.id);
+        }
+        
+        container.innerHTML = labels.map(label => `
+            <div class="modal-label-item">
+                <label style="background: ${label.color};">
+                    <input type="checkbox" value="${label.id}" 
+                        ${taskLabelIds.includes(label.id) ? 'checked' : ''}
+                        onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
+                    ${escapeHtml(label.name)}
+                </label>
+            </div>
+        `).join('');
+    } else if (container) {
+        container.innerHTML = '<div style="color:#999;">Загрузка меток...</div>';
+    }
+    // ===== КОНЕЦ ДОБАВЛЕННОГО КОДА =====
+    
+    const modal = document.getElementById('modal');
+    if (modal) modal.style.display = 'flex';
 }
 
 function closeModal() {
-  const modal = document.getElementById('modal');
-  if (modal) modal.style.display = 'none';
-  currentTask = null;
+    const modal = document.getElementById('modal');
+    if (modal) modal.style.display = 'none';
+    currentTask = null;
 }
+
+// // ========== МОДАЛЬНОЕ ОКНО ==========
+// function openModal(task) {
+//   currentTask = task;
+  
+//   const titleInput = document.getElementById('editTitle');
+//   const descInput = document.getElementById('editDesc');
+//   const prioritySelect = document.getElementById('editPriority');
+//   const assignedInput = document.getElementById('editAssignedTo');
+  
+//   if (titleInput) titleInput.value = task.Title || '';
+//   if (descInput) descInput.value = task.Description || '';
+//   if (prioritySelect) prioritySelect.value = task.Priority || 'medium';
+//   if (assignedInput) assignedInput.value = task.AssignedTo || '';
+  
+//   const modal = document.getElementById('modal');
+//   if (modal) modal.style.display = 'flex';
+// }
+
+// function closeModal() {
+//   const modal = document.getElementById('modal');
+//   if (modal) modal.style.display = 'none';
+//   currentTask = null;
+// }
 
 // ========== СОХРАНЕНИЕ ЗАДАЧИ ==========
 async function saveTask() {
@@ -313,7 +451,8 @@ async function saveTask() {
   }
   
   const payload = {
-    column_id: currentTask.ColumnID,
+    // column_id: currentTask.ColumnID,
+    column_id: currentTask.column_id,
     position: currentTask.Position,
     title: title,
     description: description,
@@ -325,7 +464,7 @@ async function saveTask() {
   }
   
   try {
-    await fetchAPI(`${API_BASE_URL}/tasks/${currentTask.ID}`, {
+    await fetchAPI(`${API_BASE_URL}/tasks/${currentTask.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

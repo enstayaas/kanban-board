@@ -46,6 +46,24 @@ type Task struct {
 	UpdatedAt   time.Time  `json:"updated_at"`
 }
 
+// Label - метка для задачи
+type Label struct {
+	ID        int        `json:"id"`
+	BoardID   int        `json:"board_id"`
+	Name      string     `json:"name"`
+	Color     string     `json:"color"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+}
+
+// TaskLabel - связь задачи и метки
+type TaskLabel struct {
+	ID      int `json:"id"`
+	TaskID  int `json:"task_id"`
+	LabelID int `json:"label_id"`
+}
+
 // type Task struct {
 // 	ID          int
 // 	BoardID     int

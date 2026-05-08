@@ -1,12 +1,92 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="nav">
+    <a href="index.html">📋 Board</a>
+    <a href="users.html">👥 Users</a>
+    <a href="profile.html">👤 Profile</a>
+  </div>
+
+  <h1>📌 Kanban Board</h1>
+
+  <div class="filters">
+    <select id="priorityFilter">
+      <option value="">All priorities</option>
+      <option value="high">🔴 High</option>
+      <option value="medium">🟡 Medium</option>
+      <option value="low">🟢 Low</option>
+    </select>
+
+    <input id="userFilter" placeholder="👤 Assigned User ID" type="number" />
+
+    <button onclick="loadTasks()">🔍 Apply Filter</button>
+    <button onclick="clearFilters()">🗑️ Clear Filters</button>
+  </div>
+
+  <div class="board-container" id="board"></div>
+
+  <!-- Модальное окно -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3>✏️ Edit Task</h3>
+      
+      <input id="editTitle" placeholder="Task title" autocomplete="off" />
+      <textarea id="editDesc" placeholder="Description" rows="3"></textarea>
+      
+      <select id="editPriority">
+        <option value="low">🟢 Low</option>
+        <option value="medium">🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
+      
+      <input id="editAssignedTo" placeholder="Assigned User ID" type="number" />
+      
+      <div style="margin-top: 15px;">
+        <button onclick="saveTask()">💾 Save</button>
+        <button onclick="closeModal()">❌ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Kanban Board</title>
   <!-- <link rel="stylesheet" href="styles.css"> -->
-   <link rel="stylesheet" href="styles.css">
+   <!-- <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+      <div id="error" style="color:red; margin:10px;"></div>
 <div class="filters">
   <select id="priorityFilter">
     <option value="">All priorities</option>
@@ -15,17 +95,19 @@
     <option value="low">Low</option>
   </select>
 
+
   <input id="userFilter" placeholder="User ID" />
 
   <button onclick="loadTasks()">Apply Filter</button>
 </div>
 
-<div id="board"></div>
+<div id="board"></div> -->
 
 <!-- МОДАЛКА -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <h3>Edit Task</h3>
+<!-- <div id="modal" class="modal">
+  <div class="modal-content"> -->
+    <!-- <div id="error" style="color:red; margin:10px;"></div> -->
+    <!-- <h3>Edit Task</h3>
 
     <input id="editTitle" placeholder="Title" />
     <textarea id="editDesc" placeholder="Description"></textarea>
@@ -41,9 +123,10 @@
 </div>
 
 <!-- <script src="app.js"></script> -->
- <script src="script.js"></script>
+ <!-- <script src="script.js"></script>
 </body>
-</html>
+</html> --> 
+
 
 
 

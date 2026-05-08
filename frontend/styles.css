@@ -1,4 +1,373 @@
+/* frontend/styles.css */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+/* Навигация */
+.nav {
+  background: white;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+/* Заголовок */
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Панель фильтров */
+.filters {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.filters select,
+.filters input,
+.filters button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.filters button {
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.filters button:hover {
+  background: #0056b3;
+}
+
+.filters button:last-child {
+  background: #6c757d;
+}
+
+.filters button:last-child:hover {
+  background: #5a6268;
+}
+
+/* Контейнер доски */
+.board-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  align-items: flex-start;
+}
+
+/* Колонка */
+.column {
+  width: 300px;
+  min-width: 280px;
+  background: #f0f2f5;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.column h3 {
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #ddd;
+  color: #333;
+  font-size: 18px;
+}
+
+/* Карточка задачи */
+.task {
+  background: white;
+  padding: 10px 12px;
+  margin: 8px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.task:hover {
+  background: #f8f9ff;
+  transform: translateX(2px);
+  border-color: #007bff;
+}
+
+/* Уведомление об ошибке (toast) */
+.error-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #dc3545;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-size: 14px;
+  max-width: 350px;
+  animation: slideIn 0.3s ease;
+}
+
+.success-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-size: 14px;
+  max-width: 350px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Модальное окно */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  width: 450px;
+  max-width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.modal-content textarea {
+  resize: vertical;
+}
+
+.modal-content button {
+  padding: 8px 16px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.modal-content button:first-of-type {
+  background: #28a745;
+  color: white;
+}
+
+.modal-content button:first-of-type:hover {
+  background: #218838;
+}
+
+.modal-content button:last-of-type {
+  background: #6c757d;
+  color: white;
+}
+
+.modal-content button:last-of-type:hover {
+  background: #5a6268;
+}
+
+/* Loader (спиннер) */
+.loader {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Empty state (нет задач) */
+.empty-state {
+  text-align: center;
+  color: #999;
+  padding: 30px 20px;
+  font-style: italic;
+  background: #fafafa;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+/* Таблица участников */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.users-table th {
+  background: #007bff;
+  color: white;
+}
+
+.users-table tr:hover {
+  background: #f5f5f5;
+}
+
+/* Профиль */
+.profile-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.profile-card label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+.profile-card input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.profile-card button {
+  margin-top: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .board-container {
+    flex-direction: column;
+  }
+  
+  .column {
+    width: 100%;
+  }
+  
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+
+
+
+
+/* body {
   font-family: Arial;
   display: flex;
   flex-direction: column;
@@ -55,4 +424,4 @@ body {
   margin: 10px;
   width: 200px;
   background: #f9f9f9;
-}
+} */

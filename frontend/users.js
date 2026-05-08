@@ -18,12 +18,13 @@ async function loadUsers() {
   }
   
   try {
-    const users = await fetchAPI(`${API_BASE_URL}/users`);
+    // const users = await fetchAPI(`${API_BASE_URL}/users`);
+    const users = await fetchAPI('/users');
     renderUsers(users);
   } catch (error) {
     console.error('Load users error:', error);
     if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="3" style="color:red;">Failed to load users</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="3" style="color:red;">🔒Failed to load users</td></tr>';
     }
   }
 }

@@ -36,7 +36,8 @@ async function loadProfile() {
   try {
     // Пока нет JWT, берем первого пользователя из списка
     // Позже замените на GET /me с токеном
-    const users = await fetchAPI(`${API_BASE_URL}/users`);
+    // const users = await fetchAPI(`${API_BASE_URL}/users`);
+    const users = await fetchAPI('/users');
     
     if (users && users.length > 0) {
       const user = users[0];

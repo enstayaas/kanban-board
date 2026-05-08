@@ -181,7 +181,8 @@ async function loadTasks() {
   }
   
   try {
-    const tasks = await fetchAPI(`${API_BASE_URL}/tasks`);
+    // const tasks = await fetchAPI(`${API_BASE_URL}/tasks`);
+    const tasks = await fetchAPI('/tasks');
     
     let filteredTasks = tasks || [];
     const priority = document.getElementById('priorityFilter')?.value;
@@ -198,7 +199,12 @@ async function loadTasks() {
   } catch (error) {
     console.error('Load tasks error:', error);
     if (boardDiv) {
-      boardDiv.innerHTML = '<div class="empty-state">⚠️ Failed to load tasks. Check console.</div>';
+      if (error.message && error.message.includes('доступ')) {
+    boardDiv.innerHTML = '<div class="empty-state">🔒 У вас нет доступа к этим задачам</div>';
+} else {
+    boardDiv.innerHTML = '<div class="empty-state">⚠️ Не удалось загрузить задачи. Проверьте сервер.</div>';
+}
+      // boardDiv.innerHTML = '<div class="empty-state">⚠️ Failed to load tasks. Check console.</div>';
     }
   } finally {
     isLoading = false;

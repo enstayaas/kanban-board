@@ -56,7 +56,6 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(task)
 }
 
-// PATCH /tasks/:id
 func UpdateTask(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimPrefix(r.URL.Path, "/tasks/")
 	id, _ := strconv.Atoi(idStr)
@@ -66,40 +65,87 @@ func UpdateTask(w http.ResponseWriter, r *http.Request) {
 		Position    int    `json:"position"`
 		Title       string `json:"title"`
 		Description string `json:"description"`
+		Priority    string `json:"priority"`
+		AssignedTo  int    `json:"assigned_to"`
 	}
 
-	json.NewDecoder(r.Body).Decode(&input)
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		http.Error(w, `{"error":"invalid request"}`, http.StatusBadRequest)
+		return
+	}
 
 	for i, task := range tasks {
 		if task.ID == id {
-
-			// меняем колонку
+			// Обновляем поля, которые пришли
 			if input.ColumnID != 0 {
 				tasks[i].ColumnID = input.ColumnID
 			}
-
-			// меняем позицию
 			if input.Position != 0 {
 				tasks[i].Position = input.Position
 			}
-
-			// обновляем title
 			if input.Title != "" {
 				tasks[i].Title = input.Title
 			}
-
-			// обновляем description
 			if input.Description != "" {
 				tasks[i].Description = input.Description
 			}
-
+			if input.Priority != "" {
+				tasks[i].Priority = input.Priority
+			}
+			if input.AssignedTo != 0 {
+				tasks[i].AssignedTo = input.AssignedTo
+			}
 			json.NewEncoder(w).Encode(tasks[i])
 			return
 		}
 	}
-
-	http.Error(w, "Task not found", http.StatusNotFound)
+	http.Error(w, `{"error":"task not found"}`, http.StatusNotFound)
 }
+
+// // PATCH /tasks/:id
+// func UpdateTask(w http.ResponseWriter, r *http.Request) {
+// 	idStr := strings.TrimPrefix(r.URL.Path, "/tasks/")
+// 	id, _ := strconv.Atoi(idStr)
+
+// 	var input struct {
+// 		ColumnID    int    `json:"column_id"`
+// 		Position    int    `json:"position"`
+// 		Title       string `json:"title"`
+// 		Description string `json:"description"`
+// 	}
+
+// 	json.NewDecoder(r.Body).Decode(&input)
+
+// 	for i, task := range tasks {
+// 		if task.ID == id {
+
+// 			// меняем колонку
+// 			if input.ColumnID != 0 {
+// 				tasks[i].ColumnID = input.ColumnID
+// 			}
+
+// 			// меняем позицию
+// 			if input.Position != 0 {
+// 				tasks[i].Position = input.Position
+// 			}
+
+// 			// обновляем title
+// 			if input.Title != "" {
+// 				tasks[i].Title = input.Title
+// 			}
+
+// 			// обновляем description
+// 			if input.Description != "" {
+// 				tasks[i].Description = input.Description
+// 			}
+
+// 			json.NewEncoder(w).Encode(tasks[i])
+// 			return
+// 		}
+// 	}
+
+// 	http.Error(w, "Task not found", http.StatusNotFound)
+// }
 
 // GET /tasks (только НЕ архивные)
 // func GetTasks(w http.ResponseWriter, r *http.Request) {

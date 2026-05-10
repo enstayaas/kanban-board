@@ -17,8 +17,16 @@ async function loadLabels() {
     renderLabelFilters();
 }
 
-// Создание метки
+
+// ========== СОЗДАНИЕ МЕТКИ (с защитой от двойного нажатия) ==========
+let isCreatingLabel = false;
+
 async function createLabel() {
+    if (isCreatingLabel) {
+        showError('⏳ Подождите, метка уже создаётся');
+        return;
+    }
+    
     const name = document.getElementById('newLabelName')?.value.trim();
     const color = document.getElementById('newLabelColor')?.value;
     
@@ -27,6 +35,11 @@ async function createLabel() {
         return;
     }
     
+    isCreatingLabel = true;
+    const createBtn = document.querySelector('.add-label-form button');
+    const originalText = createBtn?.innerText;
+    if (createBtn) createBtn.innerText = '⏳ Создание...';
+    
     try {
         const response = await fetch('/labels', {
             method: 'POST',
@@ -34,35 +47,105 @@ async function createLabel() {
             body: JSON.stringify({ name, color })
         });
         
-        if (response.ok) {
-            const newLabel = await response.json();
-            labels.push(newLabel);
-            document.getElementById('newLabelName').value = '';
-            renderLabelsList();
-            renderLabelFilters();
-            showSuccess('✅ Метка создана');
-        } else {
-            showError('❌ Ошибка при создании метки');
+        if (!response.ok) {
+            let errorMsg = 'Ошибка создания метки';
+            try {
+                const errData = await response.json();
+                errorMsg = errData.error || errData.message || errorMsg;
+            } catch(e) {}
+            throw new Error(errorMsg);
         }
+        
+        const newLabel = await response.json();
+        labels.push(newLabel);
+        document.getElementById('newLabelName').value = '';
+        renderLabelsList();
+        renderLabelFilters();
+        showSuccess('✅ Метка создана');
     } catch (error) {
-        showError('❌ Ошибка при создании метки');
+        showError('❌ Ошибка при создании метки: ' + error.message);
+    } finally {
+        isCreatingLabel = false;
+        if (createBtn) createBtn.innerText = originalText || '➕ Добавить метку';
     }
 }
 
-// Удаление метки
+// ========== УДАЛЕНИЕ МЕТКИ (с подтверждением) ==========
+let isDeletingLabel = false;
+
 async function deleteLabel(labelId) {
+    if (isDeletingLabel) {
+        showError('⏳ Подождите, удаление уже выполняется');
+        return;
+    }
+    
+    // Находим название метки для красивого подтверждения
+    const label = labels.find(l => l.id === labelId);
+    if (!confirm(`Удалить метку "${label?.name || ''}"? Она отвяжется от всех задач.`)) return;
+    
+    isDeletingLabel = true;
+    
     try {
         const response = await fetch(`/labels/${labelId}`, { method: 'DELETE' });
-        if (response.ok) {
-            labels = labels.filter(l => l.id !== labelId);
-            renderLabelsList();
-            renderLabelFilters();
-            showSuccess('✅ Метка удалена');
-        }
+        if (!response.ok) throw new Error('Ошибка удаления');
+        
+        labels = labels.filter(l => l.id !== labelId);
+        renderLabelsList();
+        renderLabelFilters();
+        showSuccess('✅ Метка удалена');
     } catch (error) {
-        showError('❌ Ошибка при удалении метки');
+        showError('❌ Ошибка при удалении метки: ' + error.message);
+    } finally {
+        isDeletingLabel = false;
     }
 }
+
+// Создание метки
+// async function createLabel() {
+//     const name = document.getElementById('newLabelName')?.value.trim();
+//     const color = document.getElementById('newLabelColor')?.value;
+    
+//     if (!name) {
+//         showError('❌ Введите название метки');
+//         return;
+//     }
+    
+//     try {
+//         const response = await fetch('/labels', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ name, color })
+//         });
+        
+//         if (response.ok) {
+//             const newLabel = await response.json();
+//             labels.push(newLabel);
+//             document.getElementById('newLabelName').value = '';
+//             renderLabelsList();
+//             renderLabelFilters();
+//             showSuccess('✅ Метка создана');
+//         } else {
+//             showError('❌ Ошибка при создании метки');
+//         }
+//     } catch (error) {
+//         showError('❌ Ошибка при создании метки');
+//     }
+// }
+
+// // Удаление метки
+// async function deleteLabel(labelId) {
+//     try {
+//         const response = await fetch(`/labels/${labelId}`, { method: 'DELETE' });
+//         if (response.ok) {
+//             labels = labels.filter(l => l.id !== labelId);
+//             renderLabelsList();
+//             renderLabelFilters();
+//             showSuccess('✅ Метка удалена');
+//         }
+//     } catch (error) {
+//         showError('❌ Ошибка при удалении метки');
+//     }
+// }
 
 // Отображение списка всех меток
 function renderLabelsList() {
@@ -133,7 +216,7 @@ function filterTasksByLabels(tasks) {
     if (selectedLabelFilters.length === 0) return tasks;
     
     return tasks.filter(task => {
-        const taskLabels = getTaskLabelsFromStorage(task.ID);
+        const taskLabels = getTaskLabelsFromStorage(task.id);
         return selectedLabelFilters.some(filterId => taskLabels.includes(filterId));
     });
 }
@@ -148,24 +231,61 @@ function saveTaskLabelsToStorage(taskId, labelIds) {
     localStorage.setItem(`task_labels_${taskId}`, JSON.stringify(labelIds));
 }
 
-// Назначение/удаление метки у задачи
+
+// ========== НАЗНАЧЕНИЕ/УДАЛЕНИЕ МЕТКИ У ЗАДАЧИ (с защитой от двойного нажатия) ==========
+let isToggling = false;
+
 async function toggleTaskLabel(taskId, labelId, isChecked) {
-    let taskLabels = getTaskLabelsFromStorage(taskId);
-    
-    if (isChecked) {
-        if (!taskLabels.includes(labelId)) {
-            taskLabels.push(labelId);
-        }
-    } else {
-        taskLabels = taskLabels.filter(id => id !== labelId);
+    if (isToggling) {
+        showError('⏳ Подождите, операция уже выполняется');
+        return;
     }
     
-    saveTaskLabelsToStorage(taskId, taskLabels);
+    isToggling = true;
     
-    if (typeof loadTasks === 'function') {
-        loadTasks();
+    try {
+        let taskLabels = getTaskLabelsFromStorage(taskId);
+        
+        if (isChecked) {
+            if (!taskLabels.includes(labelId)) {
+                taskLabels.push(labelId);
+            }
+        } else {
+            taskLabels = taskLabels.filter(id => id !== labelId);
+        }
+        
+        saveTaskLabelsToStorage(taskId, taskLabels);
+        
+        if (typeof loadTasks === 'function') {
+            await loadTasks();
+        }
+        showSuccess(isChecked ? '✅ Метка добавлена' : '✅ Метка убрана');
+    } catch (error) {
+        showError('❌ Ошибка при изменении меток');
+        console.error(error);
+    } finally {
+        isToggling = false;
     }
 }
+
+// // Назначение/удаление метки у задачи
+// async function toggleTaskLabel(taskId, labelId, isChecked) {
+//     let taskLabels = getTaskLabelsFromStorage(taskId);
+    
+//     if (isChecked) {
+//         if (!taskLabels.includes(labelId)) {
+//             taskLabels.push(labelId);
+//         }
+//     } else {
+//         taskLabels = taskLabels.filter(id => id !== labelId);
+//     }
+    
+//     saveTaskLabelsToStorage(taskId, taskLabels);
+    
+//     if (typeof loadTasks === 'function') {
+//         loadTasks();
+//     }
+// }
 
 // Получение меток задачи для отображения
 function getTaskLabelsForTask(taskId) {

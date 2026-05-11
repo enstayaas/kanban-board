@@ -208,3 +208,25 @@ func ArchiveTask(w http.ResponseWriter, r *http.Request) {
 
 	http.Error(w, "Task not found", http.StatusNotFound)
 }
+
+// PATCH /tasks/:id/restore
+func RestoreTask(w http.ResponseWriter, r *http.Request) {
+	idStr := strings.TrimPrefix(r.URL.Path, "/tasks/")
+	idStr = strings.TrimSuffix(idStr, "/restore")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, `{"error":"invalid task id"}`, http.StatusBadRequest)
+		return
+	}
+
+	for i, task := range tasks {
+		if task.ID == id {
+			if task.ArchivedAt != nil {
+				tasks[i].ArchivedAt = nil
+			}
+			json.NewEncoder(w).Encode(tasks[i])
+			return
+		}
+	}
+	http.Error(w, `{"error":"task not found"}`, http.StatusNotFound)
+}

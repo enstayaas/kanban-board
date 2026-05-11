@@ -68,6 +68,12 @@ func main() {
 
 	// PATCH (перемещение + архив) и метки задач
 	http.HandleFunc("/tasks/", enableCORS(func(w http.ResponseWriter, r *http.Request) {
+		// Восстановление задачи из архива
+		if r.Method == http.MethodPatch && strings.HasSuffix(r.URL.Path, "/restore") {
+			handlers.RestoreTask(w, r)
+			return
+		}
+
 		// Метки задач
 		if strings.Contains(r.URL.Path, "/labels") && r.Method == http.MethodPost {
 			handlers.AddLabelToTask(w, r)

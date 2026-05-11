@@ -9,6 +9,7 @@ let perPage = 10;
 let currentSortBy = 'priority';
 let currentSortOrder = 'desc';
 let allTasks = [];
+let searchQuery = '';
 
 // API URL (можно вынести в .env позже)
 // const API_BASE_URL = 'http://localhost:8080';
@@ -48,6 +49,28 @@ function showSuccess(message) {
   setTimeout(() => {
     toast.style.display = 'none';
   }, 3000);
+}
+
+// ========== DEBOUNCE (задержка ввода) ==========
+let debounceTimer;
+
+function debounce(func, delay) {
+    return function(...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// ========== ОБРАБОТЧИК ПОИСКА (с debounce) ==========
+function setupSearchListener() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(function(e) {
+            searchQuery = e.target.value.trim();
+            currentPage = 1;   // сбрасываем на первую страницу
+            applySortAndPage();
+        }, 300));
+    }
 }
 
 // ========== УНИВЕРСАЛЬНЫЙ FETCH С ОБРАБОТКОЙ ОШИБОК ==========
@@ -378,9 +401,14 @@ async function saveTask() {
 function clearFilters() {
   const priorityFilter = document.getElementById('priorityFilter');
   const userFilter = document.getElementById('userFilter');
+   const searchInput = document.getElementById('searchInput');
   
   if (priorityFilter) priorityFilter.value = '';
   if (userFilter) userFilter.value = '';
+   if (searchInput) searchInput.value = '';
+    
+    searchQuery = '';
+    currentPage = 1;
   loadTasks();
 }
 
@@ -523,6 +551,13 @@ function applySortAndPage() {
     if (userId) {
         filteredTasks = filteredTasks.filter(t => t.assigned_to === parseInt(userId));
     }
+
+    // Фильтрация по поисковому запросу (название задачи)
+if (searchQuery !== '') {
+    filteredTasks = filteredTasks.filter(t => 
+        t.title && t.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+}
     
     // Фильтрация по меткам
     if (typeof filterTasksByLabels === 'function') {
@@ -546,6 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();
   loadUsersForFilter();
   loadTasks();
+  setupSearchListener();
 });
 
 

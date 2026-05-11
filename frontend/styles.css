@@ -595,7 +595,12 @@ h1 {
     text-align: center;
 }
 
-
+#searchInput {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 200px;
+}
 
 
 /* body {

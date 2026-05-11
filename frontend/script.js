@@ -553,7 +553,7 @@ function applySortAndPage() {
     }
 
     // Фильтрация по поисковому запросу (название задачи)
-if (searchQuery !== '') {
+      if (searchQuery !== '') {
     filteredTasks = filteredTasks.filter(t => 
         t.title && t.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -575,6 +575,26 @@ if (searchQuery !== '') {
     
     // Отображаем
     renderBoard(paginatedTasks);
+}
+
+// ========== АРХИВИРОВАНИЕ ЗАДАЧИ ==========
+async function archiveCurrentTask() {
+    if (!currentTask) {
+        showError('❌ Нет выбранной задачи');
+        return;
+    }
+    
+    if (!confirm(`Переместить задачу "${currentTask.title}" в архив?`)) return;
+    
+    try {
+        await fetchAPI(`/tasks/${currentTask.id}/archive`, { method: 'PATCH' });
+        closeModal();
+        showSuccess('✅ Задача перемещена в архив');
+        loadTasks();          // обновляем доску (задача исчезнет)
+    } catch (error) {
+        console.error('Archive error:', error);
+        // ошибка уже показана в fetchAPI
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

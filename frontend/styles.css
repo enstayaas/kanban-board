@@ -602,6 +602,51 @@ h1 {
     min-width: 200px;
 }
 
+/* Стили для архива */
+.archive-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.archive-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.archive-table th,
+.archive-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.archive-table th {
+    background: #f5f5f5;
+    font-weight: bold;
+}
+
+.restore-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.restore-btn:hover {
+    background: #218838;
+}
+
+.archive-table tr:hover {
+    background: #f9f9f9;
+}
+
 
 /* body {
   font-family: Arial;

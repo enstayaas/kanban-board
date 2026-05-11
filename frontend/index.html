@@ -12,6 +12,7 @@
     <a href="index.html">📋 Board</a>
     <a href="users.html">👥 Users</a>
     <a href="profile.html">👤 Profile</a>
+    <a href="archive.html">📦 Архив</a>
   </div>
 
   <h1>📌 Kanban Board</h1>
@@ -51,6 +52,7 @@
         <h4>Фильтр по меткам:</h4>
         <div id="labelFilters" class="label-filters"></div>
         <button onclick="clearLabelFilter()">✖️ Очистить фильтр меток</button>
+        <!-- <button onclick="location.href='archive.html'">📦 Архив</button> -->
     </div>
 </div>
 
@@ -115,7 +117,9 @@
 </div>
       <div style="margin-top: 15px;">
         <button onclick="saveTask()">💾 Save</button>
+        <button onclick="archiveCurrentTask()">📦 В архив</button>
         <button onclick="closeModal()">❌ Cancel</button>
+         
       </div>
     </div>
   </div>

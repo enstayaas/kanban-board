@@ -180,6 +180,8 @@ async function loadTasks() {
                 boardDiv.innerHTML = '<div class="empty-state">⚠️ Не удалось загрузить задачи. Проверьте сервер.</div>';
             }
         }
+         allTasks = [];  // сбросить, чтобы не показывать старые данные
+
     } finally {
         isLoading = false;
     }

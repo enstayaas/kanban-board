@@ -1,71 +1,126 @@
 // frontend/profile.js
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
 
-// Универсальная функция запросов
 async function fetchAPI(url, options = {}) {
-  try {
-    const response = await fetch(url, options);
-    
+    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+    const response = await fetch(fullUrl, options);
     if (!response.ok) {
-      let errorMessage = `HTTP ${response.status}`;
-      try {
-        const errorData = await response.json();
-        errorMessage = errorData.error || errorData.message || errorMessage;
-      } catch(e) {
-        errorMessage = response.statusText || errorMessage;
-      }
-      throw new Error(errorMessage);
+        let errorMsg = `HTTP ${response.status}`;
+        try {
+            const err = await response.json();
+            errorMsg = err.error || err.message || errorMsg;
+        } catch(e) {}
+        throw new Error(errorMsg);
     }
-    
-    if (response.status === 204) {
-      return null;
-    }
-    
-    return await response.json();
-  } catch (error) {
-    console.error('API Error:', error);
-    throw error;
-  }
+    return response.json();
 }
 
-// Загрузка профиля
 async function loadProfile() {
-  const messageEl = document.getElementById('profileMessage');
-  
-  try {
-    // Пока нет JWT, берем первого пользователя из списка
-    // Позже замените на GET /me с токеном
-    // const users = await fetchAPI(`${API_BASE_URL}/users`);
-    const users = await fetchAPI('/users');
+    const messageEl = document.getElementById('profileMessage');
+    const nameInput = document.getElementById('profileName');
+    const emailInput = document.getElementById('profileEmail');
     
-    if (users && users.length > 0) {
-      const user = users[0];
-      document.getElementById('profileId').value = user.id || user.ID || '';
-      document.getElementById('profileName').value = user.name || user.Name || '';
-      document.getElementById('profileEmail').value = user.email || user.Email || '';
-      
-      if (messageEl) {
-        messageEl.innerText = '✅ Profile loaded';
-        messageEl.style.color = 'green';
-        setTimeout(() => {
-          if (messageEl) messageEl.innerText = '';
-        }, 2000);
-      }
-    } else {
-      if (messageEl) {
-        messageEl.innerText = '⚠️ No users found';
-        messageEl.style.color = 'orange';
-      }
+    // Показать загрузку
+    if (nameInput) nameInput.value = 'Загрузка...';
+    if (emailInput) emailInput.value = 'Загрузка...';
+    
+    try {
+        const users = await fetchAPI('/users');
+        if (users && users.length > 0) {
+            const user = users[0];
+            document.getElementById('profileId').value = user.id || user.ID || '';
+            if (nameInput) nameInput.value = user.name || user.Name || '';
+            if (emailInput) emailInput.value = user.email || user.Email || '';
+            if (messageEl) {
+                messageEl.innerText = '✅ Профиль загружен';
+                messageEl.style.color = 'green';
+                setTimeout(() => messageEl.innerText = '', 2000);
+            }
+        } else {
+            if (messageEl) {
+                messageEl.innerText = '⚠️ Нет пользователей';
+                messageEl.style.color = 'orange';
+            }
+        }
+    } catch (error) {
+        console.error('Load profile error:', error);
+        if (messageEl) {
+            messageEl.innerText = '❌ Ошибка загрузки профиля: ' + error.message;
+            messageEl.style.color = 'red';
+        }
+        if (nameInput) nameInput.value = '';
+        if (emailInput) emailInput.value = '';
     }
-  } catch (error) {
-    console.error('Load profile error:', error);
-    if (messageEl) {
-      messageEl.innerText = '❌ Failed to load profile: ' + error.message;
-      messageEl.style.color = 'red';
-    }
-  }
 }
+
+
+// const API_BASE_URL = 'http://localhost:8080';
+
+// // Универсальная функция запросов
+// async function fetchAPI(url, options = {}) {
+//   try {
+//     const response = await fetch(url, options);
+    
+//     if (!response.ok) {
+//       let errorMessage = `HTTP ${response.status}`;
+//       try {
+//         const errorData = await response.json();
+//         errorMessage = errorData.error || errorData.message || errorMessage;
+//       } catch(e) {
+//         errorMessage = response.statusText || errorMessage;
+//       }
+//       throw new Error(errorMessage);
+//     }
+    
+//     if (response.status === 204) {
+//       return null;
+//     }
+    
+//     return await response.json();
+//   } catch (error) {
+//     console.error('API Error:', error);
+//     throw error;
+//   }
+// }
+
+// // Загрузка профиля
+// async function loadProfile() {
+//   const messageEl = document.getElementById('profileMessage');
+  
+//   try {
+//     // Пока нет JWT, берем первого пользователя из списка
+//     // Позже замените на GET /me с токеном
+//     // const users = await fetchAPI(`${API_BASE_URL}/users`);
+//     const users = await fetchAPI('/users');
+    
+//     if (users && users.length > 0) {
+//       const user = users[0];
+//       document.getElementById('profileId').value = user.id || user.ID || '';
+//       document.getElementById('profileName').value = user.name || user.Name || '';
+//       document.getElementById('profileEmail').value = user.email || user.Email || '';
+      
+//       if (messageEl) {
+//         messageEl.innerText = '✅ Profile loaded';
+//         messageEl.style.color = 'green';
+//         setTimeout(() => {
+//           if (messageEl) messageEl.innerText = '';
+//         }, 2000);
+//       }
+//     } else {
+//       if (messageEl) {
+//         messageEl.innerText = '⚠️ No users found';
+//         messageEl.style.color = 'orange';
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Load profile error:', error);
+//     if (messageEl) {
+//       messageEl.innerText = '❌ Failed to load profile: ' + error.message;
+//       messageEl.style.color = 'red';
+//     }
+//   }
+// }
 
 // Сохранение профиля
 async function saveProfile() {

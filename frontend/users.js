@@ -1,54 +1,115 @@
 // frontend/users.js
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
 
 async function fetchAPI(url, options = {}) {
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: 'Request failed' }));
-    throw new Error(error.error || `HTTP ${response.status}`);
-  }
-  return response.json();
+    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+    const response = await fetch(fullUrl, options);
+    if (!response.ok) {
+        let errorMsg = `HTTP ${response.status}`;
+        try {
+            const err = await response.json();
+            errorMsg = err.error || err.message || errorMsg;
+        } catch(e) {}
+        throw new Error(errorMsg);
+    }
+    return response.json();
 }
 
 async function loadUsers() {
-  const tbody = document.getElementById('usersTableBody');
-  if (tbody) {
-    tbody.innerHTML = '<tr><td colspan="3"><div class="loader"></div> Loading...</td></tr>';
-  }
-  
-  try {
-    // const users = await fetchAPI(`${API_BASE_URL}/users`);
-    const users = await fetchAPI('/users');
-    renderUsers(users);
-  } catch (error) {
-    console.error('Load users error:', error);
-    if (tbody) {
-      tbody.innerHTML = '<tr><td colspan="3" style="color:red;">🔒Failed to load users</td></tr>';
+    const tbody = document.getElementById('usersTableBody');
+    if (!tbody) return;
+    
+    // Показать загрузчик
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;"><div class="loader"></div> Загрузка...</td></tr>';
+    
+    try {
+        const users = await fetchAPI('/users');
+        if (!users || users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="empty-state">👥 Нет пользователей</td></tr>';
+        } else {
+            renderUsers(users);
+        }
+    } catch (error) {
+        console.error('Load users error:', error);
+        tbody.innerHTML = `<tr><td colspan="3" class="empty-state" style="color:red;">⚠️ Ошибка загрузки: ${error.message}</td></tr>`;
     }
-  }
 }
 
 function renderUsers(users) {
-  const tbody = document.getElementById('usersTableBody');
-  if (!tbody) return;
-  
-  tbody.innerHTML = '';
-  
-  if (!users || users.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="3">No users found</td></tr>';
-    return;
-  }
-  
-  users.forEach(user => {
-    const row = tbody.insertRow();
-    row.insertCell(0).innerText = user.id || user.ID;
-    row.insertCell(1).innerText = user.name || user.Name;
-    row.insertCell(2).innerText = user.email || user.Email;
-  });
+    const tbody = document.getElementById('usersTableBody');
+    tbody.innerHTML = '';
+    users.forEach(user => {
+        const row = tbody.insertRow();
+        row.insertCell(0).innerText = user.id || user.ID;
+        row.insertCell(1).innerText = user.name || user.Name;
+        row.insertCell(2).innerText = user.email || user.Email;
+    });
 }
 
 document.addEventListener('DOMContentLoaded', loadUsers);
+
+
+
+
+
+
+
+
+
+
+
+// // frontend/users.js
+
+// const API_BASE_URL = 'http://localhost:8080';
+
+// async function fetchAPI(url, options = {}) {
+//   const response = await fetch(url, options);
+//   if (!response.ok) {
+//     const error = await response.json().catch(() => ({ error: 'Request failed' }));
+//     throw new Error(error.error || `HTTP ${response.status}`);
+//   }
+//   return response.json();
+// }
+
+// async function loadUsers() {
+//   const tbody = document.getElementById('usersTableBody');
+//   if (tbody) {
+//     tbody.innerHTML = '<tr><td colspan="3"><div class="loader"></div> Loading...</td></tr>';
+//   }
+  
+//   try {
+//     // const users = await fetchAPI(`${API_BASE_URL}/users`);
+//     const users = await fetchAPI('/users');
+//     renderUsers(users);
+//   } catch (error) {
+//     console.error('Load users error:', error);
+//     if (tbody) {
+//       tbody.innerHTML = '<tr><td colspan="3" style="color:red;">🔒Failed to load users</td></tr>';
+//     }
+//   }
+// }
+
+// function renderUsers(users) {
+//   const tbody = document.getElementById('usersTableBody');
+//   if (!tbody) return;
+  
+//   tbody.innerHTML = '';
+  
+//   if (!users || users.length === 0) {
+//     tbody.innerHTML = '<tr><td colspan="3">No users found</td></tr>';
+//     return;
+//   }
+  
+//   users.forEach(user => {
+//     const row = tbody.insertRow();
+//     row.insertCell(0).innerText = user.id || user.ID;
+//     row.insertCell(1).innerText = user.name || user.Name;
+//     row.insertCell(2).innerText = user.email || user.Email;
+//   });
+// }
+
+// document.addEventListener('DOMContentLoaded', loadUsers);
 
 
 

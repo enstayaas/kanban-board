@@ -10,7 +10,7 @@ import (
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
-	"github.com/rs/cors" // Добавили библиотеку CORS
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -34,48 +34,53 @@ func main() {
 
 	r := mux.NewRouter()
 
-	// --- AUTH ---
+	// ========== ПУБЛИЧНЫЕ МАРШРУТЫ (без JWT) ==========
 	r.HandleFunc("/register", auth.Register).Methods("POST")
 	r.HandleFunc("/login", auth.Login).Methods("POST")
 
-	// --- BOARDS ---
+	// ========== BOARDS ==========
+	// GET /boards - список досок пользователя
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(board.GetBoards))).Methods("GET")
+	// POST /boards - создать доску
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(board.CreateBoard))).Methods("POST")
-	r.Handle("/boards/{id}", middleware.JWT(http.HandlerFunc(board.DeleteBoard))).Methods("DELETE")
-	r.Handle("/boards/{id}/members", middleware.JWT(http.HandlerFunc(board.GetMembers))).Methods("GET")
+	// DELETE /boards/{id} - удалить доску (только ВЛАДЕЛЕЦ)
+	r.Handle("/boards/{id}", middleware.JWT(middleware.OwnerOnly(db, board.DeleteBoard))).Methods("DELETE")
+	// GET /boards/{id}/members - список участников (только ВЛАДЕЛЕЦ)
+	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.GetMembers))).Methods("GET")
+	// POST /boards/{id}/members - добавить участника (только ВЛАДЕЛЕЦ)
+	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.AddMember))).Methods("POST")
 
-	// --- COLUMNS ---
-	r.Handle("/columns", middleware.JWT(http.HandlerFunc(column.GetColumns))).Methods("GET")
-	r.Handle("/columns", middleware.JWT(http.HandlerFunc(column.CreateColumn))).Methods("POST")
-	r.Handle("/columns/{id}", middleware.JWT(http.HandlerFunc(column.DeleteColumn))).Methods("DELETE")
-	r.Handle("/columns/{id}/restore", middleware.JWT(http.HandlerFunc(column.RestoreColumn))).Methods("PATCH")
+	// ========== COLUMNS (только ВЛАДЕЛЕЦ) ==========
+	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, column.GetColumns))).Methods("GET")
+	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, column.CreateColumn))).Methods("POST")
+	r.Handle("/columns/{id}", middleware.JWT(middleware.OwnerOnly(db, column.DeleteColumn))).Methods("DELETE")
+	r.Handle("/columns/{id}/restore", middleware.JWT(middleware.OwnerOnly(db, column.RestoreColumn))).Methods("PATCH")
 
-	// --- TASKS (ЗАДАЧИ) ---
-	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(task.GetTasks))).Methods("GET")
-	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(task.CreateTask))).Methods("POST")
-	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(task.DeleteTask))).Methods("DELETE")
-	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(task.UpdateTask))).Methods("PUT")
-	r.Handle("/tasks/{id}/archive", middleware.JWT(http.HandlerFunc(task.ArchiveTask))).Methods("PATCH")
-	r.Handle("/tasks/{id}/restore", middleware.JWT(http.HandlerFunc(task.RestoreTask))).Methods("PATCH")
+	// ========== TASKS (доступ для УЧАСТНИКОВ) ==========
+	r.Handle("/tasks", middleware.JWT(middleware.MemberOnly(db, task.GetTasks))).Methods("GET")
+	r.Handle("/tasks", middleware.JWT(middleware.MemberOnly(db, task.CreateTask))).Methods("POST")
+	r.Handle("/tasks/{id}", middleware.JWT(middleware.MemberOnly(db, task.DeleteTask))).Methods("DELETE")
+	r.Handle("/tasks/{id}", middleware.JWT(middleware.MemberOnly(db, task.UpdateTask))).Methods("PUT")
+	r.Handle("/tasks/{id}/archive", middleware.JWT(middleware.MemberOnly(db, task.ArchiveTask))).Methods("PATCH")
+	r.Handle("/tasks/{id}/restore", middleware.JWT(middleware.MemberOnly(db, task.RestoreTask))).Methods("PATCH")
 
-	// --- COMMENTS (КОММЕНТАРИИ) ---
+	// ========== COMMENTS ==========
 	r.Handle("/comments", middleware.JWT(http.HandlerFunc(task.CreateComment))).Methods("POST")
 	r.Handle("/comments", middleware.JWT(http.HandlerFunc(task.GetComments))).Methods("GET")
 	r.Handle("/comments/{id}", middleware.JWT(http.HandlerFunc(task.DeleteComment))).Methods("DELETE")
 
-	// --- НАСТРОЙКА CORS (Чтобы фронтенд мог подключиться) ---
+	// ========== LABELS ==========
+
+	// ========== CORS ==========
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"}, // Разрешаем доступ с любого адреса
+		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"},
 		AllowedHeaders:   []string{"Authorization", "Content-Type"},
 		AllowCredentials: true,
 	})
 
-	// Оборачиваем наш роутер 'r' в cors-обработчик
 	handler := c.Handler(r)
 
 	log.Println("Server running on :8080")
-
-	// Запускаем сервер через 'handler' вместо 'r'
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }

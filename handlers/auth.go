@@ -10,13 +10,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtKey = []byte("secret_key") // В будущем вынеси в .env
+var jwtKey = []byte("secret_key")
 
 type AuthHandler struct {
 	DB *sql.DB
 }
 
-// Структуры для запросов
 type RegisterRequest struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
@@ -28,7 +27,6 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
-// Структуры для ответов
 type UserResponse struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
@@ -45,7 +43,7 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-// ================= REGISTER =================
+// REGISTER
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var req RegisterRequest
 
@@ -54,14 +52,26 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Хеширование пароля
+	// Проверки
+	if req.Name == "" {
+		http.Error(w, `{"error": "name is required"}`, http.StatusBadRequest)
+		return
+	}
+	if req.Email == "" {
+		http.Error(w, `{"error": "email is required"}`, http.StatusBadRequest)
+		return
+	}
+	if req.Password == "" {
+		http.Error(w, `{"error": "password is required"}`, http.StatusBadRequest)
+		return
+	}
+
 	hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)
 		return
 	}
 
-	// Сохранение в БД
 	_, err = h.DB.Exec(
 		"INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)",
 		req.Name, req.Email, string(hash),
@@ -76,7 +86,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("User created successfully"))
 }
 
-// ================= LOGIN =================
+// LOGIN
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
 
@@ -88,7 +98,6 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var user UserResponse
 	var hash string
 
-	// Получаем ID, Name и Хеш пароля
 	err := h.DB.QueryRow(
 		"SELECT id, name, password_hash FROM users WHERE email=$1",
 		req.Email,
@@ -105,14 +114,12 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	user.Email = req.Email
 
-	// Сравнение пароля
 	err = bcrypt.CompareHashAndPassword([]byte(hash), []byte(req.Password))
 	if err != nil {
 		http.Error(w, "Wrong password", http.StatusUnauthorized)
 		return
 	}
 
-	// Генерация JWT
 	claims := &Claims{
 		UserID: user.ID,
 		RegisteredClaims: jwt.RegisteredClaims{
@@ -127,15 +134,11 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Отправка полного JSON ответа
 	w.Header().Set("Content-Type", "application/json")
 	response := LoginResponse{
 		Token: tokenStr,
 		User:  user,
 	}
 
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		http.Error(w, "JSON encoding error", http.StatusInternalServerError)
-		return
-	}
+	json.NewEncoder(w).Encode(response)
 }

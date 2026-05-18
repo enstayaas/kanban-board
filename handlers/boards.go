@@ -3,7 +3,9 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"time"
 
 	"kanban/middleware"
 
@@ -195,8 +197,8 @@ func (h *BoardHandler) GetMembers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(members)
 }
 
-// POST /boards/:id/members
-func (h *BoardHandler) AddMember(w http.ResponseWriter, r *http.Request) {
+// POST /boards/:id/members - ДОБАВЛЕНИЕ УЧАСТНИКА (ПЕРЕИМЕНОВАНО)
+func (h *BoardHandler) AddMemberToBoard(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value(middleware.UserIDKey).(int)
 	vars := mux.Vars(r)
 	boardID := vars["id"]
@@ -242,4 +244,69 @@ func (h *BoardHandler) AddMember(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"message": "member added"})
+}
+
+// InviteByEmail - приглашение по email
+func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
+	userID := r.Context().Value(middleware.UserIDKey).(int)
+	vars := mux.Vars(r)
+	boardID := vars["id"]
+
+	var req struct {
+		Email string `json:"email"`
+		Role  string `json:"role"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, `{"error": "invalid request"}`, http.StatusBadRequest)
+		return
+	}
+
+	if req.Email == "" {
+		http.Error(w, `{"error": "email is required"}`, http.StatusBadRequest)
+		return
+	}
+
+	var ownerID int
+	err := h.DB.QueryRow("SELECT owner_id FROM boards WHERE id=$1", boardID).Scan(&ownerID)
+	if err != nil {
+		http.Error(w, `{"error": "board not found"}`, http.StatusNotFound)
+		return
+	}
+
+	if ownerID != userID {
+		http.Error(w, `{"error": "only owner can invite members"}`, http.StatusForbidden)
+		return
+	}
+
+	token := fmt.Sprintf("%d_%s", time.Now().UnixNano(), randomString(16))
+
+	_, err = h.DB.Exec(`
+		INSERT INTO invitations (board_id, invited_email, invited_by, token, role, expires_at)
+		VALUES ($1, $2, $3, $4, $5, NOW() + INTERVAL '7 days')
+	`, boardID, req.Email, userID, token, req.Role)
+
+	if err != nil {
+		http.Error(w, `{"error": "failed to create invitation"}`, http.StatusInternalServerError)
+		return
+	}
+
+	inviteLink := "http://localhost:8080/accept-invite?token=" + token
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "Invitation created",
+		"token":   token,
+		"link":    inviteLink,
+	})
+}
+
+// randomString - генератор случайной строки для токена
+func randomString(n int) string {
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letters[time.Now().UnixNano()%int64(len(letters))]
+	}
+	return string(b)
 }

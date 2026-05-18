@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -38,6 +39,12 @@ func main() {
 	r.HandleFunc("/register", auth.Register).Methods("POST")
 	r.HandleFunc("/login", auth.Login).Methods("POST")
 
+	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}).Methods("GET")
+
 	// ========== BOARDS ==========
 	// GET /boards - список досок пользователя
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(board.GetBoards))).Methods("GET")
@@ -48,7 +55,7 @@ func main() {
 	// GET /boards/{id}/members - список участников (только ВЛАДЕЛЕЦ)
 	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.GetMembers))).Methods("GET")
 	// POST /boards/{id}/members - добавить участника (только ВЛАДЕЛЕЦ)
-	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.AddMember))).Methods("POST")
+	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.AddMemberToBoard))).Methods("POST")
 
 	// ========== COLUMNS (только ВЛАДЕЛЕЦ) ==========
 	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, column.GetColumns))).Methods("GET")

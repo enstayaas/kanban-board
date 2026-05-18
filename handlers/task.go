@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -32,6 +33,20 @@ func sendError(w http.ResponseWriter, message string, status int) {
 	json.NewEncoder(w).Encode(map[string]string{"error": message})
 }
 
+// ValidatePriority - проверяет приоритет (только high/medium/low)
+func ValidatePriority(priority string) bool {
+	priority = strings.ToLower(priority)
+	return priority == "high" || priority == "medium" || priority == "low"
+}
+
+// ValidateTitle - проверяет заголовок
+func ValidateTitle(title string) bool {
+	if title == "" {
+		return false
+	}
+	return len(title) <= 255
+}
+
 const doneColumnID = 3
 
 // 🔹 GET /tasks?column_id=1&search=текст
@@ -45,7 +60,6 @@ func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Безопасный запрос: параметры передаются отдельно через $1 и $2
 	query := `
        SELECT id, column_id, title, description, priority, position, done_at 
        FROM tasks 
@@ -84,9 +98,22 @@ func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if t.Title == "" {
-		sendError(w, "Название задачи не может быть пустым", http.StatusBadRequest)
+	// ========== ВАЛИДАЦИЯ ==========
+	if !ValidateTitle(t.Title) {
+		sendError(w, "Название задачи не может быть пустым и должно быть не более 255 символов", http.StatusBadRequest)
 		return
+	}
+
+	// Проверка приоритета (если указан)
+	if t.Priority != "" && !ValidatePriority(t.Priority) {
+		sendError(w, "Приоритет должен быть: high, medium или low", http.StatusBadRequest)
+		return
+	}
+	// ================================
+
+	// Устанавливаем приоритет по умолчанию
+	if t.Priority == "" {
+		t.Priority = "medium"
 	}
 
 	var maxPos int
@@ -115,7 +142,6 @@ func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Проверка, была ли обновлена хоть одна строка
 	rowsAffected, _ := result.RowsAffected()
 	if rowsAffected == 0 {
 		sendError(w, "Задача не найдена", http.StatusNotFound)
@@ -160,6 +186,18 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 		sendError(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
+
+	// ========== ВАЛИДАЦИЯ ==========
+	if t.Title != "" && !ValidateTitle(t.Title) {
+		sendError(w, "Название задачи не может быть пустым и должно быть не более 255 символов", http.StatusBadRequest)
+		return
+	}
+
+	if t.Priority != "" && !ValidatePriority(t.Priority) {
+		sendError(w, "Приоритет должен быть: high, medium или low", http.StatusBadRequest)
+		return
+	}
+	// ================================
 
 	query := `
        UPDATE tasks 

@@ -22,6 +22,8 @@ type BoardHandler struct {
 	DB *sql.DB
 }
 
+// ValidateEmail - проверяет корректность email
+
 // GET /boards
 func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value(middleware.UserIDKey).(int)
@@ -67,13 +69,13 @@ func (h *BoardHandler) CreateBoard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Проверки
+	// Проверки title
 	if b.Title == "" {
 		http.Error(w, `{"error": "title is required"}`, http.StatusBadRequest)
 		return
 	}
 	if len(b.Title) > 255 {
-		http.Error(w, `{"error": "title too long"}`, http.StatusBadRequest)
+		http.Error(w, `{"error": "title too long (max 255 characters)"}`, http.StatusBadRequest)
 		return
 	}
 
@@ -262,10 +264,17 @@ func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// ========== ВАЛИДАЦИЯ EMAIL ==========
 	if req.Email == "" {
 		http.Error(w, `{"error": "email is required"}`, http.StatusBadRequest)
 		return
 	}
+
+	if !ValidateEmail(req.Email) {
+		http.Error(w, `{"error": "invalid email format"}`, http.StatusBadRequest)
+		return
+	}
+	// =====================================
 
 	var ownerID int
 	err := h.DB.QueryRow("SELECT owner_id FROM boards WHERE id=$1", boardID).Scan(&ownerID)

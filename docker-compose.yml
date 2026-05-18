@@ -1,11 +1,107 @@
-version: '3'
 services:
   backend:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile
+    build: ./backend
+    ports:
+      - "8080:8080"
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+
+
+
+
+
+
+
+
+# version: '3.8'
+
 # services:
 #   backend:
 #     build: ./backend
-    ports:
-      - "8080:8080"
+#     container_name: kanban_backend
+#     ports:
+#       - "8080:8080"
+#     # volumes не нужны, т.к. данные in-memory
+#     environment:
+#       - CORS_ALLOW_ALL=true   # если нужно, можно добавить
+
+#   frontend:
+#     build: ./frontend
+#     container_name: kanban_frontend
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+
+
+
+
+
+# version: '3.8'
+
+# services:
+#   postgres:
+#     image: postgres:15
+#     container_name: kanban_postgres
+#     environment:
+#       POSTGRES_USER: kanban
+#       POSTGRES_PASSWORD: kanban123
+#       POSTGRES_DB: kanban
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U kanban"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 5
+
+#   backend:
+#     build: ./backend
+#     container_name: kanban_backend
+#     ports:
+#       - "8080:8080"
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+#     environment:
+#       DB_HOST: postgres
+#       DB_PORT: 5432
+#       DB_USER: kanban
+#       DB_PASSWORD: kanban123
+#       DB_NAME: kanban
+#       JWT_SECRET: super_secret_key_change_me
+   
+
+#   frontend:
+#     build: ./frontend
+#     container_name: kanban_frontend
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+
+# volumes:
+#   postgres_data:
+
+
+
+
+
+
+
+
+# version: '3'
+# services:
+#   backend:
+#     build:
+#       context: .
+#       dockerfile: backend/Dockerfile
+# # services:
+# #   backend:
+# #     build: ./backend
+#     ports:
+#       - "8080:8080"

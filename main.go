@@ -7,6 +7,8 @@ import (
 	"net/http"
 
 	"kanban/handlers"
+	"kanban/internal/repository"
+	"kanban/internal/service"
 	"kanban/middleware"
 
 	"github.com/gorilla/mux"
@@ -28,55 +30,58 @@ func main() {
 	}
 	defer db.Close()
 
-	auth := &handlers.AuthHandler{DB: db}
-	board := &handlers.BoardHandler{DB: db}
-	column := &handlers.ColumnHandler{DB: db}
-	task := &handlers.TaskHandler{DB: db}
+	// Репозитории
+	authRepo := repository.NewAuthRepository(db)
+	boardRepo := repository.NewBoardRepository(db)
+
+	// Сервисы
+	_ = service.NewAuthService(authRepo)
+	_ = service.NewBoardService(boardRepo)
+
+	// Хендлеры
+	authHandler := &handlers.AuthHandler{DB: db}
+	boardHandler := &handlers.BoardHandler{DB: db}
+	columnHandler := &handlers.ColumnHandler{DB: db}
+	taskHandler := &handlers.TaskHandler{DB: db}
 
 	r := mux.NewRouter()
 
-	// ========== ПУБЛИЧНЫЕ МАРШРУТЫ (без JWT) ==========
-	r.HandleFunc("/register", auth.Register).Methods("POST")
-	r.HandleFunc("/login", auth.Login).Methods("POST")
-
-	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
-	}).Methods("GET")
+	// ========== ПУБЛИЧНЫЕ МАРШРУТЫ ==========
+	r.HandleFunc("/register", authHandler.Register).Methods("POST")
+	r.HandleFunc("/login", authHandler.Login).Methods("POST")
+	r.HandleFunc("/health", healthHandler).Methods("GET")
 
 	// ========== BOARDS ==========
-	// GET /boards - список досок пользователя
-	r.Handle("/boards", middleware.JWT(http.HandlerFunc(board.GetBoards))).Methods("GET")
-	// POST /boards - создать доску
-	r.Handle("/boards", middleware.JWT(http.HandlerFunc(board.CreateBoard))).Methods("POST")
-	// DELETE /boards/{id} - удалить доску (только ВЛАДЕЛЕЦ)
-	r.Handle("/boards/{id}", middleware.JWT(middleware.OwnerOnly(db, board.DeleteBoard))).Methods("DELETE")
-	// GET /boards/{id}/members - список участников (только ВЛАДЕЛЕЦ)
-	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.GetMembers))).Methods("GET")
-	// POST /boards/{id}/members - добавить участника (только ВЛАДЕЛЕЦ)
-	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, board.AddMemberToBoard))).Methods("POST")
+	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.GetBoards))).Methods("GET")
+	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.CreateBoard))).Methods("POST")
+	r.Handle("/boards/{id}", middleware.JWT(middleware.OwnerOnly(db, boardHandler.DeleteBoard))).Methods("DELETE")
+	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.GetMembers))).Methods("GET")
+	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.AddMemberToBoard))).Methods("POST")
 
-	// ========== COLUMNS (только ВЛАДЕЛЕЦ) ==========
-	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, column.GetColumns))).Methods("GET")
-	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, column.CreateColumn))).Methods("POST")
-	r.Handle("/columns/{id}", middleware.JWT(middleware.OwnerOnly(db, column.DeleteColumn))).Methods("DELETE")
-	r.Handle("/columns/{id}/restore", middleware.JWT(middleware.OwnerOnly(db, column.RestoreColumn))).Methods("PATCH")
+	// ========== COLUMNS ==========
+	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, columnHandler.GetColumns))).Methods("GET")
+	r.Handle("/columns", middleware.JWT(http.HandlerFunc(columnHandler.CreateColumn))).Methods("POST")
+	r.Handle("/columns/{id}", middleware.JWT(middleware.OwnerOnly(db, columnHandler.DeleteColumn))).Methods("DELETE")
+	r.Handle("/columns/{id}/restore", middleware.JWT(middleware.OwnerOnly(db, columnHandler.RestoreColumn))).Methods("PATCH")
 
-	// ========== TASKS (доступ для УЧАСТНИКОВ) ==========
-	r.Handle("/tasks", middleware.JWT(middleware.MemberOnly(db, task.GetTasks))).Methods("GET")
-	r.Handle("/tasks", middleware.JWT(middleware.MemberOnly(db, task.CreateTask))).Methods("POST")
-	r.Handle("/tasks/{id}", middleware.JWT(middleware.MemberOnly(db, task.DeleteTask))).Methods("DELETE")
-	r.Handle("/tasks/{id}", middleware.JWT(middleware.MemberOnly(db, task.UpdateTask))).Methods("PUT")
-	r.Handle("/tasks/{id}/archive", middleware.JWT(middleware.MemberOnly(db, task.ArchiveTask))).Methods("PATCH")
-	r.Handle("/tasks/{id}/restore", middleware.JWT(middleware.MemberOnly(db, task.RestoreTask))).Methods("PATCH")
+	// ========== TASKS (БЕЗ MemberOnly, только JWT) ==========
+	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(taskHandler.GetTasks))).Methods("GET")
+	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(taskHandler.CreateTask))).Methods("POST")
+	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteTask))).Methods("DELETE")
+	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.UpdateTask))).Methods("PUT")
+	r.Handle("/tasks/{id}/archive", middleware.JWT(http.HandlerFunc(taskHandler.ArchiveTask))).Methods("PATCH")
+	r.Handle("/tasks/{id}/restore", middleware.JWT(http.HandlerFunc(taskHandler.RestoreTask))).Methods("PATCH")
 
 	// ========== COMMENTS ==========
-	r.Handle("/comments", middleware.JWT(http.HandlerFunc(task.CreateComment))).Methods("POST")
-	r.Handle("/comments", middleware.JWT(http.HandlerFunc(task.GetComments))).Methods("GET")
-	r.Handle("/comments/{id}", middleware.JWT(http.HandlerFunc(task.DeleteComment))).Methods("DELETE")
+	r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.CreateComment))).Methods("POST")
+	r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.GetComments))).Methods("GET")
+	r.Handle("/comments/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteComment))).Methods("DELETE")
 
-	// ========== LABELS ==========
+	// ========== INVITATIONS ==========
+	r.HandleFunc("/accept-invite", func(w http.ResponseWriter, r *http.Request) {
+		invitationHandler := &handlers.InvitationHandler{DB: db}
+		invitationHandler.AcceptInvite(w, r)
+	}).Methods("GET")
 
 	// ========== CORS ==========
 	c := cors.New(cors.Options{
@@ -90,4 +95,9 @@ func main() {
 
 	log.Println("Server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", handler))
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }

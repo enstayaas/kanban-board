@@ -17,6 +17,8 @@ type Task struct {
 	Description string  `json:"description"`
 	Priority    string  `json:"priority"`
 	Position    int     `json:"position"`
+	AssignedTo  int     `json:"assigned_to"`
+	Deadline    *string `json:"deadline"`
 	DeletedAt   *string `json:"deleted_at"`
 	ArchivedAt  *string `json:"archived_at"`
 	DoneAt      *string `json:"done_at"`
@@ -26,20 +28,17 @@ type TaskHandler struct {
 	DB *sql.DB
 }
 
-// Вспомогательная функция для отправки JSON-ошибок
 func sendError(w http.ResponseWriter, message string, status int) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(map[string]string{"error": message})
 }
 
-// ValidatePriority - проверяет приоритет (только high/medium/low)
 func ValidatePriority(priority string) bool {
 	priority = strings.ToLower(priority)
 	return priority == "high" || priority == "medium" || priority == "low"
 }
 
-// ValidateTitle - проверяет заголовок
 func ValidateTitle(title string) bool {
 	if title == "" {
 		return false
@@ -47,9 +46,27 @@ func ValidateTitle(title string) bool {
 	return len(title) <= 255
 }
 
+func validateDeadline(deadline string) bool {
+	if deadline == "" {
+		return true
+	}
+	parts := strings.Split(deadline, " ")
+	if len(parts) != 2 {
+		return false
+	}
+	dateParts := strings.Split(parts[0], "-")
+	if len(dateParts) != 3 {
+		return false
+	}
+	timeParts := strings.Split(parts[1], ":")
+	if len(timeParts) != 3 {
+		return false
+	}
+	return true
+}
+
 const doneColumnID = 3
 
-// 🔹 GET /tasks?column_id=1&search=текст
 func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	colIDStr := r.URL.Query().Get("column_id")
 	searchQuery := r.URL.Query().Get("search")
@@ -61,13 +78,13 @@ func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := `
-       SELECT id, column_id, title, description, priority, position, done_at 
-       FROM tasks 
-       WHERE column_id=$1 
-         AND deleted_at IS NULL 
-         AND archived_at IS NULL 
-         AND title ILIKE $2
-       ORDER BY position ASC`
+		SELECT id, column_id, title, description, priority, position, done_at, deadline
+		FROM tasks 
+		WHERE column_id=$1 
+			AND deleted_at IS NULL 
+			AND archived_at IS NULL 
+			AND title ILIKE $2
+		ORDER BY position ASC`
 
 	rows, err := h.DB.Query(query, colID, "%"+searchQuery+"%")
 	if err != nil {
@@ -79,7 +96,7 @@ func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	tasks := []Task{}
 	for rows.Next() {
 		var t Task
-		err := rows.Scan(&t.ID, &t.ColumnID, &t.Title, &t.Description, &t.Priority, &t.Position, &t.DoneAt)
+		err := rows.Scan(&t.ID, &t.ColumnID, &t.Title, &t.Description, &t.Priority, &t.Position, &t.DoneAt, &t.Deadline)
 		if err != nil {
 			continue
 		}
@@ -90,7 +107,7 @@ func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(tasks)
 }
 
-// 🔹 POST /tasks — Создать задачу
+// 🔹 POST /tasks — Создать задачу (БЕЗ assigned_to)
 func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	var t Task
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
@@ -98,20 +115,21 @@ func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ========== ВАЛИДАЦИЯ ==========
 	if !ValidateTitle(t.Title) {
 		sendError(w, "Название задачи не может быть пустым и должно быть не более 255 символов", http.StatusBadRequest)
 		return
 	}
 
-	// Проверка приоритета (если указан)
 	if t.Priority != "" && !ValidatePriority(t.Priority) {
 		sendError(w, "Приоритет должен быть: high, medium или low", http.StatusBadRequest)
 		return
 	}
-	// ================================
 
-	// Устанавливаем приоритет по умолчанию
+	if t.Deadline != nil && *t.Deadline != "" && !validateDeadline(*t.Deadline) {
+		sendError(w, "Неверный формат даты. Используйте YYYY-MM-DD HH:MM:SS", http.StatusBadRequest)
+		return
+	}
+
 	if t.Priority == "" {
 		t.Priority = "medium"
 	}
@@ -119,21 +137,33 @@ func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	var maxPos int
 	h.DB.QueryRow("SELECT COALESCE(MAX(position), 0) FROM tasks WHERE column_id=$1", t.ColumnID).Scan(&maxPos)
 
-	err := h.DB.QueryRow(`
-       INSERT INTO tasks (column_id, title, description, priority, position)
-       VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-		t.ColumnID, t.Title, t.Description, t.Priority, maxPos+1).Scan(&t.ID)
+	var err error
+	var taskID int
+
+	if t.Deadline != nil && *t.Deadline != "" {
+		err = h.DB.QueryRow(`
+			INSERT INTO tasks (column_id, title, description, priority, position, deadline)
+			VALUES ($1, $2, $3, $4, $5, $6)
+			RETURNING id
+		`, t.ColumnID, t.Title, t.Description, t.Priority, maxPos+1, t.Deadline).Scan(&taskID)
+	} else {
+		err = h.DB.QueryRow(`
+			INSERT INTO tasks (column_id, title, description, priority, position)
+			VALUES ($1, $2, $3, $4, $5)
+			RETURNING id
+		`, t.ColumnID, t.Title, t.Description, t.Priority, maxPos+1).Scan(&taskID)
+	}
 
 	if err != nil {
-		sendError(w, "Не удалось создать задачу", http.StatusInternalServerError)
+		sendError(w, "Ошибка БД: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
+	t.ID = taskID
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(t)
 }
 
-// 🔹 DELETE /tasks/{id} — Мягкое удаление
 func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	result, err := h.DB.Exec("UPDATE tasks SET deleted_at = NOW() WHERE id = $1", idStr)
@@ -152,7 +182,6 @@ func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"status": "deleted"}`))
 }
 
-// 🔹 PATCH /tasks/{id}/restore — Восстановление
 func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	_, err := h.DB.Exec("UPDATE tasks SET deleted_at = NULL WHERE id = $1", idStr)
@@ -164,7 +193,6 @@ func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"status": "restored"}`))
 }
 
-// 🔹 PATCH /tasks/{id}/archive — Архивация
 func (h *TaskHandler) ArchiveTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	_, err := h.DB.Exec("UPDATE tasks SET archived_at = NOW() WHERE id = $1", idStr)
@@ -176,7 +204,6 @@ func (h *TaskHandler) ArchiveTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"status": "archived"}`))
 }
 
-// 🔹 PUT /tasks/{id} — Обновление
 func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	taskID, _ := strconv.Atoi(idStr)
@@ -187,7 +214,6 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ========== ВАЛИДАЦИЯ ==========
 	if t.Title != "" && !ValidateTitle(t.Title) {
 		sendError(w, "Название задачи не может быть пустым и должно быть не более 255 символов", http.StatusBadRequest)
 		return
@@ -197,33 +223,31 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 		sendError(w, "Приоритет должен быть: high, medium или low", http.StatusBadRequest)
 		return
 	}
-	// ================================
+
+	if t.Deadline != nil && *t.Deadline != "" && !validateDeadline(*t.Deadline) {
+		sendError(w, "Неверный формат даты. Используйте YYYY-MM-DD HH:MM:SS", http.StatusBadRequest)
+		return
+	}
 
 	query := `
-       UPDATE tasks 
-       SET title=$1, 
-          description=$2, 
-          priority=$3, 
-          column_id=$4::int, 
-          position=$5,
-          done_at = CASE 
-             WHEN $4::int = $7::int THEN COALESCE(done_at, NOW()) 
-             ELSE NULL 
-          END,
-          archived_at = CASE 
-             WHEN $4::int = $7::int AND done_at < NOW() - INTERVAL '5 days' THEN NOW() 
-             ELSE archived_at 
-          END
-       WHERE id=$6`
+		UPDATE tasks 
+		SET title = COALESCE(NULLIF($1, ''), title),
+			description = COALESCE(NULLIF($2, ''), description),
+			priority = COALESCE(NULLIF($3, ''), priority),
+			column_id = COALESCE($4, column_id),
+			position = COALESCE($5, position),
+			deadline = $6,
+			updated_at = NOW()
+		WHERE id = $7`
 
 	_, err := h.DB.Exec(query,
-		t.Title,       // $1
-		t.Description, // $2
-		t.Priority,    // $3
-		t.ColumnID,    // $4
-		t.Position,    // $5
-		taskID,        // $6
-		doneColumnID,  // $7
+		t.Title,
+		t.Description,
+		t.Priority,
+		t.ColumnID,
+		t.Position,
+		t.Deadline,
+		taskID,
 	)
 
 	if err != nil {
@@ -232,5 +256,5 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(`{"status": "updated"}`))
+	json.NewEncoder(w).Encode(map[string]string{"status": "updated"})
 }

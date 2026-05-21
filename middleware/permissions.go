@@ -8,26 +8,22 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// OwnerOnly - проверяет что пользователь ВЛАДЕЛЕЦ доски
+// OwnerOnly - только владелец доски
 func OwnerOnly(db *sql.DB, next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// Получаем user_id из контекста (добавлен JWT)
 		userID, ok := r.Context().Value(UserIDKey).(int)
 		if !ok {
 			http.Error(w, `{"error": "unauthorized"}`, http.StatusUnauthorized)
 			return
 		}
 
-		// Получаем board_id из URL
 		vars := mux.Vars(r)
-		boardIDStr := vars["id"]
-		boardID, err := strconv.Atoi(boardIDStr)
+		boardID, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			http.Error(w, `{"error": "invalid board id"}`, http.StatusBadRequest)
 			return
 		}
 
-		// Проверяем: является ли пользователь владельцем
 		var ownerID int
 		err = db.QueryRow("SELECT owner_id FROM boards WHERE id = $1", boardID).Scan(&ownerID)
 		if err != nil {
@@ -44,7 +40,7 @@ func OwnerOnly(db *sql.DB, next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-// MemberOnly - проверяет что пользователь УЧАСТНИК доски (или владелец)
+// MemberOnly - участник доски (или владелец)
 func MemberOnly(db *sql.DB, next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		userID, ok := r.Context().Value(UserIDKey).(int)
@@ -53,32 +49,72 @@ func MemberOnly(db *sql.DB, next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
-		// Получаем board_id из URL
 		vars := mux.Vars(r)
-		boardIDStr := vars["id"]
-		boardID, err := strconv.Atoi(boardIDStr)
+		boardID, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			http.Error(w, `{"error": "invalid board id"}`, http.StatusBadRequest)
 			return
 		}
 
-		// Проверяем: является ли пользователь участником
 		var count int
-		err = db.QueryRow(`
+		db.QueryRow(`
 			SELECT COUNT(*) FROM board_members 
 			WHERE board_id = $1 AND user_id = $2
 		`, boardID, userID).Scan(&count)
-		if err != nil {
-			http.Error(w, `{"error": "database error"}`, http.StatusInternalServerError)
-			return
-		}
 
-		// Также проверяем: может быть владельцем
 		var ownerID int
 		db.QueryRow("SELECT owner_id FROM boards WHERE id = $1", boardID).Scan(&ownerID)
 
 		if count == 0 && ownerID != userID {
 			http.Error(w, `{"error": "access denied - member only"}`, http.StatusForbidden)
+			return
+		}
+
+		next(w, r)
+	}
+}
+
+// TaskAccess - проверяет доступ к задаче (через доску)
+func TaskAccess(db *sql.DB, next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		userID, ok := r.Context().Value(UserIDKey).(int)
+		if !ok {
+			http.Error(w, `{"error": "unauthorized"}`, http.StatusUnauthorized)
+			return
+		}
+
+		vars := mux.Vars(r)
+		taskID, err := strconv.Atoi(vars["id"])
+		if err != nil {
+			http.Error(w, `{"error": "invalid task id"}`, http.StatusBadRequest)
+			return
+		}
+
+		// Получаем board_id через задачу
+		var boardID int
+		err = db.QueryRow(`
+			SELECT b.id FROM boards b
+			JOIN columns c ON c.board_id = b.id
+			JOIN tasks t ON t.column_id = c.id
+			WHERE t.id = $1
+		`, taskID).Scan(&boardID)
+		if err != nil {
+			http.Error(w, `{"error": "task not found"}`, http.StatusNotFound)
+			return
+		}
+
+		// Проверяем доступ к доске
+		var count int
+		db.QueryRow(`
+			SELECT COUNT(*) FROM board_members 
+			WHERE board_id = $1 AND user_id = $2
+		`, boardID, userID).Scan(&count)
+
+		var ownerID int
+		db.QueryRow("SELECT owner_id FROM boards WHERE id = $1", boardID).Scan(&ownerID)
+
+		if count == 0 && ownerID != userID {
+			http.Error(w, `{"error": "access denied"}`, http.StatusForbidden)
 			return
 		}
 

@@ -24,6 +24,11 @@ type Task struct {
 	DoneAt      *string `json:"done_at"`
 }
 
+type TaskWithLabels struct {
+	Task
+	Labels []map[string]interface{} `json:"labels"`
+}
+
 type TaskHandler struct {
 	DB *sql.DB
 }
@@ -67,6 +72,7 @@ func validateDeadline(deadline string) bool {
 
 const doneColumnID = 3
 
+// GET /tasks?column_id=1&search=текст
 func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	colIDStr := r.URL.Query().Get("column_id")
 	searchQuery := r.URL.Query().Get("search")
@@ -93,21 +99,55 @@ func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 
-	tasks := []Task{}
+	tasks := []TaskWithLabels{}
 	for rows.Next() {
 		var t Task
 		err := rows.Scan(&t.ID, &t.ColumnID, &t.Title, &t.Description, &t.Priority, &t.Position, &t.DoneAt, &t.Deadline)
 		if err != nil {
 			continue
 		}
-		tasks = append(tasks, t)
+
+		// Получаем метки для задачи
+		labels := h.getTaskLabels(t.ID)
+
+		tasks = append(tasks, TaskWithLabels{
+			Task:   t,
+			Labels: labels,
+		})
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(tasks)
 }
 
-// 🔹 POST /tasks — Создать задачу (БЕЗ assigned_to)
+// getTaskLabels - вспомогательная функция для получения меток задачи
+func (h *TaskHandler) getTaskLabels(taskID int) []map[string]interface{} {
+	rows, err := h.DB.Query(`
+		SELECT l.id, l.name, l.color
+		FROM task_labels tl
+		JOIN labels l ON l.id = tl.label_id
+		WHERE tl.task_id = $1 AND l.deleted_at IS NULL
+	`, taskID)
+	if err != nil {
+		return []map[string]interface{}{}
+	}
+	defer rows.Close()
+
+	var labels []map[string]interface{}
+	for rows.Next() {
+		var id int
+		var name, color string
+		rows.Scan(&id, &name, &color)
+		labels = append(labels, map[string]interface{}{
+			"id":    id,
+			"name":  name,
+			"color": color,
+		})
+	}
+	return labels
+}
+
+// POST /tasks — Создать задачу
 func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	var t Task
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
@@ -164,6 +204,7 @@ func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(t)
 }
 
+// DELETE /tasks/{id} — Мягкое удаление
 func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	result, err := h.DB.Exec("UPDATE tasks SET deleted_at = NOW() WHERE id = $1", idStr)
@@ -182,6 +223,7 @@ func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"status": "deleted"}`))
 }
 
+// PATCH /tasks/{id}/restore — Восстановление
 func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	_, err := h.DB.Exec("UPDATE tasks SET deleted_at = NULL WHERE id = $1", idStr)
@@ -193,6 +235,7 @@ func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"status": "restored"}`))
 }
 
+// PATCH /tasks/{id}/archive — Архивация
 func (h *TaskHandler) ArchiveTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	_, err := h.DB.Exec("UPDATE tasks SET archived_at = NOW() WHERE id = $1", idStr)
@@ -204,6 +247,7 @@ func (h *TaskHandler) ArchiveTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{"status": "archived"}`))
 }
 
+// PUT /tasks/{id} — Обновление
 func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	taskID, _ := strconv.Atoi(idStr)
@@ -257,4 +301,86 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"status": "updated"})
+}
+
+// POST /tasks/{id}/labels - добавить метку к задаче
+func (h *TaskHandler) AddLabelToTask(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	taskID := vars["id"]
+
+	var req struct {
+		LabelID int `json:"label_id"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		sendError(w, "invalid request", http.StatusBadRequest)
+		return
+	}
+
+	_, err := h.DB.Exec(`
+		INSERT INTO task_labels (task_id, label_id)
+		VALUES ($1, $2)
+		ON CONFLICT DO NOTHING
+	`, taskID, req.LabelID)
+
+	if err != nil {
+		sendError(w, "failed to add label", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"message": "label added"})
+}
+
+// DELETE /tasks/{id}/labels/{labelId} - удалить метку из задачи
+func (h *TaskHandler) RemoveLabelFromTask(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	taskID := vars["id"]
+	labelID := vars["labelId"]
+
+	_, err := h.DB.Exec(`
+		DELETE FROM task_labels WHERE task_id = $1 AND label_id = $2
+	`, taskID, labelID)
+
+	if err != nil {
+		sendError(w, "failed to remove label", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"message": "label removed"})
+}
+
+// GET /tasks/{id}/labels - получить все метки задачи
+func (h *TaskHandler) GetTaskLabels(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	taskID := vars["id"]
+
+	rows, err := h.DB.Query(`
+		SELECT l.id, l.name, l.color
+		FROM task_labels tl
+		JOIN labels l ON l.id = tl.label_id
+		WHERE tl.task_id = $1 AND l.deleted_at IS NULL
+	`, taskID)
+
+	if err != nil {
+		sendError(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	var labels []map[string]interface{}
+	for rows.Next() {
+		var id int
+		var name, color string
+		rows.Scan(&id, &name, &color)
+		labels = append(labels, map[string]interface{}{
+			"id":    id,
+			"name":  name,
+			"color": color,
+		})
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(labels)
 }

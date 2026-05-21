@@ -43,6 +43,7 @@ func main() {
 	boardHandler := &handlers.BoardHandler{DB: db}
 	columnHandler := &handlers.ColumnHandler{DB: db}
 	taskHandler := &handlers.TaskHandler{DB: db}
+	labelHandler := &handlers.LabelHandler{DB: db}
 
 	r := mux.NewRouter()
 
@@ -64,13 +65,24 @@ func main() {
 	r.Handle("/columns/{id}", middleware.JWT(middleware.OwnerOnly(db, columnHandler.DeleteColumn))).Methods("DELETE")
 	r.Handle("/columns/{id}/restore", middleware.JWT(middleware.OwnerOnly(db, columnHandler.RestoreColumn))).Methods("PATCH")
 
-	// ========== TASKS (БЕЗ MemberOnly, только JWT) ==========
+	// ========== TASKS ==========
 	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(taskHandler.GetTasks))).Methods("GET")
 	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(taskHandler.CreateTask))).Methods("POST")
 	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteTask))).Methods("DELETE")
 	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.UpdateTask))).Methods("PUT")
 	r.Handle("/tasks/{id}/archive", middleware.JWT(http.HandlerFunc(taskHandler.ArchiveTask))).Methods("PATCH")
 	r.Handle("/tasks/{id}/restore", middleware.JWT(http.HandlerFunc(taskHandler.RestoreTask))).Methods("PATCH")
+
+	// ========== TASK LABELS ==========
+	r.Handle("/tasks/{id}/labels", middleware.JWT(http.HandlerFunc(taskHandler.AddLabelToTask))).Methods("POST")
+	r.Handle("/tasks/{id}/labels/{labelId}", middleware.JWT(http.HandlerFunc(taskHandler.RemoveLabelFromTask))).Methods("DELETE")
+	r.Handle("/tasks/{id}/labels", middleware.JWT(http.HandlerFunc(taskHandler.GetTaskLabels))).Methods("GET")
+
+	// ========== LABELS ==========
+	r.Handle("/labels", middleware.JWT(http.HandlerFunc(labelHandler.GetLabels))).Methods("GET")
+	r.Handle("/labels", middleware.JWT(http.HandlerFunc(labelHandler.CreateLabel))).Methods("POST")
+	r.Handle("/labels/{id}", middleware.JWT(http.HandlerFunc(labelHandler.UpdateLabel))).Methods("PUT")
+	r.Handle("/labels/{id}", middleware.JWT(http.HandlerFunc(labelHandler.DeleteLabel))).Methods("DELETE")
 
 	// ========== COMMENTS ==========
 	r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.CreateComment))).Methods("POST")

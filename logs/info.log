@@ -51,3 +51,6 @@
 [INFO] 2026/05/23 03:23:27 logger.go:53: Starting server...
 [INFO] 2026/05/23 03:23:27 logger.go:53: Database connected successfully
 [INFO] 2026/05/23 03:23:27 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 04:14:29 logger.go:53: Starting server...
+[INFO] 2026/05/23 04:14:29 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 04:14:29 logger.go:53: Server running on :8080

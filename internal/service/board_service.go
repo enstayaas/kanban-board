@@ -14,16 +14,21 @@ func NewBoardService(repo *repository.BoardRepository) *BoardService {
 	return &BoardService{repo: repo}
 }
 
+// ValidateTitle - проверяет название доски
+func (s *BoardService) ValidateTitle(title string) bool {
+	if title == "" {
+		return false
+	}
+	return len(title) <= 255
+}
+
 func (s *BoardService) GetBoards(userID int) (*sql.Rows, error) {
 	return s.repo.GetBoardsByUserID(userID)
 }
 
 func (s *BoardService) CreateBoard(title, description string, userID int) (int, error) {
-	if title == "" {
-		return 0, errors.New("title is required")
-	}
-	if len(title) > 255 {
-		return 0, errors.New("title too long")
+	if !s.ValidateTitle(title) {
+		return 0, errors.New("invalid title")
 	}
 
 	boardID, err := s.repo.CreateBoard(title, description, userID)

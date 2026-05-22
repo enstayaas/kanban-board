@@ -49,3 +49,18 @@ func (s *AuthService) Login(email, password string) (int, string, string, error)
 
 	return id, name, email, nil
 }
+
+// ValidateEmail - проверяет корректность email
+func (s *AuthService) ValidateEmail(email string) bool {
+	if email == "" {
+		return false
+	}
+	regex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	match, _ := regexp.MatchString(regex, email)
+	return match
+}
+
+// ValidatePassword - проверяет пароль
+func (s *AuthService) ValidatePassword(password string) bool {
+	return len(password) >= 6
+}

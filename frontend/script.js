@@ -470,20 +470,40 @@ async function saveTask() {
 
 
 
-// ========== ОЧИСТКА ФИЛЬТРОВ ==========
 function clearFilters() {
-  const priorityFilter = document.getElementById('priorityFilter');
-  const userFilter = document.getElementById('userFilter');
-   const searchInput = document.getElementById('searchInput');
-  
-  if (priorityFilter) priorityFilter.value = '';
-  if (userFilter) userFilter.value = '';
-   if (searchInput) searchInput.value = '';
+    // Сбрасываем значения фильтров
+    const priorityFilter = document.getElementById('priorityFilter');
+    const userFilter = document.getElementById('userFilter');
+    const searchInput = document.getElementById('searchInput');
     
+    if (priorityFilter) priorityFilter.value = '';
+    if (userFilter) userFilter.value = '';
+    if (searchInput) searchInput.value = '';
+    
+    // Сбрасываем переменную поиска
     searchQuery = '';
+    
+    // Сбрасываем страницу
     currentPage = 1;
-  loadTasks();
+    
+    // Перезагружаем задачи (без фильтров)
+    loadTasks();
 }
+
+// ========== ОЧИСТКА ФИЛЬТРОВ ==========
+// function clearFilters() {
+//   const priorityFilter = document.getElementById('priorityFilter');
+//   const userFilter = document.getElementById('userFilter');
+//    const searchInput = document.getElementById('searchInput');
+  
+//   if (priorityFilter) priorityFilter.value = '';
+//   if (userFilter) userFilter.value = '';
+//    if (searchInput) searchInput.value = '';
+    
+//     searchQuery = '';
+//     currentPage = 1;
+//   loadTasks();
+// }
 
 // ========== ПРИМЕНЕНИЕ ФИЛЬТРОВ ==========
 function applyFilter() {
@@ -683,8 +703,40 @@ async function archiveCurrentTask() {
     }
 }
 
+// ===== НЕЖНЫЕ ЦВЕТА ДЛЯ КАРТОЧЕК =====
+const pastelColors = [
+    'pastel-pink', 'pastel-blue', 'pastel-yellow',
+    'pastel-purple', 'pastel-green', 'pastel-orange',
+    'pastel-mint', 'pastel-lavender', 'pastel-peach', 'pastel-sky'
+];
 
+function applyTaskColors() {
+    document.querySelectorAll('.task').forEach((card, index) => {
+        const colorIndex = index % pastelColors.length;
+        card.classList.add(pastelColors[colorIndex]);
+    });
+}
 
+// Наблюдатель за появлением новых карточек
+const colorObserver = new MutationObserver(() => {
+    const tasks = document.querySelectorAll('.task');
+    if (tasks.length > 0) {
+        tasks.forEach(card => {
+            // Добавляем цвет, только если его ещё нет
+            let hasColor = false;
+            for (const color of pastelColors) {
+                if (card.classList.contains(color)) {
+                    hasColor = true;
+                    break;
+                }
+            }
+            if (!hasColor) {
+                applyTaskColors();
+            }
+        });
+    }
+});
+colorObserver.observe(document.body, { childList: true, subtree: true });
 
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();

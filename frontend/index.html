@@ -18,6 +18,10 @@
   <h1>📌 Kanban Board</h1>
 
   <div class="filters">
+ <!-- Кнопка создания задачи -->
+    <button onclick="openCreateModal()">➕ Создать задачу</button>
+
+
     <select id="priorityFilter">
       <option value="">All priorities</option>
       <option value="high">🔴 High</option>
@@ -124,284 +128,36 @@
     </div>
   </div>
 
+
+  <!-- Модальное окно для создания задачи -->
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <h3>➕ Новая задача</h3>
+        <input id="createTitle" placeholder="Название задачи" autocomplete="off" />
+        <textarea id="createDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="createPriority">
+            <option value="low">🟢 Low</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="high">🔴 High</option>
+        </select>
+        <input id="createAssignedTo" placeholder="ID исполнителя" type="number" />
+        <select id="createColumnId">
+            <option value="1">📋 To Do</option>
+            <option value="2">⚙️ In Progress</option>
+            <option value="3">✅ Done</option>
+        </select>
+        <div style="margin-top: 15px;">
+            <button id="createTaskBtn" onclick="createTask()">💾 Создать</button>
+            <button id="closeCreateModalBtn" onclick="closeCreateModal()">❌ Отмена</button>
+            <!-- <button onclick="createTask()">💾 Создать</button>
+            <button onclick="closeCreateModal()">❌ Отмена</button> -->
+        </div>
+    </div>
+</div>
+
+
   <script src="config.js"></script>
   <script src="script.js"></script>
   <script src="labels.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Kanban Board</title>
-  <!-- <link rel="stylesheet" href="styles.css"> -->
-   <!-- <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-      <div id="error" style="color:red; margin:10px;"></div>
-<div class="filters">
-  <select id="priorityFilter">
-    <option value="">All priorities</option>
-    <option value="high">High</option>
-    <option value="medium">Medium</option>
-    <option value="low">Low</option>
-  </select>
-
-
-  <input id="userFilter" placeholder="User ID" />
-
-  <button onclick="loadTasks()">Apply Filter</button>
-</div>
-
-<div id="board"></div> -->
-
-<!-- МОДАЛКА -->
-<!-- <div id="modal" class="modal">
-  <div class="modal-content"> -->
-    <!-- <div id="error" style="color:red; margin:10px;"></div> -->
-    <!-- <h3>Edit Task</h3>
-
-    <input id="editTitle" placeholder="Title" />
-    <textarea id="editDesc" placeholder="Description"></textarea>
-
-    <br><br>
-
-    <button onclick="saveTask()">Save</button>
-    <button onclick="closeModal()">Cancel</button>
-    <button onclick="window.location.href='users.html'">
-  Participants
-</button>
-  </div>
-</div>
-
-<!-- <script src="app.js"></script> -->
- <!-- <script src="script.js"></script>
-</body>
-</html> --> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Kanban Board</title>
-  <style>
-    body { font-family: Arial; display: flex; gap: 20px; }
-    .column { width: 200px; background: #f4f4f4; padding: 10px; }
-    .task { background: white; padding: 5px; margin: 5px 0; cursor: pointer; }
-  </style>
-</head>
-<body>
-  <div style="margin-bottom:20px;">
-
-  <select id="priorityFilter">
-    <option value="">All priorities</option>
-    <option value="high">High</option>
-    <option value="medium">Medium</option>
-    <option value="low">Low</option>
-  </select>
-
-  <input id="userFilter" placeholder="User ID" />
-
-  <button onclick="loadTasks()">Apply Filter</button>
-
-</div>
-
-<div id="board"></div>
-
-<script>
-  async function loadTasks() {
-  const res = await fetch("http://localhost:8080/tasks");
-  let tasks = await res.json();
-
-  // 👇 фильтры
-  const priority = document.getElementById("priorityFilter").value;
-  const userId = document.getElementById("userFilter").value;
-
-  if (priority) {
-    tasks = tasks.filter(t => t.Priority === priority);
-  }
-
-  if (userId) {
-    tasks = tasks.filter(t => t.AssignedTo == userId);
-  }
-
-  const board = document.getElementById("board");
-  board.innerHTML = "";
-
-  const columns = [1,2,3];
-
-  columns.forEach(col => {
-    const columnDiv = document.createElement("div");
-    columnDiv.className = "column";
-    columnDiv.innerHTML = `<h3>Column ${col}</h3>`;
-
-    tasks.filter(t => t.ColumnID === col)
-      .forEach(task => {
-        const taskDiv = document.createElement("div");
-        taskDiv.className = "task";
-        taskDiv.innerText = task.Title;
-
-        taskDiv.onclick = () => openModal(task);
-
-        columnDiv.appendChild(taskDiv);
-      });
-
-    board.appendChild(columnDiv);
-  });
-}
-// async function loadTasks() {
-//   const res = await fetch("http://localhost:8080/tasks");
-//   //const tasks = await res.json();
-//   const tasks = (await res.json()) || [];
-
-//   const board = document.getElementById("board");
-//   board.innerHTML = "";
-
-//   const columns = [1,2,3];
-
-//   columns.forEach(col => {
-//     const columnDiv = document.createElement("div");
-//     columnDiv.className = "column";
-//     columnDiv.innerHTML = `<h3>Column ${col}</h3>`;
-
-//     tasks.filter(t => t.ColumnID === col)
-//       .forEach(task => {
-//         const taskDiv = document.createElement("div");
-//         taskDiv.className = "task";
-//         taskDiv.innerText = task.Title;
-
-//         // 👇 открытие модального окна
-//         taskDiv.onclick = () => openModal(task);
-
-//         columnDiv.appendChild(taskDiv);
-//       });
-
-//     board.appendChild(columnDiv);
-//   });
-// }
-
-function openModal(task) {
-  const newTitle = prompt("Edit task", task.Title);
-
-  if (newTitle) {
-    fetch(`http://localhost:8080/tasks/${task.ID}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        column_id: task.ColumnID,
-        position: task.Position
-      })
-    }).then(loadTasks);
-  }
-}
-
-loadTasks();
-
-
-let currentTask = null;
-
-function openModal(task) {
-  currentTask = task;
-
-  document.getElementById("modal").style.display = "block";
-  document.getElementById("editTitle").value = task.Title;
-  document.getElementById("editDesc").value = task.Description || "";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
-async function saveTask() {
-  const title = document.getElementById("editTitle").value;
-  const desc = document.getElementById("editDesc").value;
-
-  await fetch(`http://localhost:8080/tasks/${currentTask.ID}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      column_id: currentTask.ColumnID,
-      position: currentTask.Position,
-      title: title,
-      description: desc
-    })
-  });
-
-  closeModal();
-  loadTasks();
-}
-</script>
-
-
-<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
-  <div style="background:white; padding:20px; width:300px; margin:100px auto;">
-    
-    <h3>Edit Task</h3>
-
-    <input id="editTitle" placeholder="Title" style="width:100%; margin-bottom:10px;" />
-    <textarea id="editDesc" placeholder="Description" style="width:100%;"></textarea>
-
-    <br><br>
-
-    <button onclick="saveTask()">Save</button>
-    <button onclick="closeModal()">Cancel</button>
-
-  </div>
-</div>
-</body>
-</html> -->

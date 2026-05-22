@@ -1,16 +1,43 @@
-FROM golang:1.25
-
+# Этап сборки (builder)
+FROM golang:latest AS builder
 WORKDIR /app
 
-COPY backend ./backend
-COPY frontend ./frontend
+# Копируем go.mod и go.sum, скачиваем зависимости
+COPY go.mod go.sum ./
+RUN go mod download
 
-WORKDIR /app/backend
+# Копируем весь исходный код
+COPY . .
 
-RUN go mod tidy
+# Сборка статического бинарника (CGO выключен)
+RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/main.go
 
-CMD ["go", "run", "cmd/main.go"]
+# Финальный образ (alpine)
+FROM alpine:latest
+WORKDIR /root/
 
+# Копируем бинарник из этапа сборки
+COPY --from=builder /app/main .
+
+# Делаем исполняемым (на всякий случай)
+RUN chmod +x /root/main
+
+EXPOSE 8080
+CMD ["./main"]
+
+
+# FROM golang:1.25
+
+# WORKDIR /app
+
+# COPY backend ./backend
+# COPY frontend ./frontend
+
+# WORKDIR /app/backend
+
+# RUN go mod tidy
+
+# CMD ["go", "run", "cmd/main.go"]
 # берем Go
 # FROM golang:1.25
 

@@ -322,6 +322,77 @@ function closeModal() {
 }
 
 
+// ========== МОДАЛЬНОЕ ОКНО ДЛЯ СОЗДАНИЯ ==========
+// function openCreateModal() {
+//     // Очищаем поля
+//     document.getElementById('createTitle').value = '';
+//     document.getElementById('createDesc').value = '';
+//     document.getElementById('createPriority').value = 'medium';
+//     document.getElementById('createAssignedTo').value = '';
+//     document.getElementById('createColumnId').value = '1';
+    
+//     document.getElementById('createModal').style.display = 'flex';
+// }
+
+function openCreateModal() {
+    // Очистить поля
+    document.getElementById('createTitle').value = '';
+    document.getElementById('createDesc').value = '';
+    document.getElementById('createPriority').value = 'medium';
+    document.getElementById('createAssignedTo').value = '';
+    document.getElementById('createColumnId').value = '1';
+    const modal = document.getElementById('createModal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeCreateModal() {
+    const modal = document.getElementById('createModal');
+    if (modal) modal.style.display = 'none';
+}
+// function closeCreateModal() {
+//     document.getElementById('createModal').style.display = 'none';
+// }
+
+async function createTask() {
+    const title = document.getElementById('createTitle').value.trim();
+    const description = document.getElementById('createDesc').value.trim();
+    const priority = document.getElementById('createPriority').value;
+    const assignedTo = document.getElementById('createAssignedTo').value;
+    const columnId = parseInt(document.getElementById('createColumnId').value);
+    
+    if (!title) {
+        showError('❌ Введите название задачи');
+        return;
+    }
+    
+    // Получаем текущего пользователя (пока временно 1, потом из JWT)
+    const createdBy = 1;
+    
+    const payload = {
+        board_id: 1,
+        column_id: columnId,
+        title: title,
+        description: description,
+        priority: priority,
+        created_by: createdBy,
+        assigned_to: assignedTo ? parseInt(assignedTo) : 0,
+        position: 0 // сервер сам проставит
+    };
+    
+    try {
+        await fetchAPI('/tasks', {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+        closeCreateModal();
+        showSuccess('✅ Задача создана');
+        loadTasks(); // обновляем доску
+    } catch (error) {
+        console.error('Create error:', error);
+        // ошибка уже показана в fetchAPI
+    }
+}
+
 
 
 // ========== СОХРАНЕНИЕ ЗАДАЧИ (с защитой от дубляжа и проверкой изменений) ==========
@@ -441,9 +512,15 @@ function initEventListeners() {
       if (modal && modal.style.display === 'flex') {
         closeModal();
       }
+
+       const createModal = document.getElementById('createModal');
+            if (createModal && createModal.style.display === 'flex') {
+                closeCreateModal();
+            }
     }
   });
   
+
   const modal = document.getElementById('modal');
   if (modal) {
     modal.addEventListener('click', function(e) {
@@ -452,6 +529,13 @@ function initEventListeners() {
       }
     });
   }
+}
+
+const createModal = document.getElementById('createModal');
+if (createModal) {
+    createModal.addEventListener('click', function(e) {
+        if (e.target === this) closeCreateModal();
+    });
 }
 
 
@@ -599,14 +683,15 @@ async function archiveCurrentTask() {
     }
 }
 
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();
   loadUsersForFilter();
   loadTasks();
   setupSearchListener();
 });
-
-
 
 
 

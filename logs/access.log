@@ -1,0 +1,857 @@
+[ACCESS] 2026/05/22 21:04:19 GET /health -> Status: OK Duration: 509.5µs
+[ACCESS] 2026/05/22 21:04:45 POST /register -> Status: Internal Server Error Duration: 228.1491ms
+[ACCESS] 2026/05/22 21:05:00 POST /register -> Status: Created Duration: 144.3578ms
+[ACCESS] 2026/05/22 21:05:25 POST /login -> Status: OK Duration: 172.6702ms
+[ACCESS] 2026/05/22 21:06:22 GET /boards -> Status: OK Duration: 55.45ms
+[ACCESS] 2026/05/22 21:08:01 POST /boards -> Status: Created Duration: 8.1225ms
+[ACCESS] 2026/05/22 21:08:25 GET /boards -> Status: OK Duration: 3.6624ms
+[ACCESS] 2026/05/22 21:30:05 GET /boards -> Status: OK Duration: 3.269ms
+[ACCESS] 2026/05/22 21:33:13 GET /health -> Status: OK Duration: 647.7µs
+[ACCESS] 2026/05/22 21:35:01 GET /boards -> Status: OK Duration: 13.1084ms
+[ACCESS] 2026/05/22 21:35:57 POST /register -> Status: Created Duration: 214.6853ms
+[ACCESS] 2026/05/22 21:36:12 POST /login -> Status: OK Duration: 140.0945ms
+[ACCESS] 2026/05/22 21:36:25 GET /boards -> Status: OK Duration: 3.927ms
+[ACCESS] 2026/05/22 21:36:25 GET /boards -> Status: OK Duration: 3.6281ms
+[ACCESS] 2026/05/22 21:40:22 GET /boards -> Status: OK Duration: 1.824ms
+[ACCESS] 2026/05/22 21:40:31 POST /boards -> Status: Created Duration: 19.015ms
+[ACCESS] 2026/05/22 21:40:32 GET /boards -> Status: OK Duration: 190.1073ms
+[ACCESS] 2026/05/22 21:40:34 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:40:46 POST /columns -> Status: OK Duration: 37.9055ms
+[ACCESS] 2026/05/22 21:40:46 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:44:05 GET /boards -> Status: OK Duration: 2.8424ms
+[ACCESS] 2026/05/22 21:44:12 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:44:22 POST /columns -> Status: OK Duration: 16.2162ms
+[ACCESS] 2026/05/22 21:44:22 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:45:24 GET /boards -> Status: OK Duration: 2.4272ms
+[ACCESS] 2026/05/22 21:45:28 POST /boards -> Status: Created Duration: 15.6381ms
+[ACCESS] 2026/05/22 21:45:28 GET /boards -> Status: OK Duration: 4.4977ms
+[ACCESS] 2026/05/22 21:45:29 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:49:38 GET /boards -> Status: OK Duration: 2.5997ms
+[ACCESS] 2026/05/22 21:49:48 POST /boards -> Status: Created Duration: 17.1245ms
+[ACCESS] 2026/05/22 21:49:48 GET /boards -> Status: OK Duration: 3.5231ms
+[ACCESS] 2026/05/22 21:49:50 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:50:52 GET /boards -> Status: OK Duration: 2.3146ms
+[ACCESS] 2026/05/22 21:51:58 POST /boards -> Status: Created Duration: 3.1598ms
+[ACCESS] 2026/05/22 21:52:22 GET /boards -> Status: OK Duration: 3.2275ms
+[ACCESS] 2026/05/22 21:52:38 GET /boards -> Status: OK Duration: 2.4554ms
+[ACCESS] 2026/05/22 21:52:39 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:52:41 GET /boards -> Status: OK Duration: 3.114ms
+[ACCESS] 2026/05/22 21:52:44 GET /boards -> Status: OK Duration: 3.0294ms
+[ACCESS] 2026/05/22 21:53:03 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:53:08 GET /boards -> Status: OK Duration: 3.4684ms
+[ACCESS] 2026/05/22 21:53:18 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:53:37 POST /columns -> Status: Forbidden Duration: 1.4088ms
+[ACCESS] 2026/05/22 21:53:44 POST /columns -> Status: Forbidden Duration: 1.3036ms
+[ACCESS] 2026/05/22 21:53:47 GET /boards -> Status: OK Duration: 2.2047ms
+[ACCESS] 2026/05/22 21:53:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:53:50 GET /boards -> Status: OK Duration: 4.1773ms
+[ACCESS] 2026/05/22 21:53:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:53:53 GET /boards -> Status: OK Duration: 3.1322ms
+[ACCESS] 2026/05/22 21:54:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 21:55:24 GET /columns -> Status: Bad Request Duration: 62.8µs
+[ACCESS] 2026/05/22 21:55:31 GET /columns -> Status: Bad Request Duration: 3.4125ms
+[ACCESS] 2026/05/22 21:57:15 GET /boards -> Status: OK Duration: 3.9204ms
+[ACCESS] 2026/05/22 21:59:47 GET /columns -> Status: Bad Request Duration: 304µs
+[ACCESS] 2026/05/22 21:59:50 GET /boards -> Status: OK Duration: 2.7294ms
+[ACCESS] 2026/05/22 21:59:53 GET /columns -> Status: Bad Request Duration: 344.7µs
+[ACCESS] 2026/05/22 22:02:56 GET /boards -> Status: OK Duration: 5.9856ms
+[ACCESS] 2026/05/22 22:03:07 POST /boards -> Status: Created Duration: 16.1746ms
+[ACCESS] 2026/05/22 22:03:07 GET /boards -> Status: OK Duration: 5.7113ms
+[ACCESS] 2026/05/22 22:03:16 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:04:14 POST /boards -> Status: Created Duration: 15.4195ms
+[ACCESS] 2026/05/22 22:04:34 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:05:08 GET /boards -> Status: OK Duration: 3.5237ms
+[ACCESS] 2026/05/22 22:07:06 POST /boards -> Status: Created Duration: 14.5222ms
+[ACCESS] 2026/05/22 22:07:18 GET /boards -> Status: OK Duration: 2.7583ms
+[ACCESS] 2026/05/22 22:07:19 GET /boards -> Status: OK Duration: 2.552ms
+[ACCESS] 2026/05/22 22:07:20 GET /boards -> Status: OK Duration: 3.3451ms
+[ACCESS] 2026/05/22 22:07:20 GET /boards -> Status: OK Duration: 3.6273ms
+[ACCESS] 2026/05/22 22:09:26 GET /boards -> Status: OK Duration: 5.3942ms
+[ACCESS] 2026/05/22 22:09:28 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:09:31 GET /boards -> Status: OK Duration: 4.5026ms
+[ACCESS] 2026/05/22 22:09:33 GET /columns -> Status: Bad Request Duration: 79.7µs
+[ACCESS] 2026/05/22 22:09:34 GET /boards -> Status: OK Duration: 3.9837ms
+[ACCESS] 2026/05/22 22:09:46 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:10:48 GET /boards -> Status: OK Duration: 3.0596ms
+[ACCESS] 2026/05/22 22:10:52 POST /boards -> Status: Created Duration: 16.5415ms
+[ACCESS] 2026/05/22 22:10:52 GET /boards -> Status: OK Duration: 10.594ms
+[ACCESS] 2026/05/22 22:10:53 GET /columns -> Status: Bad Request Duration: 195.1µs
+[ACCESS] 2026/05/22 22:12:44 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:14:42 POST /columns -> Status: OK Duration: 15.3614ms
+[ACCESS] 2026/05/22 22:14:42 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:27:26 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:29:58 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:30:00 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:30:05 GET /columns -> Status: Bad Request Duration: 803.4µs
+[ACCESS] 2026/05/22 22:30:10 GET /columns -> Status: Bad Request Duration: 206.2µs
+[ACCESS] 2026/05/22 22:30:16 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:30:33 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:30:38 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:30:43 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:30:57 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:32:01 POST /register -> Status: Created Duration: 181.5993ms
+[ACCESS] 2026/05/22 22:33:11 POST /login -> Status: OK Duration: 85.2178ms
+[ACCESS] 2026/05/22 22:34:05 POST /boards -> Status: Created Duration: 17.2691ms
+[ACCESS] 2026/05/22 22:34:23 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:42:48 POST /columns -> Status: OK Duration: 16.887ms
+[ACCESS] 2026/05/22 22:42:56 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:42:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:43:00 GET /columns -> Status: Bad Request Duration: 211.6µs
+[ACCESS] 2026/05/22 22:43:00 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:43:03 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:43:03 GET /columns -> Status: Bad Request Duration: 158.2µs
+[ACCESS] 2026/05/22 22:43:03 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:43:04 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:43:04 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:49:25 GET /boards -> Status: OK Duration: 4.219ms
+[ACCESS] 2026/05/22 22:49:36 GET /columns -> Status: Bad Request Duration: 501.6µs
+[ACCESS] 2026/05/22 22:49:38 GET /boards -> Status: OK Duration: 4.115ms
+[ACCESS] 2026/05/22 22:49:39 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:49:41 GET /boards -> Status: OK Duration: 5.183ms
+[ACCESS] 2026/05/22 22:49:42 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:49:43 GET /boards -> Status: OK Duration: 4.8444ms
+[ACCESS] 2026/05/22 22:50:49 GET /boards -> Status: OK Duration: 2.1337ms
+[ACCESS] 2026/05/22 22:51:09 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:51:11 GET /boards -> Status: OK Duration: 4.1116ms
+[ACCESS] 2026/05/22 22:51:16 POST /boards -> Status: Created Duration: 17.778ms
+[ACCESS] 2026/05/22 22:51:16 GET /boards -> Status: OK Duration: 102.9632ms
+[ACCESS] 2026/05/22 22:51:18 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:51:20 GET /boards -> Status: OK Duration: 2.0041ms
+[ACCESS] 2026/05/22 22:51:44 GET /columns -> Status: Bad Request Duration: 345.8µs
+[ACCESS] 2026/05/22 22:53:30 GET /boards -> Status: OK Duration: 2.3706ms
+[ACCESS] 2026/05/22 22:53:37 POST /boards -> Status: Created Duration: 15.8777ms
+[ACCESS] 2026/05/22 22:53:37 GET /boards -> Status: OK Duration: 5.7514ms
+[ACCESS] 2026/05/22 22:53:39 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:54:39 GET /boards -> Status: OK Duration: 1.6784ms
+[ACCESS] 2026/05/22 22:56:40 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/22 22:56:42 GET /boards -> Status: OK Duration: 4.7489ms
+[ACCESS] 2026/05/23 00:24:01 POST /register -> Status: Created Duration: 118.1162ms
+[ACCESS] 2026/05/23 00:24:42 POST /login -> Status: OK Duration: 71.9681ms
+[ACCESS] 2026/05/23 00:26:16 POST /boards -> Status: Created Duration: 29.6501ms
+[ACCESS] 2026/05/23 00:26:49 POST /columns -> Status: Forbidden Duration: 9.0088ms
+[ACCESS] 2026/05/23 00:27:10 POST /boards -> Status: Created Duration: 5.5537ms
+[ACCESS] 2026/05/23 00:27:23 POST /columns -> Status: OK Duration: 18.8542ms
+[ACCESS] 2026/05/23 00:27:40 POST /columns -> Status: OK Duration: 2.8725ms
+[ACCESS] 2026/05/23 00:27:57 POST /columns -> Status: OK Duration: 1.166ms
+[ACCESS] 2026/05/23 00:28:26 POST /tasks -> Status: OK Duration: 14.4849ms
+[ACCESS] 2026/05/23 00:31:17 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 00:31:32 GET /boards -> Status: OK Duration: 16.9321ms
+[ACCESS] 2026/05/23 00:31:35 GET /columns -> Status: Bad Request Duration: 504.2µs
+[ACCESS] 2026/05/23 00:32:57 GET /boards -> Status: OK Duration: 3.6274ms
+[ACCESS] 2026/05/23 00:34:04 GET /boards -> Status: OK Duration: 2.7698ms
+[ACCESS] 2026/05/23 00:35:04 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:36:27 POST /boards -> Status: Created Duration: 15.4932ms
+[ACCESS] 2026/05/23 00:36:30 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:30 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:30 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:30 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:31 GET /columns -> Status: Bad Request Duration: 212.4µs
+[ACCESS] 2026/05/23 00:40:31 GET /columns -> Status: Bad Request Duration: 73.9µs
+[ACCESS] 2026/05/23 00:40:31 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:37 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:37 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:37 GET /columns -> Status: Bad Request Duration: 109.9µs
+[ACCESS] 2026/05/23 00:40:42 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:42 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:42 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:47 GET /columns -> Status: Bad Request Duration: 5.8283ms
+[ACCESS] 2026/05/23 00:40:47 GET /columns -> Status: Bad Request Duration: 195µs
+[ACCESS] 2026/05/23 00:40:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:52 GET /columns -> Status: Bad Request Duration: 9.2216ms
+[ACCESS] 2026/05/23 00:40:52 GET /columns -> Status: Bad Request Duration: 498.6µs
+[ACCESS] 2026/05/23 00:40:52 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:57 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:57 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:40:57 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:02 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:03 GET /columns -> Status: Bad Request Duration: 504.1µs
+[ACCESS] 2026/05/23 00:41:03 GET /columns -> Status: Bad Request Duration: 92.4µs
+[ACCESS] 2026/05/23 00:41:08 GET /columns -> Status: Bad Request Duration: 3.526ms
+[ACCESS] 2026/05/23 00:41:08 GET /columns -> Status: Bad Request Duration: 235µs
+[ACCESS] 2026/05/23 00:41:08 GET /columns -> Status: Bad Request Duration: 77.8µs
+[ACCESS] 2026/05/23 00:41:13 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:13 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:13 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:18 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:18 GET /columns -> Status: Bad Request Duration: 1.5853ms
+[ACCESS] 2026/05/23 00:41:18 GET /columns -> Status: Bad Request Duration: 3.8894ms
+[ACCESS] 2026/05/23 00:41:23 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:23 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:23 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:28 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:28 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:29 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:33 GET /columns -> Status: Bad Request Duration: 9.1972ms
+[ACCESS] 2026/05/23 00:41:34 GET /columns -> Status: Bad Request Duration: 255.5µs
+[ACCESS] 2026/05/23 00:41:34 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:39 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:39 GET /columns -> Status: Bad Request Duration: 6.579ms
+[ACCESS] 2026/05/23 00:41:39 GET /columns -> Status: Bad Request Duration: 1.4552ms
+[ACCESS] 2026/05/23 00:41:44 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:44 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:44 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:49 GET /columns -> Status: Bad Request Duration: 11.6514ms
+[ACCESS] 2026/05/23 00:41:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:49 GET /columns -> Status: Bad Request Duration: 1.5919ms
+[ACCESS] 2026/05/23 00:41:54 GET /columns -> Status: Bad Request Duration: 5.8507ms
+[ACCESS] 2026/05/23 00:41:54 GET /columns -> Status: Bad Request Duration: 5.6864ms
+[ACCESS] 2026/05/23 00:41:55 GET /columns -> Status: Bad Request Duration: 1.6777ms
+[ACCESS] 2026/05/23 00:41:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:41:59 GET /columns -> Status: Bad Request Duration: 346µs
+[ACCESS] 2026/05/23 00:42:05 GET /columns -> Status: Bad Request Duration: 206µs
+[ACCESS] 2026/05/23 00:42:05 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:05 GET /columns -> Status: Bad Request Duration: 3.8018ms
+[ACCESS] 2026/05/23 00:42:10 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:10 GET /columns -> Status: Bad Request Duration: 15.0509ms
+[ACCESS] 2026/05/23 00:42:10 GET /columns -> Status: Bad Request Duration: 6.9033ms
+[ACCESS] 2026/05/23 00:42:15 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:15 GET /columns -> Status: Bad Request Duration: 3.2444ms
+[ACCESS] 2026/05/23 00:42:15 GET /columns -> Status: Bad Request Duration: 1.8332ms
+[ACCESS] 2026/05/23 00:42:20 GET /columns -> Status: Bad Request Duration: 8.8984ms
+[ACCESS] 2026/05/23 00:42:20 GET /columns -> Status: Bad Request Duration: 8.645ms
+[ACCESS] 2026/05/23 00:42:20 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:30 GET /columns -> Status: Bad Request Duration: 2.5294ms
+[ACCESS] 2026/05/23 00:42:31 GET /columns -> Status: Bad Request Duration: 12.2011ms
+[ACCESS] 2026/05/23 00:42:31 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:41 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:41 GET /columns -> Status: Bad Request Duration: 155.5µs
+[ACCESS] 2026/05/23 00:42:41 GET /columns -> Status: Bad Request Duration: 111.4µs
+[ACCESS] 2026/05/23 00:42:46 GET /columns -> Status: Bad Request Duration: 18.4577ms
+[ACCESS] 2026/05/23 00:42:46 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:47 GET /columns -> Status: Bad Request Duration: 400.1µs
+[ACCESS] 2026/05/23 00:42:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:42:56 GET /columns -> Status: Bad Request Duration: 605.5µs
+[ACCESS] 2026/05/23 00:42:57 GET /columns -> Status: Bad Request Duration: 2.0966ms
+[ACCESS] 2026/05/23 00:42:57 GET /columns -> Status: Bad Request Duration: 474.2µs
+[ACCESS] 2026/05/23 00:43:02 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:02 GET /columns -> Status: Bad Request Duration: 623.4µs
+[ACCESS] 2026/05/23 00:43:02 GET /columns -> Status: Bad Request Duration: 60.2µs
+[ACCESS] 2026/05/23 00:43:38 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:38 GET /columns -> Status: Bad Request Duration: 52.5µs
+[ACCESS] 2026/05/23 00:43:38 GET /columns -> Status: Bad Request Duration: 143.3µs
+[ACCESS] 2026/05/23 00:43:43 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:43 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:43 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:48 GET /columns -> Status: Bad Request Duration: 9.8273ms
+[ACCESS] 2026/05/23 00:43:48 GET /columns -> Status: Bad Request Duration: 2.9499ms
+[ACCESS] 2026/05/23 00:43:54 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:54 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:54 GET /columns -> Status: Bad Request Duration: 175.7µs
+[ACCESS] 2026/05/23 00:43:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:43:59 GET /columns -> Status: Bad Request Duration: 13.1642ms
+[ACCESS] 2026/05/23 00:43:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:45:02 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:45:02 GET /columns -> Status: Bad Request Duration: 230.1µs
+[ACCESS] 2026/05/23 00:45:02 GET /columns -> Status: Bad Request Duration: 66.8µs
+[ACCESS] 2026/05/23 00:45:07 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:45:07 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:45:07 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:46:19 GET /columns -> Status: Bad Request Duration: 296.1µs
+[ACCESS] 2026/05/23 00:46:19 GET /columns -> Status: Bad Request Duration: 61.2µs
+[ACCESS] 2026/05/23 00:46:19 GET /columns -> Status: Bad Request Duration: 252.1µs
+[ACCESS] 2026/05/23 00:46:25 GET /columns -> Status: Bad Request Duration: 54.1µs
+[ACCESS] 2026/05/23 00:46:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:46:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:46:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:46:36 GET /columns -> Status: Bad Request Duration: 51.6µs
+[ACCESS] 2026/05/23 00:46:36 GET /columns -> Status: Bad Request Duration: 175µs
+[ACCESS] 2026/05/23 00:46:41 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:46:41 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:46:41 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:48:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:48:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:48:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:48:55 GET /boards -> Status: OK Duration: 1.9303ms
+[ACCESS] 2026/05/23 00:49:01 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:05 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:09 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:20 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:21 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:21 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:22 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:24 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:41 GET /columns -> Status: Bad Request Duration: 158.2µs
+[ACCESS] 2026/05/23 00:49:46 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:49:57 GET /columns -> Status: Bad Request Duration: 182.9µs
+[ACCESS] 2026/05/23 00:50:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:50:41 GET /columns -> Status: Bad Request Duration: 6.569ms
+[ACCESS] 2026/05/23 00:50:47 GET /columns -> Status: Bad Request Duration: 7.53ms
+[ACCESS] 2026/05/23 00:50:52 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:50:57 GET /columns -> Status: Bad Request Duration: 5.8701ms
+[ACCESS] 2026/05/23 00:51:02 GET /columns -> Status: Bad Request Duration: 6.1764ms
+[ACCESS] 2026/05/23 00:51:08 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:13 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:18 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:23 GET /columns -> Status: Bad Request Duration: 5.0851ms
+[ACCESS] 2026/05/23 00:51:28 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:33 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:39 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:44 GET /columns -> Status: Bad Request Duration: 7.6633ms
+[ACCESS] 2026/05/23 00:51:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:54 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:51:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:52:04 GET /columns -> Status: Bad Request Duration: 4.4189ms
+[ACCESS] 2026/05/23 00:52:31 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 00:52:41 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 00:57:44 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:16 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:37 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:45 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:46 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:46 GET /columns -> Status: Bad Request Duration: 524.7µs
+[ACCESS] 2026/05/23 00:58:46 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:47 GET /columns -> Status: Bad Request Duration: 429.8µs
+[ACCESS] 2026/05/23 00:58:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 00:58:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:01:40 GET /boards -> Status: OK Duration: 2.7128ms
+[ACCESS] 2026/05/23 01:02:22 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:02:22 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:02:27 GET /columns -> Status: Bad Request Duration: 10.6992ms
+[ACCESS] 2026/05/23 01:02:28 GET /columns -> Status: Bad Request Duration: 2.5871ms
+[ACCESS] 2026/05/23 01:03:34 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:03:34 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:03:40 GET /columns -> Status: Bad Request Duration: 161.2µs
+[ACCESS] 2026/05/23 01:03:40 GET /columns -> Status: Bad Request Duration: 68.8µs
+[ACCESS] 2026/05/23 01:03:53 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:03:53 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:03:57 GET /boards -> Status: OK Duration: 1.5023ms
+[ACCESS] 2026/05/23 01:04:00 GET /boards -> Status: OK Duration: 2.2628ms
+[ACCESS] 2026/05/23 01:04:02 GET /columns -> Status: Bad Request Duration: 116.7µs
+[ACCESS] 2026/05/23 01:05:30 GET /boards -> Status: OK Duration: 4.0362ms
+[ACCESS] 2026/05/23 01:05:31 GET /columns -> Status: Bad Request Duration: 923µs
+[ACCESS] 2026/05/23 01:06:14 GET /boards -> Status: OK Duration: 1.1445ms
+[ACCESS] 2026/05/23 01:06:15 GET /columns -> Status: Bad Request Duration: 2.471ms
+[ACCESS] 2026/05/23 01:07:02 GET /boards -> Status: OK Duration: 2.6211ms
+[ACCESS] 2026/05/23 01:07:08 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:07:11 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:07:11 GET /columns -> Status: Bad Request Duration: 511.7µs
+[ACCESS] 2026/05/23 01:07:11 GET /columns -> Status: Bad Request Duration: 99.3µs
+[ACCESS] 2026/05/23 01:07:12 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:07:12 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:07:12 GET /columns -> Status: Bad Request Duration: 780.5µs
+[ACCESS] 2026/05/23 01:07:12 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:07:13 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:07:13 GET /columns -> Status: Bad Request Duration: 501µs
+[ACCESS] 2026/05/23 01:07:13 GET /columns -> Status: Bad Request Duration: 234.6µs
+[ACCESS] 2026/05/23 01:07:13 GET /columns -> Status: Bad Request Duration: 541.5µs
+[ACCESS] 2026/05/23 01:08:44 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:11 GET /boards -> Status: OK Duration: 2.0008ms
+[ACCESS] 2026/05/23 01:12:13 GET /columns -> Status: Bad Request Duration: 117.3µs
+[ACCESS] 2026/05/23 01:12:22 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:24 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:26 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:30 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:32 GET /boards -> Status: OK Duration: 1.9132ms
+[ACCESS] 2026/05/23 01:12:33 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:36 GET /columns -> Status: Bad Request Duration: 76.3µs
+[ACCESS] 2026/05/23 01:12:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:41 GET /columns -> Status: Bad Request Duration: 5.2508ms
+[ACCESS] 2026/05/23 01:12:41 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:12:47 GET /columns -> Status: Bad Request Duration: 11.4153ms
+[ACCESS] 2026/05/23 01:12:47 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:13:43 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:13:43 GET /columns -> Status: Bad Request Duration: 199.2µs
+[ACCESS] 2026/05/23 01:13:48 GET /columns -> Status: Bad Request Duration: 12.2238ms
+[ACCESS] 2026/05/23 01:13:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:04 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:04 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:10 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:10 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:12 GET /columns -> Status: Bad Request Duration: 278.5µs
+[ACCESS] 2026/05/23 01:14:12 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:15 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:15 GET /columns -> Status: Bad Request Duration: 504.7µs
+[ACCESS] 2026/05/23 01:14:20 GET /boards -> Status: OK Duration: 860.5µs
+[ACCESS] 2026/05/23 01:14:24 GET /boards -> Status: OK Duration: 2.8758ms
+[ACCESS] 2026/05/23 01:14:24 GET /boards -> Status: OK Duration: 5.6484ms
+[ACCESS] 2026/05/23 01:14:24 GET /boards -> Status: OK Duration: 5.9192ms
+[ACCESS] 2026/05/23 01:14:25 GET /boards -> Status: OK Duration: 1.1025ms
+[ACCESS] 2026/05/23 01:14:25 GET /boards -> Status: OK Duration: 1.827ms
+[ACCESS] 2026/05/23 01:14:25 GET /boards -> Status: OK Duration: 2.1075ms
+[ACCESS] 2026/05/23 01:14:25 GET /boards -> Status: OK Duration: 1.9842ms
+[ACCESS] 2026/05/23 01:14:25 GET /boards -> Status: OK Duration: 3.3797ms
+[ACCESS] 2026/05/23 01:14:27 GET /columns -> Status: Bad Request Duration: 4.1979ms
+[ACCESS] 2026/05/23 01:14:39 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:44 GET /columns -> Status: Bad Request Duration: 1.2843ms
+[ACCESS] 2026/05/23 01:14:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:14:49 GET /columns -> Status: Bad Request Duration: 5.0277ms
+[ACCESS] 2026/05/23 01:14:53 GET /boards -> Status: OK Duration: 2.7183ms
+[ACCESS] 2026/05/23 01:14:54 GET /columns -> Status: Bad Request Duration: 656.1µs
+[ACCESS] 2026/05/23 01:14:57 GET /boards -> Status: OK Duration: 3.4986ms
+[ACCESS] 2026/05/23 01:15:05 POST /boards -> Status: Created Duration: 24.6257ms
+[ACCESS] 2026/05/23 01:15:05 GET /boards -> Status: OK Duration: 6.6714ms
+[ACCESS] 2026/05/23 01:15:07 GET /columns -> Status: Bad Request Duration: 148.9µs
+[ACCESS] 2026/05/23 01:15:10 GET /boards -> Status: OK Duration: 2.168ms
+[ACCESS] 2026/05/23 01:18:24 GET /boards -> Status: OK Duration: 2.0821ms
+[ACCESS] 2026/05/23 01:18:29 GET /boards -> Status: OK Duration: 2.7731ms
+[ACCESS] 2026/05/23 01:19:50 GET /boards -> Status: OK Duration: 3.0727ms
+[ACCESS] 2026/05/23 01:19:55 GET /boards -> Status: OK Duration: 1.905ms
+[ACCESS] 2026/05/23 01:19:55 GET /boards -> Status: OK Duration: 8.2472ms
+[ACCESS] 2026/05/23 01:20:00 GET /boards -> Status: OK Duration: 9.4131ms
+[ACCESS] 2026/05/23 01:20:05 GET /boards -> Status: OK Duration: 2.2081ms
+[ACCESS] 2026/05/23 01:20:10 GET /boards -> Status: OK Duration: 10.336ms
+[ACCESS] 2026/05/23 01:20:14 GET /boards -> Status: OK Duration: 4.765ms
+[ACCESS] 2026/05/23 01:20:16 GET /boards -> Status: OK Duration: 7.2026ms
+[ACCESS] 2026/05/23 01:20:21 GET /boards -> Status: OK Duration: 6.007ms
+[ACCESS] 2026/05/23 01:20:26 GET /boards -> Status: OK Duration: 1.6134ms
+[ACCESS] 2026/05/23 01:20:26 GET /boards -> Status: OK Duration: 2.1246ms
+[ACCESS] 2026/05/23 01:20:27 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:20:29 GET /boards -> Status: OK Duration: 3.127ms
+[ACCESS] 2026/05/23 01:20:43 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:20:45 GET /columns -> Status: Bad Request Duration: 209.8µs
+[ACCESS] 2026/05/23 01:20:45 GET /boards -> Status: OK Duration: 3.6591ms
+[ACCESS] 2026/05/23 01:21:48 GET /boards -> Status: OK Duration: 3.9256ms
+[ACCESS] 2026/05/23 01:21:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:21:53 GET /boards -> Status: OK Duration: 2.1736ms
+[ACCESS] 2026/05/23 01:21:53 GET /columns -> Status: Bad Request Duration: 113.6µs
+[ACCESS] 2026/05/23 01:23:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:23:25 GET /boards -> Status: OK Duration: 3.4094ms
+[ACCESS] 2026/05/23 01:23:30 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:23:30 GET /boards -> Status: OK Duration: 3.9208ms
+[ACCESS] 2026/05/23 01:23:36 GET /columns -> Status: Bad Request Duration: 7.9725ms
+[ACCESS] 2026/05/23 01:23:36 GET /boards -> Status: OK Duration: 4.2203ms
+[ACCESS] 2026/05/23 01:23:41 GET /boards -> Status: OK Duration: 6.48ms
+[ACCESS] 2026/05/23 01:23:41 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:25:48 GET /boards -> Status: OK Duration: 2.7229ms
+[ACCESS] 2026/05/23 01:25:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:25:53 GET /boards -> Status: OK Duration: 3.062ms
+[ACCESS] 2026/05/23 01:25:53 GET /columns -> Status: Bad Request Duration: 168.6µs
+[ACCESS] 2026/05/23 01:25:58 GET /boards -> Status: OK Duration: 3.491ms
+[ACCESS] 2026/05/23 01:25:58 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:25:59 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:25:59 GET /boards -> Status: OK Duration: 2.2216ms
+[ACCESS] 2026/05/23 01:26:04 GET /boards -> Status: OK Duration: 2.2001ms
+[ACCESS] 2026/05/23 01:26:06 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:26:07 GET /boards -> Status: OK Duration: 2.0317ms
+[ACCESS] 2026/05/23 01:26:08 GET /columns -> Status: Bad Request Duration: 105.1µs
+[ACCESS] 2026/05/23 01:26:10 GET /boards -> Status: OK Duration: 2.9919ms
+[ACCESS] 2026/05/23 01:26:13 GET /boards -> Status: OK Duration: 3.2457ms
+[ACCESS] 2026/05/23 01:26:13 GET /boards -> Status: OK Duration: 1.8853ms
+[ACCESS] 2026/05/23 01:26:13 GET /boards -> Status: OK Duration: 4.4101ms
+[ACCESS] 2026/05/23 01:26:14 GET /boards -> Status: OK Duration: 2.5803ms
+[ACCESS] 2026/05/23 01:26:14 GET /boards -> Status: OK Duration: 2.738ms
+[ACCESS] 2026/05/23 01:26:14 GET /boards -> Status: OK Duration: 3.2343ms
+[ACCESS] 2026/05/23 01:26:16 GET /columns -> Status: Bad Request Duration: 95.6µs
+[ACCESS] 2026/05/23 01:28:58 GET /boards -> Status: OK Duration: 7.9929ms
+[ACCESS] 2026/05/23 01:29:01 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:29:43 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 01:32:58 GET /boards -> Status: OK Duration: 2.864ms
+[ACCESS] 2026/05/23 01:33:00 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:33:07 POST /columns -> Status: OK Duration: 26.7479ms
+[ACCESS] 2026/05/23 01:33:07 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:33:10 GET /boards -> Status: OK Duration: 3.255ms
+[ACCESS] 2026/05/23 01:33:11 GET /columns -> Status: Bad Request Duration: 493.6µs
+[ACCESS] 2026/05/23 01:40:31 GET /boards -> Status: OK Duration: 8.439ms
+[ACCESS] 2026/05/23 01:40:35 GET /boards -> Status: OK Duration: 2.4638ms
+[ACCESS] 2026/05/23 01:40:35 GET /boards -> Status: OK Duration: 2.5486ms
+[ACCESS] 2026/05/23 01:40:35 GET /boards -> Status: OK Duration: 2.3649ms
+[ACCESS] 2026/05/23 01:40:37 GET /columns -> Status: Bad Request Duration: 1.4169ms
+[ACCESS] 2026/05/23 01:41:09 GET /columns -> Status: Bad Request Duration: 182.9µs
+[ACCESS] 2026/05/23 01:41:14 GET /boards -> Status: OK Duration: 2.5447ms
+[ACCESS] 2026/05/23 01:41:15 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:41:17 GET /boards -> Status: OK Duration: 4.7477ms
+[ACCESS] 2026/05/23 01:41:18 GET /columns -> Status: Bad Request Duration: 5.1964ms
+[ACCESS] 2026/05/23 01:41:39 GET /boards -> Status: OK Duration: 3.4404ms
+[ACCESS] 2026/05/23 01:43:13 GET /columns -> Status: Bad Request Duration: 169.9µs
+[ACCESS] 2026/05/23 01:43:15 GET /boards -> Status: OK Duration: 3.6388ms
+[ACCESS] 2026/05/23 01:43:29 GET /columns -> Status: Bad Request Duration: 4.1909ms
+[ACCESS] 2026/05/23 01:44:04 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 01:44:46 GET /boards -> Status: OK Duration: 1.5997ms
+[ACCESS] 2026/05/23 01:44:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 01:44:49 GET /boards -> Status: OK Duration: 1.7877ms
+[ACCESS] 2026/05/23 01:44:50 GET /columns -> Status: Bad Request Duration: 4.9683ms
+[ACCESS] 2026/05/23 01:44:54 GET /boards -> Status: OK Duration: 5.1106ms
+[ACCESS] 2026/05/23 01:44:55 GET /columns -> Status: Bad Request Duration: 7.4142ms
+[ACCESS] 2026/05/23 01:45:23 GET /columns -> Status: Bad Request Duration: 3.606ms
+[ACCESS] 2026/05/23 02:18:17 GET /boards -> Status: OK Duration: 68.5988ms
+[ACCESS] 2026/05/23 02:18:20 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:23 GET /boards -> Status: OK Duration: 1.3989ms
+[ACCESS] 2026/05/23 02:18:24 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:27 GET /boards -> Status: OK Duration: 1.7889ms
+[ACCESS] 2026/05/23 02:18:36 POST /boards -> Status: Created Duration: 26.8632ms
+[ACCESS] 2026/05/23 02:18:36 GET /boards -> Status: OK Duration: 1.183ms
+[ACCESS] 2026/05/23 02:18:37 GET /columns -> Status: Bad Request Duration: 264.4µs
+[ACCESS] 2026/05/23 02:18:48 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:50 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:18:58 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:20:27 GET /boards -> Status: OK Duration: 3.2807ms
+[ACCESS] 2026/05/23 02:20:28 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:20:32 GET /boards -> Status: OK Duration: 1.5431ms
+[ACCESS] 2026/05/23 02:20:36 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:21:49 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:21:51 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:21:56 GET /columns -> Status: Bad Request Duration: 1.3153ms
+[ACCESS] 2026/05/23 02:22:01 GET /columns -> Status: Bad Request Duration: 9.5891ms
+[ACCESS] 2026/05/23 02:23:14 GET /boards -> Status: OK Duration: 6.9534ms
+[ACCESS] 2026/05/23 02:23:24 POST /boards -> Status: Created Duration: 24.9958ms
+[ACCESS] 2026/05/23 02:23:24 GET /boards -> Status: OK Duration: 2.7306ms
+[ACCESS] 2026/05/23 02:23:25 GET /columns -> Status: Bad Request Duration: 0s
+[ACCESS] 2026/05/23 02:42:21 GET /columns -> Status: OK Duration: 44.6878ms
+[ACCESS] 2026/05/23 02:42:35 POST /columns -> Status: OK Duration: 38.969ms
+[ACCESS] 2026/05/23 02:42:35 GET /columns -> Status: OK Duration: 3.8032ms
+[ACCESS] 2026/05/23 02:42:35 GET /tasks -> Status: OK Duration: 19.4572ms
+[ACCESS] 2026/05/23 02:42:44 POST /tasks -> Status: OK Duration: 22.3044ms
+[ACCESS] 2026/05/23 02:42:44 GET /columns -> Status: OK Duration: 6.4505ms
+[ACCESS] 2026/05/23 02:42:44 GET /tasks -> Status: OK Duration: 65.9793ms
+[ACCESS] 2026/05/23 02:43:02 POST /tasks -> Status: OK Duration: 16.0624ms
+[ACCESS] 2026/05/23 02:43:02 GET /columns -> Status: OK Duration: 2.4914ms
+[ACCESS] 2026/05/23 02:43:02 GET /tasks -> Status: OK Duration: 4.2519ms
+[ACCESS] 2026/05/23 02:43:13 POST /columns -> Status: OK Duration: 14.31ms
+[ACCESS] 2026/05/23 02:43:13 GET /columns -> Status: OK Duration: 4.5996ms
+[ACCESS] 2026/05/23 02:43:13 GET /tasks -> Status: OK Duration: 5.0034ms
+[ACCESS] 2026/05/23 02:43:13 GET /tasks -> Status: OK Duration: 2.0706ms
+[ACCESS] 2026/05/23 02:43:15 PUT /tasks/32 -> Status: OK Duration: 26.9566ms
+[ACCESS] 2026/05/23 02:43:15 GET /columns -> Status: OK Duration: 1.5274ms
+[ACCESS] 2026/05/23 02:43:15 GET /tasks -> Status: OK Duration: 0s
+[ACCESS] 2026/05/23 02:43:15 GET /tasks -> Status: OK Duration: 1.1277ms
+[ACCESS] 2026/05/23 02:43:24 POST /columns -> Status: OK Duration: 10.8375ms
+[ACCESS] 2026/05/23 02:43:24 GET /columns -> Status: OK Duration: 2.0582ms
+[ACCESS] 2026/05/23 02:43:24 GET /tasks -> Status: OK Duration: 2.1704ms
+[ACCESS] 2026/05/23 02:43:24 GET /tasks -> Status: OK Duration: 1.5683ms
+[ACCESS] 2026/05/23 02:43:24 GET /tasks -> Status: OK Duration: 3.6451ms
+[ACCESS] 2026/05/23 02:43:26 PUT /tasks/32 -> Status: OK Duration: 7.0045ms
+[ACCESS] 2026/05/23 02:43:26 GET /columns -> Status: OK Duration: 1.5427ms
+[ACCESS] 2026/05/23 02:43:26 GET /tasks -> Status: OK Duration: 7.5333ms
+[ACCESS] 2026/05/23 02:43:26 GET /tasks -> Status: OK Duration: 838.8µs
+[ACCESS] 2026/05/23 02:43:26 GET /tasks -> Status: OK Duration: 3.336ms
+[ACCESS] 2026/05/23 02:44:12 GET /boards -> Status: OK Duration: 3.0894ms
+[ACCESS] 2026/05/23 02:44:13 GET /columns -> Status: OK Duration: 2.4939ms
+[ACCESS] 2026/05/23 02:44:13 GET /tasks -> Status: OK Duration: 2.6076ms
+[ACCESS] 2026/05/23 02:44:13 GET /tasks -> Status: OK Duration: 2.2054ms
+[ACCESS] 2026/05/23 02:44:13 GET /tasks -> Status: OK Duration: 1.775ms
+[ACCESS] 2026/05/23 02:44:15 GET /boards -> Status: OK Duration: 7.1454ms
+[ACCESS] 2026/05/23 02:44:15 GET /columns -> Status: OK Duration: 2.9835ms
+[ACCESS] 2026/05/23 02:44:15 GET /tasks -> Status: OK Duration: 2.1551ms
+[ACCESS] 2026/05/23 02:44:18 GET /boards -> Status: OK Duration: 2.0731ms
+[ACCESS] 2026/05/23 02:44:19 GET /columns -> Status: OK Duration: 3.2506ms
+[ACCESS] 2026/05/23 02:44:19 GET /tasks -> Status: OK Duration: 2.0596ms
+[ACCESS] 2026/05/23 02:44:19 GET /tasks -> Status: OK Duration: 1.4586ms
+[ACCESS] 2026/05/23 02:44:19 GET /tasks -> Status: OK Duration: 743.5µs
+[ACCESS] 2026/05/23 02:49:13 GET /boards -> Status: OK Duration: 3.0895ms
+[ACCESS] 2026/05/23 02:49:17 GET /columns -> Status: OK Duration: 3.0973ms
+[ACCESS] 2026/05/23 02:49:17 GET /tasks -> Status: OK Duration: 5.427ms
+[ACCESS] 2026/05/23 02:49:17 GET /tasks -> Status: OK Duration: 3.5867ms
+[ACCESS] 2026/05/23 02:49:17 GET /tasks -> Status: OK Duration: 2.0967ms
+[ACCESS] 2026/05/23 02:49:22 PUT /tasks/32 -> Status: OK Duration: 18.6153ms
+[ACCESS] 2026/05/23 02:49:22 GET /columns -> Status: OK Duration: 3.7171ms
+[ACCESS] 2026/05/23 02:49:22 GET /tasks -> Status: OK Duration: 5.5389ms
+[ACCESS] 2026/05/23 02:49:22 GET /tasks -> Status: OK Duration: 4.1621ms
+[ACCESS] 2026/05/23 02:49:22 GET /tasks -> Status: OK Duration: 2.2017ms
+[ACCESS] 2026/05/23 02:49:26 GET /boards -> Status: OK Duration: 2.4339ms
+[ACCESS] 2026/05/23 02:49:39 GET /columns -> Status: OK Duration: 3.6391ms
+[ACCESS] 2026/05/23 02:49:39 GET /tasks -> Status: OK Duration: 2.148ms
+[ACCESS] 2026/05/23 02:49:39 GET /tasks -> Status: OK Duration: 2.3613ms
+[ACCESS] 2026/05/23 02:49:39 GET /tasks -> Status: OK Duration: 2.0088ms
+[ACCESS] 2026/05/23 02:52:16 GET /columns -> Status: OK Duration: 3.0862ms
+[ACCESS] 2026/05/23 02:52:16 GET /tasks -> Status: OK Duration: 1.2396ms
+[ACCESS] 2026/05/23 02:52:16 GET /tasks -> Status: OK Duration: 670.5µs
+[ACCESS] 2026/05/23 02:52:16 GET /tasks -> Status: OK Duration: 1.8579ms
+[ACCESS] 2026/05/23 02:52:21 GET /columns -> Status: OK Duration: 1.6788ms
+[ACCESS] 2026/05/23 02:52:21 GET /tasks -> Status: OK Duration: 1.375ms
+[ACCESS] 2026/05/23 02:52:21 GET /tasks -> Status: OK Duration: 1.6333ms
+[ACCESS] 2026/05/23 02:52:21 GET /tasks -> Status: OK Duration: 789.6µs
+[ACCESS] 2026/05/23 02:53:08 GET /columns -> Status: OK Duration: 3.973ms
+[ACCESS] 2026/05/23 02:53:08 GET /tasks -> Status: OK Duration: 695.9µs
+[ACCESS] 2026/05/23 02:53:08 GET /tasks -> Status: OK Duration: 1.1648ms
+[ACCESS] 2026/05/23 02:53:08 GET /tasks -> Status: OK Duration: 676.2µs
+[ACCESS] 2026/05/23 02:53:13 GET /columns -> Status: OK Duration: 2.7761ms
+[ACCESS] 2026/05/23 02:53:13 GET /tasks -> Status: OK Duration: 1.4346ms
+[ACCESS] 2026/05/23 02:53:13 GET /tasks -> Status: OK Duration: 2.8042ms
+[ACCESS] 2026/05/23 02:53:13 GET /tasks -> Status: OK Duration: 852.4µs
+[ACCESS] 2026/05/23 02:53:18 GET /columns -> Status: OK Duration: 5.2431ms
+[ACCESS] 2026/05/23 02:53:18 GET /tasks -> Status: OK Duration: 2.2387ms
+[ACCESS] 2026/05/23 02:53:18 GET /tasks -> Status: OK Duration: 1.3203ms
+[ACCESS] 2026/05/23 02:53:18 GET /tasks -> Status: OK Duration: 3.0339ms
+[ACCESS] 2026/05/23 02:53:22 GET /columns -> Status: OK Duration: 4.6632ms
+[ACCESS] 2026/05/23 02:53:22 GET /tasks -> Status: OK Duration: 1.5014ms
+[ACCESS] 2026/05/23 02:53:22 GET /tasks -> Status: OK Duration: 1.7827ms
+[ACCESS] 2026/05/23 02:53:22 GET /tasks -> Status: OK Duration: 1.957ms
+[ACCESS] 2026/05/23 02:53:23 GET /columns -> Status: OK Duration: 3.6715ms
+[ACCESS] 2026/05/23 02:53:23 GET /tasks -> Status: OK Duration: 2.844ms
+[ACCESS] 2026/05/23 02:53:23 GET /tasks -> Status: OK Duration: 3.5405ms
+[ACCESS] 2026/05/23 02:53:23 GET /tasks -> Status: OK Duration: 5.569ms
+[ACCESS] 2026/05/23 02:53:29 GET /columns -> Status: OK Duration: 6.8997ms
+[ACCESS] 2026/05/23 02:53:29 GET /tasks -> Status: OK Duration: 4.2766ms
+[ACCESS] 2026/05/23 02:53:29 GET /tasks -> Status: OK Duration: 2.1605ms
+[ACCESS] 2026/05/23 02:53:29 GET /tasks -> Status: OK Duration: 5.296ms
+[ACCESS] 2026/05/23 02:53:34 GET /columns -> Status: OK Duration: 2.6985ms
+[ACCESS] 2026/05/23 02:53:34 GET /tasks -> Status: OK Duration: 2.2793ms
+[ACCESS] 2026/05/23 02:53:34 GET /tasks -> Status: OK Duration: 2.0979ms
+[ACCESS] 2026/05/23 02:53:34 GET /tasks -> Status: OK Duration: 2.0264ms
+[ACCESS] 2026/05/23 02:53:45 GET /columns -> Status: OK Duration: 8.4044ms
+[ACCESS] 2026/05/23 02:53:45 GET /tasks -> Status: OK Duration: 1.9087ms
+[ACCESS] 2026/05/23 02:53:45 GET /tasks -> Status: OK Duration: 944.8µs
+[ACCESS] 2026/05/23 02:53:45 GET /tasks -> Status: OK Duration: 1.5678ms
+[ACCESS] 2026/05/23 02:53:50 GET /columns -> Status: OK Duration: 694.2µs
+[ACCESS] 2026/05/23 02:53:50 GET /tasks -> Status: OK Duration: 2.6046ms
+[ACCESS] 2026/05/23 02:53:50 GET /tasks -> Status: OK Duration: 997.7µs
+[ACCESS] 2026/05/23 02:53:50 GET /tasks -> Status: OK Duration: 2.9802ms
+[ACCESS] 2026/05/23 02:53:55 GET /columns -> Status: OK Duration: 2.1248ms
+[ACCESS] 2026/05/23 02:53:55 GET /tasks -> Status: OK Duration: 8.7431ms
+[ACCESS] 2026/05/23 02:53:55 GET /tasks -> Status: OK Duration: 4.0078ms
+[ACCESS] 2026/05/23 02:53:55 GET /tasks -> Status: OK Duration: 2.3869ms
+[ACCESS] 2026/05/23 02:54:00 GET /columns -> Status: OK Duration: 4.1253ms
+[ACCESS] 2026/05/23 02:54:01 GET /tasks -> Status: OK Duration: 1.9383ms
+[ACCESS] 2026/05/23 02:54:01 GET /tasks -> Status: OK Duration: 2.2088ms
+[ACCESS] 2026/05/23 02:54:01 GET /tasks -> Status: OK Duration: 1.9998ms
+[ACCESS] 2026/05/23 02:54:04 GET /columns -> Status: OK Duration: 2.1643ms
+[ACCESS] 2026/05/23 02:54:04 GET /tasks -> Status: OK Duration: 2.0154ms
+[ACCESS] 2026/05/23 02:54:04 GET /tasks -> Status: OK Duration: 5.4636ms
+[ACCESS] 2026/05/23 02:54:04 GET /tasks -> Status: OK Duration: 2.3788ms
+[ACCESS] 2026/05/23 02:54:06 GET /columns -> Status: OK Duration: 3.0639ms
+[ACCESS] 2026/05/23 02:54:06 GET /tasks -> Status: OK Duration: 1.5014ms
+[ACCESS] 2026/05/23 02:54:06 GET /tasks -> Status: OK Duration: 2.2399ms
+[ACCESS] 2026/05/23 02:54:06 GET /tasks -> Status: OK Duration: 1.71ms
+[ACCESS] 2026/05/23 02:54:11 GET /columns -> Status: OK Duration: 6.3959ms
+[ACCESS] 2026/05/23 02:54:11 GET /tasks -> Status: OK Duration: 2.249ms
+[ACCESS] 2026/05/23 02:54:11 GET /tasks -> Status: OK Duration: 4.3329ms
+[ACCESS] 2026/05/23 02:54:11 GET /tasks -> Status: OK Duration: 3.1527ms
+[ACCESS] 2026/05/23 02:54:16 GET /columns -> Status: OK Duration: 10.4381ms
+[ACCESS] 2026/05/23 02:54:16 GET /tasks -> Status: OK Duration: 1.1415ms
+[ACCESS] 2026/05/23 02:54:16 GET /tasks -> Status: OK Duration: 3.3823ms
+[ACCESS] 2026/05/23 02:54:16 GET /tasks -> Status: OK Duration: 3.496ms
+[ACCESS] 2026/05/23 02:54:27 GET /columns -> Status: OK Duration: 2.6419ms
+[ACCESS] 2026/05/23 02:54:27 GET /tasks -> Status: OK Duration: 947.2µs
+[ACCESS] 2026/05/23 02:54:27 GET /tasks -> Status: OK Duration: 2.2977ms
+[ACCESS] 2026/05/23 02:54:27 GET /tasks -> Status: OK Duration: 701.4µs
+[ACCESS] 2026/05/23 02:54:33 GET /columns -> Status: OK Duration: 5.5553ms
+[ACCESS] 2026/05/23 02:54:33 GET /tasks -> Status: OK Duration: 1.9211ms
+[ACCESS] 2026/05/23 02:54:33 GET /tasks -> Status: OK Duration: 3.9305ms
+[ACCESS] 2026/05/23 02:54:33 GET /tasks -> Status: OK Duration: 1.3305ms
+[ACCESS] 2026/05/23 02:54:38 GET /columns -> Status: OK Duration: 4ms
+[ACCESS] 2026/05/23 02:54:38 GET /tasks -> Status: OK Duration: 7.6536ms
+[ACCESS] 2026/05/23 02:54:38 GET /tasks -> Status: OK Duration: 2.7616ms
+[ACCESS] 2026/05/23 02:54:38 GET /tasks -> Status: OK Duration: 4.2919ms
+[ACCESS] 2026/05/23 02:54:43 GET /columns -> Status: OK Duration: 5.1088ms
+[ACCESS] 2026/05/23 02:54:43 GET /tasks -> Status: OK Duration: 1.9389ms
+[ACCESS] 2026/05/23 02:54:43 GET /tasks -> Status: OK Duration: 2.2126ms
+[ACCESS] 2026/05/23 02:54:43 GET /tasks -> Status: OK Duration: 2.228ms
+[ACCESS] 2026/05/23 02:54:48 GET /columns -> Status: OK Duration: 2.9764ms
+[ACCESS] 2026/05/23 02:54:48 GET /tasks -> Status: OK Duration: 1.6584ms
+[ACCESS] 2026/05/23 02:54:48 GET /tasks -> Status: OK Duration: 3.481ms
+[ACCESS] 2026/05/23 02:54:48 GET /tasks -> Status: OK Duration: 5.747ms
+[ACCESS] 2026/05/23 02:55:26 GET /columns -> Status: OK Duration: 3.6711ms
+[ACCESS] 2026/05/23 02:55:26 GET /tasks -> Status: OK Duration: 1.3673ms
+[ACCESS] 2026/05/23 02:55:26 GET /tasks -> Status: OK Duration: 1.782ms
+[ACCESS] 2026/05/23 02:55:26 GET /tasks -> Status: OK Duration: 1.1178ms
+[ACCESS] 2026/05/23 02:55:31 GET /columns -> Status: OK Duration: 3.5361ms
+[ACCESS] 2026/05/23 02:55:32 GET /tasks -> Status: OK Duration: 1.7215ms
+[ACCESS] 2026/05/23 02:55:32 GET /tasks -> Status: OK Duration: 1.2734ms
+[ACCESS] 2026/05/23 02:55:32 GET /tasks -> Status: OK Duration: 1.5448ms
+[ACCESS] 2026/05/23 02:55:37 GET /columns -> Status: OK Duration: 2.3722ms
+[ACCESS] 2026/05/23 02:55:37 GET /tasks -> Status: OK Duration: 6.083ms
+[ACCESS] 2026/05/23 02:55:37 GET /tasks -> Status: OK Duration: 1.6536ms
+[ACCESS] 2026/05/23 02:55:37 GET /tasks -> Status: OK Duration: 2.7296ms
+[ACCESS] 2026/05/23 02:55:42 GET /columns -> Status: OK Duration: 2.824ms
+[ACCESS] 2026/05/23 02:55:42 GET /tasks -> Status: OK Duration: 4.1941ms
+[ACCESS] 2026/05/23 02:55:42 GET /tasks -> Status: OK Duration: 2.0212ms
+[ACCESS] 2026/05/23 02:55:42 GET /tasks -> Status: OK Duration: 7.1252ms
+[ACCESS] 2026/05/23 02:57:03 GET /columns -> Status: OK Duration: 3.9761ms
+[ACCESS] 2026/05/23 02:57:03 GET /tasks -> Status: OK Duration: 4.3384ms
+[ACCESS] 2026/05/23 02:57:03 GET /tasks -> Status: OK Duration: 1.2885ms
+[ACCESS] 2026/05/23 02:57:03 GET /tasks -> Status: OK Duration: 2.1303ms
+[ACCESS] 2026/05/23 02:57:08 GET /columns -> Status: OK Duration: 3.3048ms
+[ACCESS] 2026/05/23 02:57:08 GET /tasks -> Status: OK Duration: 814.5µs
+[ACCESS] 2026/05/23 02:57:08 GET /tasks -> Status: OK Duration: 1.8425ms
+[ACCESS] 2026/05/23 02:57:08 GET /tasks -> Status: OK Duration: 2.0237ms
+[ACCESS] 2026/05/23 02:57:13 GET /columns -> Status: OK Duration: 1.612ms
+[ACCESS] 2026/05/23 02:57:13 GET /tasks -> Status: OK Duration: 3.1156ms
+[ACCESS] 2026/05/23 02:57:13 GET /tasks -> Status: OK Duration: 3.4815ms
+[ACCESS] 2026/05/23 02:57:13 GET /tasks -> Status: OK Duration: 3.8345ms
+[ACCESS] 2026/05/23 02:57:18 GET /columns -> Status: OK Duration: 2.6003ms
+[ACCESS] 2026/05/23 02:57:18 GET /tasks -> Status: OK Duration: 1.3514ms
+[ACCESS] 2026/05/23 02:57:18 GET /tasks -> Status: OK Duration: 1.6701ms
+[ACCESS] 2026/05/23 02:57:18 GET /tasks -> Status: OK Duration: 1.8576ms
+[ACCESS] 2026/05/23 02:57:37 GET /columns -> Status: OK Duration: 5.7366ms
+[ACCESS] 2026/05/23 02:57:37 GET /tasks -> Status: OK Duration: 1.792ms
+[ACCESS] 2026/05/23 02:57:37 GET /tasks -> Status: OK Duration: 777.5µs
+[ACCESS] 2026/05/23 02:57:37 GET /tasks -> Status: OK Duration: 677.8µs
+[ACCESS] 2026/05/23 02:58:18 GET /columns -> Status: OK Duration: 3.2804ms
+[ACCESS] 2026/05/23 02:58:18 GET /tasks -> Status: OK Duration: 1.6255ms
+[ACCESS] 2026/05/23 02:58:18 GET /tasks -> Status: OK Duration: 1.8621ms
+[ACCESS] 2026/05/23 02:58:19 GET /tasks -> Status: OK Duration: 1.6649ms
+[ACCESS] 2026/05/23 02:58:23 GET /boards -> Status: OK Duration: 3.0041ms
+[ACCESS] 2026/05/23 02:58:24 GET /columns -> Status: OK Duration: 3.428ms
+[ACCESS] 2026/05/23 02:58:24 GET /tasks -> Status: OK Duration: 3.8435ms
+[ACCESS] 2026/05/23 02:58:24 GET /tasks -> Status: OK Duration: 2.9555ms
+[ACCESS] 2026/05/23 02:58:24 GET /tasks -> Status: OK Duration: 3.4862ms
+[ACCESS] 2026/05/23 02:58:33 PUT /tasks/32 -> Status: OK Duration: 14.793ms
+[ACCESS] 2026/05/23 02:58:33 GET /columns -> Status: OK Duration: 1.8636ms
+[ACCESS] 2026/05/23 02:58:33 GET /tasks -> Status: OK Duration: 4.1055ms
+[ACCESS] 2026/05/23 02:58:33 GET /tasks -> Status: OK Duration: 721.2µs
+[ACCESS] 2026/05/23 02:58:33 GET /tasks -> Status: OK Duration: 2.2289ms
+[ACCESS] 2026/05/23 02:58:34 PUT /tasks/33 -> Status: OK Duration: 19.258ms
+[ACCESS] 2026/05/23 02:58:34 GET /columns -> Status: OK Duration: 1.9283ms
+[ACCESS] 2026/05/23 02:58:34 GET /tasks -> Status: OK Duration: 5.731ms
+[ACCESS] 2026/05/23 02:58:34 GET /tasks -> Status: OK Duration: 4.1228ms
+[ACCESS] 2026/05/23 02:58:34 GET /tasks -> Status: OK Duration: 1.7458ms
+[ACCESS] 2026/05/23 03:00:11 GET /columns -> Status: OK Duration: 3.3068ms
+[ACCESS] 2026/05/23 03:00:11 GET /tasks -> Status: OK Duration: 851.4µs
+[ACCESS] 2026/05/23 03:00:11 GET /tasks -> Status: OK Duration: 2.3404ms
+[ACCESS] 2026/05/23 03:00:11 GET /tasks -> Status: OK Duration: 1.232ms
+[ACCESS] 2026/05/23 03:00:16 GET /columns -> Status: OK Duration: 2.5006ms
+[ACCESS] 2026/05/23 03:00:16 GET /tasks -> Status: OK Duration: 2.002ms
+[ACCESS] 2026/05/23 03:00:16 GET /tasks -> Status: OK Duration: 3.6367ms
+[ACCESS] 2026/05/23 03:00:16 GET /tasks -> Status: OK Duration: 2.955ms
+[ACCESS] 2026/05/23 03:00:20 GET /columns -> Status: OK Duration: 4.7337ms
+[ACCESS] 2026/05/23 03:00:20 GET /tasks -> Status: OK Duration: 1.9986ms
+[ACCESS] 2026/05/23 03:00:20 GET /tasks -> Status: OK Duration: 6.5146ms
+[ACCESS] 2026/05/23 03:00:20 GET /tasks -> Status: OK Duration: 3.4984ms
+[ACCESS] 2026/05/23 03:00:21 GET /columns -> Status: OK Duration: 3.7541ms
+[ACCESS] 2026/05/23 03:00:21 GET /tasks -> Status: OK Duration: 3.5562ms
+[ACCESS] 2026/05/23 03:00:21 GET /tasks -> Status: OK Duration: 3.9266ms
+[ACCESS] 2026/05/23 03:00:21 GET /tasks -> Status: OK Duration: 3.9609ms
+[ACCESS] 2026/05/23 03:01:11 GET /columns -> Status: OK Duration: 2.7284ms
+[ACCESS] 2026/05/23 03:01:11 GET /tasks -> Status: OK Duration: 1.7372ms
+[ACCESS] 2026/05/23 03:01:11 GET /tasks -> Status: OK Duration: 1.9082ms
+[ACCESS] 2026/05/23 03:01:11 GET /tasks -> Status: OK Duration: 2.2776ms
+[ACCESS] 2026/05/23 03:01:16 GET /columns -> Status: OK Duration: 4.5879ms
+[ACCESS] 2026/05/23 03:01:16 GET /tasks -> Status: OK Duration: 822.4µs
+[ACCESS] 2026/05/23 03:01:16 GET /tasks -> Status: OK Duration: 2.2647ms
+[ACCESS] 2026/05/23 03:01:16 GET /tasks -> Status: OK Duration: 2.4873ms
+[ACCESS] 2026/05/23 03:01:21 GET /columns -> Status: OK Duration: 4.1873ms
+[ACCESS] 2026/05/23 03:01:21 GET /tasks -> Status: OK Duration: 1.0729ms
+[ACCESS] 2026/05/23 03:01:21 GET /tasks -> Status: OK Duration: 6.2846ms
+[ACCESS] 2026/05/23 03:01:21 GET /tasks -> Status: OK Duration: 5.8025ms
+[ACCESS] 2026/05/23 03:01:26 GET /columns -> Status: OK Duration: 12.1164ms
+[ACCESS] 2026/05/23 03:01:26 GET /tasks -> Status: OK Duration: 951.8µs
+[ACCESS] 2026/05/23 03:01:26 GET /tasks -> Status: OK Duration: 3.0869ms
+[ACCESS] 2026/05/23 03:01:26 GET /tasks -> Status: OK Duration: 4.8693ms
+[ACCESS] 2026/05/23 03:01:32 GET /columns -> Status: OK Duration: 1.649ms
+[ACCESS] 2026/05/23 03:01:32 GET /tasks -> Status: OK Duration: 1.6322ms
+[ACCESS] 2026/05/23 03:01:32 GET /tasks -> Status: OK Duration: 8.0505ms
+[ACCESS] 2026/05/23 03:01:32 GET /tasks -> Status: OK Duration: 4.613ms
+[ACCESS] 2026/05/23 03:01:37 GET /columns -> Status: OK Duration: 2.3452ms
+[ACCESS] 2026/05/23 03:01:37 GET /tasks -> Status: OK Duration: 3.0938ms
+[ACCESS] 2026/05/23 03:01:37 GET /tasks -> Status: OK Duration: 1.9418ms
+[ACCESS] 2026/05/23 03:01:37 GET /tasks -> Status: OK Duration: 2.1321ms
+[ACCESS] 2026/05/23 03:01:42 GET /columns -> Status: OK Duration: 3.3615ms
+[ACCESS] 2026/05/23 03:01:42 GET /tasks -> Status: OK Duration: 1.1883ms
+[ACCESS] 2026/05/23 03:01:42 GET /tasks -> Status: OK Duration: 1.9727ms
+[ACCESS] 2026/05/23 03:01:42 GET /tasks -> Status: OK Duration: 8.2ms
+[ACCESS] 2026/05/23 03:01:47 GET /columns -> Status: OK Duration: 10.7655ms
+[ACCESS] 2026/05/23 03:01:47 GET /tasks -> Status: OK Duration: 3.9411ms
+[ACCESS] 2026/05/23 03:01:47 GET /tasks -> Status: OK Duration: 2.9302ms
+[ACCESS] 2026/05/23 03:01:47 GET /tasks -> Status: OK Duration: 4.3894ms
+[ACCESS] 2026/05/23 03:03:23 GET /columns -> Status: OK Duration: 3.9773ms
+[ACCESS] 2026/05/23 03:03:23 GET /tasks -> Status: OK Duration: 1.8235ms
+[ACCESS] 2026/05/23 03:03:23 GET /tasks -> Status: OK Duration: 2.0908ms
+[ACCESS] 2026/05/23 03:03:23 GET /tasks -> Status: OK Duration: 2.0129ms
+[ACCESS] 2026/05/23 03:05:01 DELETE /tasks/33 -> Status: OK Duration: 3.6239ms
+[ACCESS] 2026/05/23 03:05:13 GET /columns -> Status: OK Duration: 6.4462ms
+[ACCESS] 2026/05/23 03:05:13 GET /tasks -> Status: OK Duration: 3.2096ms
+[ACCESS] 2026/05/23 03:05:13 GET /tasks -> Status: OK Duration: 1.7417ms
+[ACCESS] 2026/05/23 03:05:13 GET /tasks -> Status: OK Duration: 1.3617ms
+[ACCESS] 2026/05/23 03:05:57 GET /columns -> Status: OK Duration: 2.3454ms
+[ACCESS] 2026/05/23 03:05:57 GET /tasks -> Status: OK Duration: 881.9µs
+[ACCESS] 2026/05/23 03:05:57 GET /tasks -> Status: OK Duration: 655µs
+[ACCESS] 2026/05/23 03:05:57 GET /tasks -> Status: OK Duration: 2.6302ms
+[ACCESS] 2026/05/23 03:08:13 GET /columns -> Status: OK Duration: 5.6713ms
+[ACCESS] 2026/05/23 03:08:13 GET /tasks -> Status: OK Duration: 618.7µs
+[ACCESS] 2026/05/23 03:08:13 GET /tasks -> Status: OK Duration: 795.8µs
+[ACCESS] 2026/05/23 03:08:13 GET /tasks -> Status: OK Duration: 1.3228ms
+[ACCESS] 2026/05/23 03:08:18 GET /columns -> Status: OK Duration: 7.6395ms
+[ACCESS] 2026/05/23 03:08:18 GET /tasks -> Status: OK Duration: 2.7219ms
+[ACCESS] 2026/05/23 03:08:18 GET /tasks -> Status: OK Duration: 4.7924ms
+[ACCESS] 2026/05/23 03:08:18 GET /tasks -> Status: OK Duration: 3.6865ms
+[ACCESS] 2026/05/23 03:08:23 GET /columns -> Status: OK Duration: 5.6381ms
+[ACCESS] 2026/05/23 03:08:23 GET /tasks -> Status: OK Duration: 1.1335ms
+[ACCESS] 2026/05/23 03:08:23 GET /tasks -> Status: OK Duration: 1.0038ms
+[ACCESS] 2026/05/23 03:08:23 GET /tasks -> Status: OK Duration: 5.1949ms
+[ACCESS] 2026/05/23 03:08:58 GET /columns -> Status: OK Duration: 1.272ms
+[ACCESS] 2026/05/23 03:08:58 GET /tasks -> Status: OK Duration: 754.2µs
+[ACCESS] 2026/05/23 03:08:58 GET /tasks -> Status: OK Duration: 716.6µs
+[ACCESS] 2026/05/23 03:08:58 GET /tasks -> Status: OK Duration: 1.2206ms
+[ACCESS] 2026/05/23 03:09:03 GET /columns -> Status: OK Duration: 7.1468ms
+[ACCESS] 2026/05/23 03:09:03 GET /tasks -> Status: OK Duration: 2.2338ms
+[ACCESS] 2026/05/23 03:09:03 GET /tasks -> Status: OK Duration: 1.6144ms
+[ACCESS] 2026/05/23 03:09:03 GET /tasks -> Status: OK Duration: 3.5751ms
+[ACCESS] 2026/05/23 03:09:08 GET /columns -> Status: OK Duration: 10.8023ms
+[ACCESS] 2026/05/23 03:09:08 GET /tasks -> Status: OK Duration: 1.171ms
+[ACCESS] 2026/05/23 03:09:08 GET /tasks -> Status: OK Duration: 1.1486ms
+[ACCESS] 2026/05/23 03:09:08 GET /tasks -> Status: OK Duration: 5.6481ms
+[ACCESS] 2026/05/23 03:11:18 GET /columns -> Status: OK Duration: 3.8237ms
+[ACCESS] 2026/05/23 03:11:18 GET /tasks -> Status: OK Duration: 998.9µs
+[ACCESS] 2026/05/23 03:11:18 GET /tasks -> Status: OK Duration: 1.2641ms
+[ACCESS] 2026/05/23 03:11:18 GET /tasks -> Status: OK Duration: 1.5737ms
+[ACCESS] 2026/05/23 03:11:25 POST /tasks -> Status: OK Duration: 16.7258ms
+[ACCESS] 2026/05/23 03:11:25 GET /columns -> Status: OK Duration: 4.2069ms
+[ACCESS] 2026/05/23 03:11:25 GET /tasks -> Status: OK Duration: 2.8583ms
+[ACCESS] 2026/05/23 03:11:25 GET /tasks -> Status: OK Duration: 3.4399ms
+[ACCESS] 2026/05/23 03:11:25 GET /tasks -> Status: OK Duration: 5.6814ms
+[ACCESS] 2026/05/23 03:11:39 DELETE /tasks/34 -> Status: OK Duration: 27.9604ms
+[ACCESS] 2026/05/23 03:13:21 GET /columns -> Status: OK Duration: 2.3516ms
+[ACCESS] 2026/05/23 03:13:21 GET /tasks -> Status: OK Duration: 1.4798ms
+[ACCESS] 2026/05/23 03:13:21 GET /tasks -> Status: OK Duration: 1.6204ms
+[ACCESS] 2026/05/23 03:13:21 GET /tasks -> Status: OK Duration: 1.8012ms
+[ACCESS] 2026/05/23 03:13:26 GET /columns -> Status: OK Duration: 5.5755ms
+[ACCESS] 2026/05/23 03:13:26 GET /tasks -> Status: OK Duration: 3.8747ms
+[ACCESS] 2026/05/23 03:13:26 GET /tasks -> Status: OK Duration: 4.6377ms
+[ACCESS] 2026/05/23 03:13:26 GET /tasks -> Status: OK Duration: 7.3104ms
+[ACCESS] 2026/05/23 03:13:31 GET /columns -> Status: OK Duration: 2.1114ms
+[ACCESS] 2026/05/23 03:13:31 GET /tasks -> Status: OK Duration: 1.0573ms
+[ACCESS] 2026/05/23 03:13:31 GET /tasks -> Status: OK Duration: 784.7µs
+[ACCESS] 2026/05/23 03:13:31 GET /tasks -> Status: OK Duration: 2.208ms
+[ACCESS] 2026/05/23 03:13:36 GET /columns -> Status: OK Duration: 1.2327ms
+[ACCESS] 2026/05/23 03:13:36 GET /tasks -> Status: OK Duration: 2.806ms
+[ACCESS] 2026/05/23 03:13:37 GET /tasks -> Status: OK Duration: 2.231ms
+[ACCESS] 2026/05/23 03:13:37 GET /tasks -> Status: OK Duration: 1.0955ms
+[ACCESS] 2026/05/23 03:13:42 GET /columns -> Status: OK Duration: 1.9901ms
+[ACCESS] 2026/05/23 03:13:42 GET /tasks -> Status: OK Duration: 1.2366ms
+[ACCESS] 2026/05/23 03:13:42 GET /tasks -> Status: OK Duration: 1.0011ms
+[ACCESS] 2026/05/23 03:13:42 GET /tasks -> Status: OK Duration: 1.3264ms
+[ACCESS] 2026/05/23 03:13:47 GET /columns -> Status: OK Duration: 4.5819ms
+[ACCESS] 2026/05/23 03:13:47 GET /tasks -> Status: OK Duration: 1.9786ms
+[ACCESS] 2026/05/23 03:13:47 GET /tasks -> Status: OK Duration: 617.3µs
+[ACCESS] 2026/05/23 03:13:47 GET /tasks -> Status: OK Duration: 1.2425ms
+[ACCESS] 2026/05/23 03:13:52 GET /columns -> Status: OK Duration: 5.5277ms
+[ACCESS] 2026/05/23 03:13:52 GET /tasks -> Status: OK Duration: 1.0733ms
+[ACCESS] 2026/05/23 03:13:52 GET /tasks -> Status: OK Duration: 1.7102ms
+[ACCESS] 2026/05/23 03:13:52 GET /tasks -> Status: OK Duration: 2.1627ms
+[ACCESS] 2026/05/23 03:13:57 GET /columns -> Status: OK Duration: 1.3192ms
+[ACCESS] 2026/05/23 03:13:57 GET /tasks -> Status: OK Duration: 1.2538ms
+[ACCESS] 2026/05/23 03:13:57 GET /tasks -> Status: OK Duration: 3.112ms
+[ACCESS] 2026/05/23 03:13:57 GET /tasks -> Status: OK Duration: 1.7629ms
+[ACCESS] 2026/05/23 03:14:02 GET /columns -> Status: OK Duration: 2.9506ms
+[ACCESS] 2026/05/23 03:14:02 GET /tasks -> Status: OK Duration: 502.9µs
+[ACCESS] 2026/05/23 03:14:02 GET /tasks -> Status: OK Duration: 722.6µs
+[ACCESS] 2026/05/23 03:14:02 GET /tasks -> Status: OK Duration: 1.1063ms
+[ACCESS] 2026/05/23 03:14:07 GET /columns -> Status: OK Duration: 4.7642ms
+[ACCESS] 2026/05/23 03:14:07 GET /tasks -> Status: OK Duration: 1.5007ms
+[ACCESS] 2026/05/23 03:14:07 GET /tasks -> Status: OK Duration: 1.233ms
+[ACCESS] 2026/05/23 03:14:07 GET /tasks -> Status: OK Duration: 2.6248ms
+[ACCESS] 2026/05/23 03:14:12 GET /columns -> Status: OK Duration: 9.1839ms
+[ACCESS] 2026/05/23 03:14:12 GET /tasks -> Status: OK Duration: 5.525ms
+[ACCESS] 2026/05/23 03:14:12 GET /tasks -> Status: OK Duration: 1.4565ms
+[ACCESS] 2026/05/23 03:14:12 GET /tasks -> Status: OK Duration: 2.1135ms
+[ACCESS] 2026/05/23 03:14:13 GET /columns -> Status: OK Duration: 1.6578ms
+[ACCESS] 2026/05/23 03:14:13 GET /tasks -> Status: OK Duration: 1.0803ms
+[ACCESS] 2026/05/23 03:14:13 GET /tasks -> Status: OK Duration: 1.3354ms
+[ACCESS] 2026/05/23 03:14:13 GET /tasks -> Status: OK Duration: 637.5µs
+[ACCESS] 2026/05/23 03:14:26 GET /columns -> Status: OK Duration: 1.9558ms
+[ACCESS] 2026/05/23 03:14:26 GET /tasks -> Status: OK Duration: 1.8207ms
+[ACCESS] 2026/05/23 03:14:26 GET /tasks -> Status: OK Duration: 2.1295ms
+[ACCESS] 2026/05/23 03:14:26 GET /tasks -> Status: OK Duration: 1.4211ms
+[ACCESS] 2026/05/23 03:14:31 GET /columns -> Status: OK Duration: 1.4604ms
+[ACCESS] 2026/05/23 03:14:31 GET /tasks -> Status: OK Duration: 702.7µs
+[ACCESS] 2026/05/23 03:14:31 GET /tasks -> Status: OK Duration: 1.1754ms
+[ACCESS] 2026/05/23 03:14:31 GET /tasks -> Status: OK Duration: 846.2µs

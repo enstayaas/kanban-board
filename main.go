@@ -88,6 +88,10 @@ func main() {
 	r.Handle("/tasks/{id}/labels/{labelId}", middleware.JWT(http.HandlerFunc(taskHandler.RemoveLabelFromTask))).Methods("DELETE")
 	r.Handle("/tasks/{id}/labels", middleware.JWT(http.HandlerFunc(taskHandler.GetTaskLabels))).Methods("GET")
 
+	// ========== TASKS ARCHIVE ==========
+	r.Handle("/tasks/archive", middleware.JWT(http.HandlerFunc(taskHandler.GetArchivedTasks))).Methods("GET")
+	r.Handle("/tasks/{id}/permanent", middleware.JWT(http.HandlerFunc(taskHandler.PermanentDeleteTask))).Methods("DELETE")
+	r.Handle("/tasks/archive/clean", middleware.JWT(http.HandlerFunc(taskHandler.CleanTrash))).Methods("DELETE")
 	// ========== LABELS ==========
 	r.Handle("/labels", middleware.JWT(http.HandlerFunc(labelHandler.GetLabels))).Methods("GET")
 	r.Handle("/labels", middleware.JWT(http.HandlerFunc(labelHandler.CreateLabel))).Methods("POST")

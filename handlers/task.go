@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"kanban/internal/utils"
+	"kanban/middleware"
 
 	"github.com/gorilla/mux"
 )
@@ -264,12 +265,29 @@ func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(t)
 }
 
-// DELETE /tasks/{id} — Мягкое удаление
+// DELETE /tasks/{id} — Мягкое удаление с транзакцией
 func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
-	result, err := h.DB.Exec("UPDATE tasks SET deleted_at = NOW() WHERE id = $1", idStr)
+	taskID, _ := strconv.Atoi(idStr)
+
+	tx, err := h.DB.Begin()
 	if err != nil {
-		utils.LogError(err, fmt.Sprintf("DeleteTask: failed to delete task %s", idStr))
+		utils.LogError(err, "DeleteTask: failed to begin transaction")
+		sendError(w, "Transaction error", http.StatusInternalServerError)
+		return
+	}
+	defer tx.Rollback()
+
+	var columnID, position int
+	err = tx.QueryRow("SELECT column_id, position FROM tasks WHERE id = $1 AND deleted_at IS NULL", taskID).Scan(&columnID, &position)
+	if err != nil {
+		sendError(w, "Задача не найдена", http.StatusNotFound)
+		return
+	}
+
+	result, err := tx.Exec("UPDATE tasks SET deleted_at = NOW() WHERE id = $1", taskID)
+	if err != nil {
+		utils.LogError(err, "DeleteTask: failed to delete task")
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -280,21 +298,72 @@ func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.LogInfo(fmt.Sprintf("Task deleted: ID=%s", idStr))
+	_, err = tx.Exec(`
+		UPDATE tasks SET position = position - 1 
+		WHERE column_id = $1 AND position > $2 AND deleted_at IS NULL
+	`, columnID, position)
+
+	if err != nil {
+		utils.LogError(err, "DeleteTask: failed to update positions")
+		sendError(w, "Failed to update positions", http.StatusInternalServerError)
+		return
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		utils.LogError(err, "DeleteTask: failed to commit transaction")
+		sendError(w, "Transaction commit error", http.StatusInternalServerError)
+		return
+	}
+
+	utils.LogInfo(fmt.Sprintf("Task deleted: ID=%d", taskID))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"status": "deleted"}`))
 }
 
-// PATCH /tasks/{id}/restore — Восстановление
+// PATCH /tasks/{id}/restore — Восстановление с транзакцией
 func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
-	_, err := h.DB.Exec("UPDATE tasks SET deleted_at = NULL WHERE id = $1", idStr)
+	taskID, _ := strconv.Atoi(idStr)
+
+	tx, err := h.DB.Begin()
 	if err != nil {
-		utils.LogError(err, fmt.Sprintf("RestoreTask: failed to restore task %s", idStr))
+		utils.LogError(err, "RestoreTask: failed to begin transaction")
+		sendError(w, "Transaction error", http.StatusInternalServerError)
+		return
+	}
+	defer tx.Rollback()
+
+	var columnID int
+	err = tx.QueryRow("SELECT column_id FROM tasks WHERE id = $1 AND deleted_at IS NOT NULL", taskID).Scan(&columnID)
+	if err != nil {
+		sendError(w, "Задача не найдена в корзине", http.StatusNotFound)
+		return
+	}
+
+	var maxPos int
+	tx.QueryRow("SELECT COALESCE(MAX(position), 0) FROM tasks WHERE column_id = $1 AND deleted_at IS NULL", columnID).Scan(&maxPos)
+
+	_, err = tx.Exec(`
+		UPDATE tasks 
+		SET deleted_at = NULL, position = $1 
+		WHERE id = $2
+	`, maxPos+1, taskID)
+
+	if err != nil {
+		utils.LogError(err, "RestoreTask: failed to restore task")
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	utils.LogInfo(fmt.Sprintf("Task restored: ID=%s", idStr))
+
+	err = tx.Commit()
+	if err != nil {
+		utils.LogError(err, "RestoreTask: failed to commit transaction")
+		sendError(w, "Transaction commit error", http.StatusInternalServerError)
+		return
+	}
+
+	utils.LogInfo(fmt.Sprintf("Task restored: ID=%d", taskID))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"status": "restored"}`))
 }
@@ -302,18 +371,20 @@ func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 // PATCH /tasks/{id}/archive — Архивация
 func (h *TaskHandler) ArchiveTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
-	_, err := h.DB.Exec("UPDATE tasks SET archived_at = NOW() WHERE id = $1", idStr)
+	taskID, _ := strconv.Atoi(idStr)
+
+	_, err := h.DB.Exec("UPDATE tasks SET archived_at = NOW() WHERE id = $1", taskID)
 	if err != nil {
-		utils.LogError(err, fmt.Sprintf("ArchiveTask: failed to archive task %s", idStr))
+		utils.LogError(err, fmt.Sprintf("ArchiveTask: failed to archive task %d", taskID))
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	utils.LogInfo(fmt.Sprintf("Task archived: ID=%s", idStr))
+	utils.LogInfo(fmt.Sprintf("Task archived: ID=%d", taskID))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"status": "archived"}`))
 }
 
-// PUT /tasks/{id} — Обновление
+// PUT /tasks/{id} — Обновление задачи с транзакцией
 func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	taskID, _ := strconv.Atoi(idStr)
@@ -340,30 +411,92 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tx, err := h.DB.Begin()
+	if err != nil {
+		utils.LogError(err, "UpdateTask: failed to begin transaction")
+		sendError(w, "Transaction error", http.StatusInternalServerError)
+		return
+	}
+	defer tx.Rollback()
+
+	var oldColumnID, oldPosition int
+	err = tx.QueryRow("SELECT column_id, position FROM tasks WHERE id = $1 AND deleted_at IS NULL", taskID).Scan(&oldColumnID, &oldPosition)
+	if err != nil {
+		utils.LogError(err, "UpdateTask: failed to get old task data")
+		sendError(w, "Task not found", http.StatusNotFound)
+		return
+	}
+
+	newColumnID := t.ColumnID
+	newPosition := t.Position
+
+	if newColumnID != 0 && newColumnID != oldColumnID {
+		_, err = tx.Exec(`
+			UPDATE tasks SET position = position - 1 
+			WHERE column_id = $1 AND position > $2 AND deleted_at IS NULL
+		`, oldColumnID, oldPosition)
+		if err != nil {
+			utils.LogError(err, "UpdateTask: failed to update old column positions")
+			sendError(w, "Database error", http.StatusInternalServerError)
+			return
+		}
+
+		var maxPos int
+		tx.QueryRow("SELECT COALESCE(MAX(position), 0) FROM tasks WHERE column_id = $1 AND deleted_at IS NULL", newColumnID).Scan(&maxPos)
+		newPosition = maxPos + 1
+	} else if newPosition != 0 && newPosition != oldPosition {
+		if newPosition > oldPosition {
+			_, err = tx.Exec(`
+				UPDATE tasks SET position = position - 1 
+				WHERE column_id = $1 AND position > $2 AND position <= $3 AND deleted_at IS NULL
+			`, oldColumnID, oldPosition, newPosition)
+		} else {
+			_, err = tx.Exec(`
+				UPDATE tasks SET position = position + 1 
+				WHERE column_id = $1 AND position >= $2 AND position < $3 AND deleted_at IS NULL
+			`, oldColumnID, newPosition, oldPosition)
+		}
+		if err != nil {
+			utils.LogError(err, "UpdateTask: failed to update positions")
+			sendError(w, "Database error", http.StatusInternalServerError)
+			return
+		}
+	}
+
+	updateColumnID := newColumnID
+	if updateColumnID == 0 {
+		updateColumnID = oldColumnID
+	}
+	finalPosition := newPosition
+	if finalPosition == 0 {
+		finalPosition = oldPosition
+	}
+
 	query := `
 		UPDATE tasks 
 		SET title = COALESCE(NULLIF($1, ''), title),
 			description = COALESCE(NULLIF($2, ''), description),
 			priority = COALESCE(NULLIF($3, ''), priority),
-			column_id = COALESCE($4, column_id),
-			position = COALESCE($5, position),
+			column_id = $4,
+			position = $5,
 			deadline = $6,
 			updated_at = NOW()
 		WHERE id = $7`
 
-	_, err := h.DB.Exec(query,
-		t.Title,
-		t.Description,
-		t.Priority,
-		t.ColumnID,
-		t.Position,
-		t.Deadline,
-		taskID,
-	)
+	_, err = tx.Exec(query,
+		t.Title, t.Description, t.Priority,
+		updateColumnID, finalPosition, t.Deadline, taskID)
 
 	if err != nil {
-		utils.LogError(err, fmt.Sprintf("UpdateTask: failed to update task %d", taskID))
+		utils.LogError(err, "UpdateTask: failed to update task")
 		sendError(w, "SQL Error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		utils.LogError(err, "UpdateTask: failed to commit transaction")
+		sendError(w, "Transaction commit error", http.StatusInternalServerError)
 		return
 	}
 
@@ -458,4 +591,113 @@ func (h *TaskHandler) GetTaskLabels(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(labels)
+}
+
+// ==================== АРХИВ И КОРЗИНА ====================
+
+// GET /tasks/archive - получить все удалённые задачи
+func (h *TaskHandler) GetArchivedTasks(w http.ResponseWriter, r *http.Request) {
+	userID := r.Context().Value(middleware.UserIDKey).(int)
+
+	rows, err := h.DB.Query(`
+		SELECT t.id, t.title, t.description, t.priority, t.deleted_at, b.title as board_title
+		FROM tasks t
+		JOIN columns c ON c.id = t.column_id
+		JOIN boards b ON b.id = c.board_id
+		WHERE t.deleted_at IS NOT NULL
+			AND (b.owner_id = $1 OR EXISTS (
+				SELECT 1 FROM board_members WHERE board_id = b.id AND user_id = $1
+			))
+		ORDER BY t.deleted_at DESC
+	`, userID)
+
+	if err != nil {
+		utils.LogError(err, "GetArchivedTasks: failed to query")
+		sendError(w, "Ошибка базы данных", http.StatusInternalServerError)
+		return
+	}
+	defer rows.Close()
+
+	type ArchivedTask struct {
+		ID          int    `json:"id"`
+		Title       string `json:"title"`
+		Description string `json:"description"`
+		Priority    string `json:"priority"`
+		DeletedAt   string `json:"deleted_at"`
+		BoardTitle  string `json:"board_title"`
+	}
+
+	tasks := []ArchivedTask{}
+	for rows.Next() {
+		var t ArchivedTask
+		err := rows.Scan(&t.ID, &t.Title, &t.Description, &t.Priority, &t.DeletedAt, &t.BoardTitle)
+		if err != nil {
+			continue
+		}
+		tasks = append(tasks, t)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(tasks)
+}
+
+// DELETE /tasks/{id}/permanent - полное удаление задачи
+func (h *TaskHandler) PermanentDeleteTask(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	taskID := vars["id"]
+
+	var deletedAt sql.NullString
+	err := h.DB.QueryRow("SELECT deleted_at FROM tasks WHERE id = $1", taskID).Scan(&deletedAt)
+	if err != nil {
+		sendError(w, "Задача не найдена", http.StatusNotFound)
+		return
+	}
+
+	if !deletedAt.Valid {
+		sendError(w, "Сначала нужно мягко удалить задачу", http.StatusBadRequest)
+		return
+	}
+
+	_, err = h.DB.Exec("DELETE FROM tasks WHERE id = $1", taskID)
+	if err != nil {
+		utils.LogError(err, "PermanentDeleteTask: failed to delete")
+		sendError(w, "Ошибка удаления", http.StatusInternalServerError)
+		return
+	}
+
+	utils.LogInfo(fmt.Sprintf("Task permanently deleted: ID=%s", taskID))
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"message": "Task permanently deleted"})
+}
+
+// DELETE /tasks/archive/clean - очистить корзину
+func (h *TaskHandler) CleanTrash(w http.ResponseWriter, r *http.Request) {
+	userID := r.Context().Value(middleware.UserIDKey).(int)
+
+	result, err := h.DB.Exec(`
+		DELETE FROM tasks
+		WHERE deleted_at IS NOT NULL
+			AND column_id IN (
+				SELECT c.id FROM columns c
+				JOIN boards b ON b.id = c.board_id
+				WHERE b.owner_id = $1 OR EXISTS (
+					SELECT 1 FROM board_members WHERE board_id = b.id AND user_id = $1
+				)
+			)
+	`, userID)
+
+	if err != nil {
+		utils.LogError(err, "CleanTrash: failed to clean")
+		sendError(w, "Ошибка очистки", http.StatusInternalServerError)
+		return
+	}
+
+	rowsAffected, _ := result.RowsAffected()
+	utils.LogInfo(fmt.Sprintf("Trash cleaned: %d tasks deleted", rowsAffected))
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message":       "Trash cleaned successfully",
+		"deleted_count": rowsAffected,
+	})
 }

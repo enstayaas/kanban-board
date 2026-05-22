@@ -7,13 +7,11 @@ function getToken() {
 }
 
 // --- 1. ПРОВЕРКА ПРИ ЗАГРУЗКЕ ---
-// Если токена нет совсем, просим его один раз и сохраняем
 if (!getToken()) {
     const userToken = prompt("Сессия истекла. Введите ваш API токен:");
     if (userToken) {
         localStorage.setItem('token', userToken.trim());
-        // Перезагружаем страницу, чтобы применился новый токен
-        window.location.reload(); 
+        window.location.reload();
     }
 }
 
@@ -30,22 +28,29 @@ async function loadBoards() {
             }
         });
 
-        // --- 2. УМНАЯ ОБРАБОТКА ОШИБОК ---
         if (response.status === 401) {
-            // Если сервер сказал "401 Unauthorized", значит токен старый
-            localStorage.removeItem('token'); // Удаляем плохой токен
+            localStorage.removeItem('token');
             alert("Ваш токен больше не подходит. Введите актуальный.");
-            window.location.reload(); // Перезапуск вызовет prompt выше
+            window.location.reload();
             return;
         }
 
         if (!response.ok) throw new Error('Ошибка при загрузке');
 
-        const boards = await response.json();
+        const data = await response.json();
+        
+        // Поддержка пагинации: если ответ содержит поле data, берём его, иначе считаем что data - это массив
+        let boards = data;
+        if (data && data.data && Array.isArray(data.data)) {
+            boards = data.data;
+        } else if (!Array.isArray(boards)) {
+            console.error('Неверный формат данных:', data);
+            boards = [];
+        }
+        
         displayBoards(boards);
     } catch (error) {
         console.error("Проблема:", error);
-        // Вместо простого alert меняем текст в сетке, чтобы не мешать пользователю
         const grid = document.getElementById('boards-grid');
         if (grid) {
             grid.innerHTML = `<p style="color: red; padding: 20px;">⚠️ Не удалось подключиться к серверу. Убедитесь, что Go запущен на порту 8080.</p>`;
@@ -58,7 +63,7 @@ function displayBoards(boards) {
     if (!grid) return;
     grid.innerHTML = ''; 
 
-    if (boards.length === 0) {
+    if (!boards || boards.length === 0) {
         grid.innerHTML = "<p>У вас пока нет досок. Создайте первую!</p>";
         return;
     }
@@ -67,7 +72,7 @@ function displayBoards(boards) {
         const card = document.createElement('div');
         card.className = 'board-card';
         card.innerHTML = `
-            <h3>${board.title}</h3>
+            <h3>${board.title || 'Без названия'}</h3>
             <p>${board.description || 'Описания нет'}</p>
         `;
         card.onclick = () => {
@@ -82,6 +87,11 @@ document.getElementById('add-board-btn').addEventListener('click', async () => {
     if (!title) return;
 
     const TOKEN = getToken();
+    if (!TOKEN) {
+        alert("Нет токена. Обновите страницу.");
+        return;
+    }
+
     try {
         const response = await fetch(`${API_URL}/boards`, {
             method: 'POST',
@@ -94,6 +104,7 @@ document.getElementById('add-board-btn').addEventListener('click', async () => {
 
         if (response.status === 401) {
             localStorage.removeItem('token');
+            alert("Сессия истекла. Обновите страницу.");
             window.location.reload();
             return;
         }
@@ -101,10 +112,12 @@ document.getElementById('add-board-btn').addEventListener('click', async () => {
         if (response.ok) {
             loadBoards(); 
         } else {
-            alert("Не удалось создать доску");
+            const error = await response.json();
+            alert("Не удалось создать доску: " + (error.error || "Неизвестная ошибка"));
         }
     } catch (e) {
-        alert("Ошибка сети");
+        console.error("Ошибка:", e);
+        alert("Ошибка сети. Убедитесь, что сервер запущен на порту 8080.");
     }
 });
 

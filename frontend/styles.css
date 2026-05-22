@@ -669,56 +669,93 @@ h1 {
 .task.pastel-lavender { background: #e0d9ff; }
 .task.pastel-peach { background: #ffe0d4; }
 .task.pastel-sky { background: #cce5ff; }
-/* .task.pastel-pink { background: #ffc4d1; }
-.task.pastel-blue { background: #b8dcff; }
-.task.pastel-yellow { background: #ffeb99; }
-.task.pastel-purple { background: #d9b8ff; }
-.task.pastel-green { background: #b8e6c4; }
-.task.pastel-orange { background: #ffcd94; }
-.task.pastel-mint { background: #a6e6d9; }
-.task.pastel-lavender { background: #ccb8ff; }
-.task.pastel-peach { background: #ffc4b3; }
-.task.pastel-sky { background: #99ccff; } */
 
-/* .task.pastel-pink { background: #fff0f3; }
-.task.pastel-blue { background: #eef5ff; }
-.task.pastel-yellow { background: #fffae6; }
-.task.pastel-purple { background: #f3eaff; }
-.task.pastel-green { background: #e6f7ec; }
-.task.pastel-orange { background: #fff0e5; }
-.task.pastel-mint { background: #e0f4f0; }
-.task.pastel-lavender { background: #f0eaff; }
-.task.pastel-peach { background: #fff0ea; }
-.task.pastel-sky { background: #e6f4ff; } */
 
 .task:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-/* ===== УНИКАЛЬНЫЕ ПАСТЕЛЬНЫЕ ЦВЕТА ДЛЯ КАРТОЧЕК ЗАДАЧ ===== */
-/* ===== УНИКАЛЬНЫЕ ПАСТЕЛЬНЫЕ ЦВЕТА ДЛЯ КАРТОЧЕК ЗАДАЧ ===== */
-/* .task {
-    transition: all 0.2s ease;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 10px;
+.theme-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    padding: 6px 14px;
     cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.05);
+    font-size: 14px;
+    transition: 0.2s;
 }
 
-.task.pastel-pink { background: #fdf2f5; }
-.task.pastel-blue { background: #eef4ff; }
-.task.pastel-yellow { background: #fefce8; }
-.task.pastel-purple { background: #f3e8ff; }
-.task.pastel-green { background: #ecfdf5; }
-.task.pastel-orange { background: #fff7ed; }
-.task.pastel-mint { background: #e0f2fe; }
-.task.pastel-lavender { background: #f5f3ff; }
-.task.pastel-peach { background: #ffe4e6; }
-.task.pastel-sky { background: #e0f2fe; }
+.theme-btn:hover {
+    background: #e2e8f0;
+}
 
-.task:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-} */
+/* Стиль для тёмной темы (будет позже) */
+body.dark .theme-btn {
+    border-color: #4a5568;
+    color: white;
+}
+
+body.dark .theme-btn:hover {
+    background: #4a5568;
+}
+
+/* ===== ТЁМНАЯ ТЕМА ===== */
+body.dark {
+    background: #1a202c;
+    color: #e2e8f0;
+}
+
+body.dark .nav,
+body.dark .column,
+body.dark .filters,
+body.dark .labels-panel,
+body.dark .sort-pagination-panel,
+body.dark .modal-content,
+body.dark .task {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+body.dark .task:hover {
+    background: #374151;
+}
+
+body.dark .filters button,
+body.dark .sort-section button,
+body.dark .pagination-section button {
+    background: #4a5568;
+    color: white;
+    border-color: #4a5568;
+}
+
+body.dark .filters button:hover {
+    background: #2d3748;
+}
+
+body.dark .empty-state {
+    color: #a0aec0;
+}
+
+body.dark h1,
+body.dark .column h3 {
+    color: #f7fafc;
+}
+
+body.dark .modal-content input,
+body.dark .modal-content textarea,
+body.dark .modal-content select {
+    background: #4a5568;
+    color: white;
+    border-color: #4a5568;
+}
+
+body.dark .theme-btn {
+    border-color: #4a5568;
+    color: white;
+}
+
+body.dark .theme-btn:hover {
+    background: #4a5568;
+}

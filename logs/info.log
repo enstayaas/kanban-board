@@ -45,3 +45,9 @@
 [INFO] 2026/05/23 03:05:01 logger.go:53: Task deleted: ID=33
 [INFO] 2026/05/23 03:11:25 logger.go:53: Task created: ID=34, Title=ееееееееее
 [INFO] 2026/05/23 03:11:39 logger.go:53: Task deleted: ID=34
+[INFO] 2026/05/23 03:15:03 logger.go:53: Starting server...
+[INFO] 2026/05/23 03:15:04 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 03:15:04 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 03:23:27 logger.go:53: Starting server...
+[INFO] 2026/05/23 03:23:27 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 03:23:27 logger.go:53: Server running on :8080

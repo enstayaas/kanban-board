@@ -3,9 +3,13 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
+
+	"kanban/internal/utils"
 
 	"github.com/gorilla/mux"
 )
@@ -72,28 +76,72 @@ func validateDeadline(deadline string) bool {
 
 const doneColumnID = 3
 
-// GET /tasks?column_id=1&search=текст
+// GET /tasks?column_id=1&search=текст&page=1&limit=20&sort=priority&order=desc
 func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	colIDStr := r.URL.Query().Get("column_id")
 	searchQuery := r.URL.Query().Get("search")
+	pageStr := r.URL.Query().Get("page")
+	limitStr := r.URL.Query().Get("limit")
+	sortBy := r.URL.Query().Get("sort")
+	sortOrder := r.URL.Query().Get("order")
 
 	colID, err := strconv.Atoi(colIDStr)
 	if err != nil {
+		utils.LogError(err, "GetTasks: invalid column_id")
 		sendError(w, "Некорректный ID колонки", http.StatusBadRequest)
 		return
 	}
 
-	query := `
-		SELECT id, column_id, title, description, priority, position, done_at, deadline
+	page := 1
+	if pageStr != "" {
+		page, _ = strconv.Atoi(pageStr)
+	}
+	limit := 20
+	if limitStr != "" {
+		limit, _ = strconv.Atoi(limitStr)
+	}
+	offset := (page - 1) * limit
+
+	if sortBy == "" {
+		sortBy = "position"
+	}
+	if sortOrder == "" {
+		sortOrder = "ASC"
+	}
+	allowedSortFields := map[string]bool{
+		"position": true, "priority": true, "deadline": true, "created_at": true, "title": true,
+	}
+	if !allowedSortFields[sortBy] {
+		sortBy = "position"
+	}
+	if sortOrder != "ASC" && sortOrder != "DESC" {
+		sortOrder = "ASC"
+	}
+
+	var total int
+	err = h.DB.QueryRow(`
+		SELECT COUNT(*) FROM tasks 
+		WHERE column_id=$1 AND deleted_at IS NULL AND archived_at IS NULL AND title ILIKE $2
+	`, colID, "%"+searchQuery+"%").Scan(&total)
+	if err != nil {
+		utils.LogError(err, "GetTasks: failed to count tasks")
+		sendError(w, "Ошибка базы данных", http.StatusInternalServerError)
+		return
+	}
+
+	query := fmt.Sprintf(`
+		SELECT id, column_id, title, description, priority, position, done_at, deadline, created_at
 		FROM tasks 
 		WHERE column_id=$1 
 			AND deleted_at IS NULL 
 			AND archived_at IS NULL 
 			AND title ILIKE $2
-		ORDER BY position ASC`
+		ORDER BY %s %s
+		LIMIT $3 OFFSET $4`, sortBy, sortOrder)
 
-	rows, err := h.DB.Query(query, colID, "%"+searchQuery+"%")
+	rows, err := h.DB.Query(query, colID, "%"+searchQuery+"%", limit, offset)
 	if err != nil {
+		utils.LogError(err, "GetTasks: database query failed")
 		sendError(w, "Ошибка базы данных: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -102,25 +150,33 @@ func (h *TaskHandler) GetTasks(w http.ResponseWriter, r *http.Request) {
 	tasks := []TaskWithLabels{}
 	for rows.Next() {
 		var t Task
-		err := rows.Scan(&t.ID, &t.ColumnID, &t.Title, &t.Description, &t.Priority, &t.Position, &t.DoneAt, &t.Deadline)
+		var createdAt time.Time
+		err := rows.Scan(&t.ID, &t.ColumnID, &t.Title, &t.Description, &t.Priority, &t.Position, &t.DoneAt, &t.Deadline, &createdAt)
 		if err != nil {
+			utils.LogError(err, "GetTasks: failed to scan row")
 			continue
 		}
-
-		// Получаем метки для задачи
 		labels := h.getTaskLabels(t.ID)
-
 		tasks = append(tasks, TaskWithLabels{
 			Task:   t,
 			Labels: labels,
 		})
 	}
 
+	response := map[string]interface{}{
+		"data": tasks,
+		"meta": map[string]interface{}{
+			"total":      total,
+			"page":       page,
+			"limit":      limit,
+			"totalPages": (total + limit - 1) / limit,
+		},
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(tasks)
+	json.NewEncoder(w).Encode(response)
 }
 
-// getTaskLabels - вспомогательная функция для получения меток задачи
 func (h *TaskHandler) getTaskLabels(taskID int) []map[string]interface{} {
 	rows, err := h.DB.Query(`
 		SELECT l.id, l.name, l.color
@@ -129,6 +185,7 @@ func (h *TaskHandler) getTaskLabels(taskID int) []map[string]interface{} {
 		WHERE tl.task_id = $1 AND l.deleted_at IS NULL
 	`, taskID)
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("getTaskLabels: failed for task %d", taskID))
 		return []map[string]interface{}{}
 	}
 	defer rows.Close()
@@ -151,6 +208,7 @@ func (h *TaskHandler) getTaskLabels(taskID int) []map[string]interface{} {
 func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	var t Task
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
+		utils.LogError(err, "CreateTask: failed to decode request")
 		sendError(w, "Некорректный формат JSON", http.StatusBadRequest)
 		return
 	}
@@ -195,11 +253,13 @@ func (h *TaskHandler) CreateTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
+		utils.LogError(err, "CreateTask: failed to insert task")
 		sendError(w, "Ошибка БД: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	t.ID = taskID
+	utils.LogInfo(fmt.Sprintf("Task created: ID=%d, Title=%s", t.ID, t.Title))
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(t)
 }
@@ -209,6 +269,7 @@ func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	result, err := h.DB.Exec("UPDATE tasks SET deleted_at = NOW() WHERE id = $1", idStr)
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("DeleteTask: failed to delete task %s", idStr))
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -219,6 +280,7 @@ func (h *TaskHandler) DeleteTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	utils.LogInfo(fmt.Sprintf("Task deleted: ID=%s", idStr))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"status": "deleted"}`))
 }
@@ -228,9 +290,11 @@ func (h *TaskHandler) RestoreTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	_, err := h.DB.Exec("UPDATE tasks SET deleted_at = NULL WHERE id = $1", idStr)
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("RestoreTask: failed to restore task %s", idStr))
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	utils.LogInfo(fmt.Sprintf("Task restored: ID=%s", idStr))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"status": "restored"}`))
 }
@@ -240,9 +304,11 @@ func (h *TaskHandler) ArchiveTask(w http.ResponseWriter, r *http.Request) {
 	idStr := mux.Vars(r)["id"]
 	_, err := h.DB.Exec("UPDATE tasks SET archived_at = NOW() WHERE id = $1", idStr)
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("ArchiveTask: failed to archive task %s", idStr))
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	utils.LogInfo(fmt.Sprintf("Task archived: ID=%s", idStr))
 	w.Header().Set("Content-Type", "application/json")
 	w.Write([]byte(`{"status": "archived"}`))
 }
@@ -254,6 +320,7 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 
 	var t Task
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
+		utils.LogError(err, "UpdateTask: failed to decode request")
 		sendError(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}
@@ -295,10 +362,12 @@ func (h *TaskHandler) UpdateTask(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("UpdateTask: failed to update task %d", taskID))
 		sendError(w, "SQL Error: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
+	utils.LogInfo(fmt.Sprintf("Task updated: ID=%d", taskID))
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"status": "updated"})
 }
@@ -313,6 +382,7 @@ func (h *TaskHandler) AddLabelToTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		utils.LogError(err, "AddLabelToTask: failed to decode request")
 		sendError(w, "invalid request", http.StatusBadRequest)
 		return
 	}
@@ -324,10 +394,12 @@ func (h *TaskHandler) AddLabelToTask(w http.ResponseWriter, r *http.Request) {
 	`, taskID, req.LabelID)
 
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("AddLabelToTask: failed for task %s", taskID))
 		sendError(w, "failed to add label", http.StatusInternalServerError)
 		return
 	}
 
+	utils.LogInfo(fmt.Sprintf("Label %d added to task %s", req.LabelID, taskID))
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"message": "label added"})
 }
@@ -343,10 +415,12 @@ func (h *TaskHandler) RemoveLabelFromTask(w http.ResponseWriter, r *http.Request
 	`, taskID, labelID)
 
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("RemoveLabelFromTask: failed for task %s, label %s", taskID, labelID))
 		sendError(w, "failed to remove label", http.StatusInternalServerError)
 		return
 	}
 
+	utils.LogInfo(fmt.Sprintf("Label %s removed from task %s", labelID, taskID))
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"message": "label removed"})
 }
@@ -364,6 +438,7 @@ func (h *TaskHandler) GetTaskLabels(w http.ResponseWriter, r *http.Request) {
 	`, taskID)
 
 	if err != nil {
+		utils.LogError(err, fmt.Sprintf("GetTaskLabels: failed for task %s", taskID))
 		sendError(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

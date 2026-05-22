@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"kanban/middleware"
@@ -22,19 +23,47 @@ type BoardHandler struct {
 	DB *sql.DB
 }
 
-// ValidateEmail - проверяет корректность email
-
-// GET /boards
+// GET /boards?page=1&limit=10
 func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value(middleware.UserIDKey).(int)
 
+	// Параметры пагинации
+	pageStr := r.URL.Query().Get("page")
+	limitStr := r.URL.Query().Get("limit")
+
+	page := 1
+	if pageStr != "" {
+		page, _ = strconv.Atoi(pageStr)
+	}
+	limit := 10
+	if limitStr != "" {
+		limit, _ = strconv.Atoi(limitStr)
+	}
+	offset := (page - 1) * limit
+
+	// Подсчет общего количества
+	var total int
+	err := h.DB.QueryRow(`
+		SELECT COUNT(DISTINCT b.id)
+		FROM boards b
+		LEFT JOIN board_members bm ON bm.board_id = b.id
+		WHERE (b.owner_id=$1 OR bm.user_id=$1) AND b.deleted_at IS NULL
+	`, userID).Scan(&total)
+
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	// Основной запрос с пагинацией
 	rows, err := h.DB.Query(`
 		SELECT DISTINCT b.id, b.title, b.description
 		FROM boards b
 		LEFT JOIN board_members bm ON bm.board_id = b.id
-		WHERE (b.owner_id=$1 OR bm.user_id=$1)
-		AND b.deleted_at IS NULL
-	`, userID)
+		WHERE (b.owner_id=$1 OR bm.user_id=$1) AND b.deleted_at IS NULL
+		ORDER BY b.id
+		LIMIT $2 OFFSET $3
+	`, userID, limit, offset)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -43,7 +72,6 @@ func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	boards := []Board{}
-
 	for rows.Next() {
 		var b Board
 		err := rows.Scan(&b.ID, &b.Title, &b.Description)
@@ -54,8 +82,19 @@ func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 		boards = append(boards, b)
 	}
 
+	// Ответ с мета-информацией
+	response := map[string]interface{}{
+		"data": boards,
+		"meta": map[string]interface{}{
+			"total":      total,
+			"page":       page,
+			"limit":      limit,
+			"totalPages": (total + limit - 1) / limit,
+		},
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(boards)
+	json.NewEncoder(w).Encode(response)
 }
 
 // POST /boards
@@ -69,7 +108,6 @@ func (h *BoardHandler) CreateBoard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Проверки title
 	if b.Title == "" {
 		http.Error(w, `{"error": "title is required"}`, http.StatusBadRequest)
 		return
@@ -109,7 +147,6 @@ func (h *BoardHandler) DeleteBoard(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	boardID := vars["id"]
 
-	// Проверка существования
 	var exists bool
 	err := h.DB.QueryRow(`
 		SELECT EXISTS(SELECT 1 FROM boards WHERE id=$1 AND deleted_at IS NULL)
@@ -199,7 +236,7 @@ func (h *BoardHandler) GetMembers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(members)
 }
 
-// POST /boards/:id/members - ДОБАВЛЕНИЕ УЧАСТНИКА (ПЕРЕИМЕНОВАНО)
+// POST /boards/:id/members
 func (h *BoardHandler) AddMemberToBoard(w http.ResponseWriter, r *http.Request) {
 	userID := r.Context().Value(middleware.UserIDKey).(int)
 	vars := mux.Vars(r)
@@ -215,7 +252,6 @@ func (h *BoardHandler) AddMemberToBoard(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	// Нельзя добавить себя
 	if req.UserID == userID {
 		http.Error(w, `{"error": "cannot add yourself as member"}`, http.StatusBadRequest)
 		return
@@ -264,7 +300,6 @@ func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ========== ВАЛИДАЦИЯ EMAIL ==========
 	if req.Email == "" {
 		http.Error(w, `{"error": "email is required"}`, http.StatusBadRequest)
 		return
@@ -274,7 +309,6 @@ func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error": "invalid email format"}`, http.StatusBadRequest)
 		return
 	}
-	// =====================================
 
 	var ownerID int
 	err := h.DB.QueryRow("SELECT owner_id FROM boards WHERE id=$1", boardID).Scan(&ownerID)
@@ -310,7 +344,6 @@ func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// randomString - генератор случайной строки для токена
 func randomString(n int) string {
 	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	b := make([]byte, n)

@@ -9,6 +9,7 @@ import (
 	"kanban/handlers"
 	"kanban/internal/repository"
 	"kanban/internal/service"
+	"kanban/internal/utils"
 	"kanban/middleware"
 
 	"github.com/gorilla/mux"
@@ -17,18 +18,24 @@ import (
 )
 
 func main() {
+	utils.LogInfo("Starting server...")
+
 	connStr := "host=localhost port=5432 user=postgres password=aliya020507 dbname=Kanban-Board sslmode=disable"
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
+		utils.LogError(err, "Failed to connect to database")
 		log.Fatal(err)
 	}
 
 	err = db.Ping()
 	if err != nil {
+		utils.LogError(err, "Database ping failed")
 		log.Fatal("DB error:", err)
 	}
 	defer db.Close()
+
+	utils.LogInfo("Database connected successfully")
 
 	// Репозитории
 	authRepo := repository.NewAuthRepository(db)
@@ -46,6 +53,9 @@ func main() {
 	labelHandler := &handlers.LabelHandler{DB: db}
 
 	r := mux.NewRouter()
+
+	// Глобальное логирование запросов
+	r.Use(middleware.LoggingMiddleware)
 
 	// ========== ПУБЛИЧНЫЕ МАРШРУТЫ ==========
 	r.HandleFunc("/register", authHandler.Register).Methods("POST")
@@ -105,7 +115,7 @@ func main() {
 
 	handler := c.Handler(r)
 
-	log.Println("Server running on :8080")
+	utils.LogInfo("Server running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }
 

@@ -97,6 +97,87 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, `{"error":"user not found"}`, http.StatusNotFound)
 }
 
+// PUT /users/:id
+// func UpdateUser(w http.ResponseWriter, r *http.Request) {
+// 	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
+// 	id, err := strconv.Atoi(idStr)
+// 	if err != nil {
+// 		http.Error(w, `{"error":"invalid user id"}`, http.StatusBadRequest)
+// 		return
+// 	}
+
+// 	// Принимаем поля и с большой, и с маленькой буквы
+// 	var input struct {
+// 		Name   string `json:"name"`
+// 		Email  string `json:"email"`
+// 		Name2  string `json:"Name"`
+// 		Email2 string `json:"Email"`
+// 	}
+// 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+// 		http.Error(w, `{"error":"invalid request"}`, http.StatusBadRequest)
+// 		return
+// 	}
+
+// 	// Определяем, какое поле пришло
+// 	userName := input.Name
+// 	if userName == "" {
+// 		userName = input.Name2
+// 	}
+// 	userEmail := input.Email
+// 	if userEmail == "" {
+// 		userEmail = input.Email2
+// 	}
+
+// 	for i, user := range users {
+// 		if user.ID == id {
+// 			if userName != "" {
+// 				users[i].Name = userName
+// 			}
+// 			if userEmail != "" {
+// 				users[i].Email = userEmail
+// 			}
+// 			w.Header().Set("Content-Type", "application/json")
+// 			json.NewEncoder(w).Encode(users[i])
+// 			return
+// 		}
+// 	}
+// 	http.Error(w, `{"error":"user not found"}`, http.StatusNotFound)
+// }
+
+// PUT /users/:id
+// func UpdateUser(w http.ResponseWriter, r *http.Request) {
+// 	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
+// 	id, err := strconv.Atoi(idStr)
+// 	if err != nil {
+// 		http.Error(w, `{"error":"invalid user id"}`, http.StatusBadRequest)
+// 		return
+// 	}
+
+// 	var input struct {
+// 		Name  string `json:"name"`
+// 		Email string `json:"email"`
+// 	}
+// 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+// 		http.Error(w, `{"error":"invalid request"}`, http.StatusBadRequest)
+// 		return
+// 	}
+
+// 	for i, user := range users {
+// 		if user.ID == id {
+// 			if input.Name != "" {
+// 				users[i].Name = input.Name
+// 			}
+// 			if input.Email != "" {
+// 				users[i].Email = input.Email
+// 			}
+// 			w.Header().Set("Content-Type", "application/json")
+// 			json.NewEncoder(w).Encode(users[i])
+// 			return
+// 		}
+// 	}
+// 	http.Error(w, `{"error":"user not found"}`, http.StatusNotFound)
+// }
+
 // package handlers
 
 // import (

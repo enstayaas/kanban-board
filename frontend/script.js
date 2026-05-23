@@ -195,7 +195,12 @@ function renderBoard(tasks) {
   boardDiv.innerHTML = '';
   
   const columns = [1, 2, 3];
-  const columnTitles = { 1: '📋 To Do', 2: '⚙️ In Progress', 3: '✅ Done' };
+//   const columnTitles = { 1: '📋 To Do', 2: '⚙️ In Progress', 3: '✅ Done' };
+const columnTitles = {
+    1: '<i class="fa-regular fa-rectangle-list"></i> To Do',
+    2: '<i class="fa-solid fa-gear"></i> In Progress',
+    3: '<i class="fa-regular fa-circle-check"></i> Done'
+};
   const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
   
   let hasAnyTask = false;
@@ -236,11 +241,16 @@ function renderBoard(tasks) {
         
         // Собираем HTML карточки (с метками)
         taskDiv.innerHTML = `
-            <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
-            ${taskLabelsHtml}
+        <div>${priorityEmojis[task.priority] || '⚪'} <strong>${escapeHtml(task.title)}</strong></div>
+    ${taskLabelsHtml}
+    <div style="font-size: 10px; color: #888;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
+`;
+        // taskDiv.innerHTML = `
+        //     <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
+        //     ${taskLabelsHtml}
         
-            <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
-        `;
+        //     <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
+        // `;
         
         taskDiv.title = `Assigned to: ${task.assigned_to || 'unassigned'}\nPriority: ${task.priority || 'medium'}`;
         taskDiv.onclick = () => openModal(task);

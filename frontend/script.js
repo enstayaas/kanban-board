@@ -238,7 +238,8 @@ function renderBoard(tasks) {
         taskDiv.innerHTML = `
             <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
             ${taskLabelsHtml}
-            <div style="font-size: 10px; color: #888;">👤 ${task.assigned_to || 'unassigned'}</div>
+        
+            <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
         `;
         
         taskDiv.title = `Assigned to: ${task.assigned_to || 'unassigned'}\nPriority: ${task.priority || 'medium'}`;
@@ -761,6 +762,29 @@ if (themeToggle) {
             themeToggle.textContent = '🌙 Тёмная тема';
         }
     });
+}
+
+
+// ===== СПИСОК ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ОТОБРАЖЕНИЯ ИМЁН =====
+const usersList = {
+    1: { name: "Анна Смирнова", avatar: "АС" },
+    2: { name: "Борис Петров", avatar: "БП" },
+    3: { name: "Виктор Сидоров", avatar: "ВС" },
+    4: { name: "Дарья Кузнецова", avatar: "ДК" },
+    5: { name: "Елена Морозова", avatar: "ЕМ" },
+    6: { name: "Максим Иванов", avatar: "МИ" },
+    7: { name: "Ольга Соколова", avatar: "ОС" },
+    8: { name: "Игорь Васильев", avatar: "ИВ" }
+};
+
+function getUserName(userId) {
+    if (!userId || userId === 0) return "Не назначен";
+    return usersList[userId]?.name || `Пользователь ${userId}`;
+}
+
+function getUserAvatar(userId) {
+    if (!userId || userId === 0) return "👤";
+    return usersList[userId]?.avatar || userId;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

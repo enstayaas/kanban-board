@@ -1,6 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Kanban</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="nav">
+    <a href="index.html">📋 Board</a>
+    <a href="users.html">👥 Users</a>
+    <a href="profile.html">👤 Profile</a>
+  </div>
+
+  <h1>👤 My Profile</h1>
+
+  <div class="profile-card">
+    <label>ID</label>
+    <input id="profileId" readonly disabled>
+    
+    <label>Name</label>
+    <input id="profileName" placeholder="Your name">
+    
+    <label>Email</label>
+    <input id="profileEmail" placeholder="Your email" type="email">
+    
+    <button onclick="saveProfile()">💾 Save Changes</button>
+    
+    <p id="profileMessage" style="margin-top:15px; color:green;"></p>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Kanban</title>
@@ -27,7 +73,7 @@
     <script src="config.js"></script>
     <script src="profile.js"></script>
 </body>
-</html>
+</html> -->
 
 
 

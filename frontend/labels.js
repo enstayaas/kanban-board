@@ -15,7 +15,7 @@ async function loadLabels() {
     }
     renderLabelsList();
     renderLabelFilters();
-}
+} 
 
 
 // ========== СОЗДАНИЕ МЕТКИ (с защитой от двойного нажатия) ==========

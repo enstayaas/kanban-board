@@ -470,3 +470,796 @@ body::before {
     opacity: 0.15;
     z-index: -1;
 }
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЕЙ (ТЁМНАЯ ТЕМА) ===== */
+body.dark .users-table {
+    background: rgba(30, 27, 75, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+body.dark .users-table th {
+    background: rgba(139, 92, 246, 0.2);
+    color: #e2e8f0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .users-table td {
+    background: transparent;
+    color: #cbd5e1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark .users-table tr:hover td {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== РАССТОЯНИЕ МЕЖДУ ПОЛЬЗОВАТЕЛЯМИ (ТЁМНАЯ ТЕМА) ===== */
+body.dark .users-table td,
+body.dark .users-table th {
+    padding: 14px 20px;
+}
+
+body.dark .users-table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* ===== СТРАНИЦА АРХИВА (ТЁМНАЯ ТЕМА) ===== */
+body.dark .archive-container {
+    background: rgba(30, 27, 75, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .archive-table th {
+    background: rgba(139, 92, 246, 0.2);
+    color: #e2e8f0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .archive-table td {
+    background: transparent;
+    color: #cbd5e1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark .archive-table tr:hover td {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .restore-btn {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    color: white;
+}
+
+body.dark .restore-btn:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+}
+
+
+/* ===== СТИЛИ ДЛЯ ПАНЕЛИ МЕТОК (ТЁМНАЯ ТЕМА) ===== */
+body.dark .labels-panel {
+    background: rgba(30, 27, 75, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .labels-panel h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .labels-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+body.dark .label {
+    background: rgba(139, 92, 246, 0.2);
+    color: #e2e8f0;
+    border-radius: 40px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+body.dark .label:hover {
+    transform: translateY(-2px);
+    background: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .add-label-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .add-label-form input[type="text"] {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 8px 16px;
+    flex: 1;
+    color: white;
+}
+
+body.dark .add-label-form input[type="text"]::placeholder {
+    color: #94a3b8;
+}
+
+body.dark .add-label-form button {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    border-radius: 40px;
+    padding: 8px 20px;
+    color: white;
+}
+
+body.dark .add-label-form button:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+    transform: scale(1.02);
+}
+
+body.dark .filter-by-labels {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark .filter-by-labels h4 {
+    color: #e2e8f0;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+body.dark .label-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+body.dark .label-filter {
+    padding: 4px 12px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+body.dark .label-filter.active {
+    box-shadow: 0 0 0 2px #a78bfa;
+    opacity: 1;
+}
+
+
+/* ===== СВЕТЛАЯ ТЕМА "ЛАВАНДОВАЯ НЕЖНОСТЬ" ===== */
+body.light {
+    background: linear-gradient(145deg, #f5f0ff 0%, #e8eaff 50%, #f0e6ff 100%);
+    color: #1f2937;
+}
+
+/* Карточки задач – с лёгким свечением */
+body.light .task {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.08);
+    transition: all 0.3s ease;
+}
+
+body.light .task:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.15);
+    border-color: #c4b5fd;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Колонки – стеклянные, с лёгким фиолетовым оттенком */
+body.light .column {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+/* Градиентные кнопки (фиолетовые) */
+body.light .filters button,
+body.light .modal-content button:first-of-type,
+body.light .save-btn {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+}
+
+body.light .filters button:hover,
+body.light .modal-content button:first-of-type:hover,
+body.light .save-btn:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+    transform: scale(1.02);
+    box-shadow: 0 6px 18px rgba(139, 92, 246, 0.4);
+}
+
+/* Панели – стеклянные */
+body.light .filters,
+body.light .labels-panel,
+body.light .sort-pagination-panel {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Навигация */
+body.light .nav {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+body.light .nav a {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+body.light .nav a:hover {
+    color: #a78bfa;
+    text-shadow: 0 0 5px rgba(167, 139, 250, 0.4);
+}
+
+/* Заголовок с градиентом */
+body.light h1 {
+    background: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+/* Эффект "жемчужного сияния" на фоне (лёгкие блики) */
+body.light::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(167, 139, 250, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.light .filters select:focus,
+body.light .filters input:focus {
+    outline: none;
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+}
+
+body.light .label-filter.active {
+    box-shadow: 0 0 0 2px #a78bfa, 0 0 10px rgba(167, 139, 250, 0.5);
+    opacity: 1;
+}
+
+body.light .column::-webkit-scrollbar-thumb {
+    background: #c4b5fd;
+    border-radius: 10px;
+}
+
+body.light .column::-webkit-scrollbar-thumb:hover {
+    background: #a78bfa;
+}
+
+body.light .column {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light .column:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.15);
+}
+
+
+body.light .nav a i {
+    transition: transform 0.2s ease;
+}
+
+body.light .nav a:hover i {
+    transform: scale(1.1);
+}
+
+
+body.light .modal-content {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 20px 35px rgba(139, 92, 246, 0.2);
+}
+
+body.light .loader {
+    border: 3px solid rgba(167, 139, 250, 0.3);
+    border-top-color: #a78bfa;
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
+}
+
+body.light .stats-header h1 {
+    background: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+body.light {
+    animation: fadeInPage 0.5s ease;
+}
+
+/* ===== ИСПРАВЛЕНИЕ ЦВЕТА ТЕКСТА В СВЕТЛОЙ ТЕМЕ ===== */
+body.light {
+    color: #1f2937; /* основной текст – тёмно-серый */
+}
+
+body.light h1,
+body.light h2,
+body.light h3,
+body.light h4 {
+    color: #111827; /* заголовки – почти чёрные */
+}
+
+body.light .task {
+    color: #1f2937;
+}
+
+body.light .task strong {
+    color: #111827;
+}
+
+body.light .column h3 {
+    color: #1e293b;
+    border-bottom-color: #cbd5e1;
+}
+
+body.light .empty-state {
+    color: #6b7280;
+}
+
+body.light .filters label,
+body.light .sort-section label,
+body.light .per-page label {
+    color: #374151;
+}
+
+body.light .filters select,
+body.light .filters input,
+body.light .filters button,
+body.light .sort-section select,
+body.light .sort-section button,
+body.light .pagination-section select,
+body.light .pagination-section button {
+    color: #1f2937;
+    background: white;
+    border-color: #d1d5db;
+}
+
+body.light .modal-content label {
+    color: #374151;
+}
+
+body.light .modal-content input,
+body.light .modal-content textarea,
+body.light .modal-content select {
+    color: #1f2937;
+    background: white;
+    border-color: #d1d5db;
+}
+
+body.light .modal-content h3,
+body.light .modal-content h4 {
+    color: #111827;
+}
+
+body.light .modal-labels-section {
+    background: #f8fafc;
+}
+
+body.light .modal-label-item label {
+    color: white; /* метки остаются с белым текстом */
+}
+
+body.light .labels-panel h3,
+body.light .labels-panel h4,
+body.light .filter-by-labels h4 {
+    color: #1f2937;
+}
+
+body.light .add-label-form input {
+    color: #1f2937;
+    background: white;
+}
+
+body.light .label-filter {
+    color: white;
+}
+
+body.light .label-filter.active {
+    color: white;
+}
+
+body.light .users-table th,
+body.light .users-table td,
+body.light .archive-table th,
+body.light .archive-table td {
+    color: #1f2937;
+}
+
+body.light .users-table th {
+    color: #1f2937;
+}
+
+body.light .profile-card label {
+    color: #374151;
+}
+
+body.light .profile-card input {
+    color: #1f2937;
+    background: white;
+}
+
+body.light .info-label {
+    color: #4b5563;
+}
+
+body.light .info-value {
+    color: #111827;
+}
+
+body.light .stats-header h1 {
+    color: #111827;
+}
+
+body.light .stats-header p {
+    color: #4b5563;
+}
+
+body.light .legend-label {
+    color: #1f2937;
+}
+
+body.light .legend-value {
+    color: #7c3aed;
+}
+
+body.light .legend-percent {
+    color: #6b7280;
+}
+
+body.light #pageInfo {
+    color: #1f2937;
+}
+
+
+body.light .filters button,
+body.light .modal-content button:first-of-type,
+body.light .save-btn,
+body.light #createTaskBtn {
+    color: white; /* кнопки с градиентом – белый текст */
+}
+
+body.light .restore-btn {
+    color: white;
+}
+
+/* ===== УБИРАЕМ ФИОЛЕТОВЫЙ ПРИ НАЖАТИИ НА КНОПКАХ (СВЕТЛАЯ ТЕМА) ===== */
+body.light .filters button:active,
+body.light .modal-content button:first-of-type:active,
+body.light .save-btn:active,
+body.light #createTaskBtn:active {
+    transform: scale(0.98);
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* Убираем фиолетовый контур при фокусе */
+body.light .filters button:focus,
+body.light .modal-content button:first-of-type:focus,
+body.light .save-btn:focus,
+body.light #createTaskBtn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.5);
+}
+
+/* Если кнопки становятся фиолетовыми из-за :visited или других псевдоклассов */
+body.light .filters button,
+body.light .modal-content button:first-of-type,
+body.light .save-btn,
+body.light #createTaskBtn {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    color: white;
+    border: none;
+}
+
+
+/* ===== КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ (СВЕТЛАЯ ТЕМА) ===== */
+body.light .theme-btn {
+    background: #e5e7eb;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+}
+
+body.light .theme-btn:hover {
+    background: #d1d5db;
+    transform: scale(1.02);
+}
+
+body.light .theme-btn:active {
+    background: #cbd5e1;
+    transform: scale(0.98);
+}
+
+body.light .theme-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #a78bfa;
+}
+
+/* ===== ПЛАВНАЯ АНИМАЦИЯ ПРИ ПЕРЕКЛЮЧЕНИИ ТЕМЫ ===== */
+body,
+body * {
+    transition: background-color 0.3s ease, 
+                color 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+
+/* Усиленная анимация для карточек и колонок */
+body .task,
+body .column,
+body .filters,
+body .labels-panel,
+body .sort-pagination-panel,
+body .nav,
+body .modal-content {
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЕЙ (СВЕТЛАЯ ТЕМА) ===== */
+body.light .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    backdrop-filter: none;
+}
+
+body.light .users-table th {
+    background: linear-gradient(135deg, #f5f0ff 0%, #e8eaff 100%);
+    color: #1f2937;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+body.light .users-table td {
+    background: white;
+    color: #374151;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+body.light .users-table tr:hover td {
+    background: #f9fafb;
+}
+
+/* Заголовок страницы пользователей */
+body.light h1 {
+    background: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 24px;
+}
+
+/* ===== РАССТОЯНИЕ МЕЖДУ ПОЛЬЗОВАТЕЛЯМИ (СВЕТЛАЯ ТЕМА) ===== */
+body.light .users-table td,
+body.light .users-table th {
+    padding: 14px 20px;
+}
+
+body.light .users-table {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* ===== СТРАНИЦА АРХИВА (СВЕТЛАЯ ТЕМА) ===== */
+body.light .archive-container {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+body.light .archive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+body.light .archive-table th {
+    background: linear-gradient(135deg, #f5f0ff 0%, #e8eaff 100%);
+    color: #1f2937;
+    font-weight: 600;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+body.light .archive-table td {
+    background: white;
+    color: #374151;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+body.light .archive-table tr:hover td {
+    background: #f9fafb;
+}
+
+body.light .restore-btn {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+body.light .restore-btn:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+    transform: scale(1.02);
+}
+
+
+/* Заголовок страницы архива */
+body.light .archive-container h1,
+body.dark .archive-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+body.light .archive-container h1 {
+    background: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+
+/* ===== ОДИНАКОВЫЕ ОТСТУПЫ ДЛЯ АРХИВА (ОБЕ ТЕМЫ) ===== */
+body.light .archive-table td,
+body.light .archive-table th,
+body.dark .archive-table td,
+body.dark .archive-table th {
+    padding: 14px 20px;
+}
+
+body.light .archive-table th,
+body.dark .archive-table th {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Плавные переходы для таблицы архива */
+body.light .archive-table tr td,
+body.dark .archive-table tr td {
+    transition: background 0.2s ease;
+}
+
+/* ===== СТИЛИ ДЛЯ ПАНЕЛИ МЕТОК (СВЕТЛАЯ ТЕМА) ===== */
+body.light .labels-panel {
+    background: white;
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+body.light .labels-panel h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+body.light .labels-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+body.light .label {
+    background: #f3f4f6;
+    color: #1f2937;
+    border-radius: 40px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+body.light .label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.light .add-label-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+body.light .add-label-form input[type="text"] {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 40px;
+    padding: 8px 16px;
+    flex: 1;
+}
+
+body.light .add-label-form button {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    border-radius: 40px;
+    padding: 8px 20px;
+    color: white;
+}
+
+body.light .filter-by-labels {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+body.light .label-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+body.light .label-filter {
+    padding: 4px 12px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}

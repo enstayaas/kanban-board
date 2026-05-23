@@ -63,6 +63,40 @@ func GetUserByID(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "User not found", http.StatusNotFound)
 }
 
+// PUT /users/:id
+func UpdateUser(w http.ResponseWriter, r *http.Request) {
+	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, `{"error":"invalid user id"}`, http.StatusBadRequest)
+		return
+	}
+
+	var input struct {
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		http.Error(w, `{"error":"invalid request"}`, http.StatusBadRequest)
+		return
+	}
+
+	for i, user := range users {
+		if user.ID == id {
+			if input.Name != "" {
+				users[i].Name = input.Name
+			}
+			if input.Email != "" {
+				users[i].Email = input.Email
+			}
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(users[i])
+			return
+		}
+	}
+	http.Error(w, `{"error":"user not found"}`, http.StatusNotFound)
+}
+
 // package handlers
 
 // import (

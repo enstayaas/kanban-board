@@ -107,8 +107,17 @@ func main() {
 	http.Handle("/", http.FileServer(http.Dir("../frontend")))
 	fmt.Println("Serving frontend from ../frontend")
 
+	// http.HandleFunc("/users", enableCORS(handlers.GetUsers))
+	// http.HandleFunc("/users/", enableCORS(handlers.GetUserByID))
+	// Пользователи
 	http.HandleFunc("/users", enableCORS(handlers.GetUsers))
-	http.HandleFunc("/users/", enableCORS(handlers.GetUserByID))
+	http.HandleFunc("/users/", enableCORS(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodPut {
+			handlers.UpdateUser(w, r)
+		} else {
+			handlers.GetUserByID(w, r)
+		}
+	}))
 
 	fmt.Println("Server started at :8080")
 	http.ListenAndServe(":8080", nil)

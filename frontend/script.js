@@ -238,7 +238,8 @@ function renderBoard(tasks) {
         taskDiv.innerHTML = `
             <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
             ${taskLabelsHtml}
-            <div style="font-size: 10px; color: #888;">👤 ${task.assigned_to || 'unassigned'}</div>
+        
+            <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
         `;
         
         taskDiv.title = `Assigned to: ${task.assigned_to || 'unassigned'}\nPriority: ${task.priority || 'medium'}`;
@@ -470,20 +471,40 @@ async function saveTask() {
 
 
 
-// ========== ОЧИСТКА ФИЛЬТРОВ ==========
 function clearFilters() {
-  const priorityFilter = document.getElementById('priorityFilter');
-  const userFilter = document.getElementById('userFilter');
-   const searchInput = document.getElementById('searchInput');
-  
-  if (priorityFilter) priorityFilter.value = '';
-  if (userFilter) userFilter.value = '';
-   if (searchInput) searchInput.value = '';
+    // Сбрасываем значения фильтров
+    const priorityFilter = document.getElementById('priorityFilter');
+    const userFilter = document.getElementById('userFilter');
+    const searchInput = document.getElementById('searchInput');
     
+    if (priorityFilter) priorityFilter.value = '';
+    if (userFilter) userFilter.value = '';
+    if (searchInput) searchInput.value = '';
+    
+    // Сбрасываем переменную поиска
     searchQuery = '';
+    
+    // Сбрасываем страницу
     currentPage = 1;
-  loadTasks();
+    
+    // Перезагружаем задачи (без фильтров)
+    loadTasks();
 }
+
+// ========== ОЧИСТКА ФИЛЬТРОВ ==========
+// function clearFilters() {
+//   const priorityFilter = document.getElementById('priorityFilter');
+//   const userFilter = document.getElementById('userFilter');
+//    const searchInput = document.getElementById('searchInput');
+  
+//   if (priorityFilter) priorityFilter.value = '';
+//   if (userFilter) userFilter.value = '';
+//    if (searchInput) searchInput.value = '';
+    
+//     searchQuery = '';
+//     currentPage = 1;
+//   loadTasks();
+// }
 
 // ========== ПРИМЕНЕНИЕ ФИЛЬТРОВ ==========
 function applyFilter() {
@@ -683,8 +704,88 @@ async function archiveCurrentTask() {
     }
 }
 
+// ===== НЕЖНЫЕ ЦВЕТА ДЛЯ КАРТОЧЕК =====
+const pastelColors = [
+    'pastel-pink', 'pastel-blue', 'pastel-yellow',
+    'pastel-purple', 'pastel-green', 'pastel-orange',
+    'pastel-mint', 'pastel-lavender', 'pastel-peach', 'pastel-sky'
+];
+
+function applyTaskColors() {
+    document.querySelectorAll('.task').forEach((card, index) => {
+        const colorIndex = index % pastelColors.length;
+        card.classList.add(pastelColors[colorIndex]);
+    });
+}
+
+// Наблюдатель за появлением новых карточек
+const colorObserver = new MutationObserver(() => {
+    const tasks = document.querySelectorAll('.task');
+    if (tasks.length > 0) {
+        tasks.forEach(card => {
+            // Добавляем цвет, только если его ещё нет
+            let hasColor = false;
+            for (const color of pastelColors) {
+                if (card.classList.contains(color)) {
+                    hasColor = true;
+                    break;
+                }
+            }
+            if (!hasColor) {
+                applyTaskColors();
+            }
+        });
+    }
+});
+colorObserver.observe(document.body, { childList: true, subtree: true });
 
 
+// ===== ТЁМНАЯ ТЕМА =====
+const themeToggle = document.getElementById('themeToggle');
+
+// Загружаем сохранённую тему
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+    if (themeToggle) themeToggle.textContent = '☀️ Светлая тема';
+}
+
+// Переключатель темы
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        if (document.body.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.textContent = '☀️ Светлая тема';
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeToggle.textContent = '🌙 Тёмная тема';
+        }
+    });
+}
+
+
+// ===== СПИСОК ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ОТОБРАЖЕНИЯ ИМЁН =====
+const usersList = {
+    1: { name: "Анна Смирнова", avatar: "АС" },
+    2: { name: "Борис Петров", avatar: "БП" },
+    3: { name: "Виктор Сидоров", avatar: "ВС" },
+    4: { name: "Дарья Кузнецова", avatar: "ДК" },
+    5: { name: "Елена Морозова", avatar: "ЕМ" },
+    6: { name: "Максим Иванов", avatar: "МИ" },
+    7: { name: "Ольга Соколова", avatar: "ОС" },
+    8: { name: "Игорь Васильев", avatar: "ИВ" }
+};
+
+function getUserName(userId) {
+    if (!userId || userId === 0) return "Не назначен";
+    return usersList[userId]?.name || `Пользователь ${userId}`;
+}
+
+function getUserAvatar(userId) {
+    if (!userId || userId === 0) return "👤";
+    return usersList[userId]?.avatar || userId;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();

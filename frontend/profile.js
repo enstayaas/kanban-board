@@ -1,58 +1,556 @@
 // frontend/profile.js
+// frontend/profile.js
+
+// frontend/profile.js
+
+// frontend/profile.js
 
 const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
 
+let currentUserId = 1; // Временно используем ID = 1
+
 async function fetchAPI(url, options = {}) {
     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
-    const response = await fetch(fullUrl, options);
-    if (!response.ok) {
-        let errorMsg = `HTTP ${response.status}`;
-        try {
-            const err = await response.json();
-            errorMsg = err.error || err.message || errorMsg;
-        } catch(e) {}
-        throw new Error(errorMsg);
-    }
+    const response = await fetch(fullUrl, {
+        ...options,
+        headers: { 'Content-Type': 'application/json', ...options.headers }
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return response.json();
 }
 
 async function loadProfile() {
-    const messageEl = document.getElementById('profileMessage');
-    const nameInput = document.getElementById('profileName');
-    const emailInput = document.getElementById('profileEmail');
-    
-    // Показать загрузку
-    if (nameInput) nameInput.value = 'Загрузка...';
-    if (emailInput) emailInput.value = 'Загрузка...';
-    
+    const msg = document.getElementById('profileMessage');
     try {
         const users = await fetchAPI('/users');
         if (users && users.length > 0) {
             const user = users[0];
-            document.getElementById('profileId').value = user.id || user.ID || '';
-            if (nameInput) nameInput.value = user.name || user.Name || '';
-            if (emailInput) emailInput.value = user.email || user.Email || '';
-            if (messageEl) {
-                messageEl.innerText = '✅ Профиль загружен';
-                messageEl.style.color = 'green';
-                setTimeout(() => messageEl.innerText = '', 2000);
-            }
-        } else {
-            if (messageEl) {
-                messageEl.innerText = '⚠️ Нет пользователей';
-                messageEl.style.color = 'orange';
+            const userId = user.id || user.ID;
+            const userName = user.name || user.Name;
+            const userEmail = user.email || user.Email;
+            
+            // Сохраняем ID глобально
+            currentUserId = userId;
+            
+            // Обновляем информационные блоки
+            const idElement = document.getElementById('profileId');
+            const nameDisplayElement = document.getElementById('profileNameDisplay');
+            const emailDisplayElement = document.getElementById('profileEmailDisplay');
+            const nameTitleElement = document.getElementById('profileNameTitle');
+            
+            if (idElement) idElement.innerText = userId;
+            if (nameDisplayElement) nameDisplayElement.innerText = userName;
+            if (emailDisplayElement) emailDisplayElement.innerText = userEmail;
+            if (nameTitleElement) nameTitleElement.innerText = userName;
+            
+            // Обновляем аватарку (инициалы)
+            const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+            const avatarElement = document.getElementById('avatarLetter');
+            if (avatarElement) avatarElement.innerText = initials;
+            
+            // Заполняем поля редактирования
+            const nameInput = document.getElementById('profileName');
+            const emailInput = document.getElementById('profileEmail');
+            if (nameInput) nameInput.value = userName;
+            if (emailInput) emailInput.value = userEmail;
+            
+            if (msg) {
+                msg.innerText = '✅ Профиль загружен';
+                msg.style.color = 'green';
+                setTimeout(() => msg.innerText = '', 2000);
             }
         }
     } catch (error) {
         console.error('Load profile error:', error);
-        if (messageEl) {
-            messageEl.innerText = '❌ Ошибка загрузки профиля: ' + error.message;
-            messageEl.style.color = 'red';
+        if (msg) {
+            msg.innerText = '❌ Ошибка загрузки профиля: ' + error.message;
+            msg.style.color = 'red';
         }
-        if (nameInput) nameInput.value = '';
-        if (emailInput) emailInput.value = '';
     }
 }
+
+async function saveProfile() {
+    const name = document.getElementById('profileName').value;
+    const email = document.getElementById('profileEmail').value;
+    const msg = document.getElementById('profileMessage');
+    
+    if (!name || !email) {
+        if (msg) {
+            msg.innerText = '❌ Имя и email не могут быть пустыми';
+            msg.style.color = 'red';
+        }
+        return;
+    }
+    
+    try {
+        // Используем сохранённый ID
+        const response = await fetch(`${API_BASE_URL}/users/${currentUserId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email })
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        if (msg) {
+            msg.innerText = '✅ Профиль обновлён!';
+            msg.style.color = 'green';
+            setTimeout(() => msg.innerText = '', 2000);
+        }
+        loadProfile(); // перезагружаем отображение
+    } catch (error) {
+        console.error('Save profile error:', error);
+        if (msg) {
+            msg.innerText = '❌ Ошибка: ' + error.message;
+            msg.style.color = 'red';
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadProfile);
+
+
+
+
+
+
+
+// frontend/profile.js
+
+// const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+
+// let currentUserId = 1;
+
+// async function fetchAPI(url, options = {}) {
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+//     const response = await fetch(fullUrl, {
+//         ...options,
+//         headers: { 'Content-Type': 'application/json', ...options.headers }
+//     });
+//     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+//     return response.json();
+// }
+
+// async function loadProfile() {
+//     const msg = document.getElementById('profileMessage');
+//     try {
+//         const users = await fetchAPI('/users');
+//         if (users && users.length > 0) {
+//             const user = users[0];
+//             const userId = user.id || user.ID;
+//             const userName = user.name || user.Name;
+//             const userEmail = user.email || user.Email;
+            
+//             currentUserId = userId;
+            
+//             const idEl = document.getElementById('profileId');
+//             const nameDisplayEl = document.getElementById('profileNameDisplay');
+//             const emailDisplayEl = document.getElementById('profileEmailDisplay');
+//             const nameTitleEl = document.getElementById('profileNameTitle');
+//             const nameInput = document.getElementById('profileName');
+//             const emailInput = document.getElementById('profileEmail');
+//             const avatarEl = document.getElementById('avatarLetter');
+            
+//             if (idEl) idEl.innerText = userId;
+//             if (nameDisplayEl) nameDisplayEl.innerText = userName;
+//             if (emailDisplayEl) emailDisplayEl.innerText = userEmail;
+//             if (nameTitleEl) nameTitleEl.innerText = userName;
+//             if (nameInput) nameInput.value = userName;
+//             if (emailInput) emailInput.value = userEmail;
+            
+//             if (avatarEl) {
+//                 const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+//                 avatarEl.innerText = initials;
+//             }
+            
+//             if (msg) {
+//                 msg.innerText = '✅ Профиль загружен';
+//                 msg.style.color = 'green';
+//                 setTimeout(() => msg.innerText = '', 2000);
+//             }
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         if (msg) {
+//             msg.innerText = '❌ Ошибка загрузки профиля';
+//             msg.style.color = 'red';
+//         }
+//     }
+// }
+
+// async function saveProfile() {
+//     const name = document.getElementById('profileName').value;
+//     const email = document.getElementById('profileEmail').value;
+//     const msg = document.getElementById('profileMessage');
+    
+//     if (!name || !email) {
+//         if (msg) {
+//             msg.innerText = '❌ Имя и email не могут быть пустыми';
+//             msg.style.color = 'red';
+//         }
+//         return;
+//     }
+    
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/users/${currentUserId}`, {
+//             method: 'PUT',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ name, email })
+//         });
+//         if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+//         if (msg) {
+//             msg.innerText = '✅ Профиль обновлён!';
+//             msg.style.color = 'green';
+//             setTimeout(() => msg.innerText = '', 2000);
+//         }
+//         loadProfile();
+//     } catch (error) {
+//         console.error(error);
+//         if (msg) {
+//             msg.innerText = '❌ Ошибка сохранения: ' + error.message;
+//             msg.style.color = 'red';
+//         }
+//     }
+// }
+
+// document.addEventListener('DOMContentLoaded', loadProfile);
+
+// const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+
+// async function fetchAPI(url, options = {}) {
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+//     const response = await fetch(fullUrl, {
+//         ...options,
+//         headers: { 'Content-Type': 'application/json', ...options.headers }
+//     });
+//     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+//     return response.json();
+// }
+
+// async function loadProfile() {
+//     const msg = document.getElementById('profileMessage');
+//     try {
+//         const users = await fetchAPI('/users');
+//         if (users && users.length > 0) {
+//             const user = users[0];
+//             const userId = user.id || user.ID;
+//             const userName = user.name || user.Name;
+//             const userEmail = user.email || user.Email;
+            
+//             // Обновляем информационные блоки
+//             const idElement = document.getElementById('profileId');
+//             const nameDisplayElement = document.getElementById('profileNameDisplay');
+//             const emailDisplayElement = document.getElementById('profileEmailDisplay');
+//             const nameTitleElement = document.getElementById('profileNameTitle');
+            
+//             if (idElement) idElement.innerText = userId;
+//             if (nameDisplayElement) nameDisplayElement.innerText = userName;
+//             if (emailDisplayElement) emailDisplayElement.innerText = userEmail;
+//             if (nameTitleElement) nameTitleElement.innerText = userName;
+            
+//             // Обновляем аватарку (инициалы)
+//             const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+//             const avatarElement = document.getElementById('avatarLetter');
+//             if (avatarElement) avatarElement.innerText = initials;
+            
+//             // Заполняем поля редактирования
+//             const nameInput = document.getElementById('profileName');
+//             const emailInput = document.getElementById('profileEmail');
+//             if (nameInput) nameInput.value = userName;
+//             if (emailInput) emailInput.value = userEmail;
+            
+//             if (msg) {
+//                 msg.innerText = '✅ Профиль загружен';
+//                 msg.style.color = 'green';
+//                 setTimeout(() => msg.innerText = '', 2000);
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Load profile error:', error);
+//         if (msg) {
+//             msg.innerText = '❌ Ошибка загрузки профиля: ' + error.message;
+//             msg.style.color = 'red';
+//         }
+//     }
+// }
+
+
+
+async function saveProfile() {
+    const name = document.getElementById('profileName').value;
+    const email = document.getElementById('profileEmail').value;
+    
+    // Пытаемся получить ID из элемента
+    let userId = document.getElementById('profileId')?.innerText;
+    
+    // Если ID не число или прочерк, берём ID из атрибута или используем 1
+    if (!userId || userId === '-' || isNaN(parseInt(userId))) {
+        // Пробуем взять ID из скрытого поля (если есть)
+        const hiddenId = document.getElementById('profileUserId')?.value;
+        if (hiddenId) {
+            userId = hiddenId;
+        } else {
+            userId = '1'; // временно используем первого пользователя
+        }
+    }
+    
+    const msg = document.getElementById('profileMessage');
+    
+    if (!name || !email) {
+        if (msg) {
+            msg.innerText = '❌ Имя и email не могут быть пустыми';
+            msg.style.color = 'red';
+        }
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email })
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        if (msg) {
+            msg.innerText = '✅ Профиль обновлён!';
+            msg.style.color = 'green';
+            setTimeout(() => msg.innerText = '', 2000);
+        }
+        loadProfile(); // перезагружаем отображение
+    } catch (error) {
+        console.error('Save profile error:', error);
+        if (msg) {
+            msg.innerText = '❌ Ошибка: ' + error.message;
+            msg.style.color = 'red';
+        }
+    }
+}
+
+// async function saveProfile() {
+//     const name = document.getElementById('profileName').value;
+//     const email = document.getElementById('profileEmail').value;
+    
+//     // БЕРЁМ ID ИЗ ДРУГОГО МЕСТА
+//     let userId = document.getElementById('profileId')?.innerText;
+    
+//     // Если не нашли, пробуем взять из скрытого поля или используем 1
+//     if (!userId || userId === '—') {
+//         userId = 1; // временно используем первого пользователя
+//     }
+    
+//     const msg = document.getElementById('profileMessage');
+    
+//     if (!name || !email) {
+//         if (msg) {
+//             msg.innerText = '❌ Имя и email не могут быть пустыми';
+//             msg.style.color = 'red';
+//         }
+//         return;
+//     }
+    
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+//             method: 'PUT',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ name, email })
+//         });
+        
+//         if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+//         if (msg) {
+//             msg.innerText = '✅ Профиль обновлён!';
+//             msg.style.color = 'green';
+//             setTimeout(() => msg.innerText = '', 2000);
+//         }
+//         loadProfile(); // перезагружаем отображение
+//     } catch (error) {
+//         console.error('Save profile error:', error);
+//         if (msg) {
+//             msg.innerText = '❌ Ошибка: ' + error.message;
+//             msg.style.color = 'red';
+//         }
+//     }
+// }
+// async function saveProfile() {
+//     const name = document.getElementById('profileName').value;
+//     const email = document.getElementById('profileEmail').value;
+//     const userId = document.getElementById('profileId')?.innerText;
+//     const msg = document.getElementById('profileMessage');
+    
+//     if (!name || !email) {
+//         if (msg) {
+//             msg.innerText = '❌ Имя и email не могут быть пустыми';
+//             msg.style.color = 'red';
+//         }
+//         return;
+//     }
+    
+//     try {
+//         await fetchAPI(`/users/${userId}`, {
+//             method: 'PUT',
+//             body: JSON.stringify({ name, email })
+//         });
+//         if (msg) {
+//             msg.innerText = '✅ Профиль обновлён!';
+//             msg.style.color = 'green';
+//             setTimeout(() => msg.innerText = '', 2000);
+//         }
+//         loadProfile(); // перезагружаем отображение
+//     } catch (error) {
+//         if (msg) {
+//             msg.innerText = '❌ Ошибка: ' + error.message;
+//             msg.style.color = 'red';
+//         }
+//     }
+// }
+
+document.addEventListener('DOMContentLoaded', loadProfile);
+
+
+
+// const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+
+// async function fetchAPI(url, options = {}) {
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+//     const response = await fetch(fullUrl, {
+//         ...options,
+//         headers: { 'Content-Type': 'application/json', ...options.headers }
+//     });
+//     if (!response.ok) throw new Error(`HTTP ${response.status}`);
+//     return response.json();
+// }
+
+// async function loadProfile() {
+//     const msg = document.getElementById('profileMessage');
+//     try {
+//         // Получаем всех пользователей (временно, пока нет JWT)
+//         const users = await fetchAPI('/users');
+//         if (users && users.length > 0) {
+//             const user = users[0]; // берем первого пользователя
+//             const userId = user.id || user.ID;
+//             const userName = user.name || user.Name;
+//             const userEmail = user.email || user.Email;
+            
+//             // Обновляем заголовок и информацию
+//             document.getElementById('profileId').innerText = userId;
+//             document.getElementById('profileNameDisplay').innerText = userName;
+//             document.getElementById('profileEmailDisplay').innerText = userEmail;
+//             document.getElementById('profileNameTitle').innerText = userName;
+            
+//             // Устанавливаем инициалы для аватарки
+//             const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+//             document.getElementById('avatarLetter').innerText = initials;
+            
+//             // Заполняем поля редактирования
+//             document.getElementById('profileName').value = userName;
+//             document.getElementById('profileEmail').value = userEmail;
+//             document.getElementById('profileIdHidden')?.setAttribute('value', userId);
+            
+//             if (msg) {
+//                 msg.innerText = '✅ Профиль загружен';
+//                 msg.style.color = 'green';
+//                 setTimeout(() => msg.innerText = '', 2000);
+//             }
+//         }
+//     } catch (error) {
+//         if (msg) {
+//             msg.innerText = '❌ Ошибка загрузки профиля: ' + error.message;
+//             msg.style.color = 'red';
+//         }
+//     }
+// }
+
+// async function saveProfile() {
+//     const name = document.getElementById('profileName').value;
+//     const email = document.getElementById('profileEmail').value;
+//     const userId = document.getElementById('profileId').innerText; // берем ID из отображения
+//     const msg = document.getElementById('profileMessage');
+    
+//     if (!name || !email) {
+//         msg.innerText = '❌ Имя и email не могут быть пустыми';
+//         msg.style.color = 'red';
+//         return;
+//     }
+    
+//     try {
+//         await fetchAPI(`/users/${userId}`, {
+//             method: 'PUT',
+//             body: JSON.stringify({ name, email })
+//         });
+//         msg.innerText = '✅ Профиль обновлен!';
+//         msg.style.color = 'green';
+//         setTimeout(() => msg.innerText = '', 2000);
+//         loadProfile(); // перезагружаем отображение
+//     } catch (error) {
+//         msg.innerText = '❌ Ошибка: ' + error.message;
+//         msg.style.color = 'red';
+//     }
+// }
+
+// document.addEventListener('DOMContentLoaded', loadProfile);
+
+
+
+
+
+
+
+// const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+
+// async function fetchAPI(url, options = {}) {
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+//     const response = await fetch(fullUrl, options);
+//     if (!response.ok) {
+//         let errorMsg = `HTTP ${response.status}`;
+//         try {
+//             const err = await response.json();
+//             errorMsg = err.error || err.message || errorMsg;
+//         } catch(e) {}
+//         throw new Error(errorMsg);
+//     }
+//     return response.json();
+// }
+
+// async function loadProfile() {
+//     const messageEl = document.getElementById('profileMessage');
+//     const nameInput = document.getElementById('profileName');
+//     const emailInput = document.getElementById('profileEmail');
+    
+//     // Показать загрузку
+//     if (nameInput) nameInput.value = 'Загрузка...';
+//     if (emailInput) emailInput.value = 'Загрузка...';
+    
+//     try {
+//         const users = await fetchAPI('/users');
+//         if (users && users.length > 0) {
+//             const user = users[0];
+//             document.getElementById('profileId').value = user.id || user.ID || '';
+//             if (nameInput) nameInput.value = user.name || user.Name || '';
+//             if (emailInput) emailInput.value = user.email || user.Email || '';
+//             if (messageEl) {
+//                 messageEl.innerText = '✅ Профиль загружен';
+//                 messageEl.style.color = 'green';
+//                 setTimeout(() => messageEl.innerText = '', 2000);
+//             }
+//         } else {
+//             if (messageEl) {
+//                 messageEl.innerText = '⚠️ Нет пользователей';
+//                 messageEl.style.color = 'orange';
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Load profile error:', error);
+//         if (messageEl) {
+//             messageEl.innerText = '❌ Ошибка загрузки профиля: ' + error.message;
+//             messageEl.style.color = 'red';
+//         }
+//         if (nameInput) nameInput.value = '';
+//         if (emailInput) emailInput.value = '';
+//     }
+// }
 
 
 // const API_BASE_URL = 'http://localhost:8080';

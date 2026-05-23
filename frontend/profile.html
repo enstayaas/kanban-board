@@ -1,78 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - Kanban</title>
+    <title>Мой профиль - Kanban</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-page {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .profile-header { text-align: center; margin-bottom: 40px; }
+        .profile-header .avatar {
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .profile-header h1 { font-size: 28px; font-weight: 700; color: #1f2937; margin-bottom: 8px; }
+        .profile-header p { color: #6b7280; font-size: 14px; }
+        .profile-card { background: white; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+        .profile-card .section { padding: 24px; border-bottom: 1px solid #f0f0f0; }
+        .profile-card .section:last-child { border-bottom: none; }
+        .section-title { font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .info-row { display: flex; margin-bottom: 16px; padding: 8px 0; }
+        .info-label { width: 140px; font-weight: 500; color: #4b5563; }
+        .info-value { flex: 1; color: #111827; font-weight: 500; }
+        .edit-form .form-group { margin-bottom: 20px; }
+        .edit-form label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 8px; }
+        .edit-form input { width: 100%; padding: 12px 16px; border-radius: 14px; border: 1px solid #e5e7eb; font-size: 14px; font-family: inherit; }
+        .edit-form input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        .save-btn { background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; font-size: 14px; }
+        .save-btn:hover { background: #2563eb; }
+        .profile-message { margin-top: 20px; font-size: 14px; text-align: center; padding: 12px; border-radius: 12px; }
+    </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="index.html">📋 Board</a>
-        <a href="users.html">👥 Users</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="archive.html">📦 Архив</a>
+
+<div class="nav">
+    <a href="index.html">📋 Board</a>
+    <a href="users.html">👥 Users</a>
+    <a href="profile.html">👤 Profile</a>
+    <a href="archive.html">📦 Архив</a>
+    <a href="stats.html">📊 Статистика</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;">🌙 Тёмная тема</button>
+</div>
+
+<div class="profile-page">
+    <div class="profile-header">
+        <div class="avatar" id="avatarLetter">АС</div>
+        <h1 id="profileNameTitle">Загрузка...</h1>
+        <p>Ваш аккаунт в системе</p>
     </div>
-    <h1>👤 My Profile</h1>
+
     <div class="profile-card">
-        <label>ID</label>
-        <input id="profileId" readonly disabled>
-        <label>Name</label>
-        <input id="profileName" placeholder="Your name">
-        <label>Email</label>
-        <input id="profileEmail" placeholder="Your email" type="email">
-        <button onclick="saveProfile()">💾 Save Changes</button>
-        <p id="profileMessage" style="margin-top:15px;"></p>
+        <div class="section">
+            <div class="section-title">👤 Информация об аккаунте</div>
+            <div class="info-row"><div class="info-label">ID пользователя</div><div class="info-value" id="profileId">-</div></div>
+            <div class="info-row"><div class="info-label">Имя</div><div class="info-value" id="profileNameDisplay">-</div></div>
+            <div class="info-row"><div class="info-label">Электронная почта</div><div class="info-value" id="profileEmailDisplay">-</div></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">✏️ Редактировать профиль</div>
+            <div class="edit-form">
+                <div class="form-group"><label>Новое имя</label><input type="text" id="profileName" placeholder="Ваше имя"></div>
+                <div class="form-group"><label>Новый email</label><input type="email" id="profileEmail" placeholder="example@mail.com"></div>
+                <button class="save-btn" onclick="saveProfile()">💾 Сохранить изменения</button>
+                <div id="profileMessage" class="profile-message"></div>
+            </div>
+        </div>
     </div>
-    <script src="config.js"></script>
-    <script src="profile.js"></script>
+</div>
+
+<script src="config.js"></script>
+<script src="profile.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>User Profile</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<h2>User Profile</h2>   
-
-<div id="profile"></div>
-
-<script>
-async function loadUser() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  const res = await fetch(`http://localhost:8080/users/${id}`);
-  const user = await res.json();
-
-  const div = document.getElementById("profile");
-
-  div.innerHTML = `
-    <h3>${user.name}</h3>
-    <p>Email: ${user.email}</p>
-  `;
-}
-
-loadUser();
-</script>
-<script src="script.js"></script>
-
-</body>
-</html> -->

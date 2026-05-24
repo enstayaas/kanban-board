@@ -3,7 +3,10 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strconv"
+	"time"
 
 	"kanban/middleware"
 
@@ -20,18 +23,47 @@ type BoardHandler struct {
 	DB *sql.DB
 }
 
-// 🔹 GET /boards
+// GET /boards?page=1&limit=10
 func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
-
 	userID := r.Context().Value(middleware.UserIDKey).(int)
 
+	// Параметры пагинации
+	pageStr := r.URL.Query().Get("page")
+	limitStr := r.URL.Query().Get("limit")
+
+	page := 1
+	if pageStr != "" {
+		page, _ = strconv.Atoi(pageStr)
+	}
+	limit := 10
+	if limitStr != "" {
+		limit, _ = strconv.Atoi(limitStr)
+	}
+	offset := (page - 1) * limit
+
+	// Подсчет общего количества
+	var total int
+	err := h.DB.QueryRow(`
+		SELECT COUNT(DISTINCT b.id)
+		FROM boards b
+		LEFT JOIN board_members bm ON bm.board_id = b.id
+		WHERE (b.owner_id=$1 OR bm.user_id=$1) AND b.deleted_at IS NULL
+	`, userID).Scan(&total)
+
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	// Основной запрос с пагинацией
 	rows, err := h.DB.Query(`
 		SELECT DISTINCT b.id, b.title, b.description
 		FROM boards b
 		LEFT JOIN board_members bm ON bm.board_id = b.id
-		WHERE (b.owner_id=$1 OR bm.user_id=$1)
-		AND b.deleted_at IS NULL
-	`, userID)
+		WHERE (b.owner_id=$1 OR bm.user_id=$1) AND b.deleted_at IS NULL
+		ORDER BY b.id
+		LIMIT $2 OFFSET $3
+	`, userID, limit, offset)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -40,37 +72,52 @@ func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	boards := []Board{}
-
 	for rows.Next() {
 		var b Board
-
 		err := rows.Scan(&b.ID, &b.Title, &b.Description)
 		if err != nil {
 			http.Error(w, err.Error(), 500)
 			return
 		}
-
 		boards = append(boards, b)
 	}
 
+	// Ответ с мета-информацией
+	response := map[string]interface{}{
+		"data": boards,
+		"meta": map[string]interface{}{
+			"total":      total,
+			"page":       page,
+			"limit":      limit,
+			"totalPages": (total + limit - 1) / limit,
+		},
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(boards)
+	json.NewEncoder(w).Encode(response)
 }
 
-// 🔹 POST /boards
+// POST /boards
 func (h *BoardHandler) CreateBoard(w http.ResponseWriter, r *http.Request) {
-
 	userID := r.Context().Value(middleware.UserIDKey).(int)
 
 	var b Board
 	err := json.NewDecoder(r.Body).Decode(&b)
 	if err != nil {
-		http.Error(w, err.Error(), 400)
+		http.Error(w, `{"error": "invalid request"}`, http.StatusBadRequest)
+		return
+	}
+
+	if b.Title == "" {
+		http.Error(w, `{"error": "title is required"}`, http.StatusBadRequest)
+		return
+	}
+	if len(b.Title) > 255 {
+		http.Error(w, `{"error": "title too long (max 255 characters)"}`, http.StatusBadRequest)
 		return
 	}
 
 	var boardID int
-
 	err = h.DB.QueryRow(`
 		INSERT INTO boards (title, description, owner_id)
 		VALUES ($1, $2, $3)
@@ -78,67 +125,71 @@ func (h *BoardHandler) CreateBoard(w http.ResponseWriter, r *http.Request) {
 	`, b.Title, b.Description, userID).Scan(&boardID)
 
 	if err != nil {
-		http.Error(w, err.Error(), 500)
+		http.Error(w, `{"error": "failed to create board"}`, http.StatusInternalServerError)
 		return
 	}
 
-	// добавляем owner в members
 	_, _ = h.DB.Exec(`
 		INSERT INTO board_members (board_id, user_id, role)
 		VALUES ($1, $2, 'owner')
 	`, boardID, userID)
 
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(map[string]int{
 		"id": boardID,
 	})
 }
 
-// 🔹 DELETE /boards/:id (soft delete)
+// DELETE /boards/:id
 func (h *BoardHandler) DeleteBoard(w http.ResponseWriter, r *http.Request) {
-
 	userID := r.Context().Value(middleware.UserIDKey).(int)
-
 	vars := mux.Vars(r)
 	boardID := vars["id"]
+
+	var exists bool
+	err := h.DB.QueryRow(`
+		SELECT EXISTS(SELECT 1 FROM boards WHERE id=$1 AND deleted_at IS NULL)
+	`, boardID).Scan(&exists)
+
+	if err != nil {
+		http.Error(w, `{"error": "database error"}`, http.StatusInternalServerError)
+		return
+	}
+
+	if !exists {
+		http.Error(w, `{"error": "board not found"}`, http.StatusNotFound)
+		return
+	}
 
 	var ownerID int
-
-	err := h.DB.QueryRow(`
-		SELECT owner_id FROM boards WHERE id=$1
-	`, boardID).Scan(&ownerID)
-
+	err = h.DB.QueryRow(`SELECT owner_id FROM boards WHERE id=$1`, boardID).Scan(&ownerID)
 	if err != nil {
-		http.Error(w, "Board not found", 404)
+		http.Error(w, `{"error": "board not found"}`, http.StatusNotFound)
 		return
 	}
 
-	// проверка owner
 	if ownerID != userID {
-		http.Error(w, "Only owner can delete", 403)
+		http.Error(w, `{"error": "only owner can delete"}`, http.StatusForbidden)
 		return
 	}
 
-	_, err = h.DB.Exec(`
-		UPDATE boards SET deleted_at = NOW() WHERE id=$1
-	`, boardID)
-
+	_, err = h.DB.Exec(`UPDATE boards SET deleted_at = NOW() WHERE id=$1`, boardID)
 	if err != nil {
-		http.Error(w, err.Error(), 500)
+		http.Error(w, `{"error": "failed to delete board"}`, http.StatusInternalServerError)
 		return
 	}
 
-	_, _ = w.Write([]byte("Board deleted"))
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "Board deleted"})
 }
 
-// 🔹 GET /boards/:id/members
+// GET /boards/:id/members
 func (h *BoardHandler) GetMembers(w http.ResponseWriter, r *http.Request) {
-
 	userID := r.Context().Value(middleware.UserIDKey).(int)
 	vars := mux.Vars(r)
 	boardID := vars["id"]
 
-	// 🔐 проверка доступа (owner или member)
 	var exists int
 	err := h.DB.QueryRow(`
 		SELECT 1
@@ -152,7 +203,6 @@ func (h *BoardHandler) GetMembers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 📌 получаем участников
 	rows, err := h.DB.Query(`
 		SELECT u.id, u.name, bm.role
 		FROM board_members bm
@@ -173,7 +223,6 @@ func (h *BoardHandler) GetMembers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	members := []Member{}
-
 	for rows.Next() {
 		var m Member
 		err := rows.Scan(&m.ID, &m.Name, &m.Role)
@@ -184,5 +233,122 @@ func (h *BoardHandler) GetMembers(w http.ResponseWriter, r *http.Request) {
 		members = append(members, m)
 	}
 
-	_ = json.NewEncoder(w).Encode(members)
+	json.NewEncoder(w).Encode(members)
+}
+
+// POST /boards/:id/members
+func (h *BoardHandler) AddMemberToBoard(w http.ResponseWriter, r *http.Request) {
+	userID := r.Context().Value(middleware.UserIDKey).(int)
+	vars := mux.Vars(r)
+	boardID := vars["id"]
+
+	var req struct {
+		UserID int    `json:"user_id"`
+		Role   string `json:"role"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, `{"error": "invalid request"}`, http.StatusBadRequest)
+		return
+	}
+
+	if req.UserID == userID {
+		http.Error(w, `{"error": "cannot add yourself as member"}`, http.StatusBadRequest)
+		return
+	}
+
+	var ownerID int
+	err := h.DB.QueryRow("SELECT owner_id FROM boards WHERE id=$1", boardID).Scan(&ownerID)
+	if err != nil {
+		http.Error(w, `{"error": "board not found"}`, http.StatusNotFound)
+		return
+	}
+
+	if ownerID != userID {
+		http.Error(w, `{"error": "only owner can add members"}`, http.StatusForbidden)
+		return
+	}
+
+	_, err = h.DB.Exec(`
+		INSERT INTO board_members (board_id, user_id, role)
+		VALUES ($1, $2, $3)
+		ON CONFLICT DO NOTHING
+	`, boardID, req.UserID, req.Role)
+
+	if err != nil {
+		http.Error(w, `{"error": "failed to add member"}`, http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "member added"})
+}
+
+// InviteByEmail - приглашение по email
+func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
+	userID := r.Context().Value(middleware.UserIDKey).(int)
+	vars := mux.Vars(r)
+	boardID := vars["id"]
+
+	var req struct {
+		Email string `json:"email"`
+		Role  string `json:"role"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, `{"error": "invalid request"}`, http.StatusBadRequest)
+		return
+	}
+
+	if req.Email == "" {
+		http.Error(w, `{"error": "email is required"}`, http.StatusBadRequest)
+		return
+	}
+
+	if !ValidateEmail(req.Email) {
+		http.Error(w, `{"error": "invalid email format"}`, http.StatusBadRequest)
+		return
+	}
+
+	var ownerID int
+	err := h.DB.QueryRow("SELECT owner_id FROM boards WHERE id=$1", boardID).Scan(&ownerID)
+	if err != nil {
+		http.Error(w, `{"error": "board not found"}`, http.StatusNotFound)
+		return
+	}
+
+	if ownerID != userID {
+		http.Error(w, `{"error": "only owner can invite members"}`, http.StatusForbidden)
+		return
+	}
+
+	token := fmt.Sprintf("%d_%s", time.Now().UnixNano(), randomString(16))
+
+	_, err = h.DB.Exec(`
+		INSERT INTO invitations (board_id, invited_email, invited_by, token, role, expires_at)
+		VALUES ($1, $2, $3, $4, $5, NOW() + INTERVAL '7 days')
+	`, boardID, req.Email, userID, token, req.Role)
+
+	if err != nil {
+		http.Error(w, `{"error": "failed to create invitation"}`, http.StatusInternalServerError)
+		return
+	}
+
+	inviteLink := "http://localhost:8080/accept-invite?token=" + token
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "Invitation created",
+		"token":   token,
+		"link":    inviteLink,
+	})
+}
+
+func randomString(n int) string {
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letters[time.Now().UnixNano()%int64(len(letters))]
+	}
+	return string(b)
 }

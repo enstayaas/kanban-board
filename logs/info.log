@@ -1,0 +1,89 @@
+[INFO] 2026/05/22 21:01:03 logger.go:53: Starting server...
+[INFO] 2026/05/22 21:01:03 logger.go:53: Database connected successfully
+[INFO] 2026/05/22 21:01:03 logger.go:53: Server running on :8080
+[INFO] 2026/05/22 21:32:30 logger.go:53: Starting server...
+[INFO] 2026/05/22 21:32:30 logger.go:53: Database connected successfully
+[INFO] 2026/05/22 21:32:30 logger.go:53: Server running on :8080
+[INFO] 2026/05/22 22:29:58 logger.go:53: Starting server...
+[INFO] 2026/05/22 22:29:58 logger.go:53: Database connected successfully
+[INFO] 2026/05/22 22:29:58 logger.go:53: Server running on :8080
+[INFO] 2026/05/22 22:31:20 logger.go:53: Starting server...
+[INFO] 2026/05/22 22:31:20 logger.go:53: Database connected successfully
+[INFO] 2026/05/22 22:31:20 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 00:21:51 logger.go:53: Starting server...
+[INFO] 2026/05/23 00:21:51 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 00:21:51 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 00:28:26 logger.go:53: Task created: ID=31, Title=Первая задача
+[INFO] 2026/05/23 01:20:14 logger.go:53: Starting server...
+[INFO] 2026/05/23 01:20:14 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 01:20:14 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 01:27:02 logger.go:53: Starting server...
+[INFO] 2026/05/23 01:27:02 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 01:27:02 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 01:28:50 logger.go:53: Starting server...
+[INFO] 2026/05/23 01:28:50 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 01:28:50 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 01:40:16 logger.go:53: Starting server...
+[INFO] 2026/05/23 01:40:16 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 01:40:16 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 02:18:07 logger.go:53: Starting server...
+[INFO] 2026/05/23 02:18:07 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 02:18:07 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 02:23:00 logger.go:53: Starting server...
+[INFO] 2026/05/23 02:23:00 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 02:23:00 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 02:42:03 logger.go:53: Starting server...
+[INFO] 2026/05/23 02:42:03 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 02:42:03 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 02:42:44 logger.go:53: Task created: ID=32, Title=играть
+[INFO] 2026/05/23 02:43:02 logger.go:53: Task created: ID=33, Title=писать
+[INFO] 2026/05/23 02:43:15 logger.go:53: Task updated: ID=32
+[INFO] 2026/05/23 02:43:26 logger.go:53: Task updated: ID=32
+[INFO] 2026/05/23 02:49:22 logger.go:53: Task updated: ID=32
+[INFO] 2026/05/23 02:58:33 logger.go:53: Task updated: ID=32
+[INFO] 2026/05/23 02:58:34 logger.go:53: Task updated: ID=33
+[INFO] 2026/05/23 03:05:01 logger.go:53: Task deleted: ID=33
+[INFO] 2026/05/23 03:11:25 logger.go:53: Task created: ID=34, Title=ееееееееее
+[INFO] 2026/05/23 03:11:39 logger.go:53: Task deleted: ID=34
+[INFO] 2026/05/23 03:15:03 logger.go:53: Starting server...
+[INFO] 2026/05/23 03:15:04 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 03:15:04 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 03:23:27 logger.go:53: Starting server...
+[INFO] 2026/05/23 03:23:27 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 03:23:27 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 04:14:29 logger.go:53: Starting server...
+[INFO] 2026/05/23 04:14:29 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 04:14:29 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 16:21:05 logger.go:53: Starting server...
+[INFO] 2026/05/23 16:21:05 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 16:21:05 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 16:26:08 logger.go:53: Starting server...
+[INFO] 2026/05/23 16:26:08 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 16:26:08 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 16:32:55 logger.go:53: Starting server...
+[INFO] 2026/05/23 16:32:55 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 16:32:55 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 16:37:28 logger.go:53: Starting server...
+[INFO] 2026/05/23 16:37:28 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 16:37:28 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 16:38:26 logger.go:53: Starting server...
+[INFO] 2026/05/23 16:38:26 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 16:38:26 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 16:53:55 logger.go:53: Starting server...
+[INFO] 2026/05/23 16:53:55 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 16:53:55 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 17:00:59 logger.go:53: Starting server...
+[INFO] 2026/05/23 17:01:00 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 17:01:00 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 17:13:29 logger.go:53: Starting server...
+[INFO] 2026/05/23 17:13:29 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 17:13:29 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 17:25:42 logger.go:53: Starting server...
+[INFO] 2026/05/23 17:25:42 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 17:25:42 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 17:41:13 logger.go:53: Starting server...
+[INFO] 2026/05/23 17:41:13 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 17:41:13 logger.go:53: Server running on :8080
+[INFO] 2026/05/23 23:11:29 logger.go:53: Starting server...
+[INFO] 2026/05/23 23:11:29 logger.go:53: Database connected successfully
+[INFO] 2026/05/23 23:11:29 logger.go:53: Server running on :8080

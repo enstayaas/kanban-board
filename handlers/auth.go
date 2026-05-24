@@ -4,19 +4,19 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtKey = []byte("secret_key") // В будущем вынеси в .env
+var jwtKey = []byte("secret_key")
 
 type AuthHandler struct {
 	DB *sql.DB
 }
 
-// Структуры для запросов
 type RegisterRequest struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
@@ -28,7 +28,6 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
-// Структуры для ответов
 type UserResponse struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
@@ -45,50 +44,81 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-// ================= REGISTER =================
+// ValidateEmail - проверяет корректность email
+func ValidateEmail(email string) bool {
+	if email == "" {
+		return false
+	}
+	regex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	match, _ := regexp.MatchString(regex, email)
+	return match
+}
+
+// ValidatePassword - проверяет пароль (минимум 6 символов)
+func ValidatePassword(password string) bool {
+	return len(password) >= 6
+}
+
+// REGISTER
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var req RegisterRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid request", http.StatusBadRequest)
+		http.Error(w, `{"error": "invalid request"}`, http.StatusBadRequest)
 		return
 	}
 
-	// Хеширование пароля
+	// ========== ПРОВЕРКИ ==========
+	if req.Name == "" {
+		http.Error(w, `{"error": "name is required"}`, http.StatusBadRequest)
+		return
+	}
+
+	// Валидация email
+	if !ValidateEmail(req.Email) {
+		http.Error(w, `{"error": "invalid email format"}`, http.StatusBadRequest)
+		return
+	}
+
+	// Валидация пароля
+	if !ValidatePassword(req.Password) {
+		http.Error(w, `{"error": "password must be at least 6 characters"}`, http.StatusBadRequest)
+		return
+	}
+	// ================================
+
 	hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
-		http.Error(w, "Error hashing password", http.StatusInternalServerError)
+		http.Error(w, `{"error": "error hashing password"}`, http.StatusInternalServerError)
 		return
 	}
 
-	// Сохранение в БД
 	_, err = h.DB.Exec(
 		"INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)",
 		req.Name, req.Email, string(hash),
 	)
 
 	if err != nil {
-		http.Error(w, "User already exists or database error", http.StatusInternalServerError)
+		http.Error(w, `{"error": "user already exists or database error"}`, http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write([]byte("User created successfully"))
+	json.NewEncoder(w).Encode(map[string]string{"message": "User created successfully"})
 }
 
-// ================= LOGIN =================
+// LOGIN
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "Invalid request", http.StatusBadRequest)
+		http.Error(w, `{"error": "invalid request"}`, http.StatusBadRequest)
 		return
 	}
 
 	var user UserResponse
 	var hash string
 
-	// Получаем ID, Name и Хеш пароля
 	err := h.DB.QueryRow(
 		"SELECT id, name, password_hash FROM users WHERE email=$1",
 		req.Email,
@@ -96,23 +126,21 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			http.Error(w, "User not found", http.StatusUnauthorized)
+			http.Error(w, `{"error": "user not found"}`, http.StatusUnauthorized)
 		} else {
-			http.Error(w, "Database error", http.StatusInternalServerError)
+			http.Error(w, `{"error": "database error"}`, http.StatusInternalServerError)
 		}
 		return
 	}
 
 	user.Email = req.Email
 
-	// Сравнение пароля
 	err = bcrypt.CompareHashAndPassword([]byte(hash), []byte(req.Password))
 	if err != nil {
-		http.Error(w, "Wrong password", http.StatusUnauthorized)
+		http.Error(w, `{"error": "wrong password"}`, http.StatusUnauthorized)
 		return
 	}
 
-	// Генерация JWT
 	claims := &Claims{
 		UserID: user.ID,
 		RegisteredClaims: jwt.RegisteredClaims{
@@ -123,19 +151,15 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenStr, err := token.SignedString(jwtKey)
 	if err != nil {
-		http.Error(w, "Token generation error", http.StatusInternalServerError)
+		http.Error(w, `{"error": "token generation error"}`, http.StatusInternalServerError)
 		return
 	}
 
-	// Отправка полного JSON ответа
 	w.Header().Set("Content-Type", "application/json")
 	response := LoginResponse{
 		Token: tokenStr,
 		User:  user,
 	}
 
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		http.Error(w, "JSON encoding error", http.StatusInternalServerError)
-		return
-	}
+	json.NewEncoder(w).Encode(response)
 }

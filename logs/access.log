@@ -1124,3 +1124,260 @@
 [ACCESS] 2026/05/23 04:25:21 GET /tasks -> Status: OK Duration: 1.6542ms
 [ACCESS] 2026/05/23 04:25:21 GET /tasks -> Status: OK Duration: 2.0231ms
 [ACCESS] 2026/05/23 04:25:21 GET /tasks -> Status: OK Duration: 1.8812ms
+[ACCESS] 2026/05/23 04:25:33 GET /columns -> Status: OK Duration: 2.7491ms
+[ACCESS] 2026/05/23 04:25:33 GET /tasks -> Status: OK Duration: 1.738ms
+[ACCESS] 2026/05/23 04:25:33 GET /tasks -> Status: OK Duration: 1.8007ms
+[ACCESS] 2026/05/23 04:25:33 GET /tasks -> Status: OK Duration: 2.7604ms
+[ACCESS] 2026/05/23 04:30:20 GET /health -> Status: OK Duration: 0s
+[ACCESS] 2026/05/23 04:30:46 GET /columns -> Status: OK Duration: 15.215ms
+[ACCESS] 2026/05/23 04:30:46 GET /tasks -> Status: OK Duration: 6.1356ms
+[ACCESS] 2026/05/23 04:30:46 GET /tasks -> Status: OK Duration: 2.0429ms
+[ACCESS] 2026/05/23 04:30:46 GET /tasks -> Status: OK Duration: 5.5006ms
+[ACCESS] 2026/05/23 04:30:53 GET /columns -> Status: OK Duration: 1.9818ms
+[ACCESS] 2026/05/23 04:30:53 GET /tasks -> Status: OK Duration: 2.5468ms
+[ACCESS] 2026/05/23 04:30:53 GET /tasks -> Status: OK Duration: 1.3843ms
+[ACCESS] 2026/05/23 04:30:53 GET /tasks -> Status: OK Duration: 2.0303ms
+[ACCESS] 2026/05/23 04:31:57 GET /columns -> Status: OK Duration: 2.4166ms
+[ACCESS] 2026/05/23 04:31:57 GET /tasks -> Status: OK Duration: 2.1711ms
+[ACCESS] 2026/05/23 04:31:58 GET /tasks -> Status: OK Duration: 1.0341ms
+[ACCESS] 2026/05/23 04:31:58 GET /tasks -> Status: OK Duration: 1.9141ms
+[ACCESS] 2026/05/23 16:21:25 GET /health -> Status: OK Duration: 0s
+[ACCESS] 2026/05/23 16:38:49 GET / -> Status: OK Duration: 71.0686ms
+[ACCESS] 2026/05/23 16:38:49 GET /config.js -> Status: OK Duration: 1.4304ms
+[ACCESS] 2026/05/23 16:38:49 GET /styles.css -> Status: OK Duration: 14.826ms
+[ACCESS] 2026/05/23 16:38:49 GET /script.js -> Status: OK Duration: 10.085ms
+[ACCESS] 2026/05/23 16:38:49 GET /labels.js -> Status: OK Duration: 1.6393ms
+[ACCESS] 2026/05/23 16:38:49 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:38:49 GET /users -> Status: Not Found Duration: 718µs
+[ACCESS] 2026/05/23 16:38:49 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:39:43 GET /profile.html -> Status: OK Duration: 19.9261ms
+[ACCESS] 2026/05/23 16:39:43 GET /profile.js -> Status: OK Duration: 1.7124ms
+[ACCESS] 2026/05/23 16:39:43 GET /users -> Status: Not Found Duration: 1.0261ms
+[ACCESS] 2026/05/23 16:39:49 GET /users -> Status: Not Found Duration: 1.5147ms
+[ACCESS] 2026/05/23 16:39:50 GET /users.html -> Status: OK Duration: 1.8882ms
+[ACCESS] 2026/05/23 16:39:50 GET /users.js -> Status: OK Duration: 2.1961ms
+[ACCESS] 2026/05/23 16:39:50 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:39:55 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:39:57 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/23 16:39:57 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:39:57 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:39:57 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:40:48 POST /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:40:54 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:41:35 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:41:36 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:41:36 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:41:36 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:41:42 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:41:52 PUT /users/ -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:42:50 PUT /users/ -> Status: Not Found Duration: 881.1µs
+[ACCESS] 2026/05/23 16:42:52 GET /users -> Status: Not Found Duration: 629.3µs
+[ACCESS] 2026/05/23 16:42:53 GET /archive.html -> Status: OK Duration: 14.7399ms
+[ACCESS] 2026/05/23 16:42:53 GET /archive.js -> Status: OK Duration: 2.5892ms
+[ACCESS] 2026/05/23 16:42:53 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:42:56 GET /users -> Status: Not Found Duration: 399.6µs
+[ACCESS] 2026/05/23 16:43:00 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:43:04 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:43:04 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:43:04 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:43:15 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:43:15 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:43:15 GET /users -> Status: Not Found Duration: 512.9µs
+[ACCESS] 2026/05/23 16:43:46 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:44:21 GET /users -> Status: Not Found Duration: 503.7µs
+[ACCESS] 2026/05/23 16:44:28 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:44:37 GET /users -> Status: Not Found Duration: 512.3µs
+[ACCESS] 2026/05/23 16:44:39 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:44:39 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:44:40 GET /users -> Status: Not Found Duration: 571µs
+[ACCESS] 2026/05/23 16:44:42 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:44:42 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:44:42 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:45:15 GET /boards -> Status: OK Duration: 73.9415ms
+[ACCESS] 2026/05/23 16:45:16 GET /boards -> Status: OK Duration: 2.5276ms
+[ACCESS] 2026/05/23 16:45:19 GET /columns -> Status: OK Duration: 14.2811ms
+[ACCESS] 2026/05/23 16:45:19 GET /tasks -> Status: OK Duration: 9.8714ms
+[ACCESS] 2026/05/23 16:45:21 GET /boards -> Status: OK Duration: 3.9896ms
+[ACCESS] 2026/05/23 16:45:21 GET /columns -> Status: OK Duration: 2.1661ms
+[ACCESS] 2026/05/23 16:45:21 GET /tasks -> Status: OK Duration: 2.5425ms
+[ACCESS] 2026/05/23 16:45:21 GET /tasks -> Status: OK Duration: 2.0358ms
+[ACCESS] 2026/05/23 16:45:21 GET /tasks -> Status: OK Duration: 1.9938ms
+[ACCESS] 2026/05/23 16:45:23 GET /boards -> Status: OK Duration: 3.1877ms
+[ACCESS] 2026/05/23 16:47:05 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:47:05 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:47:05 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:47:11 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:54:19 GET /tasks -> Status: Unauthorized Duration: 499.7µs
+[ACCESS] 2026/05/23 16:54:19 GET /users -> Status: Not Found Duration: 499.7µs
+[ACCESS] 2026/05/23 16:54:19 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:54:21 GET /favicon.ico -> Status: Not Found Duration: 466.7µs
+[ACCESS] 2026/05/23 16:54:35 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:54:36 GET /users -> Status: Not Found Duration: 573.9µs
+[ACCESS] 2026/05/23 16:54:38 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:54:38 GET /users -> Status: Not Found Duration: 472.8µs
+[ACCESS] 2026/05/23 16:54:38 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:55:05 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:55:26 GET /users -> Status: Not Found Duration: 1.5569ms
+[ACCESS] 2026/05/23 16:55:39 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:55:43 GET /users -> Status: Not Found Duration: 586.5µs
+[ACCESS] 2026/05/23 16:55:43 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:55:44 GET /users -> Status: Not Found Duration: 260.3µs
+[ACCESS] 2026/05/23 16:55:44 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:55:44 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:57:29 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:57:32 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:57:32 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:57:32 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:59:55 GET / -> Status: Not Modified Duration: 1.78ms
+[ACCESS] 2026/05/23 16:59:55 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:59:55 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:59:55 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:59:56 GET / -> Status: Not Modified Duration: 82µs
+[ACCESS] 2026/05/23 16:59:56 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 16:59:56 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:59:56 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 16:59:59 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:00:02 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:00:20 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:00:20 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:00:20 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:00:25 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:00:30 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:16 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:16 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:01:16 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:01:19 GET /users -> Status: Not Found Duration: 345.7µs
+[ACCESS] 2026/05/23 17:01:21 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:24 GET /users -> Status: Not Found Duration: 478µs
+[ACCESS] 2026/05/23 17:01:24 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:01:24 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:01:33 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:37 PUT /users/ -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:38 PUT /users/ -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:44 GET /users -> Status: Not Found Duration: 108µs
+[ACCESS] 2026/05/23 17:01:50 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:58 PUT /users/ -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:01:59 PUT /users/ -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:02:17 PUT /users/ -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:02:28 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:02:28 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:02:28 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:02:36 POST /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:03:00 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:03:00 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:03:00 GET /users -> Status: Not Found Duration: 482.2µs
+[ACCESS] 2026/05/23 17:03:13 GET /users -> Status: Not Found Duration: 987.7µs
+[ACCESS] 2026/05/23 17:03:44 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:03:46 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:03:46 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:03:46 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:04:09 GET /users -> Status: Not Found Duration: 883.8µs
+[ACCESS] 2026/05/23 17:13:44 GET /users -> Status: Not Found Duration: 502.9µs
+[ACCESS] 2026/05/23 17:13:44 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:13:44 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:13:47 GET /users -> Status: Not Found Duration: 301.3µs
+[ACCESS] 2026/05/23 17:13:48 GET /users -> Status: Not Found Duration: 291.8µs
+[ACCESS] 2026/05/23 17:13:49 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:13:49 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:13:49 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:13:52 GET /users -> Status: Not Found Duration: 398.3µs
+[ACCESS] 2026/05/23 17:13:53 GET /users -> Status: Not Found Duration: 496.3µs
+[ACCESS] 2026/05/23 17:13:53 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:13:53 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:25:51 GET /users.html -> Status: Not Modified Duration: 1.9168ms
+[ACCESS] 2026/05/23 17:25:51 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:25:52 GET /users.html -> Status: Not Modified Duration: 494.7µs
+[ACCESS] 2026/05/23 17:25:52 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:25:53 GET /users.html -> Status: Not Modified Duration: 862.1µs
+[ACCESS] 2026/05/23 17:25:53 GET /users -> Status: Not Found Duration: 146.8µs
+[ACCESS] 2026/05/23 17:25:53 GET /users.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/23 17:25:53 GET /users -> Status: Not Found Duration: 359.7µs
+[ACCESS] 2026/05/23 17:25:56 GET /profile.html -> Status: OK Duration: 143.5918ms
+[ACCESS] 2026/05/23 17:25:56 GET /users -> Status: Not Found Duration: 160.3µs
+[ACCESS] 2026/05/23 17:26:54 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:28:01 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:28:02 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:28:03 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:28:10 PUT /users/undefined -> Status: Not Found Duration: 1.9021ms
+[ACCESS] 2026/05/23 17:28:12 GET /stats.html -> Status: OK Duration: 1.492ms
+[ACCESS] 2026/05/23 17:28:13 GET /stats.js -> Status: OK Duration: 1.4599ms
+[ACCESS] 2026/05/23 17:28:13 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:28:18 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:28:19 GET /profile.html -> Status: Not Modified Duration: 366.8µs
+[ACCESS] 2026/05/23 17:28:19 GET /users -> Status: Not Found Duration: 723.6µs
+[ACCESS] 2026/05/23 17:30:51 GET /profile.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/23 17:30:51 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:30:52 GET /profile.html -> Status: Not Modified Duration: 326.7µs
+[ACCESS] 2026/05/23 17:30:52 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:31:17 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:31:17 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:31:17 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 17:31:23 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:31:49 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:37:49 PUT /users/undefined -> Status: Not Found Duration: 647.8µs
+[ACCESS] 2026/05/23 17:41:22 GET /tasks -> Status: Unauthorized Duration: 529.2µs
+[ACCESS] 2026/05/23 17:41:22 GET /labels -> Status: Unauthorized Duration: 529.2µs
+[ACCESS] 2026/05/23 17:41:22 GET /users -> Status: Not Found Duration: 446.6µs
+[ACCESS] 2026/05/23 17:47:38 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:40 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:40 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:42 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:46 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:47 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:53 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:53 PUT /users/undefined -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:58 GET /profile.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/23 17:47:58 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 17:47:59 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:13:32 GET / -> Status: OK Duration: 109.2035ms
+[ACCESS] 2026/05/23 23:13:32 GET /styles.css -> Status: OK Duration: 1.2026ms
+[ACCESS] 2026/05/23 23:13:32 GET /script.js -> Status: OK Duration: 633.1µs
+[ACCESS] 2026/05/23 23:13:32 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:13:32 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:13:32 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:13:35 GET /favicon.ico -> Status: Not Found Duration: 1.7919ms
+[ACCESS] 2026/05/23 23:13:54 GET /profile.html -> Status: Not Modified Duration: 1.1546ms
+[ACCESS] 2026/05/23 23:13:54 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:14:31 GET /archive.html -> Status: Not Modified Duration: 1.5089ms
+[ACCESS] 2026/05/23 23:14:31 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:14:33 GET /users -> Status: Not Found Duration: 253µs
+[ACCESS] 2026/05/23 23:14:40 GET /users -> Status: Not Found Duration: 145.3µs
+[ACCESS] 2026/05/23 23:14:41 GET /users -> Status: Not Found Duration: 578.2µs
+[ACCESS] 2026/05/23 23:14:42 GET /users -> Status: Not Found Duration: 969.7µs
+[ACCESS] 2026/05/23 23:14:42 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:14:43 GET /users -> Status: Not Found Duration: 982.9µs
+[ACCESS] 2026/05/23 23:14:43 GET /users -> Status: Not Found Duration: 5.8067ms
+[ACCESS] 2026/05/23 23:14:45 GET /users.html -> Status: Not Modified Duration: 1.1599ms
+[ACCESS] 2026/05/23 23:14:45 GET /users -> Status: Not Found Duration: 5.1304ms
+[ACCESS] 2026/05/23 23:14:54 GET /users -> Status: Not Found Duration: 131.5µs
+[ACCESS] 2026/05/23 23:14:54 GET /tasks -> Status: Unauthorized Duration: 64µs
+[ACCESS] 2026/05/23 23:14:54 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:03 GET /users -> Status: Not Found Duration: 232µs
+[ACCESS] 2026/05/23 23:15:09 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:15:12 GET /users -> Status: Not Found Duration: 718.9µs
+[ACCESS] 2026/05/23 23:15:12 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:12 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:23 GET /stats.html -> Status: Not Modified Duration: 1.3684ms
+[ACCESS] 2026/05/23 23:15:23 GET /stats.js -> Status: Not Modified Duration: 775.2µs
+[ACCESS] 2026/05/23 23:15:23 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:29 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:15:29 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:29 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:42 GET /users -> Status: Not Found Duration: 327.1µs
+[ACCESS] 2026/05/23 23:15:47 GET /users -> Status: Not Found Duration: 796.3µs
+[ACCESS] 2026/05/23 23:15:52 GET /users -> Status: Not Found Duration: 272.2µs
+[ACCESS] 2026/05/23 23:15:52 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:15:52 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:16:16 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:17:25 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:17:28 GET /users -> Status: Not Found Duration: 1.0732ms
+[ACCESS] 2026/05/23 23:17:29 GET /users -> Status: Not Found Duration: 333.7µs
+[ACCESS] 2026/05/23 23:17:32 GET /users -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/23 23:17:32 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:17:32 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:20:21 GET /tasks -> Status: Unauthorized Duration: 149.5µs
+[ACCESS] 2026/05/23 23:39:22 GET /users -> Status: Not Found Duration: 233.6µs
+[ACCESS] 2026/05/23 23:39:26 GET /users -> Status: Not Found Duration: 1.14ms
+[ACCESS] 2026/05/23 23:39:26 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:39:26 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/23 23:43:18 GET /tasks -> Status: Unauthorized Duration: 625.5µs

@@ -25,8 +25,8 @@ func (s *AuthService) Register(name, email, password string) error {
 	if !match {
 		return errors.New("invalid email format")
 	}
-	if len(password) < 6 {
-		return errors.New("password must be at least 6 characters")
+	if !s.ValidatePassword(password) {
+		return errors.New("invalid password format")
 	}
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

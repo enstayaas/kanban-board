@@ -109,6 +109,9 @@ func main() {
 		invitationHandler.AcceptInvite(w, r)
 	}).Methods("GET")
 
+	// ========== ФРОНТЕНД ==========
+	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./frontend"))))
+
 	// ========== CORS ==========
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

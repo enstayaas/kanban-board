@@ -195,7 +195,12 @@ function renderBoard(tasks) {
   boardDiv.innerHTML = '';
   
   const columns = [1, 2, 3];
-  const columnTitles = { 1: '📋 To Do', 2: '⚙️ In Progress', 3: '✅ Done' };
+//   const columnTitles = { 1: '📋 To Do', 2: '⚙️ In Progress', 3: '✅ Done' };
+const columnTitles = {
+    1: '<i class="fa-regular fa-rectangle-list"></i> To Do',
+    2: '<i class="fa-solid fa-gear"></i> In Progress',
+    3: '<i class="fa-regular fa-circle-check"></i> Done'
+};
   const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
   
   let hasAnyTask = false;
@@ -236,11 +241,16 @@ function renderBoard(tasks) {
         
         // Собираем HTML карточки (с метками)
         taskDiv.innerHTML = `
-            <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
-            ${taskLabelsHtml}
+        <div>${priorityEmojis[task.priority] || '⚪'} <strong>${escapeHtml(task.title)}</strong></div>
+    ${taskLabelsHtml}
+    <div style="font-size: 10px; color: #888;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
+`;
+        // taskDiv.innerHTML = `
+        //     <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
+        //     ${taskLabelsHtml}
         
-            <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
-        `;
+        //     <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
+        // `;
         
         taskDiv.title = `Assigned to: ${task.assigned_to || 'unassigned'}\nPriority: ${task.priority || 'medium'}`;
         taskDiv.onclick = () => openModal(task);
@@ -740,29 +750,78 @@ const colorObserver = new MutationObserver(() => {
 colorObserver.observe(document.body, { childList: true, subtree: true });
 
 
-// ===== ТЁМНАЯ ТЕМА =====
-const themeToggle = document.getElementById('themeToggle');
-
-// Загружаем сохранённую тему
+// const savedTheme = localStorage.getItem('theme');
+// if (savedTheme === 'light') {
+//     document.body.classList.remove('dark');
+//     document.body.classList.add('light');
+//     themeToggle.textContent = '🌙 Тёмная тема';
+// } else {
+//     document.body.classList.add('dark');
+//     document.body.classList.remove('light');
+//     themeToggle.textContent = '☀️ Светлая тема';
+// }
+// Применение сохранённой темы при загрузке
 const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
+if (savedTheme === 'light') {
+    document.body.classList.remove('dark');
+    document.body.classList.add('light');
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = '🌙 Тёмная тема';
+} else {
     document.body.classList.add('dark');
-    if (themeToggle) themeToggle.textContent = '☀️ Светлая тема';
+    document.body.classList.remove('light');
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = '☀️ Светлая тема';
 }
 
-// Переключатель темы
+const themeToggle = document.getElementById('themeToggle');
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark');
-        if (document.body.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
-            themeToggle.textContent = '☀️ Светлая тема';
-        } else {
-            localStorage.setItem('theme', 'light');
-            themeToggle.textContent = '🌙 Тёмная тема';
-        }
+        document.body.classList.toggle('light');
+        const isDark = document.body.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeToggle.textContent = isDark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
     });
 }
+
+// themeToggle.addEventListener('click', () => {
+//     if (document.body.classList.contains('dark')) {
+//         document.body.classList.remove('dark');
+//         document.body.classList.add('light');
+//         localStorage.setItem('theme', 'light');
+//         themeToggle.textContent = '🌙 Тёмная тема';
+//     } else {
+//         document.body.classList.remove('light');
+//         document.body.classList.add('dark');
+//         localStorage.setItem('theme', 'dark');
+//         themeToggle.textContent = '☀️ Светлая тема';
+//     }
+// });
+
+// // ===== ТЁМНАЯ ТЕМА =====
+// const themeToggle = document.getElementById('themeToggle');
+
+// // Загружаем сохранённую тему
+// const savedTheme = localStorage.getItem('theme');
+// if (savedTheme === 'dark') {
+//     document.body.classList.add('dark');
+//     if (themeToggle) themeToggle.textContent = '☀️ Светлая тема';
+// }
+
+// // Переключатель темы
+// if (themeToggle) {
+//     themeToggle.addEventListener('click', () => {
+//         document.body.classList.toggle('dark');
+//         if (document.body.classList.contains('dark')) {
+//             localStorage.setItem('theme', 'dark');
+//             themeToggle.textContent = '☀️ Светлая тема';
+//         } else {
+//             localStorage.setItem('theme', 'light');
+//             themeToggle.textContent = '🌙 Тёмная тема';
+//         }
+//     });
+// }
 
 
 // ===== СПИСОК ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ОТОБРАЖЕНИЯ ИМЁН =====

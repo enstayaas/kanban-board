@@ -47,6 +47,36 @@ function renderUsers(users) {
     });
 }
 
+// ===== ПЕРЕКЛЮЧЕНИЕ ТЕМЫ =====
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'light') {
+    document.body.classList.remove('dark');
+    document.body.classList.add('light');
+    if (themeToggle) themeToggle.textContent = '🌙 Тёмная тема';
+} else {
+    document.body.classList.add('dark');
+    document.body.classList.remove('light');
+    if (themeToggle) themeToggle.textContent = '☀️ Светлая тема';
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        if (document.body.classList.contains('dark')) {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+            localStorage.setItem('theme', 'light');
+            themeToggle.textContent = '🌙 Тёмная тема';
+        } else {
+            document.body.classList.remove('light');
+            document.body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.textContent = '☀️ Светлая тема';
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', loadUsers);
 
 

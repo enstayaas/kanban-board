@@ -1,0 +1,1 @@
+[ERROR] 2026/05/25 14:28:56 logger.go:47: Database ping failed: dial tcp [::1]:5432: connectex: No connection could be made because the target machine actively refused it.

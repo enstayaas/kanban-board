@@ -2,9 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
+	"kanban/internal/models"
 	"net/http"
 
-	"kanban/internal/models"
+	// "kanban/internal/models"
 
 	"golang.org/x/crypto/bcrypt"
 )

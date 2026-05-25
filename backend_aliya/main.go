@@ -62,12 +62,39 @@ func main() {
 	r.HandleFunc("/login", authHandler.Login).Methods("POST")
 	r.HandleFunc("/health", healthHandler).Methods("GET")
 
-	// ========== BOARDS ==========
+	// ========== BOARDS (ОБЪЕДИНЕННЫЕ И ЗАЩИЩЕННЫЕ) ==========
+	// 1. Посмотреть все свои доски (Твой код)
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.GetBoards))).Methods("GET")
+
+	// 2. Создать новую доску (Твой код)
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.CreateBoard))).Methods("POST")
+
+	// 3. Получить конкретную доску по ID (Код Акылай + Твоя JWT защита)
+	r.Handle("/boards/{id}", middleware.JWT(http.HandlerFunc(boardHandler.GetBoard))).Methods("GET")
+
+	// 4. Обновить доску (Код Акылай + Твоя JWT защита)
+	r.Handle("/boards/{id}", middleware.JWT(http.HandlerFunc(boardHandler.UpdateBoard))).Methods("PUT")
+
+	// 5. Удалить доску (Твой код + защита Владельца)
 	r.Handle("/boards/{id}", middleware.JWT(middleware.OwnerOnly(db, boardHandler.DeleteBoard))).Methods("DELETE")
+
+	// 6. Посмотреть участников доски (Твой код + защита Владельца)
 	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.GetMembers))).Methods("GET")
+
+	// 7. Добавить участника на доску (Твой код + защита Владельца)
 	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.AddMemberToBoard))).Methods("POST")
+
+	// // ========== ПУБЛИЧНЫЕ МАРШРУТЫ ==========
+	// r.HandleFunc("/register", authHandler.Register).Methods("POST")
+	// r.HandleFunc("/login", authHandler.Login).Methods("POST")
+	// r.HandleFunc("/health", healthHandler).Methods("GET")
+
+	// // ========== BOARDS ==========
+	// r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.GetBoards))).Methods("GET")
+	// r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.CreateBoard))).Methods("POST")
+	// r.Handle("/boards/{id}", middleware.JWT(middleware.OwnerOnly(db, boardHandler.DeleteBoard))).Methods("DELETE")
+	// r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.GetMembers))).Methods("GET")
+	// r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.AddMemberToBoard))).Methods("POST")
 
 	// ========== COLUMNS ==========
 	r.Handle("/columns", middleware.JWT(middleware.OwnerOnly(db, columnHandler.GetColumns))).Methods("GET")
@@ -98,10 +125,20 @@ func main() {
 	r.Handle("/labels/{id}", middleware.JWT(http.HandlerFunc(labelHandler.UpdateLabel))).Methods("PUT")
 	r.Handle("/labels/{id}", middleware.JWT(http.HandlerFunc(labelHandler.DeleteLabel))).Methods("DELETE")
 
-	// ========== COMMENTS ==========
-	r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.CreateComment))).Methods("POST")
+	// ========== COMMENTS (ОБЪЕДИНЕННЫЕ И ЗАЩИЩЕННЫЕ) ==========
+	// 1. Получить комментарии по task_id (Защищено JWT)
 	r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.GetComments))).Methods("GET")
+
+	// 2. Создать новый комментарий (Защищено JWT)
+	r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.CreateComment))).Methods("POST")
+
+	// 3. Удалить комментарий по ID (Защищено JWT)
 	r.Handle("/comments/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteComment))).Methods("DELETE")
+
+	// // ========== COMMENTS ==========
+	// r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.CreateComment))).Methods("POST")
+	// r.Handle("/comments", middleware.JWT(http.HandlerFunc(taskHandler.GetComments))).Methods("GET")
+	// r.Handle("/comments/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteComment))).Methods("DELETE")
 
 	// ========== INVITATIONS ==========
 	r.HandleFunc("/accept-invite", func(w http.ResponseWriter, r *http.Request) {

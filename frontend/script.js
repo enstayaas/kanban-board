@@ -922,60 +922,60 @@ function getUserAvatar(userId) {
 
 
 // ===== АВТОРИЗАЦИЯ =====
-async function login(email, password) {
-    try {
-        const response = await fetchAPI('/login', {
-            method: 'POST',
-            body: JSON.stringify({ email, password })
-        });
+// async function login(email, password) {
+//     try {
+//         const response = await fetchAPI('/login', {
+//             method: 'POST',
+//             body: JSON.stringify({ email, password })
+//         });
         
-        if (response.token) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('user', JSON.stringify(response.user));
-            showSuccess('✅ Вход выполнен!');
-            window.location.href = 'index.html';
-        } else {
-            showError('❌ Ошибка входа: неверный email или пароль');
-        }
-    } catch (error) {
-        showError('❌ Ошибка входа: ' + error.message);
-    }
-}
+//         if (response.token) {
+//             localStorage.setItem('token', response.token);
+//             localStorage.setItem('user', JSON.stringify(response.user));
+//             showSuccess('✅ Вход выполнен!');
+//             window.location.href = 'index.html';
+//         } else {
+//             showError('❌ Ошибка входа: неверный email или пароль');
+//         }
+//     } catch (error) {
+//         showError('❌ Ошибка входа: ' + error.message);
+//     }
+// }
 
-async function register(name, email, password) {
-    try {
-        const response = await fetchAPI('/register', {
-            method: 'POST',
-            body: JSON.stringify({ name, email, password })
-        });
+// async function register(name, email, password) {
+//     try {
+//         const response = await fetchAPI('/register', {
+//             method: 'POST',
+//             body: JSON.stringify({ name, email, password })
+//         });
         
-        if (response.id) {
-            showSuccess('✅ Регистрация успешна! Теперь войдите.');
-            window.location.href = 'login.html';
-        } else {
-            showError('❌ Ошибка регистрации');
-        }
-    } catch (error) {
-        showError('❌ Ошибка регистрации: ' + error.message);
-    }
-}
+//         if (response.id) {
+//             showSuccess('✅ Регистрация успешна! Теперь войдите.');
+//             window.location.href = 'login.html';
+//         } else {
+//             showError('❌ Ошибка регистрации');
+//         }
+//     } catch (error) {
+//         showError('❌ Ошибка регистрации: ' + error.message);
+//     }
+// }
 
-function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.href = 'login.html';
-}
+// function logout() {
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('user');
+//     window.location.href = 'login.html';
+// }
 
-// Проверка авторизации при загрузке
-function checkAuth() {
-    const token = localStorage.getItem('token');
-    const publicPages = ['login.html', 'register.html'];
-    const currentPage = window.location.pathname.split('/').pop();
+// // Проверка авторизации при загрузке
+// function checkAuth() {
+//     const token = localStorage.getItem('token');
+//     const publicPages = ['login.html', 'register.html'];
+//     const currentPage = window.location.pathname.split('/').pop();
     
-    if (!token && !publicPages.includes(currentPage)) {
-        window.location.href = 'login.html';
-    }
-}
+//     if (!token && !publicPages.includes(currentPage)) {
+//         window.location.href = 'login.html';
+//     }
+// }
 
 // Вызвать checkAuth() при загрузке каждой страницы
 
@@ -983,6 +983,73 @@ function checkAuth() {
 // if (typeof checkAuth === 'function') {
 //     checkAuth();
 // }
+
+
+// ========== ДОСКИ ==========
+let currentBoardId = localStorage.getItem('currentBoardId') || 1;
+
+async function loadBoards() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    try {
+        const response = await fetch('/boards', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+            const boards = await response.json();
+            renderBoardsList(boards);
+        }
+    } catch (error) {
+        console.error('Error loading boards:', error);
+    }
+}
+
+function renderBoardsList(boards) {
+    const boardList = document.getElementById('board-list');
+    if (!boardList) return;
+    boardList.innerHTML = boards.map(board => `
+        <div class="board-item" data-id="${board.id}" onclick="switchBoard(${board.id})">
+            <strong>${escapeHtml(board.title)}</strong>
+        </div>
+    `).join('');
+}
+
+async function switchBoard(boardId) {
+    currentBoardId = boardId;
+    localStorage.setItem('currentBoardId', boardId);
+    await loadTasks();
+}
+
+async function createBoard(title, description = '') {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    try {
+        const response = await fetch('/boards', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, description })
+        });
+        if (response.ok) {
+            await loadBoards();
+            return await response.json();
+        }
+    } catch (error) {
+        console.error('Error creating board:', error);
+    }
+}
+
+function showCreateBoardModal() {
+    const title = prompt('Введите название доски:');
+    if (title) createBoard(title);
+}
+
+// Загружаем доски при старте
+if (typeof checkAuth === 'function') {
+    loadBoards();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();

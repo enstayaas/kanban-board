@@ -205,7 +205,7 @@ func main() {
 
 	// ========== ФРОНТЕНД ==========
 	// r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("../frontend"))))
-	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("C:/Users/VK/Desktop/Kanban-board/frontend"))))
+	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("../frontend"))))
 	// ========== CORS ==========
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},

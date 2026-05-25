@@ -1829,3 +1829,124 @@ body.dark .donut-center {
         width: 100%;
     }
 }
+/* ===== ОКРУГЛЁННЫЕ ФИЛЬТРЫ И КОНТЕЙНЕРЫ ===== */
+
+/* Контейнер фильтров */
+.filters {
+    border-radius: 60px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px) !important;
+    padding: 12px 20px !important;
+}
+
+body.light .filters {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Кнопки и селекты в фильтрах */
+.filters select,
+.filters input,
+.filters button {
+    border-radius: 40px !important;
+    padding: 8px 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Панель меток */
+.labels-panel {
+    border-radius: 24px !important;
+}
+
+/* Кнопка "Очистить фильтр меток" */
+.filter-by-labels button,
+.clear-filters-btn {
+    border-radius: 40px !important;
+    padding: 8px 20px !important;
+}
+
+/* Панель сортировки и пагинации */
+/* .sort-pagination-panel {
+    border-radius: 60px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px) !important;
+    padding: 12px 20px !important;
+}
+
+body.light .sort-pagination-panel {
+    background: rgba(255, 255, 255, 0.7) !important;
+} */
+
+/* Селекты и кнопки в панели сортировки */
+.sort-section select,
+.sort-section button,
+.pagination-section select,
+.pagination-section button {
+    border-radius: 40px !important;
+    padding: 6px 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: inherit !important;
+}
+
+body.light .sort-section select,
+body.light .sort-section button,
+body.light .pagination-section select,
+body.light .pagination-section button {
+    background: white !important;
+    border-color: #e5e7eb !important;
+}
+/* 
+    Кнопки пагинации */ */
+.pagination-section button {
+    border-radius: 40px !important;
+    min-width: 80px;
+}
+
+/* Страница 1 из 1 */
+#pageInfo {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-size: 13px;
+}
+
+body.light #pageInfo {
+    background: #f0f0f0;
+}
+ .sort-pagination-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.sort-section {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pagination-section {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.per-page {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .sort-pagination-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sort-section, .pagination-section {
+        justify-content: center;
+    }
+}

@@ -25,6 +25,57 @@ async function loadStats() {
     }
 }
 
+
+// function updateDonutChart() {
+//     const donutChart = document.getElementById('donutChart');
+//     if (!donutChart) return;
+    
+//     const { done, inProgress, todo } = currentPercent;
+    
+//     // ГРАДИЕНТНЫЕ ЦВЕТА для секторов
+//     const doneGradient = `conic-gradient(
+//         from 0deg, 
+//         #8b5cf6 0% ${done}%,
+//         #a78bfa ${done}% ${done}%
+//     )`;
+    
+//     const inProgressGradient = `conic-gradient(
+//         from 0deg, 
+//         #3b82f6 0% ${inProgress}%,
+//         #60a5fa ${inProgress}% ${inProgress}%
+//     )`;
+    
+//     const todoGradient = `conic-gradient(
+//         from 0deg, 
+//         #64748b 0% ${todo}%,
+//         #94a3b8 ${todo}% ${todo}%
+//     )`;
+    
+//     donutChart.style.background = `conic-gradient(
+//     from 0deg,
+//     #d946ef 0% ${done}%,
+//     #f0abfc ${done}% ${done}%,
+//     #3b82f6 ${done}% ${done + inProgress}%,
+//     #60a5fa ${done + inProgress}% ${done + inProgress}%,
+//     #1e293b ${done + inProgress}% ${done + inProgress + todo}%,
+//     #334155 ${done + inProgress + todo}% 100%
+// )`;
+    // Комбинируем сектора с градиентами (через позиции)
+//     donutChart.style.background = `conic-gradient(
+//         from 0deg,
+//         #8b5cf6 0% ${done}%,
+//         #a78bfa ${done}% ${done}%,
+//         #3b82f6 ${done}% ${done + inProgress}%,
+//         #60a5fa ${done + inProgress}% ${done + inProgress}%,
+//         #64748b ${done + inProgress}% ${done + inProgress + todo}%,
+//         #94a3b8 ${done + inProgress + todo}% 100%
+//     )`;
+
+// ;
+    
+//     // Обновляем центр
+//     updateCenter(currentCenterType);
+// }
 function updateDonutChart() {
     const donutChart = document.getElementById('donutChart');
     if (!donutChart) return;

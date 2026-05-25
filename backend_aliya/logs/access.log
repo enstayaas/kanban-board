@@ -1381,3 +1381,6 @@
 [ACCESS] 2026/05/23 23:39:26 GET /tasks -> Status: Unauthorized Duration: 0s
 [ACCESS] 2026/05/23 23:39:26 GET /labels -> Status: Unauthorized Duration: 0s
 [ACCESS] 2026/05/23 23:43:18 GET /tasks -> Status: Unauthorized Duration: 625.5µs
+[ACCESS] 2026/05/25 15:07:56 GET / -> Status: Not Found Duration: 507.6µs
+[ACCESS] 2026/05/25 15:07:57 GET / -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/25 15:07:57 GET /favicon.ico -> Status: Not Found Duration: 151.1µs

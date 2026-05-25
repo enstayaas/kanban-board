@@ -51,8 +51,8 @@ func main() {
 	columnHandler := &handlers.ColumnHandler{DB: db}
 	taskHandler := &handlers.TaskHandler{DB: db}
 	labelHandler := &handlers.LabelHandler{DB: db}
-	userHandler := &handlers.UserHandler{DB: db}   // ДОБАВЛЕНО
-	statsHandler := &handlers.StatsHandler{DB: db} // ДОБАВЛЕНО
+	userHandler := &handlers.UserHandler{DB: db} // ДОБАВЛЕНО
+	statsHandler := &handlers.StatsHandler{DB: db}
 
 	r := mux.NewRouter()
 
@@ -64,6 +64,9 @@ func main() {
 	r.HandleFunc("/login", authHandler.Login).Methods("POST")
 	r.HandleFunc("/health", healthHandler).Methods("GET")
 
+	r.Handle("/users", middleware.JWT(http.HandlerFunc(userHandler.GetUsers))).Methods("GET")
+	r.Handle("/users/{id}", middleware.JWT(http.HandlerFunc(userHandler.GetUserByID))).Methods("GET")
+	r.Handle("/users/{id}", middleware.JWT(http.HandlerFunc(userHandler.UpdateUser))).Methods("PUT")
 	// ========== BOARDS (ОБЪЕДИНЕННЫЕ И ЗАЩИЩЕННЫЕ) ==========
 	// 1. Посмотреть все свои доски (Твой код)
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.GetBoards))).Methods("GET")

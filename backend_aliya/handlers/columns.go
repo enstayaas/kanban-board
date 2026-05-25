@@ -232,6 +232,38 @@ type Column struct {
 	UpdatedAt    time.Time  `json:"updated_at"`
 }
 
+// RestoreColumn - восстанавливает колонку из корзины
+func (h *ColumnHandler) RestoreColumn(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	columnID := vars["id"]
+
+	// Получаем last_position перед восстановлением
+	var lastPos int
+	err := h.DB.QueryRow(`
+        SELECT last_position FROM columns WHERE id=$1 AND deleted_at IS NOT NULL
+    `, columnID).Scan(&lastPos)
+
+	if err != nil {
+		http.Error(w, `{"error":"column not found or not in trash"}`, http.StatusNotFound)
+		return
+	}
+
+	// Восстанавливаем колонку
+	_, err = h.DB.Exec(`
+        UPDATE columns 
+        SET deleted_at = NULL, position = $1
+        WHERE id = $2
+    `, lastPos, columnID)
+
+	if err != nil {
+		http.Error(w, `{"error":"failed to restore column"}`, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "restored"})
+}
+
 // ========== ВАШИ ФУНКЦИИ (in-memory, для совместимости) ==========
 var memoryColumns []models.Column
 

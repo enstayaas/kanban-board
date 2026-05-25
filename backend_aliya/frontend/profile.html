@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - Kanban</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="nav">
+    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
+    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
+    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+</div>
+
+<div class="profile-container">
+    <!-- ЛЕВАЯ КОЛОНКА: АВАТАРКА + ИМЯ + О СЕБЕ -->
+    <div class="profile-avatar-side">
+        <div class="profile-avatar-large" id="avatarLetter" onclick="document.getElementById('avatarInput').click()">
+            <i class="fa-solid fa-camera" style="font-size: 24px; opacity: 0.7;"></i>
+        </div>
+        <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadAvatar(this)">
+        <h2 id="profileNameTitle">Анна Смирнова</h2>
+        <p id="profileEmailTitle">anna@example.com</p>
+        
+        <!-- Блок "О себе" -->
+        <div class="profile-bio">
+            <h3><i class="fa-regular fa-address-card"></i> О себе</h3>
+            <div id="bio-text" class="bio-text">Загрузка...</div>
+            <button class="edit-bio-btn" onclick="editBio()"><i class="fa-regular fa-pen-to-square"></i> Редактировать</button>
+        </div>
+    </div>
+
+    <!-- ПРАВАЯ КОЛОНКА: СТЕКЛЯННАЯ КАРТОЧКА С ВКЛАДКАМИ -->
+    <div class="profile-card-glass">
+        <div class="profile-tabs">
+            <button class="tab-btn active" data-tab="info">📋 Информация</button>
+            <button class="tab-btn" data-tab="edit">✏️ Редактировать</button>
+        </div>
+
+        <!-- Вкладка: Информация -->
+        <div id="info-tab" class="tab-content active">
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-id-card"></i></div>
+                <div class="info-label">ID пользователя</div>
+                <div class="info-value" id="profileId">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-user"></i></div>
+                <div class="info-label">Имя</div>
+                <div class="info-value" id="profileNameDisplay">-</div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="info-label">Электронная почта</div>
+                <div class="info-value" id="profileEmailDisplay">-</div>
+            </div>
+        </div>
+
+        <!-- Вкладка: Редактирование -->
+        <div id="edit-tab" class="tab-content">
+            <div class="edit-form">
+                <div class="form-group">
+                    <label><i class="fa-regular fa-user"></i> Новое имя</label>
+                    <input type="text" id="profileName" placeholder="Ваше имя">
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-regular fa-envelope"></i> Новый email</label>
+                    <input type="email" id="profileEmail" placeholder="example@mail.com">
+                </div>
+                <button class="save-btn" onclick="saveProfile()">💾 Сохранить изменения</button>
+                <div id="profileMessage" class="profile-message"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для редактирования "О себе" -->
+<div id="bioModal" class="bio-modal">
+    <div class="bio-modal-content">
+        <div class="bio-modal-header">
+            <h3><i class="fa-regular fa-address-card"></i> Расскажите о себе</h3>
+            <button class="bio-modal-close" onclick="closeBioModal()">&times;</button>
+        </div>
+        <div class="bio-modal-body">
+            <textarea id="bioInput" rows="4" placeholder="Напишите что-нибудь о себе..."></textarea>
+        </div>
+        <div class="bio-modal-footer">
+            <button class="bio-save-btn" onclick="saveBioFromModal()">💾 Сохранить</button>
+            <button class="bio-cancel-btn" onclick="closeBioModal()">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<!-- <script src="auth.js"></script> -->
+<script src="profile.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - Kanban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-page {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .profile-header { text-align: center; margin-bottom: 40px; }
+        .profile-header .avatar {
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .profile-header h1 { font-size: 28px; font-weight: 700; color: #1f2937; margin-bottom: 8px; }
+        .profile-header p { color: #6b7280; font-size: 14px; }
+        .profile-card { background: white; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+        .profile-card .section { padding: 24px; border-bottom: 1px solid #f0f0f0; }
+        .profile-card .section:last-child { border-bottom: none; }
+        .section-title { font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .info-row { display: flex; margin-bottom: 16px; padding: 8px 0; }
+        .info-label { width: 140px; font-weight: 500; color: #4b5563; }
+        .info-value { flex: 1; color: #111827; font-weight: 500; }
+        .edit-form .form-group { margin-bottom: 20px; }
+        .edit-form label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 8px; }
+        .edit-form input { width: 100%; padding: 12px 16px; border-radius: 14px; border: 1px solid #e5e7eb; font-size: 14px; font-family: inherit; }
+        .edit-form input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        .save-btn { background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; font-size: 14px; }
+        .save-btn:hover { background: #2563eb; }
+        .profile-message { margin-top: 20px; font-size: 14px; text-align: center; padding: 12px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+      <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Board</a>
+    <a href="users.html"><i class="fa-solid fa-users"></i> Users</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Profile</a>
+    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
+    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+</div>
+   
+
+<div class="profile-page">
+    <div class="profile-header">
+        <div class="avatar" id="avatarLetter">АС</div>
+        <h1 id="profileNameTitle">Загрузка...</h1>
+        <p>Ваш аккаунт в системе</p>
+    </div>
+
+    <div class="profile-card">
+        <div class="section">
+            <div class="section-title">👤 Информация об аккаунте</div>
+            <div class="info-row"><div class="info-label">ID пользователя</div><div class="info-value" id="profileId">-</div></div>
+            <div class="info-row"><div class="info-label">Имя</div><div class="info-value" id="profileNameDisplay">-</div></div>
+            <div class="info-row"><div class="info-label">Электронная почта</div><div class="info-value" id="profileEmailDisplay">-</div></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">✏️ Редактировать профиль</div>
+            <div class="edit-form">
+                <div class="form-group"><label>Новое имя</label><input type="text" id="profileName" placeholder="Ваше имя"></div>
+                <div class="form-group"><label>Новый email</label><input type="email" id="profileEmail" placeholder="example@mail.com"></div>
+                <button class="save-btn" onclick="saveProfile()">💾 Сохранить изменения</button>
+                <div id="profileMessage" class="profile-message"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="config.js"></script>
+<script src="profile.js"></script>
+</body>
+</html> -->

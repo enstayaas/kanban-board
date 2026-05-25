@@ -112,8 +112,16 @@ func main() {
 	r.Handle("/tasks/archive/clean", middleware.JWT(http.HandlerFunc(taskHandler.CleanTrash))).Methods("DELETE")
 
 	// ========== TASKS ==========
+	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(taskHandler.GetTasks))).Methods("GET")
+	r.Handle("/tasks", middleware.JWT(http.HandlerFunc(taskHandler.CreateTask))).Methods("POST")
+	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.UpdateTask))).Methods("PUT")
+	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteTask))).Methods("DELETE")
+	r.Handle("/tasks/{id}/archive", middleware.JWT(http.HandlerFunc(taskHandler.ArchiveTask))).Methods("PATCH")
 	r.Handle("/tasks/{id}/restore", middleware.JWT(http.HandlerFunc(taskHandler.RestoreTask))).Methods("PATCH")
 	r.Handle("/tasks/{id}/permanent", middleware.JWT(http.HandlerFunc(taskHandler.PermanentDeleteTask))).Methods("DELETE")
+	// // ========== TASKS ==========
+	// r.Handle("/tasks/{id}/restore", middleware.JWT(http.HandlerFunc(taskHandler.RestoreTask))).Methods("PATCH")
+	// r.Handle("/tasks/{id}/permanent", middleware.JWT(http.HandlerFunc(taskHandler.PermanentDeleteTask))).Methods("DELETE")
 
 	// ========== TASK LABELS ==========
 	r.Handle("/tasks/{id}/labels", middleware.JWT(http.HandlerFunc(taskHandler.GetTaskLabels))).Methods("GET")
@@ -205,7 +213,9 @@ func main() {
 
 	// ========== ФРОНТЕНД ==========
 	// r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("../frontend"))))
-	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("C:/Users/VK/Desktop/Kanban-board/frontend"))))
+	// r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("C:/Users/VK/Desktop/Kanban-board/frontend"))))
+	// r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./frontend"))))
+	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("C:/Users/VK/Desktop/Kanban-board/backend_aliya/frontend"))))
 	// ========== CORS ==========
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
@@ -216,8 +226,10 @@ func main() {
 
 	handler := c.Handler(r)
 
-	utils.LogInfo("Server running on :8080")
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	utils.LogInfo("Server running on :8081")
+	log.Fatal(http.ListenAndServe(":8081", handler))
+	// utils.LogInfo("Server running on :8080")
+	// log.Fatal(http.ListenAndServe(":8080", handler))
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {

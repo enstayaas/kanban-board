@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Kanban</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .auth-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+        body.light .auth-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+        body.dark .auth-card {
+            background: rgba(30, 27, 75, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .auth-card h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .auth-card p {
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+        .auth-input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+            color: inherit;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        body.light .auth-input {
+            background: white;
+            border-color: #e5e7eb;
+        }
+        body.dark .auth-input {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .auth-input:focus {
+            outline: none;
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.3);
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+        .auth-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+        }
+        .auth-link {
+            margin-top: 24px;
+            font-size: 14px;
+        }
+        .auth-link a {
+            color: #a78bfa;
+            text-decoration: none;
+        }
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+        .error-msg {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>🔐 Вход в систему</h1>
+            <p>Войдите в свою учётную запись</p>
+            
+            <input type="email" id="loginEmail" class="auth-input" placeholder="Email" autocomplete="email">
+            <input type="password" id="loginPassword" class="auth-input" placeholder="Пароль" autocomplete="current-password">
+            <div id="loginError" class="error-msg"></div>
+            
+            <button class="auth-btn" onclick="handleLogin()">Войти</button>
+            
+            <div class="auth-link">
+                Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <!-- <script src="auth.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,91 @@
+// frontend/auth.js
+
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+
+async function fetchAuth(url, options = {}) {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
+        ...options,
+        headers: { 'Content-Type': 'application/json', ...options.headers }
+    });
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || error.message || `HTTP ${response.status}`);
+    }
+    return response.json();
+}
+
+async function handleLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const errorDiv = document.getElementById('loginError');
+    
+    errorDiv.innerText = '';
+    
+    if (!email || !password) {
+        errorDiv.innerText = 'Заполните все поля';
+        return;
+    }
+    
+    try {
+        const data = await fetchAuth('/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        });
+        
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            window.location.href = 'index.html';
+        }
+    } catch (error) {
+        errorDiv.innerText = error.message;
+    }
+}
+
+async function handleRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const errorDiv = document.getElementById('regError');
+    
+    errorDiv.innerText = '';
+    
+    if (!name || !email || !password) {
+        errorDiv.innerText = 'Заполните все поля';
+        return;
+    }
+    
+    if (password.length < 6) {
+        errorDiv.innerText = 'Пароль должен быть не менее 6 символов';
+        return;
+    }
+    
+    try {
+        await fetchAuth('/register', {
+            method: 'POST',
+            body: JSON.stringify({ name, email, password })
+        });
+        window.location.href = 'login.html';
+    } catch (error) {
+        errorDiv.innerText = error.message;
+    }
+}
+
+
+// function checkAuth() {
+//     // Временно отключено для разработки дизайна
+//     return true;
+// }
+// Проверка авторизации на защищённых страницах
+// function checkAuth() {
+//     const token = localStorage.getItem('token');
+//     const publicPages = ['login.html', 'register.html'];
+//     const currentPage = window.location.pathname.split('/').pop();
+    
+//     if (!token && !publicPages.includes(currentPage)) {
+//         window.location.href = 'login.html';
+//     }
+// }
+
+// Запускаем проверку при загрузке
+checkAuth();

@@ -73,26 +73,37 @@ function setupSearchListener() {
     }
 }
 
-// ========== УНИВЕРСАЛЬНЫЙ FETCH С ОБРАБОТКОЙ ОШИБОК ==========
+
 async function fetchAPI(url, options = {}) {
-    // Автоматически подставляем базовый URL
+    const token = localStorage.getItem('token');
+    const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers
+    };
+    
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    
     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
     
-    // Таймаут (чтобы запрос не висел вечно)
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     
     try {
         const response = await fetch(fullUrl, {
             ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers,
-            },
+            headers: headers,
             signal: controller.signal,
         });
         
         clearTimeout(timeoutId);
+        
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+            throw new Error('❌ Сессия истекла. Пожалуйста, войдите снова.');
+        }
         
         if (!response.ok) {
             let errorMessage = `HTTP ${response.status}`;
@@ -103,9 +114,7 @@ async function fetchAPI(url, options = {}) {
                 errorMessage = response.statusText || errorMessage;
             }
             
-            if (response.status === 401) {
-                errorMessage = '❌ Unauthorized. Please login again.';
-            } else if (response.status === 403) {
+            if (response.status === 403) {
                 errorMessage = '🔒 Access denied. You don\'t have permission.';
             } else if (response.status === 404) {
                 errorMessage = '🔍 Resource not found.';
@@ -136,6 +145,71 @@ async function fetchAPI(url, options = {}) {
         throw error;
     }
 }
+
+
+// ========== УНИВЕРСАЛЬНЫЙ FETCH С ОБРАБОТКОЙ ОШИБОК ==========
+// async function fetchAPI(url, options = {}) {
+//     // Автоматически подставляем базовый URL
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+    
+//     // Таймаут (чтобы запрос не висел вечно)
+//     const controller = new AbortController();
+//     const timeoutId = setTimeout(() => controller.abort(), 10000);
+    
+//     try {
+//         const response = await fetch(fullUrl, {
+//             ...options,
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 ...options.headers,
+//             },
+//             signal: controller.signal,
+//         });
+        
+//         clearTimeout(timeoutId);
+        
+//         if (!response.ok) {
+//             let errorMessage = `HTTP ${response.status}`;
+//             try {
+//                 const errorData = await response.json();
+//                 errorMessage = errorData.error || errorData.message || errorMessage;
+//             } catch(e) {
+//                 errorMessage = response.statusText || errorMessage;
+//             }
+            
+//             if (response.status === 401) {
+//                 errorMessage = '❌ Unauthorized. Please login again.';
+//             } else if (response.status === 403) {
+//                 errorMessage = '🔒 Access denied. You don\'t have permission.';
+//             } else if (response.status === 404) {
+//                 errorMessage = '🔍 Resource not found.';
+//             } else if (response.status === 400) {
+//                 errorMessage = '⚠️ Invalid request: ' + errorMessage;
+//             } else if (response.status === 500) {
+//                 errorMessage = '🔥 Server error. Please try again later.';
+//             }
+            
+//             throw new Error(errorMessage);
+//         }
+        
+//         if (response.status === 204) {
+//             return null;
+//         }
+        
+//         return await response.json();
+//     } catch (error) {
+//         clearTimeout(timeoutId);
+        
+//         if (error.name === 'AbortError') {
+//             showError('⏱️ Сервер не отвечает. Попробуйте позже');
+//         } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+//             showError('🌐 Network error: Cannot connect to server.');
+//         } else {
+//             showError(error.message);
+//         }
+//         throw error;
+//     }
+// }
 
 
 // ========== ВАЛИДАЦИЯ ЗАДАЧИ ==========
@@ -845,6 +919,70 @@ function getUserAvatar(userId) {
     if (!userId || userId === 0) return "👤";
     return usersList[userId]?.avatar || userId;
 }
+
+
+// ===== АВТОРИЗАЦИЯ =====
+async function login(email, password) {
+    try {
+        const response = await fetchAPI('/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        });
+        
+        if (response.token) {
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+            showSuccess('✅ Вход выполнен!');
+            window.location.href = 'index.html';
+        } else {
+            showError('❌ Ошибка входа: неверный email или пароль');
+        }
+    } catch (error) {
+        showError('❌ Ошибка входа: ' + error.message);
+    }
+}
+
+async function register(name, email, password) {
+    try {
+        const response = await fetchAPI('/register', {
+            method: 'POST',
+            body: JSON.stringify({ name, email, password })
+        });
+        
+        if (response.id) {
+            showSuccess('✅ Регистрация успешна! Теперь войдите.');
+            window.location.href = 'login.html';
+        } else {
+            showError('❌ Ошибка регистрации');
+        }
+    } catch (error) {
+        showError('❌ Ошибка регистрации: ' + error.message);
+    }
+}
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+}
+
+// Проверка авторизации при загрузке
+function checkAuth() {
+    const token = localStorage.getItem('token');
+    const publicPages = ['login.html', 'register.html'];
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    if (!token && !publicPages.includes(currentPage)) {
+        window.location.href = 'login.html';
+    }
+}
+
+// Вызвать checkAuth() при загрузке каждой страницы
+
+// // Проверка авторизации
+// if (typeof checkAuth === 'function') {
+//     checkAuth();
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();

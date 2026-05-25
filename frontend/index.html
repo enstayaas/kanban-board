@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kanban Board</title>
+  <title>Канбан-доска</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <div class="nav">
-    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Board</a>
-    <a href="users.html"><i class="fa-solid fa-users"></i> Users</a>
-    <a href="profile.html"><i class="fa-regular fa-user"></i> Profile</a>
+    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i>Доска</a>
+    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
     <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
     <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
     <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
@@ -26,7 +26,7 @@
     <button id="themeToggle" class="theme-btn" style="margin-left: auto;">🌙 Тёмная тема</button>
   </div> -->
 
-  <h1>📌 Kanban Board</h1>
+  <h1> Канбан-доска</h1>
 
   <div class="filters">
  <!-- Кнопка создания задачи -->
@@ -35,13 +35,13 @@
 
 
     <select id="priorityFilter">
-      <option value="">All priorities</option>
-      <option value="high">🔴 High</option>
-      <option value="medium">🟡 Medium</option>
-      <option value="low">🟢 Low</option>
+      <option value="">Все приоритеты</option>
+      <option value="high">🔴 Высокий</option>
+      <option value="medium">🟡 Средний</option>
+      <option value="low">🟢 Низкий</option>
     </select>
 
-    <input id="userFilter" placeholder="👤 Assigned User ID" type="number" />
+    <input id="userFilter" placeholder="👤 ID исполнителя" type="number" />
     <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
 
     <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Apply Filter</button>
@@ -78,10 +78,43 @@
     </div>
 </div>
 
-<!-- Панель сортировки и пагинации -->
+<div class="sort-pagination-panel">
+    <!-- ЛЕВАЯ СТОРОНА: Сортировка -->
+    <div class="sort-section">
+        <label>📊 Сортировать по:</label>
+        <select id="sortBy">
+            <option value="priority">Приоритету</option>
+            <option value="title">Названию</option>
+            <option value="assigned_to">Исполнителю</option>
+        </select>
+        <select id="sortOrder">
+            <option value="desc">По убыванию</option>
+            <option value="asc">По возрастанию</option>
+        </select>
+        <button onclick="applySortAndPage()">🔄 Применить</button>
+    </div>
+
+    <!-- ПРАВАЯ СТОРОНА: Пагинация -->
+    <div class="pagination-section">
+        <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button>
+        <span id="pageInfo">Страница 1 из 1</span>
+        <button onclick="nextPage()" id="nextBtn" disabled>Вперед ▶</button>
+        <div class="per-page">
+            <label>Показывать:</label>
+            <select id="perPage" onchange="changePerPage()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>задач</span>
+        </div>
+    </div>
+</div>
+<!-- 
 <div class="sort-pagination-panel">
     <div class="sort-section">
-        <!-- <label>📊 Сортировать по:</label> -->
+      
          <label><i class="fa-solid fa-arrow-down-wide-short"></i> Сортировать по:</label>
         <select id="sortBy">
             <option value="priority">Приоритету</option>
@@ -95,19 +128,19 @@
             <option value="desc">📉 По убыванию</option>
         </select>
         
-        <!-- <button onclick="applySortAndPage()">🔄 Применить</button> -->
+      
          <button onclick="applySortAndPage()"><i class="fa-solid fa-rotate"></i> Применить</button>
     </div>
     
     <div class="pagination-section">
-        <!-- <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button> -->
+       
          <button onclick="prevPage()" id="prevBtn" disabled><i class="fa-solid fa-chevron-left"></i> Назад</button>
         <span id="pageInfo">Страница 1 из 1</span>
-        <!-- <button onclick="nextPage()" id="nextBtn" disabled>Вперед ▶</button> -->
+       
          <button onclick="nextPage()" id="nextBtn" disabled>Вперед <i class="fa-solid fa-chevron-right"></i></button>
         
         <div class="per-page">
-            <!-- <label>Показывать:</label> -->
+            
              <label><i class="fa-regular fa-eye"></i> Показывать:</label>
             <select id="perPage" onchange="changePerPage()">
                 <option value="5">5</option>
@@ -118,7 +151,7 @@
             <span>задач</span>
         </div>
     </div>
-</div>
+</div> -->
 
   <div class="board-container" id="board"></div>
 
@@ -126,15 +159,15 @@
   <div id="modal" class="modal">
     <div class="modal-content">
       <!-- <h3>✏️ Edit Task</h3> -->
-       <h3><i class="fa-regular fa-pen-to-square"></i> Edit Task</h3>
+       <h3><i class="fa-regular fa-pen-to-square"></i> Редактировать задачу</h3>
       
-      <input id="editTitle" placeholder="Task title" autocomplete="off" />
-      <textarea id="editDesc" placeholder="Description" rows="3"></textarea>
+      <input id="editTitle" placeholder="Название задачи" autocomplete="off" />
+      <textarea id="editDesc" placeholder="Описание" rows="3"></textarea>
       
       <select id="editPriority">
-        <option value="low">🟢 Low</option>
-        <option value="medium">🟡 Medium</option>
-        <option value="high">🔴 High</option>
+        <option value="low">🟢 Низкий</option>
+        <option value="medium">🟡 Средний</option>
+        <option value="high">🔴 Высокий</option>
       </select>
       
       <!-- <input id="editAssignedTo" placeholder="Assigned User ID" type="number" /> -->
@@ -155,9 +188,9 @@
     <div id="modalTaskLabels" class="modal-labels-list"></div>
 </div>
       <div style="margin-top: 15px;">
-        <button onclick="saveTask()"><i class="fa-regular fa-floppy-disk"></i> Save</button>
+        <button onclick="saveTask()"><i class="fa-regular fa-floppy-disk"></i> Сохранить</button>
 <button onclick="archiveCurrentTask()"><i class="fa-solid fa-box-archive"></i> В архив</button>
-<button onclick="closeModal()"><i class="fa-solid fa-xmark"></i> Cancel</button>
+<button onclick="closeModal()"><i class="fa-solid fa-xmark"></i> Удалить</button>
         <!-- <button onclick="saveTask()">💾 Save</button>
         <button onclick="archiveCurrentTask()">📦 В архив</button>
         <button onclick="closeModal()">❌ Cancel</button> -->
@@ -175,15 +208,15 @@
         <input id="createTitle" placeholder="Название задачи" autocomplete="off" />
         <textarea id="createDesc" placeholder="Описание" rows="3"></textarea>
         <select id="createPriority">
-            <option value="low">🟢 Low</option>
-            <option value="medium" selected>🟡 Medium</option>
-            <option value="high">🔴 High</option>
+            <option value="low">🟢 Низкий</option>
+            <option value="medium" selected>🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
         </select>
         <input id="createAssignedTo" placeholder="ID исполнителя" type="number" />
         <select id="createColumnId">
-            <option value="1">📋 To Do</option>
-            <option value="2">⚙️ In Progress</option>
-            <option value="3">✅ Done</option>
+            <option value="1">📋 К выполнению</option>
+            <option value="2">⚙️ В процессе</option>
+            <option value="3">✅ Выполнено</option>
         </select>
         <div style="margin-top: 15px;">
             <button id="createTaskBtn" onclick="createTask()">💾 Создать</button>
@@ -196,6 +229,7 @@
 
 
   <script src="config.js"></script>
+  <!-- <script src="auth.js"></script> -->
   <script src="script.js"></script>
   <script src="labels.js"></script>
 </body>

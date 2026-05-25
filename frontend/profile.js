@@ -127,9 +127,120 @@ if (themeToggle) {
     });
 }
 
+// Переключение вкладок
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tabName = btn.getAttribute('data-tab');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById(`${tabName}-tab`).classList.add('active');
+    });
+});
+
+
+
+// ===== ЗАГРУЗКА АВАТАРКИ =====
+function uploadAvatar(input) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const avatarDiv = document.getElementById('avatarLetter');
+            avatarDiv.style.backgroundImage = `url(${e.target.result})`;
+            avatarDiv.style.backgroundSize = 'cover';
+            avatarDiv.style.backgroundPosition = 'center';
+            avatarDiv.innerHTML = ''; // убираем текст
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('userAvatar', e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Загрузка сохранённой аватарки
+const savedAvatar = localStorage.getItem('userAvatar');
+if (savedAvatar) {
+    const avatarDiv = document.getElementById('avatarLetter');
+    avatarDiv.style.backgroundImage = `url(${savedAvatar})`;
+    avatarDiv.style.backgroundSize = 'cover';
+    avatarDiv.style.backgroundPosition = 'center';
+    avatarDiv.innerHTML = '';
+}
+
+
+
+// ===== БИОГРАФИЯ С КРАСИВЫМ МОДАЛЬНЫМ ОКНОМ =====
+let currentBio = '';
+
+function loadBio() {
+    const savedBio = localStorage.getItem('userBio');
+    if (savedBio) {
+        currentBio = savedBio;
+        document.getElementById('bio-text').innerText = savedBio;
+    } else {
+        currentBio = 'Расскажите немного о себе...';
+        document.getElementById('bio-text').innerText = currentBio;
+    }
+}
+
+function editBio() {
+    const modal = document.getElementById('bioModal');
+    const textarea = document.getElementById('bioInput');
+    textarea.value = currentBio;
+    modal.style.display = 'flex';
+}
+
+function closeBioModal() {
+    document.getElementById('bioModal').style.display = 'none';
+}
+
+function saveBioFromModal() {
+    const newBio = document.getElementById('bioInput').value.trim();
+    if (newBio !== '') {
+        currentBio = newBio;
+        document.getElementById('bio-text').innerText = currentBio;
+        localStorage.setItem('userBio', currentBio);
+    }
+    closeBioModal();
+}
+
+// ===== БИОГРАФИЯ =====
+// let currentBio = '';
+
+// function loadBio() {
+//     const savedBio = localStorage.getItem('userBio');
+//     if (savedBio) {
+//         currentBio = savedBio;
+//         document.getElementById('bio-text').innerText = savedBio;
+//     } else {
+//         currentBio = 'Расскажите немного о себе...';
+//         document.getElementById('bio-text').innerText = currentBio;
+//     }
+// }
+
+// function editBio() {
+//     const newBio = prompt('Расскажите о себе:', currentBio);
+//     if (newBio !== null && newBio.trim() !== '') {
+//         currentBio = newBio;
+//         document.getElementById('bio-text').innerText = currentBio;
+//         localStorage.setItem('userBio', currentBio);
+//     }
+// }
+
+// // Вызываем загрузку биографии
+// loadBio();
+
 document.addEventListener('DOMContentLoaded', loadProfile);
 
-
+// ===== ЗАКРЫТИЕ МОДАЛКИ ПО КЛИКУ ВНЕ ЕЁ =====
+window.onclick = function(event) {
+    const modal = document.getElementById('bioModal');
+    if (event.target === modal) {
+        closeBioModal();
+    }
+}
 
 
 

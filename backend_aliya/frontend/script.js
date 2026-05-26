@@ -1046,10 +1046,10 @@ function showCreateBoardModal() {
     if (title) createBoard(title);
 }
 
-// Загружаем доски при старте
-if (typeof checkAuth === 'function') {
-    loadBoards();
-}
+// // Загружаем доски при старте
+// if (typeof checkAuth === 'function') {
+//     loadBoards();
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
   initEventListeners();

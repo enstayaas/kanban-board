@@ -1,4 +1,4 @@
-const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
 let currentStats = { done: 0, inProgress: 0, todo: 0, total: 0 };
 let currentPercent = { done: 0, inProgress: 0, todo: 0 };

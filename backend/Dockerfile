@@ -22,7 +22,7 @@ COPY --from=builder /app/main .
 # Делаем исполняемым (на всякий случай)
 RUN chmod +x /root/main
 
-EXPOSE 8080
+EXPOSE 8081
 CMD ["./main"]
 
 

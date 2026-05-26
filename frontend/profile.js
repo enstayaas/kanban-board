@@ -9,12 +9,12 @@
 
 // frontend/profile.js
 
-const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
 async function loadProfile() {
     const msg = document.getElementById('profileMessage');
     try {
-        const response = await fetch('http://localhost:8080/users/1');
+        const response = await fetch(`${API_BASE_URL}/users/1`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const user = await response.json();
         
@@ -61,7 +61,7 @@ async function saveProfile() {
     }
     
     try {
-        const response = await fetch('http://localhost:8080/users/1', {
+        const response = await fetch('http://localhost:8081/users/1', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name, email: email })
@@ -1232,7 +1232,7 @@ async function saveProfile() {
   }
   
   try {
-    await fetchAPI(`${API_BASE_URL}/users/${userId}`, {
+    await fetch(`${API_BASE_URL}/users/${userId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name.trim(), email: email.trim() })

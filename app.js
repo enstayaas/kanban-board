@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8081';
 
 // Функция для получения свежего токена из хранилища
 function getToken() {
@@ -53,7 +53,7 @@ async function loadBoards() {
         console.error("Проблема:", error);
         const grid = document.getElementById('boards-grid');
         if (grid) {
-            grid.innerHTML = `<p style="color: red; padding: 20px;">⚠️ Не удалось подключиться к серверу. Убедитесь, что Go запущен на порту 8080.</p>`;
+            grid.innerHTML = `<p style="color: red; padding: 20px;">⚠️ Не удалось подключиться к серверу. Убедитесь, что Go запущен на порту 8081.</p>`;
         }
     }
 }

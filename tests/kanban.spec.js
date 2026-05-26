@@ -1,24 +1,24 @@
 const { test, expect } = require('@playwright/test');
 
 test('Главная страница открывается', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     await expect(page.locator('h1')).toContainText('Kanban Board');
 });
 
 test('Есть три колонки', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     const columns = page.locator('.column');
     await expect(columns).toHaveCount(3);
 });
 
 test('Можно открыть модальное окно создания задачи', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     await page.click('button:has-text("Создать задачу")');
     await expect(page.locator('#createModal')).toBeVisible();
 });
 
 test('Можно закрыть модальное окно создания задачи', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     await page.click('button:has-text("Создать задачу")');
     await expect(page.locator('#createModal')).toBeVisible();
     await page.click('#closeCreateModalBtn');
@@ -26,19 +26,19 @@ test('Можно закрыть модальное окно создания з�
 });
 
 test('Фильтры существуют на странице', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     await expect(page.locator('#priorityFilter')).toBeVisible();
     await expect(page.locator('#userFilter')).toBeVisible();
     await expect(page.locator('#searchInput')).toBeVisible();
 });
 
 test('Панель меток существует', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     await expect(page.locator('.labels-panel')).toBeVisible();
 });
 
 test('Панель сортировки существует', async ({ page }) => {
-    await page.goto('http://localhost:8080');
+    await page.goto('http://localhost:8081');
     await expect(page.locator('.sort-pagination-panel')).toBeVisible();
 });
 

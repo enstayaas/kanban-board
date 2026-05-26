@@ -14,7 +14,7 @@ let searchQuery = '';
 // API URL (можно вынести в .env позже)
 // const API_BASE_URL = 'http://localhost:8080';
 // Используем конфиг
-const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
 // ========== ФУНКЦИИ УВЕДОМЛЕНИЙ ==========
 function showError(message) {
@@ -101,7 +101,7 @@ async function fetchAPI(url, options = {}) {
         
         if (response.status === 401) {
             localStorage.removeItem('token');
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
             throw new Error('❌ Сессия истекла. Пожалуйста, войдите снова.');
         }
         

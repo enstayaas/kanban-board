@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Канбан-доска</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+
+<div class="nav">
+    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
+    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
+    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+</div>
+
+<h1 id="boardTitle">Канбан-доска</h1>
+
+<!-- ФИЛЬТРЫ -->
+<div class="filters">
+    <button onclick="openCreateModal()"><i class="fa-solid fa-plus"></i> Создать задачу</button>
+    <select id="priorityFilter">
+        <option value="">Все приоритеты</option>
+        <option value="high">🔴 Высокий</option>
+        <option value="medium">🟡 Средний</option>
+        <option value="low">🟢 Низкий</option>
+    </select>
+    <input id="userFilter" placeholder="👤 ID исполнителя" type="number" />
+    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
+    <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Применить</button>
+    <button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Очистить</button>
+</div>
+
+<!-- МЕТКИ -->
+<div class="labels-panel">
+    <h3><i class="fa-solid fa-tags"></i> Метки</h3>
+    <div id="labelsList" class="labels-list"></div>
+    <div class="add-label-form">
+        <input type="text" id="newLabelName" placeholder="Название метки" maxlength="60">
+        <input type="color" id="newLabelColor" value="#3b82f6">
+        <button onclick="createLabel()"><i class="fa-solid fa-plus"></i> Добавить</button>
+    </div>
+    <div class="filter-by-labels">
+        <h4>Фильтр по меткам:</h4>
+        <div id="labelFilters" class="label-filters"></div>
+        <button onclick="clearLabelFilter()"><i class="fa-solid fa-eraser"></i> Очистить</button>
+    </div>
+</div>
+
+<!-- СОРТИРОВКА И ПАГИНАЦИЯ -->
+<div class="sort-pagination-panel">
+    <div class="sort-section">
+        <label>📊 Сортировать по:</label>
+        <select id="sortBy">
+            <option value="priority">Приоритету</option>
+            <option value="title">Названию</option>
+            <option value="assigned_to">Исполнителю</option>
+        </select>
+        <select id="sortOrder">
+            <option value="desc">По убыванию</option>
+            <option value="asc">По возрастанию</option>
+        </select>
+        <button onclick="applySortAndPage()">🔄 Применить</button>
+    </div>
+    <div class="pagination-section">
+        <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button>
+        <span id="pageInfo">Страница 1 из 1</span>
+        <button onclick="nextPage()" id="nextBtn" disabled>Вперед ▶</button>
+        <div class="per-page">
+            <label>Показывать:</label>
+            <select id="perPage" onchange="changePerPage()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>задач</span>
+        </div>
+    </div>
+</div>
+
+<!-- КОЛОНКИ С ЗАДАЧАМИ -->
+<div class="board-container" id="board"></div>
+
+<!-- Модальные окна -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Редактировать задачу</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <input id="editTitle" placeholder="Название">
+        <textarea id="editDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="editPriority">
+            <option value="low">🟢 Низкий</option>
+            <option value="medium">🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
+        </select>
+        <select id="editAssignedTo">
+            <option value="">Не назначен</option>
+            <option value="1">Анна Смирнова</option>
+            <option value="2">Борис Петров</option>
+            <option value="3">Виктор Сидоров</option>
+            <option value="4">Дарья Кузнецова</option>
+            <option value="5">Елена Морозова</option>
+            <option value="6">Максим Иванов</option>
+            <option value="7">Ольга Соколова</option>
+            <option value="8">Игорь Васильев</option>
+        </select>
+        <div class="modal-buttons">
+            <button onclick="saveTask()" class="btn-save">Сохранить</button>
+            <button onclick="archiveCurrentTask()" class="btn-archive">В архив</button>
+            <button onclick="closeModal()" class="btn-cancel">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Новая задача</h3>
+            <button class="modal-close" onclick="closeCreateModal()">&times;</button>
+        </div>
+        <input id="createTitle" placeholder="Название">
+        <textarea id="createDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="createPriority">
+            <option value="low">🟢 Низкий</option>
+            <option value="medium" selected>🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
+        </select>
+        <input id="createAssignedTo" placeholder="ID исполнителя" type="number">
+        <select id="createColumnId">
+            <option value="1">📋 To Do</option>
+            <option value="2">⚙️ In Progress</option>
+            <option value="3">✅ Done</option>
+        </select>
+        <div class="modal-buttons">
+            <button onclick="createTask()" class="btn-save">Создать</button>
+            <button onclick="closeCreateModal()" class="btn-cancel">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE_URL = 'http://localhost:8081';
+    let currentTask = null;
+    let allTasks = [];
+    let currentPage = 1;
+    let perPage = 10;
+    let currentSortBy = 'priority';
+    let currentSortOrder = 'desc';
+    let searchQuery = '';
+    let selectedLabelFilters = [];
+    let labels = [];
+    let currentBoardId = null;
+    let currentBoardTitle = '';
+
+    // Получаем ID доски из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    currentBoardId = urlParams.get('id');
+
+    if (!currentBoardId) {
+        currentBoardId = localStorage.getItem('currentBoardId');
+    }
+
+    // Загрузка названия доски
+    async function loadBoardTitle() {
+        const token = localStorage.getItem('token');
+        if (!token || !currentBoardId) return;
+        try {
+            const response = await fetch(`${API_BASE_URL}/boards/${currentBoardId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const board = await response.json();
+                currentBoardTitle = board.title || 'Канбан-доска';
+                document.getElementById('boardTitle').innerHTML = currentBoardTitle;
+            }
+        } catch (error) {
+            console.error('Error loading board title:', error);
+        }
+    }
+
+    // Загрузка меток
+    async function loadLabels() {
+        const token = localStorage.getItem('token');
+        if (!token || !currentBoardId) return;
+        try {
+            const response = await fetch(`${API_BASE_URL}/labels?board_id=${currentBoardId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                labels = await response.json();
+                renderLabelsList();
+                renderLabelFilters();
+            }
+        } catch (error) {
+            console.error('Error loading labels:', error);
+        }
+    }
+
+    function renderLabelsList() {
+        const container = document.getElementById('labelsList');
+        if (!container) return;
+        if (!labels || labels.length === 0) {
+            container.innerHTML = '<div>Нет меток. Создайте первую!</div>';
+            return;
+        }
+        container.innerHTML = labels.map(label => `
+            <div class="label" style="background: ${label.color};">
+                ${escapeHtml(label.name)}
+                <span class="remove-label" onclick="deleteLabel(${label.id})">✖</span>
+            </div>
+        `).join('');
+    }
+
+    function renderLabelFilters() {
+        const container = document.getElementById('labelFilters');
+        if (!container) return;
+        if (!labels || labels.length === 0) {
+            container.innerHTML = '<div>Создайте метки для фильтрации</div>';
+            return;
+        }
+        container.innerHTML = labels.map(label => `
+            <div class="label-filter ${selectedLabelFilters.includes(label.id) ? 'active' : ''}" 
+                 style="background: ${label.color};"
+                 onclick="toggleLabelFilter(${label.id})">
+                ${escapeHtml(label.name)}
+            </div>
+        `).join('');
+    }
+
+    function toggleLabelFilter(labelId) {
+        if (selectedLabelFilters.includes(labelId)) {
+            selectedLabelFilters = selectedLabelFilters.filter(id => id !== labelId);
+        } else {
+            selectedLabelFilters.push(labelId);
+        }
+        renderLabelFilters();
+        loadTasks();
+    }
+
+    function clearLabelFilter() {
+        selectedLabelFilters = [];
+        renderLabelFilters();
+        loadTasks();
+    }
+
+    async function createLabel() {
+        const name = document.getElementById('newLabelName').value.trim();
+        const color = document.getElementById('newLabelColor').value;
+        if (!name) return;
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/labels`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, color, board_id: parseInt(currentBoardId) })
+            });
+            if (response.ok) {
+                document.getElementById('newLabelName').value = '';
+                loadLabels();
+            }
+        } catch (error) {
+            console.error('Error creating label:', error);
+        }
+    }
+
+    async function deleteLabel(labelId) {
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/labels/${labelId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            loadLabels();
+        } catch (error) {
+            console.error('Error deleting label:', error);
+        }
+    }
+
+    // Загрузка задач
+    async function loadTasks() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const columnsResponse = await fetch(`${API_BASE_URL}/columns?board_id=${currentBoardId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (!columnsResponse.ok) {
+                document.getElementById('board').innerHTML = '<div class="empty-state">Ошибка загрузки</div>';
+                return;
+            }
+
+            const columns = await columnsResponse.json();
+            let allColTasks = [];
+            
+            for (const column of columns) {
+                const tasksResponse = await fetch(`${API_BASE_URL}/tasks?column_id=${column.id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (tasksResponse.ok) {
+                    const data = await tasksResponse.json();
+                    let tasks = data.data || data;
+                    if (Array.isArray(tasks)) {
+                        tasks = tasks.map(t => ({ ...t, column_title: column.title, column_id: column.id }));
+                        allColTasks = [...allColTasks, ...tasks];
+                    }
+                }
+            }
+            
+            allTasks = allColTasks;
+            applySortAndPage();
+            
+        } catch (error) {
+            console.error('Load tasks error:', error);
+            document.getElementById('board').innerHTML = '<div class="empty-state">⚠️ Ошибка загрузки</div>';
+        }
+    }
+
+    function renderBoard(tasks) {
+        const boardDiv = document.getElementById('board');
+        if (!boardDiv) return;
+        boardDiv.innerHTML = '';
+        
+        const columns = [1, 2, 3];
+        const columnTitles = {
+            1: '<i class="fa-regular fa-rectangle-list"></i> To Do',
+            2: '<i class="fa-solid fa-gear"></i> In Progress',
+            3: '<i class="fa-regular fa-circle-check"></i> Done'
+        };
+        const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
+        
+        columns.forEach(col => {
+            const columnDiv = document.createElement('div');
+            columnDiv.className = 'column';
+            columnDiv.innerHTML = `<h3>${columnTitles[col]}</h3>`;
+            
+            const tasksInColumn = tasks.filter(t => t.column_id === col);
+            if (tasksInColumn.length === 0) {
+                columnDiv.innerHTML += '<div class="empty-state">✨ Нет задач</div>';
+            } else {
+                tasksInColumn.forEach(task => {
+                    const taskDiv = document.createElement('div');
+                    taskDiv.className = 'task';
+                    taskDiv.innerHTML = `
+                        <div>${priorityEmojis[task.priority] || '⚪'} <strong>${escapeHtml(task.title)}</strong></div>
+                        <div style="font-size: 10px; color: #888;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
+                    `;
+                    taskDiv.onclick = () => openModal(task);
+                    columnDiv.appendChild(taskDiv);
+                });
+            }
+            boardDiv.appendChild(columnDiv);
+        });
+    }
+
+    function applyFilter() { currentPage = 1; applySortAndPage(); }
+    function clearFilters() {
+        document.getElementById('priorityFilter').value = '';
+        document.getElementById('userFilter').value = '';
+        document.getElementById('searchInput').value = '';
+        searchQuery = '';
+        currentPage = 1;
+        loadTasks();
+    }
+
+    function sortTasks(tasks) {
+        const sortBy = document.getElementById('sortBy')?.value || currentSortBy;
+        const sortOrder = document.getElementById('sortOrder')?.value || currentSortOrder;
+        currentSortBy = sortBy;
+        currentSortOrder = sortOrder;
+        const sorted = [...tasks];
+        sorted.sort((a, b) => {
+            let valA, valB;
+            switch(sortBy) {
+                case 'priority':
+                    const w = { 'high': 3, 'medium': 2, 'low': 1 };
+                    valA = w[a.priority] || 0;
+                    valB = w[b.priority] || 0;
+                    break;
+                case 'title':
+                    valA = (a.title || '').toLowerCase();
+                    valB = (b.title || '').toLowerCase();
+                    break;
+                default:
+                    valA = a.id || 0;
+                    valB = b.id || 0;
+            }
+            if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+            if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+            return 0;
+        });
+        return sorted;
+    }
+
+    function paginateTasks(tasks) { return tasks.slice((currentPage - 1) * perPage, currentPage * perPage); }
+    function updatePaginationButtons(total) {
+        const pages = Math.ceil(total / perPage);
+        document.getElementById('prevBtn').disabled = currentPage <= 1;
+        document.getElementById('nextBtn').disabled = currentPage >= pages;
+        document.getElementById('pageInfo').innerText = `Страница ${currentPage} из ${pages || 1}`;
+    }
+    function prevPage() { if (currentPage > 1) { currentPage--; applySortAndPage(); } }
+    function nextPage() { const pages = Math.ceil(allTasks.length / perPage); if (currentPage < pages) { currentPage++; applySortAndPage(); } }
+    function changePerPage() { perPage = parseInt(document.getElementById('perPage')?.value || 10); currentPage = 1; applySortAndPage(); }
+    
+    function applySortAndPage() {
+        let filtered = [...allTasks];
+        const priority = document.getElementById('priorityFilter')?.value;
+        const userId = document.getElementById('userFilter')?.value;
+        if (priority) filtered = filtered.filter(t => t.priority === priority);
+        if (userId) filtered = filtered.filter(t => t.assigned_to === parseInt(userId));
+        if (searchQuery) filtered = filtered.filter(t => t.title?.toLowerCase().includes(searchQuery.toLowerCase()));
+        const sorted = sortTasks(filtered);
+        updatePaginationButtons(sorted.length);
+        renderBoard(paginateTasks(sorted));
+    }
+
+    function openModal(task) { currentTask = task; document.getElementById('editTitle').value = task.title || ''; document.getElementById('editDesc').value = task.description || ''; document.getElementById('editPriority').value = task.priority || 'medium'; document.getElementById('editAssignedTo').value = task.assigned_to || ''; document.getElementById('modal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; currentTask = null; }
+    function openCreateModal() { document.getElementById('createModal').style.display = 'flex'; }
+    function closeCreateModal() { document.getElementById('createModal').style.display = 'none'; }
+
+    async function saveTask() {
+    if (!currentTask) return;
+    const token = localStorage.getItem('token');
+    try {
+        await fetch(`${API_BASE_URL}/tasks/${currentTask.id}`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                board_id: parseInt(currentBoardId),  // ← ДОБАВЬТЕ
+                title: document.getElementById('editTitle').value,
+                description: document.getElementById('editDesc').value,
+                priority: document.getElementById('editPriority').value,
+                assigned_to: parseInt(document.getElementById('editAssignedTo').value) || 0
+            })
+        });
+        closeModal();
+        loadTasks();
+    } catch (error) { console.error('Error:', error); }
+}
+
+    async function createTask() {
+    const title = document.getElementById('createTitle').value.trim();
+    if (!title) return;
+    const token = localStorage.getItem('token');
+    try {
+        await fetch(`${API_BASE_URL}/tasks`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                board_id: parseInt(currentBoardId),  // ← ДОБАВЛЕНА ЭТА СТРОКА
+                title: title,
+                description: document.getElementById('createDesc').value,
+                priority: document.getElementById('createPriority').value,
+                column_id: parseInt(document.getElementById('createColumnId').value),
+                assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0
+            })
+        });
+        closeCreateModal();
+        loadTasks();
+    } catch (error) { console.error('Error:', error); }
+}
+    
+
+    async function archiveCurrentTask() {
+        if (!currentTask || !confirm('В архив?')) return;
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/tasks/${currentTask.id}/archive`, { method: 'PATCH', headers: { 'Authorization': `Bearer ${token}` } });
+            closeModal();
+            loadTasks();
+        } catch (error) { console.error('Error:', error); }
+    }
+
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m)); }
+    const users = { 1: "Анна Смирнова", 2: "Борис Петров", 3: "Виктор Сидоров", 4: "Дарья Кузнецова", 5: "Елена Морозова", 6: "Максим Иванов", 7: "Ольга Соколова", 8: "Игорь Васильев" };
+    function getUserName(id) { if (!id || id === 0) return "Не назначен"; return users[id] || `Пользователь ${id}`; }
+
+    // Поиск с debounce
+    const searchInput = document.getElementById('searchInput');
+    let searchTimeout;
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchQuery = e.target.value.trim();
+                currentPage = 1;
+                applySortAndPage();
+            }, 300);
+        });
+    }
+
+    // Тёмная тема
+    const theme = localStorage.getItem('theme');
+    if (theme === 'light') { document.body.classList.remove('dark'); document.body.classList.add('light'); }
+    else { document.body.classList.add('dark'); document.body.classList.remove('light'); }
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadBoardTitle();
+        loadLabels();
+        loadTasks();
+        document.getElementById('modal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
+        document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
+    });
+</script>
+</body>
+</html>

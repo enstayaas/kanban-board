@@ -1,4 +1,343 @@
 <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои проекты - Kanban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .boards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .boards-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .boards-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .create-board-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .create-board-btn:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .boards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .board-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .board-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .board-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .board-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .board-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .delete-board {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .delete-board:hover {
+            background: rgba(239,68,68,0.1);
+        }
+
+        .empty-boards {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+            padding: 16px 24px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: var(--hover-bg);
+            color: #4f46e5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="index.html" class="active"><i class="fa-regular fa-rectangle-list"></i> Мои проекты</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+</div>
+
+<div class="boards-container">
+    <div class="boards-header">
+        <h1><i class="fa-regular fa-rectangle-list"></i> Мои проекты</h1>
+        <button class="create-board-btn" onclick="showCreateBoardModal()"><i class="fa-solid fa-plus"></i> Создать проект</button>
+    </div>
+
+    <div id="boardsGrid" class="boards-grid">
+        <div class="empty-boards">Загрузка...</div>
+    </div>
+</div>
+
+<!-- Модальное окно создания доски -->
+<div id="createBoardModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-plus"></i> Создать проект</h3>
+            <button class="modal-close" onclick="closeBoardModal()">&times;</button>
+        </div>
+        <input type="text" id="boardTitle" placeholder="Название проекта" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
+        <textarea id="boardDesc" placeholder="Описание (необязательно)" rows="3" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); margin-top: 12px;"></textarea>
+        <div class="modal-buttons" style="margin-top: 20px;">
+            <button onclick="createBoard()" class="btn-save">Создать</button>
+            <button onclick="closeBoardModal()" class="btn-cancel">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE_URL = 'http://localhost:8081';
+
+    // Загрузка досок
+    async function loadBoards() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/boards`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const boards = data.data || data;
+                displayBoards(boards);
+            } else if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        } catch (error) {
+            console.error('Error loading boards:', error);
+            document.getElementById('boardsGrid').innerHTML = '<div class="empty-boards">⚠️ Ошибка загрузки</div>';
+        }
+    }
+
+    // Отображение досок
+    function displayBoards(boards) {
+        const container = document.getElementById('boardsGrid');
+        
+        if (!boards || boards.length === 0) {
+            container.innerHTML = '<div class="empty-boards">📭 У вас пока нет проектов. Создайте первый!</div>';
+            return;
+        }
+
+        container.innerHTML = boards.map(board => `
+            <div class="board-card" onclick="openBoard(${board.id})">
+                <h3><i class="fa-regular fa-rectangle-list"></i> ${escapeHtml(board.title)}</h3>
+                <p>${escapeHtml(board.description) || 'Нет описания'}</p>
+                <div class="board-card-footer">
+                    <span><i class="fa-regular fa-calendar"></i> ${new Date().toLocaleDateString()}</span>
+                    <button class="delete-board" onclick="event.stopPropagation(); deleteBoard(${board.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Открытие доски
+    
+      function openBoard(boardId) {
+    localStorage.setItem('currentBoardId', boardId);
+    window.location.href = `board.html?id=${boardId}`;
+}
+    
+
+    // Создание доски
+    async function createBoard() {
+        const title = document.getElementById('boardTitle').value;
+        const description = document.getElementById('boardDesc').value;
+        const token = localStorage.getItem('token');
+
+        if (!title) {
+            alert('Введите название проекта');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/boards`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, description })
+            });
+
+            if (response.ok) {
+                closeBoardModal();
+                loadBoards();
+                document.getElementById('boardTitle').value = '';
+                document.getElementById('boardDesc').value = '';
+            } else {
+                alert('Ошибка создания');
+            }
+        } catch (error) {
+            console.error('Error creating board:', error);
+            alert('Ошибка подключения');
+        }
+    }
+
+    // Удаление доски
+    async function deleteBoard(boardId) {
+        if (!confirm('Удалить проект? Все задачи будут потеряны!')) return;
+        
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/boards/${boardId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                loadBoards();
+            } else {
+                alert('Ошибка удаления');
+            }
+        } catch (error) {
+            console.error('Error deleting board:', error);
+            alert('Ошибка подключения');
+        }
+    }
+
+    // Модальное окно
+    function showCreateBoardModal() {
+        document.getElementById('createBoardModal').style.display = 'flex';
+    }
+
+    function closeBoardModal() {
+        document.getElementById('createBoardModal').style.display = 'none';
+    }
+
+    // Экранирование HTML
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Тёмная тема
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.remove('dark');
+        document.body.classList.add('light');
+    } else {
+        document.body.classList.add('dark');
+        document.body.classList.remove('light');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        document.body.classList.toggle('light');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', () => {
+        loadBoards();
+        
+        // Закрытие модального окна по клику вне его
+        document.getElementById('createBoardModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('createBoardModal')) {
+                closeBoardModal();
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,77 +348,50 @@
 </head>
 <body>
 
-    <div class="nav">
-    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i>Доска</a>
+<div class="nav">
+    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
     <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
     <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
     <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
     <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <a href="index.html" class="active"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="login.html" id="loginLink" style="display: none;"><i class="fa-solid fa-right-to-bracket"></i> Вход</a>
+    <button id="logoutBtn" style="display: none;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Выход</button>
     <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
 </div>
-  <!-- <div class="nav">
-    <a href="index.html">📋 Board</a>
-    <a href="users.html">👥 Users</a>
-    <a href="profile.html">👤 Profile</a>
-    <a href="archive.html">📦 Архив</a>
-    <a href="stats.html">📊 Статистика</a>
-    <button id="themeToggle" class="theme-btn" style="margin-left: auto;">🌙 Тёмная тема</button>
-  </div> -->
 
-  <h1> Канбан-доска</h1>
+<h1>Канбан-доска</h1>
 
-  <div class="filters">
- <!-- Кнопка создания задачи -->
-    <!-- <button onclick="openCreateModal()">➕ Создать задачу</button> -->
-<button onclick="openCreateModal()"><i class="fa-solid fa-plus"></i> Создать задачу</button>
-
-
+<div class="filters">
+    <button onclick="openCreateModal()"><i class="fa-solid fa-plus"></i> Создать задачу</button>
     <select id="priorityFilter">
-      <option value="">Все приоритеты</option>
-      <option value="high">🔴 Высокий</option>
-      <option value="medium">🟡 Средний</option>
-      <option value="low">🟢 Низкий</option>
+        <option value="">Все приоритеты</option>
+        <option value="high">🔴 Высокий</option>
+        <option value="medium">🟡 Средний</option>
+        <option value="low">🟢 Низкий</option>
     </select>
-
     <input id="userFilter" placeholder="👤 ID исполнителя" type="number" />
     <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
+    <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Применить фильтр</button>
+    <button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Очистить фильтры</button>
+</div>
 
-    <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Apply Filter</button>
-<button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Clear Filters</button>
-    <!-- <button onclick="loadTasks()">🔍 Apply Filter</button> -->
-     <!-- <button onclick="applyFilter()">🔍 Apply Filter</button> -->
-    <!-- <button onclick="clearFilters()">🗑️ Clear Filters</button> -->
-     <!-- <button onclick="clearFilters()">🗑️ Clear Filters</button> -->
-  </div>
-
-  <!-- Панель меток -->
 <div class="labels-panel">
-    <!-- <h3>🏷️ Метки</h3> -->
-     <h3><i class="fa-solid fa-tags"></i> Метки</h3>
-    
-    <!-- Список всех меток -->
+    <h3><i class="fa-solid fa-tags"></i> Метки</h3>
     <div id="labelsList" class="labels-list"></div>
-    
-    <!-- Форма создания метки -->
     <div class="add-label-form">
         <input type="text" id="newLabelName" placeholder="Название метки" maxlength="60">
         <input type="color" id="newLabelColor" value="#3b82f6">
-        <!-- <button onclick="createLabel()">➕ Добавить метку</button> -->
-         <button onclick="createLabel()"><i class="fa-solid fa-plus"></i> Добавить метку</button>
+        <button onclick="createLabel()"><i class="fa-solid fa-plus"></i> Добавить метку</button>
     </div>
-    
-    <!-- Фильтр по меткам -->
     <div class="filter-by-labels">
         <h4>Фильтр по меткам:</h4>
         <div id="labelFilters" class="label-filters"></div>
         <button onclick="clearLabelFilter()"><i class="fa-solid fa-eraser"></i> Очистить фильтр меток</button>
-        <!-- <button onclick="clearLabelFilter()">✖️ Очистить фильтр меток</button> -->
-        <!-- <button onclick="location.href='archive.html'">📦 Архив</button> -->
     </div>
 </div>
 
 <div class="sort-pagination-panel">
-    <!-- ЛЕВАЯ СТОРОНА: Сортировка -->
     <div class="sort-section">
         <label>📊 Сортировать по:</label>
         <select id="sortBy">
@@ -93,8 +405,6 @@
         </select>
         <button onclick="applySortAndPage()">🔄 Применить</button>
     </div>
-
-    <!-- ПРАВАЯ СТОРОНА: Пагинация -->
     <div class="pagination-section">
         <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button>
         <span id="pageInfo">Страница 1 из 1</span>
@@ -111,100 +421,46 @@
         </div>
     </div>
 </div>
-<!-- 
-<div class="sort-pagination-panel">
-    <div class="sort-section">
-      
-         <label><i class="fa-solid fa-arrow-down-wide-short"></i> Сортировать по:</label>
-        <select id="sortBy">
-            <option value="priority">Приоритету</option>
-            <option value="created_at">Дате создания</option>
-            <option value="title">Названию</option>
-            <option value="assigned_to">Исполнителю</option>
+
+<div class="board-container" id="board"></div>
+
+Модальное окно для редактирования задачи
+ <div id="modal" class="modal
+    <div class="modal-content">
+        <h3><i class="fa-regular fa-pen-to-square"></i> Редактировать задачу</h3>
+        <input id="editTitle" placeholder="Название задачи" autocomplete="off" />
+        <textarea id="editDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="editPriority">
+            <option value="low">🟢 Низкий</option>
+            <option value="medium">🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
         </select>
-        
-        <select id="sortOrder">
-            <option value="asc">📈 По возрастанию</option>
-            <option value="desc">📉 По убыванию</option>
+        <select id="editAssignedTo">
+            <option value="">Не назначен</option>
+            <option value="1">Анна Смирнова</option>
+            <option value="2">Борис Петров</option>
+            <option value="3">Виктор Сидоров</option>
+            <option value="4">Дарья Кузнецова</option>
+            <option value="5">Елена Морозова</option>
+            <option value="6">Максим Иванов</option>
+            <option value="7">Ольга Соколова</option>
+            <option value="8">Игорь Васильев</option>
         </select>
-        
-      
-         <button onclick="applySortAndPage()"><i class="fa-solid fa-rotate"></i> Применить</button>
-    </div>
-    
-    <div class="pagination-section">
-       
-         <button onclick="prevPage()" id="prevBtn" disabled><i class="fa-solid fa-chevron-left"></i> Назад</button>
-        <span id="pageInfo">Страница 1 из 1</span>
-       
-         <button onclick="nextPage()" id="nextBtn" disabled>Вперед <i class="fa-solid fa-chevron-right"></i></button>
-        
-        <div class="per-page">
-            
-             <label><i class="fa-regular fa-eye"></i> Показывать:</label>
-            <select id="perPage" onchange="changePerPage()">
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-            <span>задач</span>
+        <div class="modal-labels-section">
+            <h4>🏷️ Метки задачи:</h4>
+            <div id="modalTaskLabels" class="modal-labels-list"></div>
+        </div>
+        <div style="margin-top: 15px;">
+            <button onclick="saveTask()"><i class="fa-regular fa-floppy-disk"></i> Сохранить</button>
+            <button onclick="archiveCurrentTask()"><i class="fa-solid fa-box-archive"></i> В архив</button>
+            <button onclick="closeModal()"><i class="fa-solid fa-xmark"></i> Отмена</button>
         </div>
     </div>
-</div> -->
-
-  <div class="board-container" id="board"></div>
-
-  <!-- Модальное окно -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <!-- <h3>✏️ Edit Task</h3> -->
-       <h3><i class="fa-regular fa-pen-to-square"></i> Редактировать задачу</h3>
-      
-      <input id="editTitle" placeholder="Название задачи" autocomplete="off" />
-      <textarea id="editDesc" placeholder="Описание" rows="3"></textarea>
-      
-      <select id="editPriority">
-        <option value="low">🟢 Низкий</option>
-        <option value="medium">🟡 Средний</option>
-        <option value="high">🔴 Высокий</option>
-      </select>
-      
-      <!-- <input id="editAssignedTo" placeholder="Assigned User ID" type="number" /> -->
-       <select id="editAssignedTo">
-    <option value="">Не назначен</option>
-    <option value="1">Анна Смирнова</option>
-    <option value="2">Борис Петров</option>
-    <option value="3">Виктор Сидоров</option>
-    <option value="4">Дарья Кузнецова</option>
-    <option value="5">Елена Морозова</option>
-    <option value="6">Максим Иванов</option>
-    <option value="7">Ольга Соколова</option>
-    <option value="8">Игорь Васильев</option>
-</select>
-      
-      <div class="modal-labels-section">
-    <h4>🏷️ Метки задачи:</h4>
-    <div id="modalTaskLabels" class="modal-labels-list"></div>
 </div>
-      <div style="margin-top: 15px;">
-        <button onclick="saveTask()"><i class="fa-regular fa-floppy-disk"></i> Сохранить</button>
-<button onclick="archiveCurrentTask()"><i class="fa-solid fa-box-archive"></i> В архив</button>
-<button onclick="closeModal()"><i class="fa-solid fa-xmark"></i> Удалить</button>
-        <!-- <button onclick="saveTask()">💾 Save</button>
-        <button onclick="archiveCurrentTask()">📦 В архив</button>
-        <button onclick="closeModal()">❌ Cancel</button> -->
-         
-      </div>
-    </div>
-  </div>
 
-
-  <!-- Модальное окно для создания задачи -->
 <div id="createModal" class="modal">
     <div class="modal-content">
-        <!-- <h3>➕ Новая задача</h3> -->
-         <h3><i class="fa-solid fa-plus"></i> Новая задача</h3>
+        <h3><i class="fa-solid fa-plus"></i> Новая задача</h3>
         <input id="createTitle" placeholder="Название задачи" autocomplete="off" />
         <textarea id="createDesc" placeholder="Описание" rows="3"></textarea>
         <select id="createPriority">
@@ -219,26 +475,46 @@
             <option value="3">✅ Выполнено</option>
         </select>
         <div style="margin-top: 15px;">
-            <button id="createTaskBtn" onclick="createTask()">💾 Создать</button>
-            <button id="closeCreateModalBtn" onclick="closeCreateModal()">❌ Отмена</button>
-            <!-- <button onclick="createTask()">💾 Создать</button>
-            <button onclick="closeCreateModal()">❌ Отмена</button> -->
+            <button onclick="createTask()">💾 Создать</button>
+            <button onclick="closeCreateModal()">❌ Отмена</button>
         </div>
     </div>
 </div>
 
-
-<!-- Блок для списка досок (добавить в боковую панель) -->
 <div class="boards-section">
     <h3>Мои доски</h3>
     <div id="board-list" class="board-list"></div>
     <button onclick="showCreateBoardModal()">+ Новая доска</button>
 </div>
 
+<script>
+    // Функция выхода
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'login.html';
+    }
 
-  <script src="config.js"></script>
-  <!-- <script src="auth.js"></script> -->
-  <script src="script.js"></script>
-  <script src="labels.js"></script>
+    // Проверка авторизации при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        const loginLink = document.getElementById('loginLink');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (token) {
+            // Пользователь авторизован
+            if (loginLink) loginLink.style.display = 'none';
+            if (logoutBtn) logoutBtn.style.display = 'inline-block';
+        } else {
+            // Пользователь не авторизован
+            if (loginLink) loginLink.style.display = 'inline-block';
+            if (logoutBtn) logoutBtn.style.display = 'none';
+        }
+    });
+</script>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+<script src="labels.js"></script>
 </body>
-</html>
+</html> --> 

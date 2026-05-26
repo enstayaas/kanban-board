@@ -447,7 +447,7 @@ func (h *BoardHandler) InviteByEmail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	inviteLink := "http://localhost:8080/accept-invite?token=" + token
+	inviteLink := "http://localhost:8081/accept-invite?token=" + token
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]interface{}{

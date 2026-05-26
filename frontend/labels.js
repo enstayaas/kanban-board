@@ -6,7 +6,7 @@ let selectedLabelFilters = [];
 // Загрузка меток с сервера
 async function loadLabels() {
     try {
-        const response = await fetch('/labels');
+        const response = await fetch(`${API_BASE_URL}/labels`);
         if (response.ok) {
             labels = await response.json();
         }
@@ -41,7 +41,7 @@ async function createLabel() {
     if (createBtn) createBtn.innerText = '⏳ Создание...';
     
     try {
-        const response = await fetch('/labels', {
+        const response = await fetch(`${API_BASE_URL}/labels`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, color })
@@ -86,7 +86,7 @@ async function deleteLabel(labelId) {
     isDeletingLabel = true;
     
     try {
-        const response = await fetch(`/labels/${labelId}`, { method: 'DELETE' });
+        const response = await fetch(`${API_BASE_URL}/labels/${labelId}`, { method: 'DELETE' });
         if (!response.ok) throw new Error('Ошибка удаления');
         
         labels = labels.filter(l => l.id !== labelId);

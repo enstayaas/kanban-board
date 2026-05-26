@@ -1,6 +1,6 @@
 // frontend/users.js
 
-const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8080';
+const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
 async function fetchAPI(url, options = {}) {
     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;

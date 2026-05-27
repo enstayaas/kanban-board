@@ -2,23 +2,53 @@
 
 const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
+// async function fetchAPI(url, options = {}) {
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+//     const response = await fetch(fullUrl, {
+//         ...options,
+//         headers: { 'Content-Type': 'application/json', ...options.headers }
+//     });
+//     if (!response.ok) {
+//         let errorMsg = `HTTP ${response.status}`;
+//         try {
+//             const err = await response.json();
+//             errorMsg = err.error || err.message || errorMsg;
+//         } catch(e) {}
+//         throw new Error(errorMsg);
+//     }
+//     if (response.status === 204) return null;
+//     return response.json();
+// }
+
 async function fetchAPI(url, options = {}) {
-    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
-    const response = await fetch(fullUrl, {
-        ...options,
-        headers: { 'Content-Type': 'application/json', ...options.headers }
-    });
-    if (!response.ok) {
-        let errorMsg = `HTTP ${response.status}`;
-        try {
-            const err = await response.json();
-            errorMsg = err.error || err.message || errorMsg;
-        } catch(e) {}
-        throw new Error(errorMsg);
+    const token = localStorage.getItem('token');
+    const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers
+    };
+    
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
     }
-    if (response.status === 204) return null;
+    
+    const response = await fetch(url, {
+        ...options,
+        headers: headers
+    });
+    
+    if (response.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+        throw new Error('Unauthorized');
+    }
+    
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+    }
+    
     return response.json();
 }
+
 
 async function loadArchivedTasks() {
     const container = document.getElementById('archiveContainer');

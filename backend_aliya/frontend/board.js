@@ -363,6 +363,7 @@ function closeColumnModal() { document.getElementById('columnModal').style.displ
 
 function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
 
+
 // Тёмная тема
 const themeToggle = document.getElementById('themeToggle');
 const savedTheme = localStorage.getItem('theme');

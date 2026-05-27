@@ -19,9 +19,7 @@ import (
 
 func main() {
 	utils.LogInfo("Starting server...")
-
-	connStr := "host=localhost port=5432 user=postgres password=aliya020507 dbname=Kanban-Board sslmode=disable"
-
+connStr := "host=localhost port=5432 user=postgres password=postgres123 dbname=kanban sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		utils.LogError(err, "Failed to connect to database")

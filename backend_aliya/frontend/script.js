@@ -424,38 +424,113 @@ function getUserName(userId) {
 }
 
 
+// async function openModal(task) {
+//     currentTask = task;
+//     document.getElementById('editTitle').value = task.title || '';
+//     document.getElementById('editDesc').value = task.description || '';
+//     document.getElementById('editPriority').value = task.priority || 'medium';
+//     document.getElementById('editAssignedTo').value = task.assigned_to || '';
+    
+//     // ===== ОТОБРАЖЕНИЕ МЕТОК =====
+//     const container = document.getElementById('modalTaskLabels');
+//     if (container && window.labels && window.labels.length > 0) {
+//         // Получаем ID меток, привязанных к задаче
+//         let taskLabelIds = [];
+//         if (typeof getTaskLabels === 'function') {
+//             const taskLabels = await getTaskLabels(task.id);
+//             taskLabelIds = taskLabels.map(l => l.id);
+//         }
+        
+//         // Отрисовываем метки с чекбоксами
+//         container.innerHTML = window.labels.map(label => `
+//             <div class="modal-label-item">
+//                 <label style="background: ${label.color}; padding: 4px 12px; border-radius: 20px; color: white; cursor: pointer;">
+//                     <input type="checkbox" value="${label.id}" 
+//                         ${taskLabelIds.includes(label.id) ? 'checked' : ''}
+//                         onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
+//                     ${escapeHtml(label.name)}
+//                 </label>
+//             </div>
+//         `).join('');
+//     } else if (container) {
+//         container.innerHTML = '<div style="color:#999;">Загрузка меток...</div>';
+//     }
+    
+//     document.getElementById('modal').style.display = 'flex';
+// }
+
+// async function openModal(task) {
+//     currentTask = task;
+//     document.getElementById('editTitle').value = task.title || '';
+//     document.getElementById('editDesc').value = task.description || '';
+//     document.getElementById('editPriority').value = task.priority || 'medium';
+//     document.getElementById('editAssignedTo').value = task.assigned_to || '';
+
+//     const container = document.getElementById('modalTaskLabels');
+//     if (container && window.labels) {
+//         let taskLabelIds = [];
+//         try {
+//             const token = localStorage.getItem('token');
+//             const resp = await fetch(`/tasks/${task.id}/labels`, {
+//                 headers: { 'Authorization': `Bearer ${token}` }
+//             });
+//             if (resp.ok) {
+//                 const taskLabels = await resp.json();
+//                 taskLabelIds = taskLabels.map(l => l.id);
+//             }
+//         } catch(e) { console.warn(e); }
+
+//         container.innerHTML = window.labels.map(label => `
+//             <div class="modal-label-item">
+//                 <label style="background:${label.color}; padding:5px 12px; border-radius:20px; margin:4px; display:inline-block; color:white;">
+//                     <input type="checkbox" value="${label.id}" 
+//                         ${taskLabelIds.includes(label.id) ? 'checked' : ''}
+//                         onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
+//                     ${label.name}
+//                 </label>
+//             </div>
+//         `).join('');
+//     }
+
+//     document.getElementById('modal').style.display = 'flex';
+// }
+
 async function openModal(task) {
     currentTask = task;
     document.getElementById('editTitle').value = task.title || '';
     document.getElementById('editDesc').value = task.description || '';
     document.getElementById('editPriority').value = task.priority || 'medium';
     document.getElementById('editAssignedTo').value = task.assigned_to || '';
-    
-    // ===== ОТОБРАЖЕНИЕ МЕТОК =====
+
+    // ===== ОТРИСОВКА МЕТОК =====
     const container = document.getElementById('modalTaskLabels');
     if (container && window.labels && window.labels.length > 0) {
-        // Получаем ID меток, привязанных к задаче
         let taskLabelIds = [];
-        if (typeof getTaskLabels === 'function') {
-            const taskLabels = await getTaskLabels(task.id);
-            taskLabelIds = taskLabels.map(l => l.id);
-        }
-        
-        // Отрисовываем метки с чекбоксами
+        try {
+            const token = localStorage.getItem('token');
+            const resp = await fetch(`/tasks/${task.id}/labels`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (resp.ok) {
+                const taskLabels = await resp.json();
+                taskLabelIds = taskLabels.map(l => l.id);
+            }
+        } catch(e) { console.warn(e); }
+
         container.innerHTML = window.labels.map(label => `
             <div class="modal-label-item">
-                <label style="background: ${label.color}; padding: 4px 12px; border-radius: 20px; color: white; cursor: pointer;">
+                <label style="background:${label.color}; padding:5px 12px; border-radius:20px; margin:4px; display:inline-block; color:white; cursor:pointer;">
                     <input type="checkbox" value="${label.id}" 
                         ${taskLabelIds.includes(label.id) ? 'checked' : ''}
                         onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
-                    ${escapeHtml(label.name)}
+                    ${label.name}
                 </label>
             </div>
         `).join('');
     } else if (container) {
         container.innerHTML = '<div style="color:#999;">Загрузка меток...</div>';
     }
-    
+
     document.getElementById('modal').style.display = 'flex';
 }
 

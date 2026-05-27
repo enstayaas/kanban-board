@@ -12,6 +12,7 @@
 
 <div class="nav">
     <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
     <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
     <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
     <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
@@ -111,6 +112,14 @@
             <option value="7">Ольга Соколова</option>
             <option value="8">Игорь Васильев</option>
         </select>
+
+         <!-- ===== ДОБАВИТЬ ЭТОТ БЛОК ===== -->
+        <div class="modal-labels-section">
+            <h4>🏷️ Метки задачи:</h4>
+            <div id="modalTaskLabels" class="modal-labels-list"></div>
+        </div>
+        <!-- ============================== -->
+
         <div class="modal-buttons">
             <button onclick="saveTask()" class="btn-save">Сохранить</button>
             <button onclick="archiveCurrentTask()" class="btn-archive">В архив</button>
@@ -167,41 +176,165 @@
         currentBoardId = localStorage.getItem('currentBoardId');
     }
 
-    // Загрузка названия доски
-    async function loadBoardTitle() {
-        const token = localStorage.getItem('token');
-        if (!token || !currentBoardId) return;
-        try {
-            const response = await fetch(`${API_BASE_URL}/boards/${currentBoardId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                const board = await response.json();
-                currentBoardTitle = board.title || 'Канбан-доска';
-                document.getElementById('boardTitle').innerHTML = currentBoardTitle;
-            }
-        } catch (error) {
-            console.error('Error loading board title:', error);
+    // // Загрузка названия доски
+    // async function loadBoardTitle() {
+    //     const token = localStorage.getItem('token');
+    //     if (!token || !currentBoardId) return;
+    //     try {
+    //         const response = await fetch(`${API_BASE_URL}/boards/${currentBoardId}`, {
+    //             headers: { 'Authorization': `Bearer ${token}` }
+    //         });
+    //         if (response.ok) {
+    //             const board = await response.json();
+    //             currentBoardTitle = board.title || 'Канбан-доска';
+    //             document.getElementById('boardTitle').innerHTML = currentBoardTitle;
+    //         }
+    //     } catch (error) {
+    //         console.error('Error loading board title:', error);
+
+// Загрузка названия доски
+async function loadBoardTitle() {
+    const token = localStorage.getItem('token');
+    if (!token || !currentBoardId) return;
+    try {
+        const response = await fetch(`${API_BASE_URL}/boards/${currentBoardId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+            const board = await response.json();
+            currentBoardTitle = board.title || 'Канбан-доска';
+            document.getElementById('boardTitle').innerHTML = currentBoardTitle;
         }
+    } catch (error) {
+        console.error('Error loading board title:', error);
     }
+}  // ← ЭТА СКОБКА ЗАКРЫВАЕТ ФУНКЦИЮ
+            
+    //    // Загрузка меток
+    // async function loadLabels() {
+    //     const token = localStorage.getItem('token');
+    //     if (!token || !currentBoardId) return;
+    //     try {
+    //         const response = await fetch(`${API_BASE_URL}/labels?board_id=${currentBoardId}`, {
+    //             headers: { 'Authorization': `Bearer ${token}` }
+    //         });
+    //         if (response.ok) {
+    //             labels = await response.json();
+    //             renderLabelsList();
+    //             renderLabelFilters();
+    //         }
+    //     } catch (error) {
+    //         console.error('Error loading labels:', error);
+    //     }
+    // }}
+    // }
+
+    // 
+
 
     // Загрузка меток
-    async function loadLabels() {
-        const token = localStorage.getItem('token');
-        if (!token || !currentBoardId) return;
-        try {
-            const response = await fetch(`${API_BASE_URL}/labels?board_id=${currentBoardId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                labels = await response.json();
-                renderLabelsList();
-                renderLabelFilters();
-            }
-        } catch (error) {
-            console.error('Error loading labels:', error);
-        }
+async function loadLabels() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    // Получаем ID доски (из URL или localStorage)
+    let boardId = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    boardId = urlParams.get('id');
+    if (!boardId) {
+        boardId = localStorage.getItem('currentBoardId');
     }
+    if (!boardId) {
+        boardId = 1; // Доска по умолчанию
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/labels?board_id=${boardId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+            labels = await response.json();
+            window.labels = labels;
+            renderLabelsList();
+            renderLabelFilters();
+        } else {
+            console.warn('Ошибка загрузки меток, статус:', response.status);
+        }
+    } catch (error) {
+        console.error('Failed to load labels:', error);
+    }
+}
+
+//     // Загрузка меток
+// async function loadLabels() {
+//     const token = localStorage.getItem('token');
+//     if (!token) return;
+
+//     let boardId = localStorage.getItem('currentBoardId');
+//     if (!boardId) {
+//         // Пробуем взять ID из URL (для board.html)
+//         const urlParams = new URLSearchParams(window.location.search);
+//         boardId = urlParams.get('id');
+//     }
+//     if (!boardId) {
+//         boardId = 1; // Доска по умолчанию
+//     }
+
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/labels?board_id=${boardId}`, {
+//             headers: { 'Authorization': `Bearer ${token}` }
+//         });
+//         if (response.ok) {
+//             labels = await response.json();
+//             window.labels = labels;
+//         } else {
+//             labels = [];
+//             window.labels = [];
+//         }
+//     } catch (error) {
+//         console.error('Failed to load labels:', error);
+//         labels = [];
+//         window.labels = [];
+//     }
+//     renderLabelsList();
+//     renderLabelFilters();
+// }
+
+// async function loadLabels() {
+//     const token = localStorage.getItem('token');
+//     if (!token) return;
+
+//     let boardId = localStorage.getItem('currentBoardId');
+//     if (!boardId) {
+//         // Пробуем взять ID из URL (для board.html)
+//         const urlParams = new URLSearchParams(window.location.search);
+//         boardId = urlParams.get('id');
+//     }
+//     if (!boardId) {
+//         boardId = 1; // Доска по умолчанию
+//     }
+
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/labels?board_id=${boardId}`, {
+//             headers: { 'Authorization': `Bearer ${token}` }
+//         });
+//         if (response.ok) {
+//             labels = await response.json();
+//             window.labels = labels;
+//         } else {
+//             labels = [];
+//             window.labels = [];
+//         }
+//     } catch (error) {
+//         console.error('Failed to load labels:', error);
+//         labels = [];
+//         window.labels = [];
+//     }
+//     renderLabelsList();
+//     renderLabelFilters();
+// }
+
+
 
     function renderLabelsList() {
         const container = document.getElementById('labelsList');

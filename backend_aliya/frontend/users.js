@@ -2,9 +2,42 @@
 
 const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
+// async function fetchAPI(url, options = {}) {
+//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+//     const response = await fetch(fullUrl, options);
+//     if (!response.ok) {
+//         let errorMsg = `HTTP ${response.status}`;
+//         try {
+//             const err = await response.json();
+//             errorMsg = err.error || err.message || errorMsg;
+//         } catch(e) {}
+//         throw new Error(errorMsg);
+//     }
+//     return response.json();
+// }
 async function fetchAPI(url, options = {}) {
+    const token = localStorage.getItem('token');
+    const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers
+    };
+    
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    
     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
-    const response = await fetch(fullUrl, options);
+    const response = await fetch(fullUrl, {
+        ...options,
+        headers: headers
+    });
+    
+    if (response.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+        throw new Error('Unauthorized');
+    }
+    
     if (!response.ok) {
         let errorMsg = `HTTP ${response.status}`;
         try {
@@ -13,6 +46,7 @@ async function fetchAPI(url, options = {}) {
         } catch(e) {}
         throw new Error(errorMsg);
     }
+    
     return response.json();
 }
 

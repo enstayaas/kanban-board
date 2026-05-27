@@ -1950,3 +1950,53 @@ body.light #pageInfo {
         justify-content: center;
     }
 }
+
+/* ===== МЕТКИ В МОДАЛЬНОМ ОКНЕ ===== */
+.modal-labels-section {
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+.modal-labels-section h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.modal-labels-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.modal-label-item {
+    display: inline-block;
+}
+
+.modal-label-item label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-label-item label:hover {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+}
+
+.modal-label-item input {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}

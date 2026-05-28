@@ -9,11 +9,11 @@ let currentSortBy = 'priority';
 let currentSortOrder = 'desc';
 let allTasks = [];
 let searchQuery = '';
+let currentBoardId = localStorage.getItem('currentBoardId') || 1;
 
-
-// Глобальная ссылка на функции из labels.js
-window.getTaskLabels = getTaskLabels;
-window.toggleTaskLabel = toggleTaskLabel;
+// Глобальная ссылка на функции из labels.js (если они используются)
+if (typeof getTaskLabels !== 'undefined') window.getTaskLabels = getTaskLabels;
+if (typeof toggleTaskLabel !== 'undefined') window.toggleTaskLabel = toggleTaskLabel;
 
 const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
@@ -44,7 +44,7 @@ function showSuccess(message) {
     setTimeout(() => toast.style.display = 'none', 3000);
 }
 
-// ========== DEBOUNCE ==========
+// ========== DEBOUNCE И ПОИСК ==========
 let debounceTimer;
 function debounce(func, delay) {
     return function(...args) {
@@ -77,7 +77,6 @@ async function fetchAPI(url, options = {}) {
     }
     
     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
-    
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     
@@ -115,8 +114,7 @@ async function fetchAPI(url, options = {}) {
     }
 }
 
-
-
+// ========== ЗАГРУЗКА И ОТРИСОВКА ЗАДАЧ ==========
 async function loadTasks() {
     if (isLoading) return;
     isLoading = true;
@@ -126,23 +124,24 @@ async function loadTasks() {
         boardDiv.innerHTML = '<div style="text-align:center; padding:40px;">Загрузка задач...</div>';
     }
     
-    // Колонки, которые есть на доске (ID должны быть в БД)
     const columns = [1, 2, 3]; // To Do, In Progress, Done
     
     try {
-        let allTasks = [];
+        let loadedTasks = [];
         
         for (const columnId of columns) {
-            const data = await fetchAPI(`/tasks?column_id=${columnId}&page=${currentPage}&limit=${perPage}&sort=${currentSortBy}&order=${currentSortOrder}`);
+            // Добавляем к запросу ID текущей активной доски, чтобы не перемешивать задачи!
+            const data = await fetchAPI(`/tasks?board_id=${currentBoardId}&column_id=${columnId}&page=${currentPage}&limit=${perPage}&sort=${currentSortBy}&order=${currentSortOrder}`);
             
             if (data && data.data) {
-                allTasks.push(...data.data);
+                loadedTasks.push(...data.data);
             } else if (Array.isArray(data)) {
-                allTasks.push(...data);
+                loadedTasks.push(...data);
             }
         }
         
-        renderBoard(allTasks);
+        allTasks = loadedTasks;
+        await renderBoard(allTasks);
         
     } catch (error) {
         console.error('Load tasks error:', error);
@@ -154,67 +153,17 @@ async function loadTasks() {
     }
 }
 
-// // ========== ЗАГРУЗКА ЗАДАЧ ==========
-// async function loadTasks() {
-//     if (isLoading) return;
-//     isLoading = true;
-    
-//     const boardDiv = document.getElementById('board');
-//     if (boardDiv) {
-//         boardDiv.innerHTML = '<div style="text-align:center; padding:40px;">Загрузка задач...</div>';
-//     }
-    
-//     try {
-//         // Получаем задачи с пагинацией от сервера
-//         const data = await fetchAPI(`/tasks?page=${currentPage}&limit=${perPage}&sort=${currentSortBy}&order=${currentSortOrder}`);
-        
-//         // Обработка ответа с пагинацией
-//         if (data && data.data) {
-//             allTasks = data.data;
-//             updatePaginationFromServer(data.meta);
-//         } else if (Array.isArray(data)) {
-//             allTasks = data;
-//         } else {
-//             allTasks = [];
-//         }
-        
-//         renderBoard(allTasks);
-        
-//     } catch (error) {
-//         console.error('Load tasks error:', error);
-//         if (boardDiv) {
-//             boardDiv.innerHTML = '<div class="empty-state">⚠️ Не удалось загрузить задачи</div>';
-//         }
-//         allTasks = [];
-//     } finally {
-//         isLoading = false;
-//     }
-// }
-
-// Обновление пагинации из ответа сервера
-function updatePaginationFromServer(meta) {
-    if (!meta) return;
-    const totalPages = meta.totalPages || 1;
-    const pageInfo = document.getElementById('pageInfo');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    if (pageInfo) pageInfo.innerText = `Страница ${meta.page} из ${totalPages}`;
-    if (prevBtn) prevBtn.disabled = meta.page <= 1;
-    if (nextBtn) nextBtn.disabled = meta.page >= totalPages;
-    currentPage = meta.page;
-    perPage = meta.limit;
-}
-
-
 async function renderBoard(tasks) {
     const boardDiv = document.getElementById('board');
     if (!boardDiv) return;
     
-    // Загружаем метки для всех задач параллельно
+    // Безопасное получение меток, если функция существует
     const tasksWithLabels = await Promise.all(tasks.map(async (task) => {
-        const taskLabels = await getTaskLabelsForDisplay(task.id);
-        return { ...task, labels: taskLabels };
+        if (typeof getTaskLabelsForDisplay === 'function') {
+            const taskLabels = await getTaskLabelsForDisplay(task.id);
+            return { ...task, labels: taskLabels };
+        }
+        return { ...task, labels: [] };
     }));
     
     boardDiv.innerHTML = '';
@@ -241,7 +190,7 @@ async function renderBoard(tasks) {
                 const taskDiv = document.createElement('div');
                 taskDiv.className = 'task';
                 
-                const labelsHtml = task.labels.length > 0 
+                const labelsHtml = task.labels && task.labels.length > 0 
                     ? `<div class="task-labels">${task.labels.map(l => `<span class="task-label" style="background: ${l.color};">${escapeHtml(l.name)}</span>`).join('')}</div>`
                     : '';
                 
@@ -260,77 +209,90 @@ async function renderBoard(tasks) {
     });
 }
 
-
-
-
-
-// ========== ОТРИСОВКА ДОСКИ ==========
-// function renderBoard(tasks) {
-//     const boardDiv = document.getElementById('board');
-//     if (!boardDiv) return;
-//     boardDiv.innerHTML = '';
-    
-//     const columns = [
-//         { id: 1, title: '<i class="fa-regular fa-rectangle-list"></i> To Do' },
-//         { id: 2, title: '<i class="fa-solid fa-gear"></i> In Progress' },
-//         { id: 3, title: '<i class="fa-regular fa-circle-check"></i> Done' }
-//     ];
-    
-//     const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
-    
-//     columns.forEach(col => {
-//         const columnDiv = document.createElement('div');
-//         columnDiv.className = 'column';
-//         columnDiv.innerHTML = `<h3>${col.title}</h3>`;
-        
-//         const tasksInColumn = tasks.filter(t => t.column_id === col.id);
-        
-//         if (tasksInColumn.length === 0) {
-//             columnDiv.innerHTML += '<div class="empty-state">✨ Нет задач</div>';
-//         } else {
-//             tasksInColumn.forEach(task => {
-//                 const taskDiv = document.createElement('div');
-//                 taskDiv.className = 'task';
-//                 taskDiv.innerHTML = `
-//                     <div>${priorityEmojis[task.priority] || '⚪'} <strong>${escapeHtml(task.title)}</strong></div>
-//                     <div style="font-size: 10px; color: #888;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
-//                 `;
-//                 taskDiv.onclick = () => openModal(task);
-//                 columnDiv.appendChild(taskDiv);
-//             });
-//         }
-        
-//         boardDiv.appendChild(columnDiv);
-//     });
-// }
-
-// ========== ДОСКИ ==========
-let currentBoardId = localStorage.getItem('currentBoardId') || 1;
-
+// ========== УПРАВЛЕНИЕ ДОСКАМИ (ПРОЕКТАМИ) ==========
 async function loadBoards() {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
         const data = await fetchAPI('/boards');
-        const boards = data.data || data;
-        renderBoardsList(boards);
+        
+        // ВЫВОДИМ В КОНСОЛЬ: Посмотри, что тут напишет браузер!
+        console.log("=== ОТВЕТ СЕРВЕРА ПО /boards ===", data);
+        
+        // Если данные вообще не пришли
+        if (!data) {
+            showError("Сервер вернул пустой ответ");
+            return;
+        }
+
+        let boardsArray = [];
+        if (data && Array.isArray(data.data)) {
+            boardsArray = data.data;
+        } else if (Array.isArray(data)) {
+            boardsArray = data;
+        } else if (data && data.boards && Array.isArray(data.boards)) {
+            boardsArray = data.boards;
+        } else {
+            // Если это не массив, выведем ошибку на экран, превратив объект в строку
+            showError("Формат ответа не массив! См. консоль (F12)");
+            console.error("Ожидался массив досок, но пришло это:", JSON.stringify(data));
+            return;
+        }
+        
+        const activeBoards = boardsArray.filter(board => board && board.is_archived !== true);
+        renderBoardsList(activeBoards);
     } catch (error) {
         console.error('Error loading boards:', error);
     }
 }
-
 function renderBoardsList(boards) {
     const boardList = document.getElementById('board-list');
     if (!boardList) return;
     if (!boards || boards.length === 0) {
-        boardList.innerHTML = '<div>Нет досок</div>';
+        boardList.innerHTML = '<div>Нет активных досок</div>';
         return;
     }
+    
     boardList.innerHTML = boards.map(board => `
-        <div class="board-item" data-id="${board.id}" onclick="switchBoard(${board.id})">
-            <strong>${escapeHtml(board.title)}</strong>
+        <div class="board-item ${board.id == currentBoardId ? 'active' : ''}" data-id="${board.id}" style="position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 10px; border-radius: 6px;">
+            <div onclick="switchBoard(${board.id})" style="cursor: pointer; flex-grow: 1;">
+                <strong>${escapeHtml(board.title)}</strong>
+                <div style="font-size: 12px; color: #888;">${escapeHtml(board.description || 'Нет описания')}</div>
+            </div>
+            <button onclick="moveBoardToTrash(${board.id}, '${escapeHtml(board.title)}', '${escapeHtml(board.description || '')}')" 
+                    style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px 8px; font-size: 16px;">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
         </div>
     `).join('');
+}
+
+async function moveBoardToTrash(id, title, description) {
+    if (!confirm(`⚠️ Переместить проект "${title}" в корзину? Вы сможете восстановить его из Архива.`)) return;
+
+    try {
+        await fetchAPI(`/boards/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                title: title,
+                description: description,
+                is_archived: true
+            })
+        });
+        
+        showSuccess('Проект перемещен в корзину');
+        
+        if (currentBoardId == id) {
+            localStorage.setItem('currentBoardId', 1);
+            currentBoardId = 1;
+        }
+        
+        await loadBoards();
+        await loadTasks();
+    } catch (error) {
+        console.error('Error archiving board:', error);
+        showError('Не удалось переместить в корзину');
+    }
 }
 
 async function switchBoard(boardId) {
@@ -338,11 +300,10 @@ async function switchBoard(boardId) {
     localStorage.setItem('currentBoardId', boardId);
     currentPage = 1;
     await loadTasks();
+    await loadBoards(); // Перерисовываем, чтобы обновить класс active
 }
 
 async function createBoard(title, description = '') {
-    const token = localStorage.getItem('token');
-    if (!token) return;
     try {
         await fetchAPI('/boards', {
             method: 'POST',
@@ -376,30 +337,128 @@ function nextPage() {
     loadTasks();
 }
 
-function changePerPage() {
-    perPage = parseInt(document.getElementById('perPage')?.value || 10);
-    currentPage = 1;
-    loadTasks();
+// ========== МОДАЛЬНЫЕ ОКНА ЗАДАЧ ==========
+async function openModal(task) {
+    currentTask = task;
+    document.getElementById('editTitle').value = task.title || '';
+    document.getElementById('editDesc').value = task.description || '';
+    document.getElementById('editPriority').value = task.priority || 'medium';
+    document.getElementById('editAssignedTo').value = task.assigned_to || '';
+
+    // Отрисовка меток (если массив оконных меток существует)
+    const container = document.getElementById('modalTaskLabels');
+    if (container && window.labels && window.labels.length > 0) {
+        let taskLabelIds = [];
+        try {
+            const token = localStorage.getItem('token');
+            const resp = await fetch(`${API_BASE_URL}/tasks/${task.id}/labels`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (resp.ok) {
+                const taskLabels = await resp.json();
+                taskLabelIds = taskLabels.map(l => l.id);
+            }
+        } catch(e) { console.warn(e); }
+
+        container.innerHTML = window.labels.map(label => `
+            <div class="modal-label-item">
+                <label style="background:${label.color}; padding:5px 12px; border-radius:20px; margin:4px; display:inline-block; color:white; cursor:pointer;">
+                    <input type="checkbox" value="${label.id}" 
+                        ${taskLabelIds.includes(label.id) ? 'checked' : ''}
+                        onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
+                    ${label.name}
+                </label>
+            </div>
+        `).join('');
+    } else if (container) {
+        container.innerHTML = '<div style="color:#999;">Нет доступных меток</div>';
+    }
+
+    document.getElementById('modal').style.display = 'flex';
 }
 
-function applyFilter() {
-    currentPage = 1;
-    loadTasks();
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+    currentTask = null;
 }
 
-function clearFilters() {
-    document.getElementById('priorityFilter').value = '';
-    document.getElementById('userFilter').value = '';
-    document.getElementById('searchInput').value = '';
-    searchQuery = '';
-    currentPage = 1;
-    loadTasks();
+function openCreateModal() {
+    document.getElementById('createTitle').value = '';
+    document.getElementById('createDesc').value = '';
+    document.getElementById('createPriority').value = 'medium';
+    document.getElementById('createAssignedTo').value = '';
+    document.getElementById('createColumnId').value = '1';
+    document.getElementById('createModal').style.display = 'flex';
 }
 
-// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+// Дополнительные функции сохранения изменений
+async function saveTask() {
+    if (!currentTask) return;
+    try {
+        await fetchAPI(`/tasks/${currentTask.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                title: document.getElementById('editTitle').value,
+                description: document.getElementById('editDesc').value,
+                priority: document.getElementById('editPriority').value,
+                assigned_to: parseInt(document.getElementById('editAssignedTo').value) || 0
+            })
+        });
+        closeModal();
+        showSuccess('Задача сохранена');
+        loadTasks();
+    } catch (error) {
+        console.error('Save error:', error);
+    }
+}
+
+async function archiveCurrentTask() {
+    if (!currentTask) return;
+    if (!confirm('Переместить задачу в архив?')) return;
+    try {
+        await fetchAPI(`/tasks/${currentTask.id}/archive`, { method: 'PATCH' });
+        closeModal();
+        showSuccess('Задача перемещена в архив');
+        loadTasks();
+    } catch (error) {
+        console.error('Archive error:', error);
+    }
+}
+
+function closeCreateModal() {
+    document.getElementById('createModal').style.display = 'none';
+}
+
+async function createTask() {
+    const title = document.getElementById('createTitle').value.trim();
+    if (!title) {
+        showError('Введите название задачи');
+        return;
+    }
+    try {
+        await fetchAPI('/tasks', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: title,
+                description: document.getElementById('createDesc').value,
+                priority: document.getElementById('createPriority').value,
+                column_id: parseInt(document.getElementById('createColumnId').value),
+                assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0,
+                board_id: parseInt(currentBoardId) // Привязываем задачу к текущей доске
+            })
+        });
+        closeCreateModal();
+        showSuccess('Задача создана');
+        loadTasks();
+    } catch (error) {
+        console.error('Create error:', error);
+    }
+}
+
+// ========== ВСПОМОГАТЕЛЬНЫЕ ДАННЫЕ ==========
 function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
+    return str.replace(/[&<>]/g, m => {
         if (m === '&') return '&amp;';
         if (m === '<') return '&lt;';
         if (m === '>') return '&gt;';
@@ -423,189 +482,10 @@ function getUserName(userId) {
     return usersList[userId]?.name || `Пользователь ${userId}`;
 }
 
-
-async function openModal(task) {
-    currentTask = task;
-    document.getElementById('editTitle').value = task.title || '';
-    document.getElementById('editDesc').value = task.description || '';
-    document.getElementById('editPriority').value = task.priority || 'medium';
-    document.getElementById('editAssignedTo').value = task.assigned_to || '';
-
-    // ===== ОТРИСОВКА МЕТОК =====
-    const container = document.getElementById('modalTaskLabels');
-    if (container && window.labels && window.labels.length > 0) {
-        let taskLabelIds = [];
-        try {
-            const token = localStorage.getItem('token');
-            const resp = await fetch(`/tasks/${task.id}/labels`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (resp.ok) {
-                const taskLabels = await resp.json();
-                taskLabelIds = taskLabels.map(l => l.id);
-            }
-        } catch(e) { console.warn(e); }
-
-        container.innerHTML = window.labels.map(label => `
-            <div class="modal-label-item">
-                <label style="background:${label.color}; padding:5px 12px; border-radius:20px; margin:4px; display:inline-block; color:white; cursor:pointer;">
-                    <input type="checkbox" value="${label.id}" 
-                        ${taskLabelIds.includes(label.id) ? 'checked' : ''}
-                        onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
-                    ${label.name}
-                </label>
-            </div>
-        `).join('');
-    } else if (container) {
-        container.innerHTML = '<div style="color:#999;">Загрузка меток...</div>';
-    }
-
-    document.getElementById('modal').style.display = 'flex';
-}
-
-
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-    currentTask = null;
-}
-
-function openCreateModal() {
-    document.getElementById('createTitle').value = '';
-    document.getElementById('createDesc').value = '';
-    document.getElementById('createPriority').value = 'medium';
-    document.getElementById('createAssignedTo').value = '';
-    document.getElementById('createColumnId').value = '1';
-    document.getElementById('createModal').style.display = 'flex';
-}
-
-function closeCreateModal() {
-    document.getElementById('createModal').style.display = 'none';
-}
-
-async function createTask() {
-    const title = document.getElementById('createTitle').value.trim();
-    if (!title) {
-        showError('Введите название задачи');
-        return;
-    }
-    
-    try {
-        await fetchAPI('/tasks', {
-            method: 'POST',
-            body: JSON.stringify({
-                title: title,
-                description: document.getElementById('createDesc').value,
-                priority: document.getElementById('createPriority').value,
-                column_id: parseInt(document.getElementById('createColumnId').value),
-                assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0
-            })
-        });
-        closeCreateModal();
-        showSuccess('Задача создана');
-        loadTasks();
-    } catch (error) {
-        console.error('Create error:', error);
-    }
-}
-
-// // ========== МОДАЛЬНЫЕ ОКНА ==========
-// function openModal(task) {
-//     currentTask = task;
-//     document.getElementById('editTitle').value = task.title || '';
-//     document.getElementById('editDesc').value = task.description || '';
-//     document.getElementById('editPriority').value = task.priority || 'medium';
-//     document.getElementById('editAssignedTo').value = task.assigned_to || '';
-//     document.getElementById('modal').style.display = 'flex';
-// }
-
-// function closeModal() {
-//     document.getElementById('modal').style.display = 'none';
-//     currentTask = null;
-// }
-
-// function openCreateModal() {
-//     document.getElementById('createTitle').value = '';
-//     document.getElementById('createDesc').value = '';
-//     document.getElementById('createPriority').value = 'medium';
-//     document.getElementById('createAssignedTo').value = '';
-//     document.getElementById('createColumnId').value = '1';
-//     document.getElementById('createModal').style.display = 'flex';
-// }
-
-// function closeCreateModal() {
-//     document.getElementById('createModal').style.display = 'none';
-// }
-
-// async function createTask() {
-//     const title = document.getElementById('createTitle').value.trim();
-//     if (!title) {
-//         showError('Введите название задачи');
-//         return;
-//     }
-    
-//     try {
-//         await fetchAPI('/tasks', {
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 title: title,
-//                 description: document.getElementById('createDesc').value,
-//                 priority: document.getElementById('createPriority').value,
-//                 column_id: parseInt(document.getElementById('createColumnId').value),
-//                 assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0
-//             })
-//         });
-//         closeCreateModal();
-//         showSuccess('Задача создана');
-//         loadTasks();
-//     } catch (error) {
-//         console.error('Create error:', error);
-//     }
-// }
-
-async function saveTask() {
-    if (!currentTask) return;
-    
-    try {
-        await fetchAPI(`/tasks/${currentTask.id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                title: document.getElementById('editTitle').value,
-                description: document.getElementById('editDesc').value,
-                priority: document.getElementById('editPriority').value,
-                assigned_to: parseInt(document.getElementById('editAssignedTo').value) || 0
-            })
-        });
-        closeModal();
-        showSuccess('Задача сохранена');
-        loadTasks();
-    } catch (error) {
-        console.error('Save error:', error);
-    }
-}
-
-async function archiveCurrentTask() {
-    if (!currentTask) return;
-    if (!confirm('Переместить задачу в архив?')) return;
-    
-    try {
-        await fetchAPI(`/tasks/${currentTask.id}/archive`, { method: 'PATCH' });
-        closeModal();
-        showSuccess('Задача перемещена в архив');
-        loadTasks();
-    } catch (error) {
-        console.error('Archive error:', error);
-    }
-}
-
 // ========== ТЁМНАЯ ТЕМА ==========
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-    document.body.classList.remove('dark');
-    document.body.classList.add('light');
-} else {
-    document.body.classList.add('dark');
-    document.body.classList.remove('light');
-}
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.body.classList.toggle('light', savedTheme === 'light');
+document.body.classList.toggle('dark', savedTheme === 'dark');
 
 const themeToggle = document.getElementById('themeToggle');
 if (themeToggle) {
@@ -616,13 +496,12 @@ if (themeToggle) {
     });
 }
 
-// ========== ИНИЦИАЛИЗАЦИЯ ==========
+// ========== ЕДИНАЯ ИНИЦИАЛИЗАЦИЯ ==========
 document.addEventListener('DOMContentLoaded', () => {
     loadBoards();
     loadTasks();
     setupSearchListener();
     
-    // Закрытие модальных окон по клику вне их
     document.getElementById('modal')?.addEventListener('click', (e) => {
         if (e.target === document.getElementById('modal')) closeModal();
     });
@@ -630,89 +509,3 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === document.getElementById('createModal')) closeCreateModal();
     });
 });
-
-
-
-
-// ========== ДОСКИ ==========
-let currentBoardId = localStorage.getItem('currentBoardId') || 1;
-
-async function loadBoards() {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-    try {
-        const response = await fetch('/boards', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (response.ok) {
-            const boards = await response.json();
-            renderBoardsList(boards);
-        }
-    } catch (error) {
-        console.error('Error loading boards:', error);
-    }
-}
-
-function renderBoardsList(boards) {
-    const boardList = document.getElementById('board-list');
-    if (!boardList) return;
-    boardList.innerHTML = boards.map(board => `
-        <div class="board-item" data-id="${board.id}" onclick="switchBoard(${board.id})">
-            <strong>${escapeHtml(board.title)}</strong>
-        </div>
-    `).join('');
-}
-
-async function switchBoard(boardId) {
-    currentBoardId = boardId;
-    localStorage.setItem('currentBoardId', boardId);
-    await loadTasks();
-}
-
-async function createBoard(title, description = '') {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-    try {
-        const response = await fetch('/boards', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ title, description })
-        });
-        if (response.ok) {
-            await loadBoards();
-            return await response.json();
-        }
-    } catch (error) {
-        console.error('Error creating board:', error);
-    }
-}
-
-function showCreateBoardModal() {
-    const title = prompt('Введите название доски:');
-    if (title) createBoard(title);
-}
-
-// Загружаем доски при старте
-if (typeof checkAuth === 'function') {
-    loadBoards();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initEventListeners();
-  loadUsersForFilter();
-  loadTasks();
-  setupSearchListener();
-});
-
-
-
-
-
-
-
-
-
-

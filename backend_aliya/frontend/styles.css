@@ -2015,3 +2015,499 @@ body.light #pageInfo {
     background: #ef4444;
     transform: scale(1.02);
 }
+/* ===== ИСПРАВЛЕНИЯ ДЛЯ КОРРЕКТНОГО DRAG-AND-DROP ===== */
+
+/* 1. Добавляем правильный курсор и отключаем выделение текста при таскании */
+.task {
+    cursor: grab !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Изменяем курсор в момент самого перетаскивания */
+.task:active {
+    cursor: grabbing !important;
+}
+
+/* 2. Отключаем hover-эффекты и анимацию для карточки, которую сейчас тащат */
+.sortable-chosen {
+    opacity: 0.4; /* Делаем полупрозрачной карточку под курсором */
+    background: rgba(139, 92, 246, 0.2) !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* Карточка-фантом, которая показывает, куда упадет задача */
+.sortable-ghost {
+    opacity: 0.2;
+    border: 2px dashed #8b5cf6 !important;
+    background: transparent !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* 3. Ограничиваем анимацию появления только ПЕРВЫМ рендером (чтобы не срабатывала при таскании) */
+.task {
+    /* Если Sortable уже инициализирован, этот класс вешается на контейнер. 
+       Мы разрешаем анимацию только если карточка не находится в процессе переноса */
+    animation: fadeInUp 0.3s ease backwards;
+}
+
+/* Отключаем трансформацию ховера, если карточку схватили */
+.task:active:hover {
+    transform: none !important;
+}
+/* ==========================================================================
+   ФИКСЫ ДЛЯ ПЛАВНОГО И СВОБОДНОГО DRAG-AND-DROP (НАД КОЛОНКАМИ)
+   ========================================================================== */
+
+/* Настраиваем курсор при наведении и зажимании в любом месте карточки */
+.task-card {
+    cursor: grab !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+.task-card:active {
+    cursor: grabbing !important;
+}
+
+/* Карточка в руке (которая летит за мышкой над колонками) */
+.sortable-drag {
+    opacity: 0.95 !important;
+    transform: rotate(3deg) scale(1.02) !important; /* Легкий стильный наклон при таскании */
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4) !important;
+    z-index: 99999 !important; /* Всегда выше колонок и окон */
+    animation: none !important; /* Полностью отключаем fadeInUp во время полета */
+}
+
+/* Карточка, которую выбрали (остается полупрозрачной на старом месте) */
+.sortable-chosen {
+    background: rgba(139, 92, 246, 0.15) !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* Фантомное место, куда упадет карточка в новой колонке */
+.sortable-ghost {
+    opacity: 0.25 !important;
+    border: 2px dashed #8b5cf6 !important;
+    background: transparent !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+/* Отключаем hover-трансформацию, если карточка активна или перетаскивается */
+.task-card.sortable-chosen:hover,
+.task-card:active:hover {
+    transform: none !important;
+}
+.task-card {
+    cursor: grab !important;
+    user-select: none !important; /* Запрещаем выделение текста, чтобы активировать drag */
+    -webkit-user-select: none !important;
+    touch-action: none !important; /* Отключаем стандартное поведение браузера на смартфонах/планшетах */
+}
+.task-title, .task-priority {
+    pointer-events: none !important; /* Указываем мыши кликать "сквозь" текст прямо на карточку */
+}
+/* Стиль для кнопки назад к проектам */
+.nav a.back-btn {
+    color: #f43f5e; /* Делаем её приятного розовато-красного или кораллового цвета */
+    font-weight: 600;
+    margin-right: 12px; /* Немного отодвигаем её от остальных вкладок */
+    border-right: 1px solid rgba(255, 255, 255, 0.15); /* Делаем тонкую разделительную черту */
+    border-radius: 8px 0 0 8px;
+    padding-right: 20px;
+}
+
+/* Эффект при наведении на кнопку назад */
+.nav a.back-btn:hover {
+    background-color: rgba(244, 63, 94, 0.1); /* Легкая подсветка при наведении */
+    color: #fda4af;
+}
+
+/* Если у тебя включена светлая тема, сделаем разделитель видимым */
+body.light .nav a.back-btn {
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+/* ==========================================================================
+   1. ПЕРЕМЕННЫЕ И СИСТЕМНЫЕ НАСТРОЙКИ ТЕМ
+   ========================================================================== */
+:root {
+    --bg-app: #0f172a;
+    --bg-sidebar: #1e293b;
+    --bg-card: #1e293b;
+    --bg-card-hover: #334155;
+    --text-main: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --accent-color: #4f46e5;
+    --accent-hover: #4338ca;
+    --danger-color: #ef4444;
+    --input-bg: #1e293b;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.light {
+    --bg-app: #f8fafc;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --text-main: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --input-bg: #f1f5f9;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ==========================================================================
+   2. МАКЕТ ПРИЛОЖЕНИЯ И СТРУКТУРА (LAYOUT)
+   ========================================================================== */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- СТИЛЬНЫЙ БОКОВОЙ САЙДБАР --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    padding-left: 8px;
+}
+
+.sidebar-brand i {
+    color: var(--accent-color);
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(79, 70, 229, 0.08);
+    color: var(--text-main);
+}
+
+.sidebar-menu a.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.sidebar-footer {
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: inherit;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.sidebar-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.light .sidebar-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* --- ОСНОВНОЙ КОНТЕНТ (СПРАВА) --- */
+.main-content {
+    margin-left: 260px;
+    flex-grow: 1;
+    padding: 40px;
+    min-height: 100vh;
+}
+
+.boards-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   3. КНОПКИ, ХЕДЕРЫ И ЭЛЕМЕНТЫ ИНТЕРФЕЙСА
+   ========================================================================== */
+.boards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    gap: 16px;
+}
+
+.boards-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.create-board-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    transition: all 0.2s;
+}
+
+.create-board-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+}
+
+/* ==========================================================================
+   4. СЕТКА И СОВРЕМЕННЫЕ КАРТОЧКИ ПРОЕКТОВ
+   ========================================================================== */
+.boards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 24px;
+}
+
+.board-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.board-card:hover {
+    transform: translateY(-4px);
+    background-color: var(--bg-card-hover);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.light .board-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.board-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    word-break: break-all;
+}
+
+.board-card h3 i {
+    color: var(--accent-color);
+}
+
+.board-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.board-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    margin-top: 8px;
+}
+
+/* Умная кнопка удаления (появляется ярче при наведении на саму карточку) */
+.delete-board {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 15px;
+    padding: 6px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    opacity: 0.5;
+}
+
+.board-card:hover .delete-board {
+    opacity: 1;
+}
+
+.delete-board:hover {
+    color: var(--danger-color);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.empty-boards {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 60px;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   5. МОДАЛЬНЫЕ ОКНА
+   ========================================================================== */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-save {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-save:hover { background: var(--accent-hover); }
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel:hover { background: rgba(255, 255, 255, 0.05); }
+body.light .btn-cancel:hover { background: rgba(0, 0, 0, 0.05); }
+
+/* ==========================================================================
+   6. АДАПТИВНОСТЬ (ОПТИМИЗАЦИЯ ПОД СМАРТФОНЫ)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .app-layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border-color); }
+    .main-content { margin-left: 0; padding: 20px; }
+    .boards-header { flex-direction: column; align-items: flex-start; }
+    .create-board-btn { width: 100%; justify-content: center; }
+}

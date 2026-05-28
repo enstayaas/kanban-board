@@ -11,7 +11,8 @@
 <body>
 
 <div class="nav">
-    <a href="board.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="index.html" id="nav-projects" class="back-btn"><i class="fa-solid fa-arrow-left"></i> К проектам</a>
+    <a href="#" onclick="goToCurrentBoard(event)" id="nav-board"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
     <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
     <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
     <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
@@ -32,7 +33,7 @@
         <option value="medium">🟡 Средний</option>
         <option value="low">🟢 Низкий</option>
     </select>
-    <input id="userFilter" placeholder="👤 ID исполнителя" type="number" />
+   <input id="userFilter" placeholder="👤 Имя исполнителя" type="text" />
     <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
     <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Применить</button>
     <button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Очистить</button>
@@ -270,15 +271,17 @@
     }
 
     // ЗАГРУЗКА ЗАДАЧ И КОЛОНОК С СЕРВЕРА
+    // ЗАГРУЗКА ЗАДАЧ И КОЛОНОК С СЕРВЕРА С ПРИВЯЗКОЙ К ПРОЕКТУ
     async function loadTasks() {
         const token = localStorage.getItem('token');
         if (!token) return;
         try {
             const loadedTasks = [];
-            const columns = [1, 2, 3]; // Твои три колонки: To Do, In Progress, Done
+            const columns = [1, 2, 3];
             
             for (const columnId of columns) {
-                const response = await fetch(`${API_BASE_URL}/tasks?column_id=${columnId}`, {
+                // ДОБАВЛЯЕМ &board_id=${currentBoardId} В КОНЕЦ СТРОКИ ЗАПРОСА
+                const response = await fetch(`${API_BASE_URL}/tasks?column_id=${columnId}&board_id=${currentBoardId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (response.ok) {
@@ -296,7 +299,6 @@
             document.getElementById('columnsContainer').innerHTML = '<div class="empty-state">⚠️ Ошибка загрузки задач</div>';
         }
     }
-
     // ОТРИСОВКА ДОСКИ С ДРАГ-ЭНД-ДРОПОМ (БЕЗ НАДПИСИ "НЕТ ЗАДАЧ")
     function renderBoard(tasks) {
         const container = document.getElementById('columnsContainer');
@@ -367,36 +369,50 @@
     }
 
     // СОХРАНЕНИЕ ПЕРЕМЕЩЕНИЯ НА СЕРВЕРЕ
+   // ИСПРАВЛЕННАЯ ФУНКЦИЯ ПЕРЕМЕЩЕНИЯ (РАБОТАЕТ С ТОЧНЫМ URL)
     async function updateTaskPosition(taskId, newColumnId) {
         const token = localStorage.getItem('token');
+        
+        // Находим задачу в локальном массиве allTasks
+        const localTask = allTasks.find(t => t.id == taskId);
+        if (!localTask) return;
+
         try {
+            // Отправляем PUT на точный работающий адрес /tasks/{id}
             const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (!response.ok) return;
-            const currentTaskData = await response.json();
-            
-            await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
                 method: 'PUT',
                 headers: { 
                     'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/json' 
                 },
                 body: JSON.stringify({
-                    title: currentTaskData.title,
-                    description: currentTaskData.description || '',
-                    priority: currentTaskData.priority || 'medium',
-                    assigned_to: currentTaskData.assigned_to || 0,
-                    column_id: parseInt(newColumnId)
+                    title: localTask.title,
+                    description: localTask.description || '',
+                    priority: localTask.priority || 'medium',
+                    // Преобразуем в числа, чтобы Go не ругался на пустые значения
+                    assigned_to: localTask.assigned_to ? parseInt(localTask.assigned_to) : 0,
+                    column_id: parseInt(newColumnId), 
+                    board_id: parseInt(currentBoardId) 
                 })
             });
-            await loadTasks();
+
+            if (response.ok) {
+                const columnNames = { 1: 'To Do', 2: 'In Progress', 3: 'Done' };
+                saveActivityLog('move_task', `Переместила задачу "${localTask.title}" в колонку "${columnNames[newColumnId] || newColumnId}"`);
+                
+                // Сразу обновляем локальный массив, чтобы карточка осталась на месте
+                localTask.column_id = parseInt(newColumnId);
+            } else {
+                console.error(`Сервер вернул ошибку при сохранении колонки: ${response.status}`);
+                // Если сервер вернул ошибку, откатываем доску к исходному состоянию
+                await loadTasks();
+            }
+
         } catch (error) {
-            console.error('Ошибка перемещения:', error);
+            console.error('Ошибка сети при перемещении задачи:', error);
             await loadTasks();
         }
     }
-
     function applyFilter() { currentPage = 1; applySortAndPage(); }
     function clearFilters() {
         document.getElementById('priorityFilter').value = '';
@@ -478,59 +494,137 @@
     }
 
     function closeModal() { document.getElementById('modal').style.display = 'none'; currentTask = null; }
+    
+    
+    // ВСТАВЬ ЭТОТ КОД СЮДА:
+    async function archiveCurrentTask() {
+        if (!currentTask) {
+            alert('Ошибка: Не выбрана задача для архивации');
+            return;
+        }
+
+        if (!confirm(`Переместить задачу "${currentTask.title}" в архив?`)) return;
+
+        const token = localStorage.getItem('token');
+        try {
+            // Отправляем PATCH запрос на бэкенд Go для архивации задачи
+            const response = await fetch(`${API_BASE_URL}/tasks/${currentTask.id}/archive`, {
+                method: 'PATCH',
+                headers: { 
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                alert('📋 Задача успешно перемещена в архив!');
+                saveActivityLog('archive_task', `Архивировала задачу "${currentTask.title}"`);
+                closeModal(); // Закрываем модальное окно
+                await loadTasks(); // Перезагружаем задачи, чтобы она исчезла с доски
+            } else {
+                const errData = await response.json();
+                alert(`Ошибка при архивации: ${errData.error || response.statusText}`);
+            }
+        } catch (error) {
+            console.error('Сетевая ошибка при архивации:', error);
+            alert('Не удалось связаться с сервером');
+        }
+    }
+    // КОНЕЦ ВСТАВКИ
+
     function openCreateModal() { document.getElementById('createModal').style.display = 'flex'; }
+
+    
     function closeCreateModal() { document.getElementById('createModal').style.display = 'none'; }
 
     async function saveTask() {
-        if (!currentTask) return;
-        const token = localStorage.getItem('token');
-        try {
-            await fetch(`${API_BASE_URL}/tasks/${currentTask.id}`, {
-                method: 'PUT',
-                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title: document.getElementById('editTitle').value,
-                    description: document.getElementById('editDesc').value,
-                    priority: document.getElementById('editPriority').value,
-                    assigned_to: parseInt(document.getElementById('editAssignedTo').value) || 0,
-                    column_id: currentTask.column_id
-                })
-            });
-            closeModal();
-            loadTasks();
-        } catch(e) { console.error(e); }
-    }
+    if (!currentTask) return;
+    const token = localStorage.getItem('token');
+    try {
+        await fetch(`${API_BASE_URL}/tasks/${currentTask.id}`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title: document.getElementById('editTitle').value,
+                description: document.getElementById('editDesc').value,
+                priority: document.getElementById('editPriority').value,
+                assigned_to: parseInt(document.getElementById('editAssignedTo').value) || 0,
+                column_id: currentTask.column_id,
+                board_id: parseInt(currentBoardId) // <-- ОБЯЗАТЕЛЬНО ДОБАВЬ ЭТУ СТРОКУ СЮДА
+            })
+        });
+        closeModal();
+        loadTasks();
+    } catch(e) { console.error(e); }
+}
 
     async function createTask() {
-        const title = document.getElementById('createTitle').value.trim();
-        if (!title) return;
-        const token = localStorage.getItem('token');
-        try {
-            await fetch(`${API_BASE_URL}/tasks`, {
-                method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title,
-                    description: document.getElementById('createDesc').value,
-                    priority: document.getElementById('createPriority').value,
-                    column_id: parseInt(document.getElementById('createColumnId').value),
-                    assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0
-                })
-            });
-            closeCreateModal();
-            loadTasks();
-        } catch(e) { console.error(e); }
+    // 1. Находим элементы формы по их реальным ID из твоего HTML
+    const titleInput = document.getElementById('createTitle');
+    const descriptionInput = document.getElementById('createDesc');
+    const prioritySelect = document.getElementById('createPriority');
+    const assignedToSelect = document.getElementById('createAssignedTo');
+    const columnSelect = document.getElementById('createColumnId'); // Берём колонку из выпадающего списка формы
+    const token = localStorage.getItem('token');
+
+    // Проверяем, заполнено ли название
+    if (!titleInput || !titleInput.value.trim()) {
+        alert('Название задачи не может быть пустым!');
+        return;
     }
 
-    async function archiveCurrentTask() {
-        if (!currentTask || !confirm('В архив?')) return;
-        const token = localStorage.getItem('token');
-        try {
-            await fetch(`${API_BASE_URL}/tasks/${currentTask.id}/archive`, { method: 'PATCH', headers: { 'Authorization': `Bearer ${token}` } });
-            closeModal();
-            loadTasks();
-        } catch(e) { console.error(e); }
+    // 2. Безопасно вытаскиваем ID проекта (board_id)
+    let boardId = window.currentBoardId; 
+    if (!boardId) {
+        const urlParams = new URLSearchParams(window.location.search);
+        boardId = urlParams.get('id') || localStorage.getItem('currentBoardId') || 1;
     }
+
+    // 3. Собираем объект задачи для отправки на Go-сервер
+    const taskData = {
+        title: titleInput.value.trim(),
+        description: descriptionInput ? descriptionInput.value.trim() : '',
+        priority: prioritySelect ? prioritySelect.value : 'medium',
+        column_id: columnSelect ? parseInt(columnSelect.value) : 1, // Получаем выбранную пользователем колонку
+        board_id: parseInt(boardId), // Наш ID проекта
+        assigned_to: (assignedToSelect && assignedToSelect.value) ? parseInt(assignedToSelect.value) : 0
+    };
+
+    console.log("ОТПРАВЛЯЕМ В GO:", taskData);
+
+    if (isNaN(taskData.board_id) || taskData.board_id === 0) {
+        alert("Ошибка: Не удалось определить ID проекта. Проверьте URL страницы.");
+        return;
+    }
+
+    // 4. Отправляем POST-запрос на бэкенд
+    try {
+        const response = await fetch(`${API_BASE_URL}/tasks`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(taskData)
+        });
+
+        if (response.ok) {
+            // Очищаем поля формы после успешного создания
+            titleInput.value = '';
+            if (descriptionInput) descriptionInput.value = '';
+            if (assignedToSelect) assignedToSelect.value = '';
+            
+            closeCreateModal(); // Закрываем правильное модальное окно создания!
+            await loadTasks();  // Перерисовываем доску с новой задачей
+        } else {
+            const errorData = await response.json();
+            console.error('Ошибка бэкенда:', errorData);
+            alert(`Ошибка бэкенда: ${errorData.error || 'Не удалось создать задачу'}`);
+        }
+    } catch (error) {
+        console.error('Сетевая ошибка:', error);
+    }
+}
 
     let isToggling = false;
     async function toggleTaskLabel(taskId, labelId, isChecked) {
@@ -599,15 +693,36 @@
         document.getElementById('modal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
         document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
     });
+    // ФУНКЦИЯ ДЛЯ ЗАПИСИ ДЕЙСТВИЙ В ЖУРНАЛ АКТИВНОСТИ
+    function saveActivityLog(action, description) {
+        let logs = [];
+        try {
+            const localData = localStorage.getItem('mock_activities');
+            if (localData) logs = JSON.parse(localData);
+        } catch (e) { console.warn(e); }
+
+        // Добавляем твое новое действие в самый верх списка
+        logs.unshift({
+            id: Date.now(),
+            action: action,
+            description: description,
+            user_name: 'Ты (Текущий пользователь)',
+            created_at: new Date().toISOString()
+        });
+
+        localStorage.setItem('mock_activities', JSON.stringify(logs));
+    }
 
     function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = 'index.html';
     }
+
 </script>
 </body>
 </html>
+
 <!-- <!DOCTYPE html>
 <html lang="ru">
 <head>

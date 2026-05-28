@@ -10,7 +10,8 @@
 <body>
 
 <div class="nav">
-    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="index.html" id="nav-projects" class="back-btn"><i class="fa-solid fa-arrow-left"></i> К проектам</a>
+    <a href="#" onclick="goToCurrentBoard(event)" id="nav-board"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
     <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
     <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
     <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
@@ -79,6 +80,48 @@
 <script src="config.js"></script>
 <!-- <script src="auth.js"></script> -->
 <script src="stats.js"></script>
+<script>
+    // 1. Извлекаем ID доски из URL или вытаскиваем из памяти браузера (по умолчанию 1)
+    const currentBoardId = new URLSearchParams(window.location.search).get('id') || localStorage.getItem('currentBoardId') || 1;
+
+    // Если в URL передан ID доски, принудительно сохраняем его в память
+    if (new URLSearchParams(window.location.search).get('id')) {
+        localStorage.setItem('currentBoardId', new URLSearchParams(window.location.search).get('id'));
+    }
+
+    // 2. Функция возврата на текущую рабочую доску
+    function goToCurrentBoard(event) {
+        if (event) event.preventDefault();
+        window.location.href = `board.html?id=${currentBoardId}`;
+    }
+
+    // 3. Функция автоматической подсветки активной вкладки
+    function highlightActiveNav() {
+        const currentPage = window.location.pathname.split("/").pop();
+        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+        
+        if (currentPage === 'board.html' || currentPage === '') {
+            document.getElementById('nav-board')?.classList.add('active');
+        } else if (currentPage === 'activity.html') {
+            document.getElementById('nav-activity')?.classList.add('active');
+        } else if (currentPage === 'users.html') {
+            document.getElementById('nav-users')?.classList.add('active');
+        } else if (currentPage === 'profile.html') {
+            document.getElementById('nav-profile')?.classList.add('active');
+        } else if (currentPage === 'archive.html') {
+            document.getElementById('nav-archive')?.classList.add('active');
+        } else if (currentPage === 'stats.html') {
+            document.getElementById('nav-stats')?.classList.add('active');
+        } else if (currentPage === 'settings.html') {
+            document.getElementById('nav-settings')?.classList.add('active');
+        }
+    }
+
+    // Запускаем подсветку меню, как только страница загрузится
+    document.addEventListener('DOMContentLoaded', () => {
+        highlightActiveNav();
+    });
+</script>
 </body>
 </html>
 

@@ -10,20 +10,20 @@
 <body>
 
 <div class="nav">
-    <a href="board.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
-    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
-    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
-    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
-    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
-    <a href="activity.html"><i class="fa-solid fa-clock"></i> Активность</a>
-    <a href="settings.html"><i class="fa-solid fa-gear"></i> Настройки</a>
+    <a href="index.html" id="nav-projects" class="back-btn"><i class="fa-solid fa-arrow-left"></i> К проектам</a>
+    <a href="#" onclick="goToCurrentBoard(event)" id="nav-board"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="users.html" id="nav-users"><i class="fa-solid fa-users"></i> Пользователи</a>
+    <a href="profile.html" id="nav-profile"><i class="fa-regular fa-user"></i> Профиль</a>
+    <a href="archive.html" id="nav-archive"><i class="fa-solid fa-box-archive"></i> Архив</a>
+    <a href="stats.html" id="nav-stats"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <a href="activity.html" id="nav-activity"><i class="fa-solid fa-clock"></i> Активность</a>
+    <a href="settings.html" id="nav-settings"><i class="fa-solid fa-gear"></i> Настройки</a>
     <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
 </div>
 
 <h1><i class="fa-solid fa-gear"></i> Настройки доски</h1>
 
 <div class="settings-container">
-    <!-- Основная информация -->
     <div class="settings-card">
         <h3><i class="fa-regular fa-rectangle-list"></i> Основная информация</h3>
         <div class="settings-field">
@@ -38,17 +38,49 @@
         <div id="settingsMessage" class="settings-message"></div>
     </div>
 
-    <!-- Опасная зона -->
     <div class="settings-card danger">
         <h3><i class="fa-solid fa-triangle-exclamation"></i> Опасная зона</h3>
-        <p>Удаление доски приведёт к потере всех задач, колонок и меток. Это действие необратимо.</p>
-        <button onclick="deleteBoard()" class="danger-btn">🗑️ Удалить доску</button>
+        <p>Перемещение доски в корзину скроет её с главного экрана. Вы сможете восстановить её из Архива в любой момент.</p>
+        <button onclick="deleteBoard()" class="danger-btn">🗑️ Переместить в корзину</button>
     </div>
 </div>
 
 <script>
     const API_BASE_URL = 'http://localhost:8081';
-    let currentBoardId = localStorage.getItem('currentBoardId') || 1;
+    
+    // --- Логика умной навигации ---
+    const currentBoardId = new URLSearchParams(window.location.search).get('id') || localStorage.getItem('currentBoardId') || 1;
+
+    if (new URLSearchParams(window.location.search).get('id')) {
+        localStorage.setItem('currentBoardId', new URLSearchParams(window.location.search).get('id'));
+    }
+
+    function goToCurrentBoard(event) {
+        if (event) event.preventDefault();
+        window.location.href = `board.html?id=${currentBoardId}`;
+    }
+
+    function highlightActiveNav() {
+        const currentPage = window.location.pathname.split("/").pop();
+        document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+        
+        if (currentPage === 'board.html' || currentPage === '') {
+            document.getElementById('nav-board')?.classList.add('active');
+        } else if (currentPage === 'activity.html') {
+            document.getElementById('nav-activity')?.classList.add('active');
+        } else if (currentPage === 'users.html') {
+            document.getElementById('nav-users')?.classList.add('active');
+        } else if (currentPage === 'profile.html') {
+            document.getElementById('nav-profile')?.classList.add('active');
+        } else if (currentPage === 'archive.html') {
+            document.getElementById('nav-archive')?.classList.add('active');
+        } else if (currentPage === 'stats.html') {
+            document.getElementById('nav-stats')?.classList.add('active');
+        } else if (currentPage === 'settings.html') {
+            document.getElementById('nav-settings')?.classList.add('active');
+        }
+    }
+    // ---------------------------------
 
     async function fetchAPI(url, options = {}) {
         const token = localStorage.getItem('token');
@@ -90,7 +122,6 @@
             msg.style.color = 'green';
             setTimeout(() => msg.innerText = '', 3000);
             
-            // Обновляем заголовок на доске (если открыта)
             const boardTitle = document.getElementById('boardTitle');
             if (boardTitle) boardTitle.innerHTML = title;
         } catch (error) {
@@ -99,13 +130,27 @@
         }
     }
 
+    // ИЗМЕНЕННАЯ ФУНКЦИЯ: Теперь отправляет в архив (корзину) вместо полного удаления
     async function deleteBoard() {
-        if (!confirm('⚠️ Вы уверены? Все задачи, колонки и метки будут удалены безвозвратно!')) return;
+        const title = document.getElementById('boardTitleInput').value.trim();
+        const description = document.getElementById('boardDescription').value;
+
+        if (!confirm('⚠️ Вы уверены, что хотите переместить эту доску в корзину? Её можно будет восстановить из вкладки "Архив".')) return;
         
         try {
-            await fetchAPI(`${API_BASE_URL}/boards/${currentBoardId}`, { method: 'DELETE' });
+            // Отправляем PUT-запрос с флагом архивации
+            await fetchAPI(`${API_BASE_URL}/boards/${currentBoardId}`, { 
+                method: 'PUT',
+                body: JSON.stringify({ 
+                    title: title, 
+                    description: description,
+                    is_archived: true 
+                })
+            });
+            
             localStorage.removeItem('currentBoardId');
-            window.location.href = 'index.html';
+            alert('🗑️ Доска перемещена в корзину');
+            window.location.href = 'index.html'; // Возвращаемся к списку проектов
         } catch (error) {
             alert('Ошибка удаления: ' + error.message);
         }
@@ -121,7 +166,11 @@
         localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
     });
 
-    document.addEventListener('DOMContentLoaded', loadBoardSettings);
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        loadBoardSettings();
+        highlightActiveNav(); // Подсвечиваем вкладку "Настройки"
+    });
 </script>
 
 <style>

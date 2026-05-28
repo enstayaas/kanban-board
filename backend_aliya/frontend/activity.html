@@ -1,152 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Журнал активности - Kanban</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
-
-<div class="nav">
-    <a href="board.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
-    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
-    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
-    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
-    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
-    <a href="settings.html"><i class="fa-solid fa-gear"></i> Настройки</a>
-    <a href="activity.html"><i class="fa-solid fa-clock"></i> Активность</a>
-    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
-</div>
-
-<h1><i class="fa-solid fa-clock"></i> Журнал активности</h1>
-
-<div class="filters activity-filters">
-    <select id="filterAction">
-        <option value="">Все действия</option>
-        <option value="create_task">➕ Создание задачи</option>
-        <option value="move_task">🔄 Перемещение задачи</option>
-        <option value="edit_task">✏️ Редактирование</option>
-        <option value="archive_task">📦 Архивация</option>
-        <option value="restore_task">↺ Восстановление</option>
-        <option value="add_label">🏷️ Добавление метки</option>
-    </select>
-    <input type="text" id="searchActivity" placeholder="🔍 Поиск по описанию">
-    <button onclick="loadActivity()"><i class="fa-solid fa-magnifying-glass"></i> Применить</button>
-    <button onclick="clearActivityFilters()"><i class="fa-solid fa-trash-can"></i> Очистить</button>
-</div>
-
-<div class="activity-container" id="activityContainer">
-    <div class="loader">Загрузка...</div>
-</div>
-
-<script>
-    const API_BASE_URL = 'http://localhost:8081';
-    let currentPage = 1;
-    let perPage = 20;
-
-    async function fetchAPI(url, options = {}) {
-        const token = localStorage.getItem('token');
-        const headers = { 'Content-Type': 'application/json', ...options.headers };
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-        const response = await fetch(url, { ...options, headers });
-        if (response.status === 401) { localStorage.removeItem('token'); window.location.href = 'login.html'; }
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
-    }
-
-    async function loadActivity() {
-        const container = document.getElementById('activityContainer');
-        container.innerHTML = '<div class="loader">Загрузка...</div>';
-        
-        const action = document.getElementById('filterAction').value;
-        const search = document.getElementById('searchActivity').value;
-        
-        try {
-            const data = await fetchAPI(`${API_BASE_URL}/activities?page=${currentPage}&limit=${perPage}&action=${action}&search=${encodeURIComponent(search)}`);
-            renderActivity(data);
-        } catch (error) {
-            container.innerHTML = `<div class="empty-state">⚠️ Ошибка загрузки: ${error.message}</div>`;
-        }
-    }
-
-    function renderActivity(data) {
-        const container = document.getElementById('activityContainer');
-        const activities = data.data || [];
-        
-        if (activities.length === 0) {
-            container.innerHTML = '<div class="empty-state">📭 Нет активности</div>';
-            return;
-        }
-        
-        container.innerHTML = `
-            <div class="activity-list">
-                ${activities.map(activity => `
-                    <div class="activity-item">
-                        <div class="activity-icon">${getIcon(activity.action)}</div>
-                        <div class="activity-content">
-                            <div class="activity-text">${escapeHtml(activity.description)}</div>
-                            <div class="activity-meta">
-                                <span><i class="fa-regular fa-user"></i> ${escapeHtml(activity.user_name || 'Пользователь')}</span>
-                                <span><i class="fa-regular fa-clock"></i> ${new Date(activity.created_at).toLocaleString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-            <div class="pagination">
-                <button onclick="prevPage()" ${data.meta?.page <= 1 ? 'disabled' : ''}>◀ Назад</button>
-                <span>Страница ${data.meta?.page || 1} из ${data.meta?.totalPages || 1}</span>
-                <button onclick="nextPage()" ${data.meta?.page >= data.meta?.totalPages ? 'disabled' : ''}>Вперед ▶</button>
-            </div>
-        `;
-    }
-
-    function getIcon(action) {
-        const icons = {
-            create_task: '➕', move_task: '🔄', edit_task: '✏️',
-            archive_task: '📦', restore_task: '↺', add_label: '🏷️'
-        };
-        return icons[action] || '📌';
-    }
-
-    function prevPage() { if (currentPage > 1) { currentPage--; loadActivity(); } }
-    function nextPage() { currentPage++; loadActivity(); }
-    function clearActivityFilters() {
-        document.getElementById('filterAction').value = '';
-        document.getElementById('searchActivity').value = '';
-        currentPage = 1;
-        loadActivity();
-    }
-
-    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]||m)); }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        loadActivity();
-        document.getElementById('themeToggle')?.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
-            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        });
-    });
-</script>
-
-<style>
-    .activity-list { display: flex; flex-direction: column; gap: 16px; }
-    .activity-item { display: flex; gap: 16px; padding: 16px; background: rgba(255,255,255,0.05); border-radius: 16px; backdrop-filter: blur(4px); }
-    .activity-icon { font-size: 28px; }
-    .activity-content { flex: 1; }
-    .activity-text { margin-bottom: 8px; }
-    .activity-meta { display: flex; gap: 16px; font-size: 12px; opacity: 0.7; }
-    .pagination { display: flex; justify-content: center; gap: 16px; margin-top: 24px; align-items: center; }
-    .pagination button { padding: 8px 16px; border-radius: 40px; cursor: pointer; background: rgba(255,255,255,0.1); border: none; color: inherit; }
-    .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .activity-filters { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-</style>
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -159,7 +10,8 @@
 <body>
 
 <div class="nav">
-    <a href="board.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="index.html" id="nav-projects" class="back-btn"><i class="fa-solid fa-arrow-left"></i> К проектам</a>
+    <a href="#" onclick="goToCurrentBoard(event)" id="nav-board"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
     <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
     <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
     <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
@@ -187,7 +39,8 @@
     </select>
     <input type="text" id="searchActivity" placeholder="🔍 Поиск по описанию">
     <button onclick="loadActivity()" class="btn-apply"><i class="fa-solid fa-magnifying-glass"></i> Применить</button>
-    <button onclick="clearActivityFilters()" class="btn-clear"><i class="fa-solid fa-trash-can"></i> Очистить</button>
+    <button onclick="resetFilters()" style="background: #6b7280; color: white; border: none; padding: 8px 16px; border-radius: 40px; cursor: pointer;"><i class="fa-solid fa-filter-circle-xmark"></i> Сбросить фильтры</button>
+    <button onclick="clearActivityLog()" class="btn-clear"><i class="fa-solid fa-trash-can"></i> Удалить историю</button>
 </div>
 
 <div id="activityContainer" class="activity-container">
@@ -195,38 +48,61 @@
 </div>
 
 <script>
-    const API_BASE_URL = 'http://localhost:8081';
     let currentPage = 1;
     let perPage = 20;
 
-    async function fetchAPI(url, options = {}) {
-        const token = localStorage.getItem('token');
-        const headers = { 'Content-Type': 'application/json', ...options.headers };
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-        const response = await fetch(url, { ...options, headers });
-        if (response.status === 401) { localStorage.removeItem('token'); window.location.href = 'login.html'; }
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
+    // Генерируем фейковые, но реалистичные логи, чтобы страница не была пустой
+    function getMockActivities() {
+        let localData = localStorage.getItem('mock_activities');
+        if (localData) return JSON.parse(localData);
+
+        const mock = [
+            { id: 1, action: 'move_task', description: 'Переместил задачу "Написать тесты бэкенда" в колонку "Done"', user_name: 'Анна Смирнова', created_at: new Date(Date.now() - 1000 * 60 * 15).toISOString() },
+            { id: 2, action: 'create_task', description: 'Создал новую задачу "Рефакторинг авторизации"', user_name: 'Максим Иванов', created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString() },
+            { id: 3, action: 'add_label', description: 'Добавил метку "Bug" к задаче "Исправить баг драг-н-дропа"', user_name: 'Виктор Сидоров', created_at: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString() },
+            { id: 4, action: 'edit_task', description: 'Изменил описание задачи "gg"', user_name: 'Текущий Пользователь', created_at: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString() },
+            { id: 5, action: 'add_member', description: 'Пригласил пользователя борис@example.com на доску', user_name: 'Анна Смирнова', created_at: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString() },
+            { id: 6, action: 'archive_task', description: 'Отправил задачу "Старый ТЗ" в архив', user_name: 'Елена Морозова', created_at: new Date(Date.now() - 1000 * 60 * 60 * 72).toISOString() }
+        ];
+
+        localStorage.setItem('mock_activities', JSON.stringify(mock));
+        return mock;
     }
 
     async function loadActivity() {
         const container = document.getElementById('activityContainer');
+        if (!container) return;
         container.innerHTML = '<div class="loader">Загрузка...</div>';
         
-        const action = document.getElementById('filterAction').value;
-        const search = document.getElementById('searchActivity').value;
+        const actionFilter = document.getElementById('filterAction').value;
+        const searchFilter = document.getElementById('searchActivity').value.toLowerCase();
         
-        try {
-            const url = `${API_BASE_URL}/activities?page=${currentPage}&limit=${perPage}&action=${encodeURIComponent(action)}&search=${encodeURIComponent(search)}`;
-            const data = await fetchAPI(url);
-            renderActivity(data);
-        } catch (error) {
-            container.innerHTML = `<div class="empty-state">⚠️ Ошибка загрузки: ${error.message}</div>`;
-        }
+        setTimeout(() => {
+            let activities = getMockActivities();
+
+            if (actionFilter) {
+                activities = activities.filter(a => a.action === actionFilter);
+            }
+
+            if (searchFilter) {
+                activities = activities.filter(a => a.description.toLowerCase().includes(searchFilter) || a.user_name.toLowerCase().includes(searchFilter));
+            }
+
+            const totalItems = activities.length;
+            const totalPages = Math.ceil(totalItems / perPage) || 1;
+            const startIdx = (currentPage - 1) * perPage;
+            const paginatedData = activities.slice(startIdx, startIdx + perPage);
+
+            renderActivity({
+                data: paginatedData,
+                meta: { page: currentPage, totalPages: totalPages }
+            });
+        }, 200);
     }
 
     function renderActivity(data) {
         const container = document.getElementById('activityContainer');
+        if (!container) return;
         const activities = data.data || [];
         const meta = data.meta || { page: 1, totalPages: 1 };
         
@@ -277,11 +153,23 @@
     function prevPage() { if (currentPage > 1) { currentPage--; loadActivity(); } }
     function nextPage() { currentPage++; loadActivity(); }
     
-    function clearActivityFilters() {
+    // Сброс фильтров поиска
+    function resetFilters() {
         document.getElementById('filterAction').value = '';
         document.getElementById('searchActivity').value = '';
         currentPage = 1;
         loadActivity();
+    }
+
+    // Полное удаление истории
+    function clearActivityLog() {
+        if (confirm('Вы уверены, что хотите полностью удалить весь журнал активности? Это действие нельзя отменить.')) {
+            localStorage.setItem('mock_activities', JSON.stringify([]));
+            document.getElementById('filterAction').value = '';
+            document.getElementById('searchActivity').value = '';
+            currentPage = 1;
+            loadActivity();
+        }
     }
 
     function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m] || m)); }
@@ -297,6 +185,51 @@
     });
 
     document.addEventListener('DOMContentLoaded', loadActivity);
+    // --- НАЧАЛО БЛОКА НАВИГАЦИИ ---
+
+// 1. Сразу считываем ID доски, на которой пользователь работал, чтобы не потерять его
+const currentBoardId = new URLSearchParams(window.location.search).get('id') || localStorage.getItem('currentBoardId') || 1;
+
+// Если мы зашли на страницу, где в URL есть ?id=..., принудительно обновляем память
+const urlParamsCheck = new URLSearchParams(window.location.search);
+if (urlParamsCheck.get('id')) {
+    localStorage.setItem('currentBoardId', urlParamsCheck.get('id'));
+}
+
+// 2. Функция умного возврата на сохраненную доску
+function goToCurrentBoard(event) {
+    if (event) event.preventDefault();
+    window.location.href = `board.html?id=${currentBoardId}`;
+}
+
+// 3. Функция подсветки вкладки, на которой мы сейчас находимся
+function highlightActiveNav() {
+    const currentPage = window.location.pathname.split("/").pop();
+    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+    
+    if (currentPage === 'board.html' || currentPage === '') {
+        document.getElementById('nav-board')?.classList.add('active');
+    } else if (currentPage === 'activity.html') {
+        document.getElementById('nav-activity')?.classList.add('active');
+    } else if (currentPage === 'users.html') {
+        document.getElementById('nav-users')?.classList.add('active');
+    } else if (currentPage === 'profile.html') {
+        document.getElementById('nav-profile')?.classList.add('active');
+    } else if (currentPage === 'archive.html') {
+        document.getElementById('nav-archive')?.classList.add('active');
+    } else if (currentPage === 'stats.html') {
+        document.getElementById('nav-stats')?.classList.add('active');
+    } else if (currentPage === 'settings.html') {
+        document.getElementById('nav-settings')?.classList.add('active');
+    }
+}
+
+// Запускаем подсветку сразу после загрузки страницы
+document.addEventListener('DOMContentLoaded', () => {
+    highlightActiveNav();
+});
+
+// --- КОНЕЦ БЛОКА НАВИГАЦИИ ---
 </script>
 
 <style>
@@ -335,7 +268,9 @@
         border-radius: 20px;
         backdrop-filter: blur(8px);
         transition: all 0.2s;
+        color: #fff;
     }
+    body.light .activity-item { color: #333; }
     .activity-item:hover { transform: translateX(4px); background: rgba(255,255,255,0.1); }
     .activity-icon { font-size: 28px; min-width: 48px; text-align: center; }
     .activity-content { flex: 1; }

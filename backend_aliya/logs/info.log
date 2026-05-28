@@ -1,0 +1,233 @@
+[INFO] 2026/05/27 02:10:17 logger.go:53: Starting server...
+[INFO] 2026/05/27 02:30:44 logger.go:53: Starting server...
+[INFO] 2026/05/27 02:30:45 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 02:30:45 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 02:44:46 logger.go:53: Starting server...
+[INFO] 2026/05/27 02:44:46 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 02:44:46 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 02:50:39 logger.go:53: Starting server...
+[INFO] 2026/05/27 02:50:40 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 02:50:40 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 03:27:40 logger.go:53: Starting server...
+[INFO] 2026/05/27 03:27:40 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 03:27:40 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 03:34:14 logger.go:53: Task created: ID=6, Title=Тестовая задача
+[INFO] 2026/05/27 03:34:54 logger.go:53: Task updated: ID=6
+[INFO] 2026/05/27 03:35:01 logger.go:53: Task archived: ID=6
+[INFO] 2026/05/27 03:36:50 logger.go:53: Task created: ID=7, Title=аьтаоуктл
+[INFO] 2026/05/27 03:36:55 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 03:37:10 logger.go:53: Task created: ID=8, Title=аьтаоуктл отслоцу
+[INFO] 2026/05/27 03:37:14 logger.go:53: Task updated: ID=8
+[INFO] 2026/05/27 03:37:28 logger.go:53: Task created: ID=9, Title=аьтаоуктл отслоцу
+[INFO] 2026/05/27 03:37:57 logger.go:53: Task created: ID=12, Title=аьтаоуктл отслоцу
+[INFO] 2026/05/27 03:38:07 logger.go:53: Task created: ID=13, Title=аьтаоуктл отслоцу
+[INFO] 2026/05/27 03:38:22 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 03:54:35 logger.go:53: Starting server...
+[INFO] 2026/05/27 03:54:35 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 03:54:35 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 03:55:07 logger.go:53: Task created: ID=14, Title=cjkcnekjcenrjkf
+[INFO] 2026/05/27 03:55:10 logger.go:53: Task updated: ID=12
+[INFO] 2026/05/27 04:00:28 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:00:28 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:00:28 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:04:46 logger.go:53: Task created: ID=15, Title=vjvhefhrfuihe
+[INFO] 2026/05/27 04:04:49 logger.go:53: Task updated: ID=15
+[INFO] 2026/05/27 04:17:42 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:17:42 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:17:42 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:24:26 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:24:27 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:24:27 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:29:57 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:29:57 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:29:57 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:38:51 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:38:51 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:38:51 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:45:22 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:45:22 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:45:22 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:49:59 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:49:59 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:49:59 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 04:59:55 logger.go:53: Starting server...
+[INFO] 2026/05/27 04:59:55 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 04:59:55 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:01:56 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:01:56 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:01:56 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:03:56 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:03:56 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:03:56 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:12:00 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:12:00 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:12:00 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:23:38 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:23:39 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:23:39 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:27:07 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:27:07 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:27:07 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:35:08 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:35:08 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:35:08 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:49:44 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:49:44 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:49:44 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:56:09 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:56:09 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:56:09 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:56:57 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 05:58:42 logger.go:53: Starting server...
+[INFO] 2026/05/27 05:58:42 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 05:58:42 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 05:59:02 logger.go:53: Task updated: ID=8
+[INFO] 2026/05/27 06:12:45 logger.go:53: Starting server...
+[INFO] 2026/05/27 06:12:45 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 06:12:45 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 06:13:18 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 06:28:33 logger.go:53: Starting server...
+[INFO] 2026/05/27 06:28:33 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 06:28:33 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 06:33:38 logger.go:53: Starting server...
+[INFO] 2026/05/27 06:33:39 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 06:33:39 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 06:51:37 logger.go:53: Starting server...
+[INFO] 2026/05/27 06:51:37 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 06:51:37 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 07:05:35 logger.go:53: Starting server...
+[INFO] 2026/05/27 07:05:35 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 07:05:35 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 07:06:01 logger.go:53: Task updated: ID=14
+[INFO] 2026/05/27 11:28:35 logger.go:53: Starting server...
+[INFO] 2026/05/27 11:32:55 logger.go:53: Starting server...
+[INFO] 2026/05/27 11:32:56 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 11:32:56 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 11:33:30 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 11:51:11 logger.go:53: Starting server...
+[INFO] 2026/05/27 11:51:11 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 11:51:11 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 11:53:24 logger.go:53: Starting server...
+[INFO] 2026/05/27 11:53:24 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 11:53:24 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 11:53:35 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 11:53:38 logger.go:53: Task updated: ID=14
+[INFO] 2026/05/27 12:03:56 logger.go:53: Starting server...
+[INFO] 2026/05/27 12:03:57 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 12:03:57 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 12:08:33 logger.go:53: Starting server...
+[INFO] 2026/05/27 12:08:33 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 12:08:33 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 12:08:53 logger.go:53: Task updated: ID=14
+[INFO] 2026/05/27 13:53:36 logger.go:53: Starting server...
+[INFO] 2026/05/27 13:53:37 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 13:53:37 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 13:57:12 logger.go:53: Starting server...
+[INFO] 2026/05/27 13:57:12 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 13:57:12 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 14:10:54 logger.go:53: Starting server...
+[INFO] 2026/05/27 14:10:54 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 14:10:54 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 14:16:43 logger.go:53: Starting server...
+[INFO] 2026/05/27 14:16:43 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 14:16:43 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 14:17:21 logger.go:53: Task archived: ID=13
+[INFO] 2026/05/27 15:10:23 logger.go:53: Starting server...
+[INFO] 2026/05/27 15:10:23 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 15:10:23 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 15:11:35 logger.go:53: Label 6 added to task 7
+[INFO] 2026/05/27 15:11:37 logger.go:53: Label 8 added to task 7
+[INFO] 2026/05/27 15:11:38 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 15:11:42 logger.go:53: Task updated: ID=7
+[INFO] 2026/05/27 15:11:47 logger.go:53: Label 7 added to task 15
+[INFO] 2026/05/27 15:11:48 logger.go:53: Task updated: ID=15
+[INFO] 2026/05/27 15:20:43 logger.go:53: Starting server...
+[INFO] 2026/05/27 15:20:43 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 15:20:43 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 15:23:27 logger.go:53: Task created: ID=16, Title=vnfkvnkjvnkdvj
+[INFO] 2026/05/27 15:23:36 logger.go:53: Task created: ID=17, Title=vnfkvnkjvnkdvj
+[INFO] 2026/05/27 15:23:42 logger.go:53: Task created: ID=18, Title=vnfkvnkjvnkdvj
+[INFO] 2026/05/27 15:23:50 logger.go:53: Task created: ID=19, Title=vnfkvnkjvnkdvj
+[INFO] 2026/05/27 15:27:07 logger.go:53: Label 7 added to task 19
+[INFO] 2026/05/27 15:27:21 logger.go:53: Task archived: ID=9
+[INFO] 2026/05/27 15:41:13 logger.go:53: Starting server...
+[INFO] 2026/05/27 15:41:13 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 15:41:13 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 15:41:30 logger.go:53: Task restored: ID=9
+[INFO] 2026/05/27 15:46:31 logger.go:53: Task archived: ID=14
+[INFO] 2026/05/27 17:55:00 logger.go:53: Starting server...
+[INFO] 2026/05/27 17:55:00 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 17:55:00 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 18:06:55 logger.go:53: Starting server...
+[INFO] 2026/05/27 18:06:55 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 18:06:55 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 18:23:49 logger.go:53: Starting server...
+[INFO] 2026/05/27 18:23:50 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 18:23:50 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 18:49:47 logger.go:53: Starting server...
+[INFO] 2026/05/27 18:49:47 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 18:49:47 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 21:03:25 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:13:12 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:14:56 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:19:49 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:22:18 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:23:32 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:25:43 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:25:43 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 21:25:43 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 21:26:21 logger.go:53: Task archived: ID=1
+[INFO] 2026/05/27 21:33:16 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:33:16 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 21:33:16 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 21:33:36 logger.go:53: Label 3 added to task 3
+[INFO] 2026/05/27 21:33:37 logger.go:53: Task updated: ID=3
+[INFO] 2026/05/27 21:45:41 logger.go:53: Starting server...
+[INFO] 2026/05/27 21:45:41 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 21:45:41 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 21:46:16 logger.go:53: Task created: ID=6, Title=аьтаоуктл отслоцу
+[INFO] 2026/05/27 21:46:22 logger.go:53: Task created: ID=7, Title=аьтаоуктл отслоцу
+[INFO] 2026/05/27 21:46:40 logger.go:53: Task created: ID=8, Title=аьтаоуктл отслоцуkcopkpo[edew
+[INFO] 2026/05/27 21:46:45 logger.go:53: Task created: ID=9, Title=аьтаоуктл отслоцуkcopkpo[edew
+[INFO] 2026/05/27 22:16:17 logger.go:53: Starting server...
+[INFO] 2026/05/27 22:16:17 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 22:16:17 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 22:21:23 logger.go:53: Starting server...
+[INFO] 2026/05/27 22:21:23 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 22:21:23 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 22:29:16 logger.go:53: Starting server...
+[INFO] 2026/05/27 22:29:16 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 22:29:16 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 23:22:27 logger.go:53: Starting server...
+[INFO] 2026/05/27 23:22:27 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 23:22:27 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 23:28:10 logger.go:53: Starting server...
+[INFO] 2026/05/27 23:28:10 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 23:28:10 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 23:36:24 logger.go:53: Starting server...
+[INFO] 2026/05/27 23:36:24 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 23:36:24 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 23:46:11 logger.go:53: Starting server...
+[INFO] 2026/05/27 23:46:12 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 23:46:12 logger.go:53: Server running on :8081
+[INFO] 2026/05/27 23:51:38 logger.go:53: Task created: ID=10, Title=ь сбвьыбьтсдлы
+[INFO] 2026/05/27 23:51:58 logger.go:53: Task created: ID=11, Title=чьбы чыьб
+[INFO] 2026/05/27 23:55:34 logger.go:53: Starting server...
+[INFO] 2026/05/27 23:55:34 logger.go:53: Database connected successfully
+[INFO] 2026/05/27 23:55:34 logger.go:53: Server running on :8081
+[INFO] 2026/05/28 00:01:04 logger.go:53: Starting server...
+[INFO] 2026/05/28 00:01:04 logger.go:53: Database connected successfully
+[INFO] 2026/05/28 00:01:04 logger.go:53: Server running on :8081
+[INFO] 2026/05/28 00:01:47 logger.go:53: Task updated: ID=4
+[INFO] 2026/05/28 00:06:05 logger.go:53: Starting server...
+[INFO] 2026/05/28 00:06:05 logger.go:53: Database connected successfully
+[INFO] 2026/05/28 00:06:05 logger.go:53: Server running on :8081
+[INFO] 2026/05/28 00:14:35 logger.go:53: Starting server...
+[INFO] 2026/05/28 00:14:35 logger.go:53: Database connected successfully
+[INFO] 2026/05/28 00:14:35 logger.go:53: Server running on :8081
+[INFO] 2026/05/28 10:41:38 logger.go:53: Starting server...
+[INFO] 2026/05/28 10:41:38 logger.go:53: Database connected successfully
+[INFO] 2026/05/28 10:41:38 logger.go:53: Server running on :8081
+[INFO] 2026/05/28 10:42:49 logger.go:53: Task archived: ID=4
+[INFO] 2026/05/28 10:43:12 logger.go:53: Task archived: ID=3
+[INFO] 2026/05/28 10:43:54 logger.go:53: Task archived: ID=8

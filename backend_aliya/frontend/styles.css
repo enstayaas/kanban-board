@@ -2000,3 +2000,18 @@ body.light #pageInfo {
     height: 16px;
     cursor: pointer;
 }
+
+.logout-btn {
+    background: rgba(239, 68, 68, 0.8);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #ef4444;
+    transform: scale(1.02);
+}

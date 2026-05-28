@@ -1,0 +1,21 @@
+[ERROR] 2026/05/27 02:10:18 logger.go:47: Database ping failed: dial tcp [::1]:5432: connectex: No connection could be made because the target machine actively refused it.
+[ERROR] 2026/05/27 02:53:44 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_column_id_fkey" (23503)
+[ERROR] 2026/05/27 02:53:52 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_column_id_fkey" (23503)
+[ERROR] 2026/05/27 03:16:54 logger.go:47: GetTasks: invalid column_id: strconv.Atoi: parsing "": invalid syntax
+[ERROR] 2026/05/27 03:17:33 logger.go:47: GetTasks: invalid column_id: strconv.Atoi: parsing "": invalid syntax
+[ERROR] 2026/05/27 03:24:21 logger.go:47: GetTasks: invalid column_id: strconv.Atoi: parsing "": invalid syntax
+[ERROR] 2026/05/27 03:28:07 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_column_id_fkey" (23503)
+[ERROR] 2026/05/27 03:28:16 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_column_id_fkey" (23503)
+[ERROR] 2026/05/27 03:28:47 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_column_id_fkey" (23503)
+[ERROR] 2026/05/27 03:37:45 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_assigned_to_fkey" (23503)
+[ERROR] 2026/05/27 03:37:49 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_assigned_to_fkey" (23503)
+[ERROR] 2026/05/27 03:55:16 logger.go:47: UpdateTask: failed to update task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_assigned_to_fkey" (23503)
+[ERROR] 2026/05/27 06:16:46 logger.go:47: AddLabelToTask: failed for task 1: pq: insert or update on table "task_labels" violates foreign key constraint "task_labels_task_id_fkey" (23503)
+[ERROR] 2026/05/27 11:28:35 logger.go:47: Database ping failed: dial tcp [::1]:5432: connectex: No connection could be made because the target machine actively refused it.
+[ERROR] 2026/05/27 21:03:25 logger.go:47: Database ping failed: pq: password authentication failed for user "postgres" (28P01)
+[ERROR] 2026/05/27 21:13:12 logger.go:47: Database ping failed: pq: password authentication failed for user "postgres" (28P01)
+[ERROR] 2026/05/27 21:14:56 logger.go:47: Database ping failed: pq: password authentication failed for user "kanban" (28P01)
+[ERROR] 2026/05/27 21:19:49 logger.go:47: Database ping failed: pq: password authentication failed for user "kanban" (28P01)
+[ERROR] 2026/05/27 21:22:18 logger.go:47: Database ping failed: pq: password authentication failed for user "kanban" (28P01)
+[ERROR] 2026/05/27 21:23:33 logger.go:47: Database ping failed: pq: password authentication failed for user "kanban" (28P01)
+[ERROR] 2026/05/27 21:33:45 logger.go:47: UpdateTask: failed to update task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_assigned_to_fkey" (23503)

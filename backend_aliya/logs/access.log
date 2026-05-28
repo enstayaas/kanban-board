@@ -1,0 +1,1628 @@
+[ACCESS] 2026/05/27 02:31:04 GET / -> Status: OK Duration: 443.5836ms
+[ACCESS] 2026/05/27 02:31:04 GET /styles.css -> Status: Not Modified Duration: 16.9826ms
+[ACCESS] 2026/05/27 02:31:04 GET /login.html -> Status: OK Duration: 2.7267ms
+[ACCESS] 2026/05/27 02:31:05 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:31:11 GET /register.html -> Status: OK Duration: 104.0679ms
+[ACCESS] 2026/05/27 02:31:34 POST /register -> Status: Internal Server Error Duration: 237.1425ms
+[ACCESS] 2026/05/27 02:31:43 POST /register -> Status: Internal Server Error Duration: 189.0438ms
+[ACCESS] 2026/05/27 02:32:01 POST /login -> Status: Internal Server Error Duration: 10.7125ms
+[ACCESS] 2026/05/27 02:32:48 POST /register -> Status: Internal Server Error Duration: 153.5593ms
+[ACCESS] 2026/05/27 02:34:03 POST /register -> Status: Internal Server Error Duration: 185.7601ms
+[ACCESS] 2026/05/27 02:34:34 POST /register -> Status: Internal Server Error Duration: 236.542ms
+[ACCESS] 2026/05/27 02:36:37 GET /login.html -> Status: Not Modified Duration: 656.9411ms
+[ACCESS] 2026/05/27 02:36:46 POST /login -> Status: Internal Server Error Duration: 70.809ms
+[ACCESS] 2026/05/27 02:36:59 POST /login -> Status: Internal Server Error Duration: 5.0565ms
+[ACCESS] 2026/05/27 02:37:42 GET /register.html -> Status: Not Modified Duration: 235.1878ms
+[ACCESS] 2026/05/27 02:38:13 POST /register -> Status: Internal Server Error Duration: 180.0292ms
+[ACCESS] 2026/05/27 02:38:53 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.0358ms
+[ACCESS] 2026/05/27 02:39:02 POST /register -> Status: Internal Server Error Duration: 123.9033ms
+[ACCESS] 2026/05/27 02:50:52 GET /register.html -> Status: OK Duration: 172.4854ms
+[ACCESS] 2026/05/27 02:50:53 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 2.2043ms
+[ACCESS] 2026/05/27 02:50:53 GET /styles.css -> Status: OK Duration: 186.6641ms
+[ACCESS] 2026/05/27 02:50:53 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:51:20 POST /register -> Status: Created Duration: 243.6024ms
+[ACCESS] 2026/05/27 02:51:27 GET /login.html -> Status: Not Modified Duration: 1.7247ms
+[ACCESS] 2026/05/27 02:51:27 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:51:36 POST /login -> Status: OK Duration: 245.4943ms
+[ACCESS] 2026/05/27 02:51:37 GET / -> Status: Not Modified Duration: 735.2159ms
+[ACCESS] 2026/05/27 02:51:37 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:51:37 GET /boards -> Status: OK Duration: 76.8442ms
+[ACCESS] 2026/05/27 02:52:53 GET /profile.html -> Status: OK Duration: 81.4874ms
+[ACCESS] 2026/05/27 02:52:53 GET /config.js -> Status: OK Duration: 195.2621ms
+[ACCESS] 2026/05/27 02:52:53 GET /profile.js -> Status: OK Duration: 315.6827ms
+[ACCESS] 2026/05/27 02:52:53 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:52:54 GET /users -> Status: OK Duration: 23.3335ms
+[ACCESS] 2026/05/27 02:53:01 GET /boards -> Status: OK Duration: 16.302ms
+[ACCESS] 2026/05/27 02:53:20 POST /boards -> Status: Created Duration: 47.2018ms
+[ACCESS] 2026/05/27 02:53:20 GET /boards -> Status: OK Duration: 9.7528ms
+[ACCESS] 2026/05/27 02:53:22 GET /board.html -> Status: OK Duration: 123.571ms
+[ACCESS] 2026/05/27 02:53:22 GET /labels -> Status: OK Duration: 15.5487ms
+[ACCESS] 2026/05/27 02:53:22 GET /columns -> Status: OK Duration: 25.7905ms
+[ACCESS] 2026/05/27 02:53:23 GET /boards/1 -> Status: OK Duration: 120.5167ms
+[ACCESS] 2026/05/27 02:53:44 POST /tasks -> Status: Internal Server Error Duration: 47.0631ms
+[ACCESS] 2026/05/27 02:53:44 GET /columns -> Status: OK Duration: 12.728ms
+[ACCESS] 2026/05/27 02:53:52 POST /tasks -> Status: Internal Server Error Duration: 5.1348ms
+[ACCESS] 2026/05/27 02:53:52 GET /columns -> Status: OK Duration: 11.2492ms
+[ACCESS] 2026/05/27 02:53:57 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:53:57 GET /users -> Status: OK Duration: 1.5398ms
+[ACCESS] 2026/05/27 02:54:00 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:54:00 GET /users -> Status: OK Duration: 1.3794ms
+[ACCESS] 2026/05/27 02:54:32 PUT /users/1 -> Status: OK Duration: 27.1981ms
+[ACCESS] 2026/05/27 02:54:32 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 02:54:32 GET /users -> Status: OK Duration: 1.1622ms
+[ACCESS] 2026/05/27 02:54:39 GET /archive.html -> Status: Not Modified Duration: 292.4386ms
+[ACCESS] 2026/05/27 02:54:39 GET /archive.js -> Status: OK Duration: 209.4756ms
+[ACCESS] 2026/05/27 02:54:39 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 02:54:42 GET /stats.html -> Status: Not Modified Duration: 29.3989ms
+[ACCESS] 2026/05/27 02:54:42 GET /stats.js -> Status: OK Duration: 64.9295ms
+[ACCESS] 2026/05/27 02:54:42 GET /columns -> Status: OK Duration: 12.5088ms
+[ACCESS] 2026/05/27 02:54:45 GET /users.html -> Status: Not Modified Duration: 22.3876ms
+[ACCESS] 2026/05/27 02:54:45 GET /users.js -> Status: OK Duration: 57.8906ms
+[ACCESS] 2026/05/27 02:54:45 GET /users -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 02:54:47 GET /boards -> Status: OK Duration: 12.3745ms
+[ACCESS] 2026/05/27 02:54:51 GET /boards/1 -> Status: OK Duration: 2.7167ms
+[ACCESS] 2026/05/27 02:54:51 GET /labels -> Status: OK Duration: 2.7167ms
+[ACCESS] 2026/05/27 02:54:51 GET /columns -> Status: OK Duration: 8.4823ms
+[ACCESS] 2026/05/27 02:54:58 GET /boards -> Status: OK Duration: 5.4246ms
+[ACCESS] 2026/05/27 02:55:09 POST /boards -> Status: Created Duration: 17.2666ms
+[ACCESS] 2026/05/27 02:55:09 GET /boards -> Status: OK Duration: 8.0643ms
+[ACCESS] 2026/05/27 02:55:10 GET /board.html -> Status: OK Duration: 3.4465ms
+[ACCESS] 2026/05/27 02:55:10 GET /boards/2 -> Status: OK Duration: 3.49ms
+[ACCESS] 2026/05/27 02:55:10 GET /labels -> Status: OK Duration: 3.7066ms
+[ACCESS] 2026/05/27 02:55:10 GET /columns -> Status: OK Duration: 122.3954ms
+[ACCESS] 2026/05/27 02:55:13 GET /boards -> Status: OK Duration: 8.9638ms
+[ACCESS] 2026/05/27 02:59:18 GET / -> Status: Not Modified Duration: 1.0603ms
+[ACCESS] 2026/05/27 02:59:18 GET /boards -> Status: OK Duration: 26.99ms
+[ACCESS] 2026/05/27 02:59:20 GET /labels -> Status: OK Duration: 3.8279ms
+[ACCESS] 2026/05/27 02:59:20 GET /boards/1 -> Status: OK Duration: 7.8816ms
+[ACCESS] 2026/05/27 02:59:21 GET /columns -> Status: OK Duration: 67.9093ms
+[ACCESS] 2026/05/27 03:03:18 GET /profile.html -> Status: Not Modified Duration: 13.4601ms
+[ACCESS] 2026/05/27 03:03:18 GET /config.js -> Status: Not Modified Duration: 1.9554ms
+[ACCESS] 2026/05/27 03:03:18 GET /profile.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 03:03:18 GET /me -> Status: Not Found Duration: 4.8131ms
+[ACCESS] 2026/05/27 03:03:18 GET /users -> Status: OK Duration: 50.3618ms
+[ACCESS] 2026/05/27 03:03:22 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 03:03:22 GET /users -> Status: OK Duration: 2.3759ms
+[ACCESS] 2026/05/27 03:03:24 GET /users.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 03:03:24 GET /users -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 03:03:27 GET /stats.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 03:03:27 GET /columns -> Status: OK Duration: 13.5306ms
+[ACCESS] 2026/05/27 03:03:29 GET /boards -> Status: OK Duration: 18.2173ms
+[ACCESS] 2026/05/27 03:03:34 GET /board.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 03:03:34 GET /boards/1 -> Status: OK Duration: 6.8045ms
+[ACCESS] 2026/05/27 03:03:34 GET /labels -> Status: OK Duration: 15.0333ms
+[ACCESS] 2026/05/27 03:03:34 GET /columns -> Status: OK Duration: 9.8532ms
+[ACCESS] 2026/05/27 03:05:57 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 5.6027ms
+[ACCESS] 2026/05/27 03:06:11 GET /tasks -> Status: Unauthorized Duration: 1.7474ms
+[ACCESS] 2026/05/27 03:06:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.0389ms
+[ACCESS] 2026/05/27 03:06:55 GET /boards -> Status: OK Duration: 74.3471ms
+[ACCESS] 2026/05/27 03:16:54 GET /tasks -> Status: Bad Request Duration: 21.8926ms
+[ACCESS] 2026/05/27 03:17:33 GET /tasks -> Status: Bad Request Duration: 1.0771ms
+[ACCESS] 2026/05/27 03:18:14 GET /health -> Status: OK Duration: 7.7812ms
+[ACCESS] 2026/05/27 03:18:50 GET /boards -> Status: OK Duration: 73.6117ms
+[ACCESS] 2026/05/27 03:24:21 GET /tasks -> Status: Bad Request Duration: 31.8048ms
+[ACCESS] 2026/05/27 03:25:07 GET /tasks -> Status: OK Duration: 181.7014ms
+[ACCESS] 2026/05/27 03:27:49 GET / -> Status: OK Duration: 408.9955ms
+[ACCESS] 2026/05/27 03:27:49 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 27.7536ms
+[ACCESS] 2026/05/27 03:27:49 GET /styles.css -> Status: OK Duration: 47.2416ms
+[ACCESS] 2026/05/27 03:27:49 GET /boards -> Status: OK Duration: 74.956ms
+[ACCESS] 2026/05/27 03:27:50 GET /favicon.ico -> Status: Not Found Duration: 4.053ms
+[ACCESS] 2026/05/27 03:27:57 GET /board.html -> Status: Not Modified Duration: 229.8812ms
+[ACCESS] 2026/05/27 03:27:57 GET /columns -> Status: OK Duration: 37.7124ms
+[ACCESS] 2026/05/27 03:27:58 GET /boards/1 -> Status: OK Duration: 95.5496ms
+[ACCESS] 2026/05/27 03:27:58 GET /labels -> Status: OK Duration: 146.757ms
+[ACCESS] 2026/05/27 03:28:07 POST /tasks -> Status: Internal Server Error Duration: 86.4068ms
+[ACCESS] 2026/05/27 03:28:07 GET /columns -> Status: OK Duration: 18.5758ms
+[ACCESS] 2026/05/27 03:28:16 POST /tasks -> Status: Internal Server Error Duration: 12.369ms
+[ACCESS] 2026/05/27 03:28:17 GET /columns -> Status: OK Duration: 31.0033ms
+[ACCESS] 2026/05/27 03:28:21 GET /boards -> Status: OK Duration: 9.03ms
+[ACCESS] 2026/05/27 03:28:28 GET /labels -> Status: OK Duration: 6.6349ms
+[ACCESS] 2026/05/27 03:28:28 GET /boards/1 -> Status: OK Duration: 7.2196ms
+[ACCESS] 2026/05/27 03:28:28 GET /columns -> Status: OK Duration: 59.9969ms
+[ACCESS] 2026/05/27 03:28:47 POST /tasks -> Status: Internal Server Error Duration: 65.4818ms
+[ACCESS] 2026/05/27 03:28:47 GET /columns -> Status: OK Duration: 29.2732ms
+[ACCESS] 2026/05/27 03:28:54 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 508.2µs
+[ACCESS] 2026/05/27 03:32:27 GET /columns -> Status: OK Duration: 103.103ms
+[ACCESS] 2026/05/27 03:33:04 POST /columns -> Status: OK Duration: 65.9865ms
+[ACCESS] 2026/05/27 03:33:04 POST /columns -> Status: OK Duration: 14.4207ms
+[ACCESS] 2026/05/27 03:33:04 POST /columns -> Status: OK Duration: 21.7705ms
+[ACCESS] 2026/05/27 03:33:37 GET /columns -> Status: OK Duration: 9.0715ms
+[ACCESS] 2026/05/27 03:34:14 POST /tasks -> Status: OK Duration: 77.4719ms
+[ACCESS] 2026/05/27 03:34:50 GET /board.html -> Status: Not Modified Duration: 11.1859ms
+[ACCESS] 2026/05/27 03:34:50 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.4788ms
+[ACCESS] 2026/05/27 03:34:50 GET /boards/1 -> Status: OK Duration: 19.958ms
+[ACCESS] 2026/05/27 03:34:50 GET /columns -> Status: OK Duration: 128.1204ms
+[ACCESS] 2026/05/27 03:34:51 GET /tasks -> Status: OK Duration: 317.189ms
+[ACCESS] 2026/05/27 03:34:51 GET /tasks -> Status: OK Duration: 3.8496ms
+[ACCESS] 2026/05/27 03:34:51 GET /tasks -> Status: OK Duration: 15.539ms
+[ACCESS] 2026/05/27 03:34:51 GET /labels -> Status: OK Duration: 630.1695ms
+[ACCESS] 2026/05/27 03:34:54 PUT /tasks/6 -> Status: OK Duration: 132.8269ms
+[ACCESS] 2026/05/27 03:34:54 GET /columns -> Status: OK Duration: 32.7431ms
+[ACCESS] 2026/05/27 03:34:54 GET /tasks -> Status: OK Duration: 11.6951ms
+[ACCESS] 2026/05/27 03:34:54 GET /tasks -> Status: OK Duration: 11.81ms
+[ACCESS] 2026/05/27 03:34:54 GET /tasks -> Status: OK Duration: 11.3885ms
+[ACCESS] 2026/05/27 03:35:01 PATCH /tasks/6/archive -> Status: OK Duration: 16.4063ms
+[ACCESS] 2026/05/27 03:35:01 GET /columns -> Status: OK Duration: 21.0417ms
+[ACCESS] 2026/05/27 03:35:01 GET /tasks -> Status: OK Duration: 6.523ms
+[ACCESS] 2026/05/27 03:35:01 GET /tasks -> Status: OK Duration: 12.2473ms
+[ACCESS] 2026/05/27 03:35:01 GET /tasks -> Status: OK Duration: 10.6904ms
+[ACCESS] 2026/05/27 03:35:03 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 03:35:03 GET /archive.js -> Status: Not Modified Duration: 19.5348ms
+[ACCESS] 2026/05/27 03:35:03 GET /config.js -> Status: Not Modified Duration: 21.522ms
+[ACCESS] 2026/05/27 03:35:03 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 03:35:08 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 03:35:08 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 03:35:09 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 03:35:09 GET /users.js -> Status: Not Modified Duration: 521.1197ms
+[ACCESS] 2026/05/27 03:35:09 GET /users -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 03:35:12 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 830.6µs
+[ACCESS] 2026/05/27 03:35:12 GET /boards -> Status: OK Duration: 16.2894ms
+[ACCESS] 2026/05/27 03:35:14 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 03:35:14 GET /labels -> Status: OK Duration: 5.6221ms
+[ACCESS] 2026/05/27 03:35:14 GET /boards/1 -> Status: OK Duration: 10.4279ms
+[ACCESS] 2026/05/27 03:35:14 GET /columns -> Status: OK Duration: 177.326ms
+[ACCESS] 2026/05/27 03:35:14 GET /tasks -> Status: OK Duration: 25.5911ms
+[ACCESS] 2026/05/27 03:35:15 GET /tasks -> Status: OK Duration: 5.8008ms
+[ACCESS] 2026/05/27 03:35:15 GET /tasks -> Status: OK Duration: 16.1857ms
+[ACCESS] 2026/05/27 03:36:50 POST /tasks -> Status: OK Duration: 157.849ms
+[ACCESS] 2026/05/27 03:36:50 GET /columns -> Status: OK Duration: 24.5377ms
+[ACCESS] 2026/05/27 03:36:51 GET /tasks -> Status: OK Duration: 36.4364ms
+[ACCESS] 2026/05/27 03:36:51 GET /tasks -> Status: OK Duration: 3.9503ms
+[ACCESS] 2026/05/27 03:36:51 GET /tasks -> Status: OK Duration: 4.8051ms
+[ACCESS] 2026/05/27 03:36:55 PUT /tasks/7 -> Status: OK Duration: 58.4712ms
+[ACCESS] 2026/05/27 03:36:55 GET /columns -> Status: OK Duration: 32.1132ms
+[ACCESS] 2026/05/27 03:36:55 GET /tasks -> Status: OK Duration: 31.3191ms
+[ACCESS] 2026/05/27 03:36:55 GET /tasks -> Status: OK Duration: 15.6724ms
+[ACCESS] 2026/05/27 03:36:55 GET /tasks -> Status: OK Duration: 14.1829ms
+[ACCESS] 2026/05/27 03:37:10 POST /tasks -> Status: OK Duration: 33.4973ms
+[ACCESS] 2026/05/27 03:37:10 GET /columns -> Status: OK Duration: 32.8831ms
+[ACCESS] 2026/05/27 03:37:10 GET /tasks -> Status: OK Duration: 20.959ms
+[ACCESS] 2026/05/27 03:37:10 GET /tasks -> Status: OK Duration: 9.6626ms
+[ACCESS] 2026/05/27 03:37:10 GET /tasks -> Status: OK Duration: 4.9243ms
+[ACCESS] 2026/05/27 03:37:14 PUT /tasks/8 -> Status: OK Duration: 13.2117ms
+[ACCESS] 2026/05/27 03:37:14 GET /columns -> Status: OK Duration: 9.6577ms
+[ACCESS] 2026/05/27 03:37:14 GET /tasks -> Status: OK Duration: 13.3666ms
+[ACCESS] 2026/05/27 03:37:14 GET /tasks -> Status: OK Duration: 12.0267ms
+[ACCESS] 2026/05/27 03:37:14 GET /tasks -> Status: OK Duration: 15.3682ms
+[ACCESS] 2026/05/27 03:37:28 POST /tasks -> Status: OK Duration: 28.3788ms
+[ACCESS] 2026/05/27 03:37:28 GET /columns -> Status: OK Duration: 29.9417ms
+[ACCESS] 2026/05/27 03:37:28 GET /tasks -> Status: OK Duration: 22.4514ms
+[ACCESS] 2026/05/27 03:37:28 GET /tasks -> Status: OK Duration: 11.5593ms
+[ACCESS] 2026/05/27 03:37:28 GET /tasks -> Status: OK Duration: 10.4507ms
+[ACCESS] 2026/05/27 03:37:45 POST /tasks -> Status: Internal Server Error Duration: 39.4894ms
+[ACCESS] 2026/05/27 03:37:45 GET /columns -> Status: OK Duration: 33.6621ms
+[ACCESS] 2026/05/27 03:37:45 GET /tasks -> Status: OK Duration: 13.3828ms
+[ACCESS] 2026/05/27 03:37:45 GET /tasks -> Status: OK Duration: 11.0159ms
+[ACCESS] 2026/05/27 03:37:45 GET /tasks -> Status: OK Duration: 11.7177ms
+[ACCESS] 2026/05/27 03:37:49 POST /tasks -> Status: Internal Server Error Duration: 11.0213ms
+[ACCESS] 2026/05/27 03:37:49 GET /columns -> Status: OK Duration: 13.262ms
+[ACCESS] 2026/05/27 03:37:49 GET /tasks -> Status: OK Duration: 8.1973ms
+[ACCESS] 2026/05/27 03:37:49 GET /tasks -> Status: OK Duration: 13.3331ms
+[ACCESS] 2026/05/27 03:37:49 GET /tasks -> Status: OK Duration: 7.494ms
+[ACCESS] 2026/05/27 03:37:57 POST /tasks -> Status: OK Duration: 21.8761ms
+[ACCESS] 2026/05/27 03:37:57 GET /columns -> Status: OK Duration: 18.2819ms
+[ACCESS] 2026/05/27 03:37:57 GET /tasks -> Status: OK Duration: 32.3639ms
+[ACCESS] 2026/05/27 03:37:57 GET /tasks -> Status: OK Duration: 20.726ms
+[ACCESS] 2026/05/27 03:37:57 GET /tasks -> Status: OK Duration: 7.1039ms
+[ACCESS] 2026/05/27 03:38:07 POST /tasks -> Status: OK Duration: 30.5486ms
+[ACCESS] 2026/05/27 03:38:07 GET /columns -> Status: OK Duration: 30.1451ms
+[ACCESS] 2026/05/27 03:38:07 GET /tasks -> Status: OK Duration: 28.7154ms
+[ACCESS] 2026/05/27 03:38:07 GET /tasks -> Status: OK Duration: 13.8543ms
+[ACCESS] 2026/05/27 03:38:07 GET /tasks -> Status: OK Duration: 9.1306ms
+[ACCESS] 2026/05/27 03:38:14 POST /labels -> Status: Created Duration: 59.704ms
+[ACCESS] 2026/05/27 03:38:14 GET /labels -> Status: OK Duration: 19.3294ms
+[ACCESS] 2026/05/27 03:38:22 PUT /tasks/7 -> Status: OK Duration: 29.9508ms
+[ACCESS] 2026/05/27 03:38:22 GET /columns -> Status: OK Duration: 30.1129ms
+[ACCESS] 2026/05/27 03:38:22 GET /tasks -> Status: OK Duration: 18.3313ms
+[ACCESS] 2026/05/27 03:38:22 GET /tasks -> Status: OK Duration: 16.6354ms
+[ACCESS] 2026/05/27 03:38:22 GET /tasks -> Status: OK Duration: 7.6114ms
+[ACCESS] 2026/05/27 03:38:29 GET /columns -> Status: OK Duration: 23.8601ms
+[ACCESS] 2026/05/27 03:38:29 GET /tasks -> Status: OK Duration: 25.1191ms
+[ACCESS] 2026/05/27 03:38:29 GET /tasks -> Status: OK Duration: 15.6533ms
+[ACCESS] 2026/05/27 03:38:29 GET /tasks -> Status: OK Duration: 5.8179ms
+[ACCESS] 2026/05/27 03:38:32 GET /columns -> Status: OK Duration: 26.4813ms
+[ACCESS] 2026/05/27 03:38:32 GET /tasks -> Status: OK Duration: 30.31ms
+[ACCESS] 2026/05/27 03:38:32 GET /tasks -> Status: OK Duration: 33.7418ms
+[ACCESS] 2026/05/27 03:38:32 GET /tasks -> Status: OK Duration: 10.6122ms
+[ACCESS] 2026/05/27 03:38:33 GET /columns -> Status: OK Duration: 29.6082ms
+[ACCESS] 2026/05/27 03:38:33 GET /tasks -> Status: OK Duration: 24.255ms
+[ACCESS] 2026/05/27 03:38:33 GET /tasks -> Status: OK Duration: 17.1747ms
+[ACCESS] 2026/05/27 03:38:33 GET /tasks -> Status: OK Duration: 11.254ms
+[ACCESS] 2026/05/27 03:38:45 GET /profile.html -> Status: Not Modified Duration: 353.446ms
+[ACCESS] 2026/05/27 03:38:45 GET /profile.js -> Status: Not Modified Duration: 275.9577ms
+[ACCESS] 2026/05/27 03:38:45 GET /me -> Status: Not Found Duration: 3.129ms
+[ACCESS] 2026/05/27 03:38:46 GET /users -> Status: OK Duration: 6.4316ms
+[ACCESS] 2026/05/27 03:38:49 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 03:38:49 GET /users -> Status: OK Duration: 1.9586ms
+[ACCESS] 2026/05/27 03:38:51 GET /users -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 03:38:54 GET /me -> Status: Not Found Duration: 578.7µs
+[ACCESS] 2026/05/27 03:38:54 GET /users -> Status: OK Duration: 2.4772ms
+[ACCESS] 2026/05/27 03:38:58 GET / -> Status: Not Modified Duration: 4.2359ms
+[ACCESS] 2026/05/27 03:38:58 GET /boards -> Status: OK Duration: 13.7701ms
+[ACCESS] 2026/05/27 03:42:58 GET /boards -> Status: OK Duration: 87.09ms
+[ACCESS] 2026/05/27 03:43:01 GET /boards -> Status: OK Duration: 5.3936ms
+[ACCESS] 2026/05/27 03:43:01 GET /boards -> Status: OK Duration: 5.2493ms
+[ACCESS] 2026/05/27 03:43:03 GET /boards/1 -> Status: OK Duration: 23.6842ms
+[ACCESS] 2026/05/27 03:43:03 GET /columns -> Status: OK Duration: 25.799ms
+[ACCESS] 2026/05/27 03:43:03 GET /labels -> Status: OK Duration: 48.6352ms
+[ACCESS] 2026/05/27 03:43:03 GET /tasks -> Status: OK Duration: 29.2582ms
+[ACCESS] 2026/05/27 03:43:03 GET /tasks -> Status: OK Duration: 11.1744ms
+[ACCESS] 2026/05/27 03:43:03 GET /tasks -> Status: OK Duration: 6.3012ms
+[ACCESS] 2026/05/27 03:52:42 GET /profile.html -> Status: Not Modified Duration: 18.8891ms
+[ACCESS] 2026/05/27 03:52:43 GET /config.js -> Status: Not Modified Duration: 505.7µs
+[ACCESS] 2026/05/27 03:52:43 GET /profile.js -> Status: Not Modified Duration: 509.7µs
+[ACCESS] 2026/05/27 03:52:43 GET /me -> Status: Not Found Duration: 1.6536ms
+[ACCESS] 2026/05/27 03:52:43 GET /users -> Status: OK Duration: 170.3747ms
+[ACCESS] 2026/05/27 03:52:54 GET /archive.js -> Status: Not Modified Duration: 584.8µs
+[ACCESS] 2026/05/27 03:52:54 GET /tasks/archive -> Status: Unauthorized Duration: 544.2µs
+[ACCESS] 2026/05/27 03:54:42 GET / -> Status: Not Modified Duration: 2.2998ms
+[ACCESS] 2026/05/27 03:54:42 GET /boards -> Status: OK Duration: 144.6754ms
+[ACCESS] 2026/05/27 03:54:46 GET /board.html -> Status: OK Duration: 792.3728ms
+[ACCESS] 2026/05/27 03:54:46 GET /boards/1 -> Status: OK Duration: 10.6203ms
+[ACCESS] 2026/05/27 03:54:46 GET /columns -> Status: OK Duration: 85.998ms
+[ACCESS] 2026/05/27 03:54:46 GET /labels -> Status: OK Duration: 114.0796ms
+[ACCESS] 2026/05/27 03:54:46 GET /tasks -> Status: OK Duration: 39.8663ms
+[ACCESS] 2026/05/27 03:54:46 GET /tasks -> Status: OK Duration: 16.9253ms
+[ACCESS] 2026/05/27 03:54:46 GET /tasks -> Status: OK Duration: 12.1657ms
+[ACCESS] 2026/05/27 03:55:07 POST /tasks -> Status: OK Duration: 94.0616ms
+[ACCESS] 2026/05/27 03:55:07 GET /columns -> Status: OK Duration: 18.638ms
+[ACCESS] 2026/05/27 03:55:07 GET /tasks -> Status: OK Duration: 20.1218ms
+[ACCESS] 2026/05/27 03:55:07 GET /tasks -> Status: OK Duration: 9.8049ms
+[ACCESS] 2026/05/27 03:55:07 GET /tasks -> Status: OK Duration: 9.3799ms
+[ACCESS] 2026/05/27 03:55:10 PUT /tasks/12 -> Status: OK Duration: 81.9661ms
+[ACCESS] 2026/05/27 03:55:10 GET /columns -> Status: OK Duration: 40.2135ms
+[ACCESS] 2026/05/27 03:55:10 GET /tasks -> Status: OK Duration: 32.2108ms
+[ACCESS] 2026/05/27 03:55:10 GET /tasks -> Status: OK Duration: 19.159ms
+[ACCESS] 2026/05/27 03:55:10 GET /tasks -> Status: OK Duration: 8.5338ms
+[ACCESS] 2026/05/27 03:55:16 PUT /tasks/12 -> Status: Internal Server Error Duration: 43.4172ms
+[ACCESS] 2026/05/27 03:55:16 GET /columns -> Status: OK Duration: 41.3984ms
+[ACCESS] 2026/05/27 03:55:17 GET /tasks -> Status: OK Duration: 43.3188ms
+[ACCESS] 2026/05/27 03:55:17 GET /tasks -> Status: OK Duration: 22.7382ms
+[ACCESS] 2026/05/27 03:55:17 GET /tasks -> Status: OK Duration: 11.4771ms
+[ACCESS] 2026/05/27 03:55:21 GET /users.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 03:55:21 GET /users -> Status: Unauthorized Duration: 622.8µs
+[ACCESS] 2026/05/27 04:00:34 GET /users.html -> Status: Not Modified Duration: 4.0991ms
+[ACCESS] 2026/05/27 04:00:34 GET /users -> Status: Unauthorized Duration: 1.8398ms
+[ACCESS] 2026/05/27 04:00:37 GET /users.html -> Status: Not Modified Duration: 610.8µs
+[ACCESS] 2026/05/27 04:00:38 GET /users -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 04:00:41 GET /users.html -> Status: OK Duration: 186.3107ms
+[ACCESS] 2026/05/27 04:00:41 GET /styles.css -> Status: OK Duration: 5.1516ms
+[ACCESS] 2026/05/27 04:00:42 GET /users.js -> Status: OK Duration: 563.7367ms
+[ACCESS] 2026/05/27 04:00:42 GET /users -> Status: OK Duration: 56.2441ms
+[ACCESS] 2026/05/27 04:00:42 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:00:46 GET /users.html -> Status: OK Duration: 1.3298ms
+[ACCESS] 2026/05/27 04:00:46 GET /users.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/27 04:00:46 GET /styles.css -> Status: OK Duration: 3.0553ms
+[ACCESS] 2026/05/27 04:00:47 GET /users -> Status: OK Duration: 4.5644ms
+[ACCESS] 2026/05/27 04:00:47 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:00:56 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:00:56 GET /users -> Status: OK Duration: 1.8962ms
+[ACCESS] 2026/05/27 04:00:59 GET /users.js -> Status: Not Modified Duration: 3.1813ms
+[ACCESS] 2026/05/27 04:00:59 GET /users -> Status: OK Duration: 2.5444ms
+[ACCESS] 2026/05/27 04:03:06 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 5.756ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 187.3365ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 74.5751ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 66.487ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 64.711ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 65.9107ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 68.4846ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 66.3509ms
+[ACCESS] 2026/05/27 04:03:30 POST /register -> Status: Created Duration: 65.9446ms
+[ACCESS] 2026/05/27 04:04:01 GET /users.html -> Status: OK Duration: 15.5914ms
+[ACCESS] 2026/05/27 04:04:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:04:01 GET /styles.css -> Status: OK Duration: 59.4131ms
+[ACCESS] 2026/05/27 04:04:01 GET /users.js -> Status: OK Duration: 56.4792ms
+[ACCESS] 2026/05/27 04:04:02 GET /users -> Status: OK Duration: 14.5586ms
+[ACCESS] 2026/05/27 04:04:02 GET /favicon.ico -> Status: Not Found Duration: 996.3µs
+[ACCESS] 2026/05/27 04:04:17 GET /boards -> Status: OK Duration: 92.8628ms
+[ACCESS] 2026/05/27 04:04:20 GET /board.html -> Status: Not Modified Duration: 1.1003ms
+[ACCESS] 2026/05/27 04:04:20 GET /boards/1 -> Status: OK Duration: 4.103ms
+[ACCESS] 2026/05/27 04:04:21 GET /labels -> Status: OK Duration: 149.6834ms
+[ACCESS] 2026/05/27 04:04:21 GET /columns -> Status: OK Duration: 160.0674ms
+[ACCESS] 2026/05/27 04:04:21 GET /tasks -> Status: OK Duration: 36.8005ms
+[ACCESS] 2026/05/27 04:04:21 GET /tasks -> Status: OK Duration: 10.9869ms
+[ACCESS] 2026/05/27 04:04:21 GET /tasks -> Status: OK Duration: 4.5785ms
+[ACCESS] 2026/05/27 04:04:46 POST /tasks -> Status: OK Duration: 36.0903ms
+[ACCESS] 2026/05/27 04:04:46 GET /columns -> Status: OK Duration: 9.2716ms
+[ACCESS] 2026/05/27 04:04:46 GET /tasks -> Status: OK Duration: 33.8941ms
+[ACCESS] 2026/05/27 04:04:46 GET /tasks -> Status: OK Duration: 6.2759ms
+[ACCESS] 2026/05/27 04:04:46 GET /tasks -> Status: OK Duration: 7.881ms
+[ACCESS] 2026/05/27 04:04:49 PUT /tasks/15 -> Status: OK Duration: 20.7949ms
+[ACCESS] 2026/05/27 04:04:49 GET /columns -> Status: OK Duration: 5.7378ms
+[ACCESS] 2026/05/27 04:04:49 GET /tasks -> Status: OK Duration: 18.6257ms
+[ACCESS] 2026/05/27 04:04:49 GET /tasks -> Status: OK Duration: 15.1454ms
+[ACCESS] 2026/05/27 04:04:49 GET /tasks -> Status: OK Duration: 12.0491ms
+[ACCESS] 2026/05/27 04:06:21 GET /users.js -> Status: Not Modified Duration: 2.4159ms
+[ACCESS] 2026/05/27 04:06:21 GET /users -> Status: OK Duration: 4.4239ms
+[ACCESS] 2026/05/27 04:06:31 GET /boards -> Status: OK Duration: 8.3779ms
+[ACCESS] 2026/05/27 04:06:34 GET /profile.html -> Status: Not Modified Duration: 1.316ms
+[ACCESS] 2026/05/27 04:06:34 GET /config.js -> Status: Not Modified Duration: 783.8µs
+[ACCESS] 2026/05/27 04:06:34 GET /profile.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 04:06:34 GET /me -> Status: Not Found Duration: 1.0878ms
+[ACCESS] 2026/05/27 04:06:34 GET /users -> Status: OK Duration: 1.5146ms
+[ACCESS] 2026/05/27 04:06:38 GET /boards -> Status: OK Duration: 5.2431ms
+[ACCESS] 2026/05/27 04:06:43 GET /board.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 04:06:43 GET /boards/1 -> Status: OK Duration: 6.6694ms
+[ACCESS] 2026/05/27 04:06:43 GET /labels -> Status: OK Duration: 13.2264ms
+[ACCESS] 2026/05/27 04:06:43 GET /columns -> Status: OK Duration: 22.9881ms
+[ACCESS] 2026/05/27 04:06:43 GET /tasks -> Status: OK Duration: 14.3376ms
+[ACCESS] 2026/05/27 04:06:43 GET /tasks -> Status: OK Duration: 15.4146ms
+[ACCESS] 2026/05/27 04:06:43 GET /tasks -> Status: OK Duration: 13.3899ms
+[ACCESS] 2026/05/27 04:06:49 GET /columns -> Status: OK Duration: 6.1644ms
+[ACCESS] 2026/05/27 04:06:49 GET /tasks -> Status: OK Duration: 10.1925ms
+[ACCESS] 2026/05/27 04:06:49 GET /tasks -> Status: OK Duration: 10.8666ms
+[ACCESS] 2026/05/27 04:06:49 GET /tasks -> Status: OK Duration: 11.5133ms
+[ACCESS] 2026/05/27 04:06:57 GET /columns -> Status: OK Duration: 9.0179ms
+[ACCESS] 2026/05/27 04:06:57 GET /tasks -> Status: OK Duration: 9.5589ms
+[ACCESS] 2026/05/27 04:06:57 GET /tasks -> Status: OK Duration: 11.4537ms
+[ACCESS] 2026/05/27 04:06:57 GET /tasks -> Status: OK Duration: 10.6156ms
+[ACCESS] 2026/05/27 04:07:04 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:07:04 GET /users -> Status: OK Duration: 1.4748ms
+[ACCESS] 2026/05/27 04:07:20 PUT /users/1 -> Status: OK Duration: 8.3556ms
+[ACCESS] 2026/05/27 04:07:20 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:07:20 GET /users -> Status: OK Duration: 1.1248ms
+[ACCESS] 2026/05/27 04:07:24 GET /users.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 04:07:24 GET /users -> Status: OK Duration: 2.9939ms
+[ACCESS] 2026/05/27 04:07:30 GET /stats.js -> Status: Not Modified Duration: 511µs
+[ACCESS] 2026/05/27 04:07:30 GET /columns -> Status: OK Duration: 9.1003ms
+[ACCESS] 2026/05/27 04:07:30 GET /tasks -> Status: OK Duration: 13.2206ms
+[ACCESS] 2026/05/27 04:07:30 GET /tasks -> Status: OK Duration: 8.7937ms
+[ACCESS] 2026/05/27 04:07:30 GET /tasks -> Status: OK Duration: 17.5485ms
+[ACCESS] 2026/05/27 04:07:51 GET /boards -> Status: OK Duration: 5.2135ms
+[ACCESS] 2026/05/27 04:07:54 GET /boards/1 -> Status: OK Duration: 3.7816ms
+[ACCESS] 2026/05/27 04:07:54 GET /labels -> Status: OK Duration: 2.1001ms
+[ACCESS] 2026/05/27 04:07:54 GET /columns -> Status: OK Duration: 94.8028ms
+[ACCESS] 2026/05/27 04:07:54 GET /tasks -> Status: OK Duration: 19.1308ms
+[ACCESS] 2026/05/27 04:07:54 GET /tasks -> Status: OK Duration: 9.8372ms
+[ACCESS] 2026/05/27 04:07:54 GET /tasks -> Status: OK Duration: 7.6573ms
+[ACCESS] 2026/05/27 04:07:56 GET /users -> Status: OK Duration: 1.5155ms
+[ACCESS] 2026/05/27 04:07:59 GET / -> Status: Not Modified Duration: 2.8625ms
+[ACCESS] 2026/05/27 04:07:59 GET /boards -> Status: OK Duration: 8.496ms
+[ACCESS] 2026/05/27 04:08:01 GET /board.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 04:08:01 GET /boards/1 -> Status: OK Duration: 2.3974ms
+[ACCESS] 2026/05/27 04:08:01 GET /labels -> Status: OK Duration: 2.3974ms
+[ACCESS] 2026/05/27 04:08:01 GET /columns -> Status: OK Duration: 54.8468ms
+[ACCESS] 2026/05/27 04:08:02 GET /tasks -> Status: OK Duration: 11.8747ms
+[ACCESS] 2026/05/27 04:08:02 GET /tasks -> Status: OK Duration: 6.8501ms
+[ACCESS] 2026/05/27 04:08:02 GET /tasks -> Status: OK Duration: 9.0447ms
+[ACCESS] 2026/05/27 04:08:08 GET /columns -> Status: OK Duration: 6.5992ms
+[ACCESS] 2026/05/27 04:08:08 GET /tasks -> Status: OK Duration: 8.3677ms
+[ACCESS] 2026/05/27 04:08:08 GET /tasks -> Status: OK Duration: 8.3956ms
+[ACCESS] 2026/05/27 04:08:08 GET /tasks -> Status: OK Duration: 11.6636ms
+[ACCESS] 2026/05/27 04:17:55 GET /stats.html -> Status: OK Duration: 358.9649ms
+[ACCESS] 2026/05/27 04:17:55 GET /styles.css -> Status: OK Duration: 1.1799ms
+[ACCESS] 2026/05/27 04:17:55 GET /config.js -> Status: OK Duration: 4.3967ms
+[ACCESS] 2026/05/27 04:17:55 GET /stats.js -> Status: OK Duration: 214.3767ms
+[ACCESS] 2026/05/27 04:17:56 GET /stats -> Status: OK Duration: 51.9401ms
+[ACCESS] 2026/05/27 04:17:56 GET /favicon.ico -> Status: Not Found Duration: 2.2483ms
+[ACCESS] 2026/05/27 04:24:33 GET /stats.html -> Status: OK Duration: 112.6242ms
+[ACCESS] 2026/05/27 04:24:33 GET /styles.css -> Status: OK Duration: 1.8791ms
+[ACCESS] 2026/05/27 04:24:33 GET /config.js -> Status: OK Duration: 3.4963ms
+[ACCESS] 2026/05/27 04:24:33 GET /stats.js -> Status: OK Duration: 444.8494ms
+[ACCESS] 2026/05/27 04:24:33 GET /stats -> Status: OK Duration: 55.1451ms
+[ACCESS] 2026/05/27 04:24:34 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:30:03 GET /stats.html -> Status: OK Duration: 112.9381ms
+[ACCESS] 2026/05/27 04:30:03 GET /styles.css -> Status: OK Duration: 1.0324ms
+[ACCESS] 2026/05/27 04:30:03 GET /config.js -> Status: OK Duration: 2.7041ms
+[ACCESS] 2026/05/27 04:30:03 GET /stats.js -> Status: OK Duration: 122.6263ms
+[ACCESS] 2026/05/27 04:30:04 GET /stats -> Status: OK Duration: 68.8906ms
+[ACCESS] 2026/05/27 04:30:05 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 04:38:55 GET /stats.html -> Status: Not Modified Duration: 2.3788ms
+[ACCESS] 2026/05/27 04:38:55 GET /stats.js -> Status: OK Duration: 155.2932ms
+[ACCESS] 2026/05/27 04:38:55 GET /stats -> Status: OK Duration: 44.2038ms
+[ACCESS] 2026/05/27 04:39:37 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 3.101ms
+[ACCESS] 2026/05/27 04:45:27 GET /stats.html -> Status: Not Modified Duration: 3.0144ms
+[ACCESS] 2026/05/27 04:45:27 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 17.5997ms
+[ACCESS] 2026/05/27 04:45:28 GET /stats.js -> Status: OK Duration: 592.5614ms
+[ACCESS] 2026/05/27 04:45:28 GET /stats -> Status: OK Duration: 348.53ms
+[ACCESS] 2026/05/27 04:50:05 GET /stats.html -> Status: Not Modified Duration: 4.8284ms
+[ACCESS] 2026/05/27 04:50:05 GET /config.js -> Status: Not Modified Duration: 2.6127ms
+[ACCESS] 2026/05/27 04:50:05 GET /stats.js -> Status: OK Duration: 260.8792ms
+[ACCESS] 2026/05/27 04:50:06 GET /stats -> Status: OK Duration: 55.7017ms
+[ACCESS] 2026/05/27 04:50:25 GET /stats.html -> Status: OK Duration: 509.7µs
+[ACCESS] 2026/05/27 04:50:25 GET /styles.css -> Status: OK Duration: 1.0621ms
+[ACCESS] 2026/05/27 04:50:25 GET /stats.js -> Status: OK Duration: 864.2µs
+[ACCESS] 2026/05/27 04:50:25 GET /config.js -> Status: OK Duration: 864.2µs
+[ACCESS] 2026/05/27 04:50:26 GET /stats -> Status: OK Duration: 5.1739ms
+[ACCESS] 2026/05/27 04:50:27 GET /favicon.ico -> Status: Not Found Duration: 511.1µs
+[ACCESS] 2026/05/27 05:00:12 GET /stats.html -> Status: OK Duration: 19.2895ms
+[ACCESS] 2026/05/27 05:00:12 GET /config.js -> Status: OK Duration: 2.3927ms
+[ACCESS] 2026/05/27 05:00:12 GET /styles.css -> Status: OK Duration: 4.0492ms
+[ACCESS] 2026/05/27 05:00:12 GET /stats.js -> Status: OK Duration: 433.87ms
+[ACCESS] 2026/05/27 05:00:13 GET /stats -> Status: OK Duration: 111.6428ms
+[ACCESS] 2026/05/27 05:00:13 GET /favicon.ico -> Status: Not Found Duration: 2.4782ms
+[ACCESS] 2026/05/27 05:04:05 GET /stats.html -> Status: OK Duration: 192.2437ms
+[ACCESS] 2026/05/27 05:04:05 GET /styles.css -> Status: OK Duration: 1.1026ms
+[ACCESS] 2026/05/27 05:04:05 GET /config.js -> Status: OK Duration: 3.9862ms
+[ACCESS] 2026/05/27 05:04:06 GET /stats.js -> Status: OK Duration: 372.1825ms
+[ACCESS] 2026/05/27 05:04:06 GET /stats -> Status: OK Duration: 80.536ms
+[ACCESS] 2026/05/27 05:04:06 GET /favicon.ico -> Status: Not Found Duration: 915.5µs
+[ACCESS] 2026/05/27 05:12:17 GET /stats.html -> Status: OK Duration: 190.7471ms
+[ACCESS] 2026/05/27 05:12:17 GET /styles.css -> Status: OK Duration: 1.0484ms
+[ACCESS] 2026/05/27 05:12:17 GET /config.js -> Status: OK Duration: 2.9753ms
+[ACCESS] 2026/05/27 05:12:18 GET /stats.js -> Status: OK Duration: 482.4777ms
+[ACCESS] 2026/05/27 05:12:18 GET /stats -> Status: OK Duration: 44.6398ms
+[ACCESS] 2026/05/27 05:12:19 GET /favicon.ico -> Status: Not Found Duration: 2.4596ms
+[ACCESS] 2026/05/27 05:23:45 GET /stats.html -> Status: OK Duration: 140.7845ms
+[ACCESS] 2026/05/27 05:23:45 GET /styles.css -> Status: OK Duration: 1.1375ms
+[ACCESS] 2026/05/27 05:23:45 GET /config.js -> Status: OK Duration: 5.177ms
+[ACCESS] 2026/05/27 05:23:45 GET /stats.js -> Status: OK Duration: 257.2088ms
+[ACCESS] 2026/05/27 05:23:45 GET /stats -> Status: OK Duration: 43.36ms
+[ACCESS] 2026/05/27 05:23:46 GET /favicon.ico -> Status: Not Found Duration: 512.8µs
+[ACCESS] 2026/05/27 05:27:14 GET /stats.html -> Status: OK Duration: 239.1921ms
+[ACCESS] 2026/05/27 05:27:14 GET /styles.css -> Status: OK Duration: 1.0377ms
+[ACCESS] 2026/05/27 05:27:14 GET /config.js -> Status: OK Duration: 3.2017ms
+[ACCESS] 2026/05/27 05:27:14 GET /stats.js -> Status: OK Duration: 281.9485ms
+[ACCESS] 2026/05/27 05:27:15 GET /stats -> Status: OK Duration: 93.7399ms
+[ACCESS] 2026/05/27 05:27:15 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 05:35:14 GET /stats.html -> Status: OK Duration: 169.5135ms
+[ACCESS] 2026/05/27 05:35:14 GET /styles.css -> Status: OK Duration: 2.1949ms
+[ACCESS] 2026/05/27 05:35:14 GET /config.js -> Status: OK Duration: 10.3737ms
+[ACCESS] 2026/05/27 05:35:14 GET /stats.js -> Status: OK Duration: 229.1465ms
+[ACCESS] 2026/05/27 05:35:15 GET /stats -> Status: OK Duration: 51.6233ms
+[ACCESS] 2026/05/27 05:35:16 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 05:35:36 GET /stats.html -> Status: OK Duration: 1.9625ms
+[ACCESS] 2026/05/27 05:35:36 GET /styles.css -> Status: OK Duration: 1.0101ms
+[ACCESS] 2026/05/27 05:35:36 GET /config.js -> Status: OK Duration: 509.9µs
+[ACCESS] 2026/05/27 05:35:36 GET /stats.js -> Status: OK Duration: 842µs
+[ACCESS] 2026/05/27 05:35:36 GET /stats -> Status: OK Duration: 9.2524ms
+[ACCESS] 2026/05/27 05:35:36 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 05:35:47 GET / -> Status: Not Modified Duration: 3.4645ms
+[ACCESS] 2026/05/27 05:35:47 GET /boards -> Status: OK Duration: 107.2117ms
+[ACCESS] 2026/05/27 05:35:52 GET /profile.html -> Status: Not Modified Duration: 713.4µs
+[ACCESS] 2026/05/27 05:35:53 GET /profile.js -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 05:35:53 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 05:35:53 GET /users -> Status: OK Duration: 22.569ms
+[ACCESS] 2026/05/27 05:35:56 GET /boards -> Status: OK Duration: 7.2679ms
+[ACCESS] 2026/05/27 05:35:59 GET /board.html -> Status: Not Modified Duration: 657.9µs
+[ACCESS] 2026/05/27 05:35:59 GET /labels -> Status: OK Duration: 20.7897ms
+[ACCESS] 2026/05/27 05:35:59 GET /columns -> Status: OK Duration: 118.6358ms
+[ACCESS] 2026/05/27 05:35:59 GET /boards/1 -> Status: OK Duration: 131.2524ms
+[ACCESS] 2026/05/27 05:35:59 GET /tasks -> Status: OK Duration: 59.4773ms
+[ACCESS] 2026/05/27 05:35:59 GET /tasks -> Status: OK Duration: 12.8753ms
+[ACCESS] 2026/05/27 05:35:59 GET /tasks -> Status: OK Duration: 15.8794ms
+[ACCESS] 2026/05/27 05:36:01 GET /users.js -> Status: Not Modified Duration: 1.5549ms
+[ACCESS] 2026/05/27 05:36:01 GET /users -> Status: OK Duration: 3.4448ms
+[ACCESS] 2026/05/27 05:36:04 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 05:36:04 GET /users -> Status: OK Duration: 2.0355ms
+[ACCESS] 2026/05/27 05:36:21 GET /stats.js -> Status: Not Modified Duration: 711.5µs
+[ACCESS] 2026/05/27 05:36:21 GET /stats -> Status: OK Duration: 7.4565ms
+[ACCESS] 2026/05/27 05:49:52 GET /boards -> Status: OK Duration: 398.8166ms
+[ACCESS] 2026/05/27 05:49:54 GET /board.html -> Status: Not Modified Duration: 2.8811ms
+[ACCESS] 2026/05/27 05:49:54 GET /boards/1 -> Status: OK Duration: 22.666ms
+[ACCESS] 2026/05/27 05:49:54 GET /labels -> Status: OK Duration: 111.0885ms
+[ACCESS] 2026/05/27 05:49:54 GET /columns -> Status: OK Duration: 117.5463ms
+[ACCESS] 2026/05/27 05:49:54 GET /tasks -> Status: OK Duration: 38.1829ms
+[ACCESS] 2026/05/27 05:49:54 GET /tasks -> Status: OK Duration: 12.8563ms
+[ACCESS] 2026/05/27 05:49:54 GET /tasks -> Status: OK Duration: 7.6947ms
+[ACCESS] 2026/05/27 05:49:59 GET /board.html -> Status: OK Duration: 226.6858ms
+[ACCESS] 2026/05/27 05:49:59 GET /styles.css -> Status: OK Duration: 1.7624ms
+[ACCESS] 2026/05/27 05:50:00 GET /labels -> Status: OK Duration: 6.48ms
+[ACCESS] 2026/05/27 05:50:00 GET /columns -> Status: OK Duration: 31.992ms
+[ACCESS] 2026/05/27 05:50:00 GET /tasks -> Status: OK Duration: 15.702ms
+[ACCESS] 2026/05/27 05:50:00 GET /tasks -> Status: OK Duration: 22.2046ms
+[ACCESS] 2026/05/27 05:50:00 GET /tasks -> Status: OK Duration: 13.8883ms
+[ACCESS] 2026/05/27 05:50:00 GET /boards/1 -> Status: OK Duration: 179.7945ms
+[ACCESS] 2026/05/27 05:50:00 GET /favicon.ico -> Status: Not Found Duration: 1.6873ms
+[ACCESS] 2026/05/27 05:50:09 GET /columns -> Status: OK Duration: 25.893ms
+[ACCESS] 2026/05/27 05:50:10 GET /tasks -> Status: OK Duration: 47.3626ms
+[ACCESS] 2026/05/27 05:50:10 GET /tasks -> Status: OK Duration: 13.4152ms
+[ACCESS] 2026/05/27 05:50:10 GET /tasks -> Status: OK Duration: 8.0814ms
+[ACCESS] 2026/05/27 05:50:18 POST /labels -> Status: Created Duration: 160.217ms
+[ACCESS] 2026/05/27 05:50:18 GET /labels -> Status: OK Duration: 4.8789ms
+[ACCESS] 2026/05/27 05:50:28 DELETE /labels/1 -> Status: OK Duration: 12.6418ms
+[ACCESS] 2026/05/27 05:50:28 GET /labels -> Status: OK Duration: 3.2115ms
+[ACCESS] 2026/05/27 05:50:30 DELETE /labels/2 -> Status: OK Duration: 14.048ms
+[ACCESS] 2026/05/27 05:50:30 GET /labels -> Status: OK Duration: 7.2583ms
+[ACCESS] 2026/05/27 05:50:35 GET /board.html -> Status: OK Duration: 1.6971ms
+[ACCESS] 2026/05/27 05:50:35 GET /styles.css -> Status: OK Duration: 1.0369ms
+[ACCESS] 2026/05/27 05:50:36 GET /boards/1 -> Status: OK Duration: 9.0241ms
+[ACCESS] 2026/05/27 05:50:36 GET /columns -> Status: OK Duration: 31.3088ms
+[ACCESS] 2026/05/27 05:50:36 GET /tasks -> Status: OK Duration: 28.9176ms
+[ACCESS] 2026/05/27 05:50:36 GET /tasks -> Status: OK Duration: 19.1583ms
+[ACCESS] 2026/05/27 05:50:36 GET /tasks -> Status: OK Duration: 15.7159ms
+[ACCESS] 2026/05/27 05:50:36 GET /labels -> Status: OK Duration: 120.8239ms
+[ACCESS] 2026/05/27 05:50:37 GET /favicon.ico -> Status: Not Found Duration: 1.1767ms
+[ACCESS] 2026/05/27 05:50:44 POST /labels -> Status: Created Duration: 20.254ms
+[ACCESS] 2026/05/27 05:50:44 GET /labels -> Status: OK Duration: 4.2125ms
+[ACCESS] 2026/05/27 05:56:21 GET /board.html -> Status: OK Duration: 165.6191ms
+[ACCESS] 2026/05/27 05:56:21 GET /styles.css -> Status: OK Duration: 1.8919ms
+[ACCESS] 2026/05/27 05:56:21 GET /boards/1 -> Status: OK Duration: 101.2421ms
+[ACCESS] 2026/05/27 05:56:22 GET /labels -> Status: OK Duration: 282.9591ms
+[ACCESS] 2026/05/27 05:56:22 GET /columns -> Status: OK Duration: 286.2288ms
+[ACCESS] 2026/05/27 05:56:22 GET /tasks -> Status: OK Duration: 269.9872ms
+[ACCESS] 2026/05/27 05:56:22 GET /tasks -> Status: OK Duration: 49.6444ms
+[ACCESS] 2026/05/27 05:56:22 GET /tasks -> Status: OK Duration: 71.3721ms
+[ACCESS] 2026/05/27 05:56:22 GET /favicon.ico -> Status: Not Found Duration: 346.8µs
+[ACCESS] 2026/05/27 05:56:34 POST /labels -> Status: Created Duration: 82.0393ms
+[ACCESS] 2026/05/27 05:56:34 GET /labels -> Status: OK Duration: 11.1323ms
+[ACCESS] 2026/05/27 05:56:37 GET /columns -> Status: OK Duration: 22.1278ms
+[ACCESS] 2026/05/27 05:56:37 GET /tasks -> Status: OK Duration: 21.3017ms
+[ACCESS] 2026/05/27 05:56:37 GET /tasks -> Status: OK Duration: 17.5054ms
+[ACCESS] 2026/05/27 05:56:37 GET /tasks -> Status: OK Duration: 16.9285ms
+[ACCESS] 2026/05/27 05:56:57 PUT /tasks/7 -> Status: OK Duration: 37.0667ms
+[ACCESS] 2026/05/27 05:56:57 GET /columns -> Status: OK Duration: 10.4101ms
+[ACCESS] 2026/05/27 05:56:57 GET /tasks -> Status: OK Duration: 39.8876ms
+[ACCESS] 2026/05/27 05:56:57 GET /tasks -> Status: OK Duration: 25.1486ms
+[ACCESS] 2026/05/27 05:56:57 GET /tasks -> Status: OK Duration: 22.6044ms
+[ACCESS] 2026/05/27 05:57:03 GET /board.html -> Status: OK Duration: 3.0042ms
+[ACCESS] 2026/05/27 05:57:03 GET /styles.css -> Status: OK Duration: 8.4448ms
+[ACCESS] 2026/05/27 05:57:03 GET /labels -> Status: OK Duration: 6.9883ms
+[ACCESS] 2026/05/27 05:57:03 GET /columns -> Status: OK Duration: 10.5429ms
+[ACCESS] 2026/05/27 05:57:03 GET /tasks -> Status: OK Duration: 20.1091ms
+[ACCESS] 2026/05/27 05:57:03 GET /tasks -> Status: OK Duration: 14.258ms
+[ACCESS] 2026/05/27 05:57:03 GET /boards/1 -> Status: OK Duration: 71.827ms
+[ACCESS] 2026/05/27 05:57:03 GET /tasks -> Status: OK Duration: 16.6052ms
+[ACCESS] 2026/05/27 05:57:04 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 05:58:52 GET /board.html -> Status: OK Duration: 169.5352ms
+[ACCESS] 2026/05/27 05:58:52 GET /styles.css -> Status: OK Duration: 729.6µs
+[ACCESS] 2026/05/27 05:58:53 GET /boards/1 -> Status: OK Duration: 66.604ms
+[ACCESS] 2026/05/27 05:58:53 GET /columns -> Status: OK Duration: 93.077ms
+[ACCESS] 2026/05/27 05:58:53 GET /labels -> Status: OK Duration: 110.7408ms
+[ACCESS] 2026/05/27 05:58:53 GET /tasks -> Status: OK Duration: 59.2438ms
+[ACCESS] 2026/05/27 05:58:53 GET /tasks -> Status: OK Duration: 15.5505ms
+[ACCESS] 2026/05/27 05:58:53 GET /tasks -> Status: OK Duration: 18.7576ms
+[ACCESS] 2026/05/27 05:58:54 GET /favicon.ico -> Status: Not Found Duration: 1.5989ms
+[ACCESS] 2026/05/27 05:59:02 PUT /tasks/8 -> Status: OK Duration: 36.6249ms
+[ACCESS] 2026/05/27 05:59:02 GET /columns -> Status: OK Duration: 39.345ms
+[ACCESS] 2026/05/27 05:59:02 GET /tasks -> Status: OK Duration: 81.4597ms
+[ACCESS] 2026/05/27 05:59:02 GET /tasks -> Status: OK Duration: 44.2842ms
+[ACCESS] 2026/05/27 05:59:03 GET /tasks -> Status: OK Duration: 48.6178ms
+[ACCESS] 2026/05/27 05:59:05 GET /columns -> Status: OK Duration: 27.6352ms
+[ACCESS] 2026/05/27 05:59:05 GET /tasks -> Status: OK Duration: 22.3195ms
+[ACCESS] 2026/05/27 05:59:05 GET /tasks -> Status: OK Duration: 19.2149ms
+[ACCESS] 2026/05/27 05:59:05 GET /tasks -> Status: OK Duration: 11.2589ms
+[ACCESS] 2026/05/27 05:59:08 GET /columns -> Status: OK Duration: 25.3982ms
+[ACCESS] 2026/05/27 05:59:08 GET /tasks -> Status: OK Duration: 36.9179ms
+[ACCESS] 2026/05/27 05:59:08 GET /tasks -> Status: OK Duration: 26.8574ms
+[ACCESS] 2026/05/27 05:59:08 GET /tasks -> Status: OK Duration: 10.2963ms
+[ACCESS] 2026/05/27 05:59:09 GET /columns -> Status: OK Duration: 31.0394ms
+[ACCESS] 2026/05/27 05:59:09 GET /tasks -> Status: OK Duration: 41.1979ms
+[ACCESS] 2026/05/27 05:59:09 GET /tasks -> Status: OK Duration: 22.7168ms
+[ACCESS] 2026/05/27 05:59:09 GET /tasks -> Status: OK Duration: 19.6327ms
+[ACCESS] 2026/05/27 05:59:17 GET /columns -> Status: OK Duration: 26.2178ms
+[ACCESS] 2026/05/27 05:59:17 GET /tasks -> Status: OK Duration: 43.9875ms
+[ACCESS] 2026/05/27 05:59:17 GET /tasks -> Status: OK Duration: 14.8798ms
+[ACCESS] 2026/05/27 05:59:17 GET /tasks -> Status: OK Duration: 11.5663ms
+[ACCESS] 2026/05/27 05:59:17 GET /columns -> Status: OK Duration: 16.7752ms
+[ACCESS] 2026/05/27 05:59:17 GET /tasks -> Status: OK Duration: 18.0108ms
+[ACCESS] 2026/05/27 05:59:17 GET /tasks -> Status: OK Duration: 15.509ms
+[ACCESS] 2026/05/27 05:59:17 GET /tasks -> Status: OK Duration: 14.0037ms
+[ACCESS] 2026/05/27 05:59:18 GET /columns -> Status: OK Duration: 20.0462ms
+[ACCESS] 2026/05/27 05:59:18 GET /tasks -> Status: OK Duration: 16.4886ms
+[ACCESS] 2026/05/27 05:59:18 GET /tasks -> Status: OK Duration: 9.6095ms
+[ACCESS] 2026/05/27 05:59:18 GET /tasks -> Status: OK Duration: 8.5557ms
+[ACCESS] 2026/05/27 05:59:19 GET /columns -> Status: OK Duration: 24.8562ms
+[ACCESS] 2026/05/27 05:59:19 GET /tasks -> Status: OK Duration: 39.264ms
+[ACCESS] 2026/05/27 05:59:19 GET /tasks -> Status: OK Duration: 30.5044ms
+[ACCESS] 2026/05/27 05:59:19 GET /tasks -> Status: OK Duration: 13.2644ms
+[ACCESS] 2026/05/27 06:12:53 GET /board.html -> Status: OK Duration: 861.6591ms
+[ACCESS] 2026/05/27 06:12:54 GET /styles.css -> Status: OK Duration: 40.7259ms
+[ACCESS] 2026/05/27 06:12:54 GET /boards/1 -> Status: OK Duration: 126.0455ms
+[ACCESS] 2026/05/27 06:12:54 GET /labels -> Status: OK Duration: 148.2625ms
+[ACCESS] 2026/05/27 06:12:54 GET /columns -> Status: OK Duration: 156.57ms
+[ACCESS] 2026/05/27 06:12:54 GET /tasks -> Status: OK Duration: 45.3604ms
+[ACCESS] 2026/05/27 06:12:54 GET /tasks -> Status: OK Duration: 11.4975ms
+[ACCESS] 2026/05/27 06:12:54 GET /tasks -> Status: OK Duration: 15.6629ms
+[ACCESS] 2026/05/27 06:12:55 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 06:13:07 POST /labels -> Status: Created Duration: 75.0709ms
+[ACCESS] 2026/05/27 06:13:07 GET /labels -> Status: OK Duration: 7.963ms
+[ACCESS] 2026/05/27 06:13:18 PUT /tasks/7 -> Status: OK Duration: 33.4326ms
+[ACCESS] 2026/05/27 06:13:18 GET /columns -> Status: OK Duration: 9.67ms
+[ACCESS] 2026/05/27 06:13:18 GET /tasks -> Status: OK Duration: 34.9736ms
+[ACCESS] 2026/05/27 06:13:18 GET /tasks -> Status: OK Duration: 16.4325ms
+[ACCESS] 2026/05/27 06:13:18 GET /tasks -> Status: OK Duration: 10.7965ms
+[ACCESS] 2026/05/27 06:13:20 GET /columns -> Status: OK Duration: 24.0153ms
+[ACCESS] 2026/05/27 06:13:20 GET /tasks -> Status: OK Duration: 41.1742ms
+[ACCESS] 2026/05/27 06:13:20 GET /tasks -> Status: OK Duration: 31.4593ms
+[ACCESS] 2026/05/27 06:13:20 GET /tasks -> Status: OK Duration: 12.7561ms
+[ACCESS] 2026/05/27 06:13:29 DELETE /labels/3 -> Status: OK Duration: 11.7896ms
+[ACCESS] 2026/05/27 06:13:29 GET /labels -> Status: OK Duration: 2.6793ms
+[ACCESS] 2026/05/27 06:13:30 DELETE /labels/4 -> Status: OK Duration: 10.8543ms
+[ACCESS] 2026/05/27 06:13:30 GET /labels -> Status: OK Duration: 7.6966ms
+[ACCESS] 2026/05/27 06:13:31 DELETE /labels/5 -> Status: OK Duration: 16.3948ms
+[ACCESS] 2026/05/27 06:13:31 GET /labels -> Status: OK Duration: 7.782ms
+[ACCESS] 2026/05/27 06:13:37 GET /board.html -> Status: OK Duration: 1.5054ms
+[ACCESS] 2026/05/27 06:13:37 GET /styles.css -> Status: OK Duration: 1.6946ms
+[ACCESS] 2026/05/27 06:13:37 GET /boards/1 -> Status: OK Duration: 13.4757ms
+[ACCESS] 2026/05/27 06:13:37 GET /labels -> Status: OK Duration: 23.0569ms
+[ACCESS] 2026/05/27 06:13:37 GET /columns -> Status: OK Duration: 62.3738ms
+[ACCESS] 2026/05/27 06:13:37 GET /tasks -> Status: OK Duration: 20.8238ms
+[ACCESS] 2026/05/27 06:13:37 GET /tasks -> Status: OK Duration: 17.8371ms
+[ACCESS] 2026/05/27 06:13:37 GET /tasks -> Status: OK Duration: 6.7658ms
+[ACCESS] 2026/05/27 06:13:38 GET /favicon.ico -> Status: Not Found Duration: 508.9µs
+[ACCESS] 2026/05/27 06:13:45 POST /labels -> Status: Created Duration: 40.0839ms
+[ACCESS] 2026/05/27 06:13:45 GET /labels -> Status: OK Duration: 9.2893ms
+[ACCESS] 2026/05/27 06:15:09 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 3.1705ms
+[ACCESS] 2026/05/27 06:15:09 GET /styles.css -> Status: Not Modified Duration: 4.3473ms
+[ACCESS] 2026/05/27 06:15:58 GET /tasks/1/labels -> Status: OK Duration: 86.1799ms
+[ACCESS] 2026/05/27 06:16:46 POST /tasks/1/labels -> Status: Internal Server Error Duration: 149.4716ms
+[ACCESS] 2026/05/27 06:17:23 OPTIONS /tasks/1/labels -> Status: Not Found Duration: 8.08ms
+[ACCESS] 2026/05/27 06:28:42 GET /board.html -> Status: OK Duration: 117.9234ms
+[ACCESS] 2026/05/27 06:28:42 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 632.7µs
+[ACCESS] 2026/05/27 06:28:42 GET /styles.css -> Status: OK Duration: 7.9149ms
+[ACCESS] 2026/05/27 06:28:44 GET /labels -> Status: OK Duration: 917.8547ms
+[ACCESS] 2026/05/27 06:28:44 GET /boards/1 -> Status: OK Duration: 934.7526ms
+[ACCESS] 2026/05/27 06:28:44 GET /favicon.ico -> Status: Not Found Duration: 518.3µs
+[ACCESS] 2026/05/27 06:28:44 GET /columns -> Status: OK Duration: 991.6112ms
+[ACCESS] 2026/05/27 06:28:44 GET /tasks -> Status: OK Duration: 137.0814ms
+[ACCESS] 2026/05/27 06:28:44 GET /tasks -> Status: OK Duration: 10.718ms
+[ACCESS] 2026/05/27 06:28:44 GET /tasks -> Status: OK Duration: 15.3257ms
+[ACCESS] 2026/05/27 06:28:56 POST /labels -> Status: Created Duration: 47.0936ms
+[ACCESS] 2026/05/27 06:28:56 GET /labels -> Status: OK Duration: 3.7778ms
+[ACCESS] 2026/05/27 06:33:45 GET /board.html -> Status: OK Duration: 118.9965ms
+[ACCESS] 2026/05/27 06:33:45 GET /styles.css -> Status: OK Duration: 2.7048ms
+[ACCESS] 2026/05/27 06:33:46 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 06:33:46 GET /columns -> Status: OK Duration: 300.1825ms
+[ACCESS] 2026/05/27 06:33:46 GET /labels -> Status: OK Duration: 301.9982ms
+[ACCESS] 2026/05/27 06:33:46 GET /boards/1 -> Status: OK Duration: 316.4648ms
+[ACCESS] 2026/05/27 06:33:47 GET /tasks -> Status: OK Duration: 86.6846ms
+[ACCESS] 2026/05/27 06:33:47 GET /tasks -> Status: OK Duration: 12.2076ms
+[ACCESS] 2026/05/27 06:33:47 GET /tasks -> Status: OK Duration: 21.7639ms
+[ACCESS] 2026/05/27 06:33:47 GET /favicon.ico -> Status: Not Found Duration: 1.1679ms
+[ACCESS] 2026/05/27 06:33:58 GET /board.html -> Status: OK Duration: 4.7475ms
+[ACCESS] 2026/05/27 06:33:59 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 06:33:59 GET /styles.css -> Status: OK Duration: 14.3994ms
+[ACCESS] 2026/05/27 06:33:59 GET /boards/1 -> Status: OK Duration: 71.9922ms
+[ACCESS] 2026/05/27 06:33:59 GET /columns -> Status: OK Duration: 165.7693ms
+[ACCESS] 2026/05/27 06:33:59 GET /tasks -> Status: OK Duration: 29.9786ms
+[ACCESS] 2026/05/27 06:33:59 GET /tasks -> Status: OK Duration: 91.9137ms
+[ACCESS] 2026/05/27 06:33:59 GET /tasks -> Status: OK Duration: 27.2863ms
+[ACCESS] 2026/05/27 06:34:00 GET /favicon.ico -> Status: Not Found Duration: 1.0235ms
+[ACCESS] 2026/05/27 06:34:00 GET /labels -> Status: OK Duration: 1.0560917s
+[ACCESS] 2026/05/27 06:51:46 GET /board.html -> Status: OK Duration: 334.2586ms
+[ACCESS] 2026/05/27 06:51:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 2.0169ms
+[ACCESS] 2026/05/27 06:51:47 GET /styles.css -> Status: OK Duration: 37.7566ms
+[ACCESS] 2026/05/27 06:51:48 GET /boards/1 -> Status: OK Duration: 309.1762ms
+[ACCESS] 2026/05/27 06:51:48 GET /labels -> Status: OK Duration: 524.9503ms
+[ACCESS] 2026/05/27 06:51:48 GET /columns -> Status: OK Duration: 741.2686ms
+[ACCESS] 2026/05/27 06:51:48 GET /favicon.ico -> Status: Not Found Duration: 2.2476ms
+[ACCESS] 2026/05/27 06:51:49 GET /tasks -> Status: OK Duration: 78.232ms
+[ACCESS] 2026/05/27 06:51:49 GET /tasks -> Status: OK Duration: 14.214ms
+[ACCESS] 2026/05/27 06:51:49 GET /tasks -> Status: OK Duration: 23.262ms
+[ACCESS] 2026/05/27 06:52:03 GET /columns -> Status: OK Duration: 8.6819ms
+[ACCESS] 2026/05/27 06:52:03 GET /tasks -> Status: OK Duration: 14.0948ms
+[ACCESS] 2026/05/27 06:52:03 GET /tasks -> Status: OK Duration: 8.6537ms
+[ACCESS] 2026/05/27 06:52:03 GET /tasks -> Status: OK Duration: 8.9577ms
+[ACCESS] 2026/05/27 06:52:04 GET /columns -> Status: OK Duration: 10.216ms
+[ACCESS] 2026/05/27 06:52:04 GET /tasks -> Status: OK Duration: 29.2514ms
+[ACCESS] 2026/05/27 06:52:04 GET /tasks -> Status: OK Duration: 12.4168ms
+[ACCESS] 2026/05/27 06:52:04 GET /tasks -> Status: OK Duration: 15.8569ms
+[ACCESS] 2026/05/27 06:52:13 POST /labels -> Status: Created Duration: 104.031ms
+[ACCESS] 2026/05/27 06:52:13 GET /labels -> Status: OK Duration: 5.2156ms
+[ACCESS] 2026/05/27 06:53:42 GET /labels -> Status: Bad Request Duration: 531.4µs
+[ACCESS] 2026/05/27 07:05:42 GET /board.html -> Status: OK Duration: 969.2158ms
+[ACCESS] 2026/05/27 07:05:43 GET /styles.css -> Status: OK Duration: 4.2554ms
+[ACCESS] 2026/05/27 07:05:43 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 7.4157ms
+[ACCESS] 2026/05/27 07:05:44 GET /favicon.ico -> Status: Not Found Duration: 26.3353ms
+[ACCESS] 2026/05/27 07:05:44 GET /boards/1 -> Status: OK Duration: 1.1927334s
+[ACCESS] 2026/05/27 07:05:44 GET /labels -> Status: OK Duration: 1.2240877s
+[ACCESS] 2026/05/27 07:05:44 GET /columns -> Status: OK Duration: 1.226523s
+[ACCESS] 2026/05/27 07:05:45 GET /tasks -> Status: OK Duration: 74.6593ms
+[ACCESS] 2026/05/27 07:05:45 GET /tasks -> Status: OK Duration: 23.717ms
+[ACCESS] 2026/05/27 07:05:45 GET /tasks -> Status: OK Duration: 16.6712ms
+[ACCESS] 2026/05/27 07:06:01 PUT /tasks/14 -> Status: OK Duration: 507.1413ms
+[ACCESS] 2026/05/27 07:06:01 GET /columns -> Status: OK Duration: 91.096ms
+[ACCESS] 2026/05/27 07:06:01 GET /tasks -> Status: OK Duration: 45.1634ms
+[ACCESS] 2026/05/27 07:06:01 GET /tasks -> Status: OK Duration: 28.9826ms
+[ACCESS] 2026/05/27 07:06:01 GET /tasks -> Status: OK Duration: 18.1957ms
+[ACCESS] 2026/05/27 11:33:04 GET / -> Status: OK Duration: 658.3563ms
+[ACCESS] 2026/05/27 11:33:04 GET /styles.css -> Status: OK Duration: 20.9144ms
+[ACCESS] 2026/05/27 11:33:05 GET /boards -> Status: OK Duration: 77.0253ms
+[ACCESS] 2026/05/27 11:33:06 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:33:12 GET /board.html -> Status: OK Duration: 164.519ms
+[ACCESS] 2026/05/27 11:33:13 GET /boards/1 -> Status: OK Duration: 4.076ms
+[ACCESS] 2026/05/27 11:33:13 GET /labels -> Status: OK Duration: 35.2073ms
+[ACCESS] 2026/05/27 11:33:13 GET /columns -> Status: OK Duration: 81.8639ms
+[ACCESS] 2026/05/27 11:33:13 GET /tasks -> Status: OK Duration: 45.6419ms
+[ACCESS] 2026/05/27 11:33:13 GET /tasks -> Status: OK Duration: 9.2067ms
+[ACCESS] 2026/05/27 11:33:13 GET /tasks -> Status: OK Duration: 15.7639ms
+[ACCESS] 2026/05/27 11:33:24 GET /board.html -> Status: OK Duration: 1.6555ms
+[ACCESS] 2026/05/27 11:33:24 GET /styles.css -> Status: OK Duration: 2.3983ms
+[ACCESS] 2026/05/27 11:33:24 GET /boards/1 -> Status: OK Duration: 5.1976ms
+[ACCESS] 2026/05/27 11:33:24 GET /columns -> Status: OK Duration: 9.0226ms
+[ACCESS] 2026/05/27 11:33:24 GET /tasks -> Status: OK Duration: 17.3333ms
+[ACCESS] 2026/05/27 11:33:24 GET /tasks -> Status: OK Duration: 14.3863ms
+[ACCESS] 2026/05/27 11:33:24 GET /tasks -> Status: OK Duration: 20.528ms
+[ACCESS] 2026/05/27 11:33:24 GET /labels -> Status: OK Duration: 94.1357ms
+[ACCESS] 2026/05/27 11:33:25 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:33:30 PUT /tasks/7 -> Status: OK Duration: 35.3017ms
+[ACCESS] 2026/05/27 11:33:30 GET /columns -> Status: OK Duration: 5.64ms
+[ACCESS] 2026/05/27 11:33:30 GET /tasks -> Status: OK Duration: 18.7558ms
+[ACCESS] 2026/05/27 11:33:30 GET /tasks -> Status: OK Duration: 18.1791ms
+[ACCESS] 2026/05/27 11:33:30 GET /tasks -> Status: OK Duration: 17.2685ms
+[ACCESS] 2026/05/27 11:33:41 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:35:35 GET /labels -> Status: OK Duration: 94.4135ms
+[ACCESS] 2026/05/27 11:36:17 GET /tasks/7/labels -> Status: OK Duration: 76.562ms
+[ACCESS] 2026/05/27 11:51:18 GET /board.html -> Status: OK Duration: 270.7376ms
+[ACCESS] 2026/05/27 11:51:19 GET /styles.css -> Status: OK Duration: 31.1334ms
+[ACCESS] 2026/05/27 11:51:19 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 31.3031ms
+[ACCESS] 2026/05/27 11:51:19 GET /boards/1 -> Status: OK Duration: 136.1789ms
+[ACCESS] 2026/05/27 11:51:19 GET /columns -> Status: OK Duration: 403.1709ms
+[ACCESS] 2026/05/27 11:51:20 GET /labels -> Status: OK Duration: 762.9208ms
+[ACCESS] 2026/05/27 11:51:20 GET /tasks -> Status: OK Duration: 235.4631ms
+[ACCESS] 2026/05/27 11:51:20 GET /favicon.ico -> Status: Not Found Duration: 1.0018ms
+[ACCESS] 2026/05/27 11:51:20 GET /tasks -> Status: OK Duration: 144.8931ms
+[ACCESS] 2026/05/27 11:51:20 GET /tasks -> Status: OK Duration: 36.282ms
+[ACCESS] 2026/05/27 11:51:30 GET /board.html -> Status: OK Duration: 519.2µs
+[ACCESS] 2026/05/27 11:51:30 GET /styles.css -> Status: OK Duration: 659µs
+[ACCESS] 2026/05/27 11:51:30 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:51:31 GET /boards/1 -> Status: OK Duration: 6.1474ms
+[ACCESS] 2026/05/27 11:51:31 GET /columns -> Status: OK Duration: 44.5761ms
+[ACCESS] 2026/05/27 11:51:31 GET /tasks -> Status: OK Duration: 42.1966ms
+[ACCESS] 2026/05/27 11:51:31 GET /tasks -> Status: OK Duration: 12.8741ms
+[ACCESS] 2026/05/27 11:51:31 GET /tasks -> Status: OK Duration: 27.2879ms
+[ACCESS] 2026/05/27 11:51:31 GET /labels -> Status: OK Duration: 222.4435ms
+[ACCESS] 2026/05/27 11:51:33 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:52:11 GET /labels -> Status: OK Duration: 12.7139ms
+[ACCESS] 2026/05/27 11:53:30 GET /board.html -> Status: OK Duration: 105.0027ms
+[ACCESS] 2026/05/27 11:53:30 GET /styles.css -> Status: OK Duration: 6.5274ms
+[ACCESS] 2026/05/27 11:53:30 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:53:31 GET /boards/1 -> Status: OK Duration: 164.6246ms
+[ACCESS] 2026/05/27 11:53:31 GET /labels -> Status: OK Duration: 166.4895ms
+[ACCESS] 2026/05/27 11:53:31 GET /columns -> Status: OK Duration: 229.8041ms
+[ACCESS] 2026/05/27 11:53:31 GET /tasks -> Status: OK Duration: 66.2271ms
+[ACCESS] 2026/05/27 11:53:31 GET /tasks -> Status: OK Duration: 18.6243ms
+[ACCESS] 2026/05/27 11:53:31 GET /tasks -> Status: OK Duration: 16.3557ms
+[ACCESS] 2026/05/27 11:53:32 GET /favicon.ico -> Status: Not Found Duration: 13.2705ms
+[ACCESS] 2026/05/27 11:53:35 PUT /tasks/7 -> Status: OK Duration: 99.2055ms
+[ACCESS] 2026/05/27 11:53:35 GET /columns -> Status: OK Duration: 8.842ms
+[ACCESS] 2026/05/27 11:53:35 GET /tasks -> Status: OK Duration: 18.2494ms
+[ACCESS] 2026/05/27 11:53:35 GET /tasks -> Status: OK Duration: 14.5083ms
+[ACCESS] 2026/05/27 11:53:35 GET /tasks -> Status: OK Duration: 11.815ms
+[ACCESS] 2026/05/27 11:53:38 PUT /tasks/14 -> Status: OK Duration: 10.5561ms
+[ACCESS] 2026/05/27 11:53:38 GET /columns -> Status: OK Duration: 17.7222ms
+[ACCESS] 2026/05/27 11:53:38 GET /tasks -> Status: OK Duration: 63.9725ms
+[ACCESS] 2026/05/27 11:53:38 GET /tasks -> Status: OK Duration: 12.8051ms
+[ACCESS] 2026/05/27 11:53:38 GET /tasks -> Status: OK Duration: 43.75ms
+[ACCESS] 2026/05/27 11:53:51 POST /labels -> Status: Created Duration: 65.8581ms
+[ACCESS] 2026/05/27 11:53:51 GET /labels -> Status: OK Duration: 3.6297ms
+[ACCESS] 2026/05/27 11:54:15 GET /board.html -> Status: OK Duration: 1.0884ms
+[ACCESS] 2026/05/27 11:54:15 GET /styles.css -> Status: OK Duration: 2.1374ms
+[ACCESS] 2026/05/27 11:54:15 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 465.4µs
+[ACCESS] 2026/05/27 11:54:15 GET /labels -> Status: OK Duration: 4.9133ms
+[ACCESS] 2026/05/27 11:54:15 GET /columns -> Status: OK Duration: 13.0176ms
+[ACCESS] 2026/05/27 11:54:15 GET /tasks -> Status: OK Duration: 24.1974ms
+[ACCESS] 2026/05/27 11:54:15 GET /tasks -> Status: OK Duration: 11.7935ms
+[ACCESS] 2026/05/27 11:54:15 GET /tasks -> Status: OK Duration: 9.4017ms
+[ACCESS] 2026/05/27 11:54:15 GET /boards/1 -> Status: OK Duration: 94.0522ms
+[ACCESS] 2026/05/27 11:54:16 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:54:23 GET /board.html -> Status: OK Duration: 511µs
+[ACCESS] 2026/05/27 11:54:23 GET /styles.css -> Status: OK Duration: 3.7092ms
+[ACCESS] 2026/05/27 11:54:23 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 11:54:23 GET /boards/1 -> Status: OK Duration: 4.153ms
+[ACCESS] 2026/05/27 11:54:23 GET /columns -> Status: OK Duration: 11.6162ms
+[ACCESS] 2026/05/27 11:54:23 GET /tasks -> Status: OK Duration: 37.6651ms
+[ACCESS] 2026/05/27 11:54:23 GET /tasks -> Status: OK Duration: 24.97ms
+[ACCESS] 2026/05/27 11:54:24 GET /labels -> Status: OK Duration: 124.802ms
+[ACCESS] 2026/05/27 11:54:24 GET /tasks -> Status: OK Duration: 64.7175ms
+[ACCESS] 2026/05/27 11:54:24 GET /favicon.ico -> Status: Not Found Duration: 1.003ms
+[ACCESS] 2026/05/27 11:56:15 GET /labels -> Status: OK Duration: 39.7804ms
+[ACCESS] 2026/05/27 12:04:03 GET /board.html -> Status: OK Duration: 266.3237ms
+[ACCESS] 2026/05/27 12:04:03 GET /styles.css -> Status: OK Duration: 2.7649ms
+[ACCESS] 2026/05/27 12:04:03 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 12:04:04 GET /boards/1 -> Status: OK Duration: 263.2723ms
+[ACCESS] 2026/05/27 12:04:05 GET /columns -> Status: OK Duration: 546.6597ms
+[ACCESS] 2026/05/27 12:04:05 GET /labels -> Status: OK Duration: 606.8886ms
+[ACCESS] 2026/05/27 12:04:05 GET /tasks -> Status: OK Duration: 158.9207ms
+[ACCESS] 2026/05/27 12:04:05 GET /tasks -> Status: OK Duration: 25.835ms
+[ACCESS] 2026/05/27 12:04:05 GET /tasks -> Status: OK Duration: 51.3711ms
+[ACCESS] 2026/05/27 12:04:07 GET /favicon.ico -> Status: Not Found Duration: 994.1µs
+[ACCESS] 2026/05/27 12:08:42 GET /board.html -> Status: OK Duration: 234.6467ms
+[ACCESS] 2026/05/27 12:08:42 GET /styles.css -> Status: OK Duration: 5.8543ms
+[ACCESS] 2026/05/27 12:08:42 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 19.3035ms
+[ACCESS] 2026/05/27 12:08:46 GET /boards/1 -> Status: OK Duration: 166.4715ms
+[ACCESS] 2026/05/27 12:08:46 GET /labels -> Status: OK Duration: 257.2068ms
+[ACCESS] 2026/05/27 12:08:46 GET /columns -> Status: OK Duration: 273.7875ms
+[ACCESS] 2026/05/27 12:08:46 GET /tasks -> Status: OK Duration: 200.2792ms
+[ACCESS] 2026/05/27 12:08:46 GET /tasks -> Status: OK Duration: 28.9426ms
+[ACCESS] 2026/05/27 12:08:46 GET /tasks -> Status: OK Duration: 39.519ms
+[ACCESS] 2026/05/27 12:08:47 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 12:08:53 PUT /tasks/14 -> Status: OK Duration: 266.2273ms
+[ACCESS] 2026/05/27 12:08:53 GET /columns -> Status: OK Duration: 28.4379ms
+[ACCESS] 2026/05/27 12:08:53 GET /tasks -> Status: OK Duration: 40.64ms
+[ACCESS] 2026/05/27 12:08:53 GET /tasks -> Status: OK Duration: 19.6313ms
+[ACCESS] 2026/05/27 12:08:53 GET /tasks -> Status: OK Duration: 17.7043ms
+[ACCESS] 2026/05/27 13:53:57 GET /board.html -> Status: OK Duration: 671.331ms
+[ACCESS] 2026/05/27 13:53:57 GET /styles.css -> Status: OK Duration: 4.0022ms
+[ACCESS] 2026/05/27 13:53:57 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 507.9µs
+[ACCESS] 2026/05/27 13:53:59 GET /boards/1 -> Status: OK Duration: 504.8564ms
+[ACCESS] 2026/05/27 13:53:59 GET /labels -> Status: OK Duration: 531.1203ms
+[ACCESS] 2026/05/27 13:53:59 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 13:54:00 GET /columns -> Status: OK Duration: 954.2814ms
+[ACCESS] 2026/05/27 13:54:00 GET /tasks -> Status: OK Duration: 254.2995ms
+[ACCESS] 2026/05/27 13:54:00 GET /tasks -> Status: OK Duration: 19.7112ms
+[ACCESS] 2026/05/27 13:54:00 GET /tasks -> Status: OK Duration: 12.946ms
+[ACCESS] 2026/05/27 13:57:20 GET /board.html -> Status: OK Duration: 311.5836ms
+[ACCESS] 2026/05/27 13:57:21 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 875.8µs
+[ACCESS] 2026/05/27 13:57:21 GET /styles.css -> Status: OK Duration: 43.3936ms
+[ACCESS] 2026/05/27 13:57:23 GET /labels -> Status: OK Duration: 184.9253ms
+[ACCESS] 2026/05/27 13:57:23 GET /columns -> Status: OK Duration: 186.3132ms
+[ACCESS] 2026/05/27 13:57:24 GET /boards/1 -> Status: OK Duration: 500.0635ms
+[ACCESS] 2026/05/27 13:57:24 GET /tasks -> Status: OK Duration: 199.1149ms
+[ACCESS] 2026/05/27 13:57:24 GET /tasks -> Status: OK Duration: 33.1121ms
+[ACCESS] 2026/05/27 13:57:24 GET /tasks -> Status: OK Duration: 27.6495ms
+[ACCESS] 2026/05/27 13:57:26 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 13:57:39 POST /labels -> Status: Created Duration: 103.0682ms
+[ACCESS] 2026/05/27 13:57:40 GET /labels -> Status: OK Duration: 3.3773ms
+[ACCESS] 2026/05/27 14:11:00 GET /board.html -> Status: OK Duration: 353.0398ms
+[ACCESS] 2026/05/27 14:11:01 GET /styles.css -> Status: OK Duration: 1.2415ms
+[ACCESS] 2026/05/27 14:11:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 14:11:03 GET /labels -> Status: OK Duration: 808.1461ms
+[ACCESS] 2026/05/27 14:11:03 GET /columns -> Status: OK Duration: 818.683ms
+[ACCESS] 2026/05/27 14:11:04 GET /favicon.ico -> Status: Not Found Duration: 2.0119ms
+[ACCESS] 2026/05/27 14:11:04 GET /boards/1 -> Status: OK Duration: 1.9797492s
+[ACCESS] 2026/05/27 14:11:04 GET /tasks -> Status: OK Duration: 383.7186ms
+[ACCESS] 2026/05/27 14:11:04 GET /tasks -> Status: OK Duration: 186.8309ms
+[ACCESS] 2026/05/27 14:11:04 GET /tasks -> Status: OK Duration: 18.2977ms
+[ACCESS] 2026/05/27 14:11:39 GET /board.html -> Status: OK Duration: 3.268ms
+[ACCESS] 2026/05/27 14:11:39 GET /styles.css -> Status: OK Duration: 5.3728ms
+[ACCESS] 2026/05/27 14:11:39 GET /labels -> Status: OK Duration: 55.5659ms
+[ACCESS] 2026/05/27 14:11:39 GET /columns -> Status: OK Duration: 76.9528ms
+[ACCESS] 2026/05/27 14:11:40 GET /tasks -> Status: OK Duration: 69.1537ms
+[ACCESS] 2026/05/27 14:11:40 GET /tasks -> Status: OK Duration: 41.1569ms
+[ACCESS] 2026/05/27 14:11:40 GET /tasks -> Status: OK Duration: 17.0051ms
+[ACCESS] 2026/05/27 14:11:40 GET /boards/1 -> Status: OK Duration: 372.0965ms
+[ACCESS] 2026/05/27 14:11:41 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 14:12:27 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 8.5182ms
+[ACCESS] 2026/05/27 14:16:52 GET /board.html -> Status: OK Duration: 254.113ms
+[ACCESS] 2026/05/27 14:16:53 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 14:17:01 GET /board.html -> Status: OK Duration: 1.4545ms
+[ACCESS] 2026/05/27 14:17:01 GET /styles.css -> Status: OK Duration: 1.6412ms
+[ACCESS] 2026/05/27 14:17:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 2.0108ms
+[ACCESS] 2026/05/27 14:17:08 GET /columns -> Status: OK Duration: 295.7186ms
+[ACCESS] 2026/05/27 14:17:08 GET /labels -> Status: OK Duration: 536.715ms
+[ACCESS] 2026/05/27 14:17:08 GET /boards/1 -> Status: OK Duration: 555.781ms
+[ACCESS] 2026/05/27 14:17:08 GET /tasks -> Status: OK Duration: 442.6067ms
+[ACCESS] 2026/05/27 14:17:08 GET /tasks -> Status: OK Duration: 13.8055ms
+[ACCESS] 2026/05/27 14:17:08 GET /tasks -> Status: OK Duration: 17.8027ms
+[ACCESS] 2026/05/27 14:17:16 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 14:17:21 PATCH /tasks/13/archive -> Status: OK Duration: 118.2435ms
+[ACCESS] 2026/05/27 14:17:21 GET /columns -> Status: OK Duration: 20.6059ms
+[ACCESS] 2026/05/27 14:17:22 GET /tasks -> Status: OK Duration: 26.5754ms
+[ACCESS] 2026/05/27 14:17:22 GET /tasks -> Status: OK Duration: 6.9688ms
+[ACCESS] 2026/05/27 14:17:22 GET /tasks -> Status: OK Duration: 5.693ms
+[ACCESS] 2026/05/27 14:17:24 GET /archive.html -> Status: OK Duration: 72.8393ms
+[ACCESS] 2026/05/27 14:17:24 GET /config.js -> Status: OK Duration: 4.5668ms
+[ACCESS] 2026/05/27 14:17:24 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 6.8297ms
+[ACCESS] 2026/05/27 14:17:24 GET /archive.js -> Status: OK Duration: 391.5918ms
+[ACCESS] 2026/05/27 14:17:25 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 14:17:30 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/27 14:17:30 GET / -> Status: OK Duration: 303.4804ms
+[ACCESS] 2026/05/27 14:17:30 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 14:17:30 GET /boards -> Status: OK Duration: 86.4485ms
+[ACCESS] 2026/05/27 14:17:32 GET /board.html -> Status: Not Modified Duration: 1.8519ms
+[ACCESS] 2026/05/27 14:17:32 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 14:17:32 GET /columns -> Status: OK Duration: 11.1415ms
+[ACCESS] 2026/05/27 14:17:32 GET /labels -> Status: OK Duration: 28.781ms
+[ACCESS] 2026/05/27 14:17:32 GET /boards/1 -> Status: OK Duration: 31.9873ms
+[ACCESS] 2026/05/27 14:17:32 GET /tasks -> Status: OK Duration: 17.9619ms
+[ACCESS] 2026/05/27 14:17:32 GET /tasks -> Status: OK Duration: 11.7366ms
+[ACCESS] 2026/05/27 14:17:32 GET /tasks -> Status: OK Duration: 24.3598ms
+[ACCESS] 2026/05/27 15:11:11 GET /board.html -> Status: OK Duration: 847.2268ms
+[ACCESS] 2026/05/27 15:11:12 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.6427ms
+[ACCESS] 2026/05/27 15:11:12 GET /styles.css -> Status: OK Duration: 61.497ms
+[ACCESS] 2026/05/27 15:11:14 GET /columns -> Status: OK Duration: 354.2822ms
+[ACCESS] 2026/05/27 15:11:14 GET /labels -> Status: OK Duration: 575.0429ms
+[ACCESS] 2026/05/27 15:11:14 GET /tasks -> Status: OK Duration: 326.4396ms
+[ACCESS] 2026/05/27 15:11:15 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 15:11:15 GET /tasks -> Status: OK Duration: 54.2188ms
+[ACCESS] 2026/05/27 15:11:15 GET /tasks -> Status: OK Duration: 13.3575ms
+[ACCESS] 2026/05/27 15:11:17 GET /tasks/7/labels -> Status: OK Duration: 11.5424ms
+[ACCESS] 2026/05/27 15:11:35 POST /tasks/7/labels -> Status: OK Duration: 178.011ms
+[ACCESS] 2026/05/27 15:11:35 GET /columns -> Status: OK Duration: 17.2569ms
+[ACCESS] 2026/05/27 15:11:35 GET /tasks -> Status: OK Duration: 40.2435ms
+[ACCESS] 2026/05/27 15:11:35 GET /tasks -> Status: OK Duration: 10.8695ms
+[ACCESS] 2026/05/27 15:11:35 GET /tasks -> Status: OK Duration: 17.1269ms
+[ACCESS] 2026/05/27 15:11:37 POST /tasks/7/labels -> Status: OK Duration: 18.6286ms
+[ACCESS] 2026/05/27 15:11:37 GET /columns -> Status: OK Duration: 31.6799ms
+[ACCESS] 2026/05/27 15:11:37 GET /tasks -> Status: OK Duration: 52.7483ms
+[ACCESS] 2026/05/27 15:11:37 GET /tasks -> Status: OK Duration: 15.3975ms
+[ACCESS] 2026/05/27 15:11:37 GET /tasks -> Status: OK Duration: 14.3771ms
+[ACCESS] 2026/05/27 15:11:38 PUT /tasks/7 -> Status: OK Duration: 28.8647ms
+[ACCESS] 2026/05/27 15:11:38 GET /columns -> Status: OK Duration: 8.1031ms
+[ACCESS] 2026/05/27 15:11:39 GET /tasks -> Status: OK Duration: 100.3506ms
+[ACCESS] 2026/05/27 15:11:39 GET /tasks -> Status: OK Duration: 115.464ms
+[ACCESS] 2026/05/27 15:11:39 GET /tasks -> Status: OK Duration: 24.259ms
+[ACCESS] 2026/05/27 15:11:40 GET /tasks/7/labels -> Status: OK Duration: 4.8074ms
+[ACCESS] 2026/05/27 15:11:42 PUT /tasks/7 -> Status: OK Duration: 52.4631ms
+[ACCESS] 2026/05/27 15:11:42 GET /columns -> Status: OK Duration: 54.7069ms
+[ACCESS] 2026/05/27 15:11:42 GET /tasks -> Status: OK Duration: 67.1167ms
+[ACCESS] 2026/05/27 15:11:42 GET /tasks -> Status: OK Duration: 10.1278ms
+[ACCESS] 2026/05/27 15:11:42 GET /tasks -> Status: OK Duration: 18.4489ms
+[ACCESS] 2026/05/27 15:11:46 GET /tasks/15/labels -> Status: OK Duration: 8.437ms
+[ACCESS] 2026/05/27 15:11:47 POST /tasks/15/labels -> Status: OK Duration: 22.5489ms
+[ACCESS] 2026/05/27 15:11:47 GET /columns -> Status: OK Duration: 25.715ms
+[ACCESS] 2026/05/27 15:11:47 GET /tasks -> Status: OK Duration: 18.7799ms
+[ACCESS] 2026/05/27 15:11:47 GET /tasks -> Status: OK Duration: 6.6687ms
+[ACCESS] 2026/05/27 15:11:47 GET /tasks -> Status: OK Duration: 10.9265ms
+[ACCESS] 2026/05/27 15:11:48 PUT /tasks/15 -> Status: OK Duration: 125.3294ms
+[ACCESS] 2026/05/27 15:11:49 GET /columns -> Status: OK Duration: 28.3085ms
+[ACCESS] 2026/05/27 15:11:49 GET /tasks -> Status: OK Duration: 24.3614ms
+[ACCESS] 2026/05/27 15:11:49 GET /tasks -> Status: OK Duration: 18.1863ms
+[ACCESS] 2026/05/27 15:11:49 GET /tasks -> Status: OK Duration: 119.4048ms
+[ACCESS] 2026/05/27 15:11:50 GET /tasks/7/labels -> Status: OK Duration: 6.9284ms
+[ACCESS] 2026/05/27 15:11:52 GET /tasks/15/labels -> Status: OK Duration: 8.7349ms
+[ACCESS] 2026/05/27 15:20:47 GET /users.html -> Status: OK Duration: 1.344313s
+[ACCESS] 2026/05/27 15:20:47 GET /users.js -> Status: OK Duration: 661.761ms
+[ACCESS] 2026/05/27 15:20:48 GET /favicon.ico -> Status: Not Found Duration: 208.6484ms
+[ACCESS] 2026/05/27 15:20:48 GET /users -> Status: OK Duration: 443.101ms
+[ACCESS] 2026/05/27 15:21:00 GET /profile.html -> Status: OK Duration: 102.0538ms
+[ACCESS] 2026/05/27 15:21:00 GET /profile.js -> Status: OK Duration: 151.7994ms
+[ACCESS] 2026/05/27 15:21:00 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 15:21:00 GET /users -> Status: OK Duration: 4.3108ms
+[ACCESS] 2026/05/27 15:21:11 GET /boards -> Status: OK Duration: 70.0974ms
+[ACCESS] 2026/05/27 15:21:16 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 15:21:16 GET /users -> Status: OK Duration: 2.1642ms
+[ACCESS] 2026/05/27 15:21:19 GET /boards -> Status: OK Duration: 5.8677ms
+[ACCESS] 2026/05/27 15:22:07 GET /board.html -> Status: OK Duration: 378.2108ms
+[ACCESS] 2026/05/27 15:22:08 GET /labels -> Status: OK Duration: 328.6553ms
+[ACCESS] 2026/05/27 15:22:08 GET /columns -> Status: OK Duration: 832.3042ms
+[ACCESS] 2026/05/27 15:22:08 GET /tasks -> Status: OK Duration: 55.3406ms
+[ACCESS] 2026/05/27 15:22:08 GET /tasks -> Status: OK Duration: 7.3109ms
+[ACCESS] 2026/05/27 15:22:08 GET /tasks -> Status: OK Duration: 11.5842ms
+[ACCESS] 2026/05/27 15:23:08 GET /users -> Status: OK Duration: 44.8614ms
+[ACCESS] 2026/05/27 15:23:11 GET /boards -> Status: OK Duration: 32.3361ms
+[ACCESS] 2026/05/27 15:23:15 GET /board.html -> Status: Not Modified Duration: 4.6675ms
+[ACCESS] 2026/05/27 15:23:15 GET /labels -> Status: OK Duration: 6.9778ms
+[ACCESS] 2026/05/27 15:23:15 GET /columns -> Status: OK Duration: 36.0429ms
+[ACCESS] 2026/05/27 15:23:15 GET /tasks -> Status: OK Duration: 31.482ms
+[ACCESS] 2026/05/27 15:23:15 GET /tasks -> Status: OK Duration: 3.9443ms
+[ACCESS] 2026/05/27 15:23:15 GET /tasks -> Status: OK Duration: 9.1083ms
+[ACCESS] 2026/05/27 15:23:27 POST /tasks -> Status: OK Duration: 122.3663ms
+[ACCESS] 2026/05/27 15:23:27 GET /columns -> Status: OK Duration: 15.6124ms
+[ACCESS] 2026/05/27 15:23:27 GET /tasks -> Status: OK Duration: 20.1756ms
+[ACCESS] 2026/05/27 15:23:27 GET /tasks -> Status: OK Duration: 4.5578ms
+[ACCESS] 2026/05/27 15:23:27 GET /tasks -> Status: OK Duration: 17.2761ms
+[ACCESS] 2026/05/27 15:23:36 POST /tasks -> Status: OK Duration: 10.3799ms
+[ACCESS] 2026/05/27 15:23:36 GET /columns -> Status: OK Duration: 11.2699ms
+[ACCESS] 2026/05/27 15:23:36 GET /tasks -> Status: OK Duration: 18.699ms
+[ACCESS] 2026/05/27 15:23:36 GET /tasks -> Status: OK Duration: 7.02ms
+[ACCESS] 2026/05/27 15:23:36 GET /tasks -> Status: OK Duration: 7.8046ms
+[ACCESS] 2026/05/27 15:23:42 POST /tasks -> Status: OK Duration: 14.3717ms
+[ACCESS] 2026/05/27 15:23:42 GET /columns -> Status: OK Duration: 11.0356ms
+[ACCESS] 2026/05/27 15:23:42 GET /tasks -> Status: OK Duration: 21.1714ms
+[ACCESS] 2026/05/27 15:23:42 GET /tasks -> Status: OK Duration: 5.7596ms
+[ACCESS] 2026/05/27 15:23:42 GET /tasks -> Status: OK Duration: 11.446ms
+[ACCESS] 2026/05/27 15:23:50 POST /tasks -> Status: OK Duration: 8.2013ms
+[ACCESS] 2026/05/27 15:23:50 GET /columns -> Status: OK Duration: 11.2273ms
+[ACCESS] 2026/05/27 15:23:50 GET /tasks -> Status: OK Duration: 15.5754ms
+[ACCESS] 2026/05/27 15:23:50 GET /tasks -> Status: OK Duration: 10.4216ms
+[ACCESS] 2026/05/27 15:23:50 GET /tasks -> Status: OK Duration: 9.5901ms
+[ACCESS] 2026/05/27 15:26:04 GET /tasks/8/labels -> Status: OK Duration: 262.1329ms
+[ACCESS] 2026/05/27 15:26:04 GET /tasks/19/labels -> Status: OK Duration: 269.253ms
+[ACCESS] 2026/05/27 15:26:04 GET /tasks/19/labels -> Status: OK Duration: 12.8729ms
+[ACCESS] 2026/05/27 15:27:07 POST /tasks/19/labels -> Status: OK Duration: 48.6344ms
+[ACCESS] 2026/05/27 15:27:07 GET /columns -> Status: OK Duration: 70.0816ms
+[ACCESS] 2026/05/27 15:27:08 GET /tasks -> Status: OK Duration: 414.0877ms
+[ACCESS] 2026/05/27 15:27:08 GET /tasks -> Status: OK Duration: 18.1016ms
+[ACCESS] 2026/05/27 15:27:08 GET /tasks -> Status: OK Duration: 25.0768ms
+[ACCESS] 2026/05/27 15:27:16 GET /tasks/9/labels -> Status: OK Duration: 15.1207ms
+[ACCESS] 2026/05/27 15:27:17 GET /tasks/9/labels -> Status: OK Duration: 514.5µs
+[ACCESS] 2026/05/27 15:27:21 PATCH /tasks/9/archive -> Status: OK Duration: 59.9843ms
+[ACCESS] 2026/05/27 15:27:21 GET /columns -> Status: OK Duration: 17.6705ms
+[ACCESS] 2026/05/27 15:27:21 GET /tasks -> Status: OK Duration: 49.2101ms
+[ACCESS] 2026/05/27 15:27:21 GET /tasks -> Status: OK Duration: 17.2984ms
+[ACCESS] 2026/05/27 15:27:21 GET /tasks -> Status: OK Duration: 32.6822ms
+[ACCESS] 2026/05/27 15:27:24 GET /tasks/archive -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 15:41:19 GET /archive.html -> Status: OK Duration: 301.0592ms
+[ACCESS] 2026/05/27 15:41:19 GET /styles.css -> Status: OK Duration: 2.9663ms
+[ACCESS] 2026/05/27 15:41:19 GET /archive.js -> Status: OK Duration: 10.0633ms
+[ACCESS] 2026/05/27 15:41:20 GET /config.js -> Status: OK Duration: 106.1056ms
+[ACCESS] 2026/05/27 15:41:23 GET /tasks/archive -> Status: OK Duration: 145.0894ms
+[ACCESS] 2026/05/27 15:41:30 PATCH /tasks/9/restore -> Status: OK Duration: 71.2771ms
+[ACCESS] 2026/05/27 15:41:31 GET /tasks/archive -> Status: OK Duration: 4.0685ms
+[ACCESS] 2026/05/27 15:41:38 GET / -> Status: Not Modified Duration: 278.7177ms
+[ACCESS] 2026/05/27 15:41:38 GET /boards -> Status: OK Duration: 21.8583ms
+[ACCESS] 2026/05/27 15:41:38 GET /favicon.ico -> Status: Not Found Duration: 1.006ms
+[ACCESS] 2026/05/27 15:41:40 GET /board.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 15:41:41 GET /labels -> Status: OK Duration: 15.4536ms
+[ACCESS] 2026/05/27 15:41:41 GET /columns -> Status: OK Duration: 123.531ms
+[ACCESS] 2026/05/27 15:41:41 GET /tasks -> Status: OK Duration: 26.2058ms
+[ACCESS] 2026/05/27 15:41:41 GET /tasks -> Status: OK Duration: 12.8197ms
+[ACCESS] 2026/05/27 15:41:41 GET /tasks -> Status: OK Duration: 7.9597ms
+[ACCESS] 2026/05/27 15:41:46 GET /board.html -> Status: OK Duration: 6.7478ms
+[ACCESS] 2026/05/27 15:41:47 GET /styles.css -> Status: OK Duration: 1.6673ms
+[ACCESS] 2026/05/27 15:41:48 GET /labels -> Status: OK Duration: 16.3868ms
+[ACCESS] 2026/05/27 15:41:48 GET /columns -> Status: OK Duration: 13.7097ms
+[ACCESS] 2026/05/27 15:41:48 GET /tasks -> Status: OK Duration: 30.2371ms
+[ACCESS] 2026/05/27 15:41:48 GET /tasks -> Status: OK Duration: 18.4124ms
+[ACCESS] 2026/05/27 15:41:48 GET /tasks -> Status: OK Duration: 12.9858ms
+[ACCESS] 2026/05/27 15:41:53 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 15:46:27 GET /tasks/14/labels -> Status: OK Duration: 148.238ms
+[ACCESS] 2026/05/27 15:46:31 PATCH /tasks/14/archive -> Status: OK Duration: 199.2683ms
+[ACCESS] 2026/05/27 15:46:32 GET /columns -> Status: OK Duration: 27.418ms
+[ACCESS] 2026/05/27 15:46:32 GET /tasks -> Status: OK Duration: 45.8869ms
+[ACCESS] 2026/05/27 15:46:32 GET /tasks -> Status: OK Duration: 9.3952ms
+[ACCESS] 2026/05/27 15:46:32 GET /tasks -> Status: OK Duration: 7.2853ms
+[ACCESS] 2026/05/27 15:46:35 GET /archive.js -> Status: Not Modified Duration: 5.616ms
+[ACCESS] 2026/05/27 15:46:35 GET /tasks/archive -> Status: OK Duration: 21.3445ms
+[ACCESS] 2026/05/27 15:46:39 GET /tasks/archive -> Status: OK Duration: 8.9217ms
+[ACCESS] 2026/05/27 15:46:41 GET /stats.html -> Status: OK Duration: 523.1126ms
+[ACCESS] 2026/05/27 15:46:41 GET /stats.js -> Status: OK Duration: 312.0488ms
+[ACCESS] 2026/05/27 15:46:41 GET /stats -> Status: OK Duration: 40.9381ms
+[ACCESS] 2026/05/27 15:46:43 GET /stats -> Status: OK Duration: 14.7371ms
+[ACCESS] 2026/05/27 15:46:54 GET /boards -> Status: OK Duration: 12.9347ms
+[ACCESS] 2026/05/27 15:46:56 GET /board.html -> Status: Not Modified Duration: 2.0418ms
+[ACCESS] 2026/05/27 15:46:56 GET /columns -> Status: OK Duration: 36.4816ms
+[ACCESS] 2026/05/27 15:46:56 GET /labels -> Status: OK Duration: 62.8661ms
+[ACCESS] 2026/05/27 15:46:57 GET /tasks -> Status: OK Duration: 286.5684ms
+[ACCESS] 2026/05/27 15:46:57 GET /tasks -> Status: OK Duration: 22.2727ms
+[ACCESS] 2026/05/27 15:46:57 GET /tasks -> Status: OK Duration: 18.0275ms
+[ACCESS] 2026/05/27 15:47:33 GET /tasks/19/labels -> Status: OK Duration: 53.0882ms
+[ACCESS] 2026/05/27 15:47:58 GET /stats -> Status: OK Duration: 22.7561ms
+[ACCESS] 2026/05/27 15:48:01 GET /users -> Status: OK Duration: 36.7901ms
+[ACCESS] 2026/05/27 15:48:05 GET /me -> Status: Not Found Duration: 4.5871ms
+[ACCESS] 2026/05/27 15:48:05 GET /users -> Status: OK Duration: 2.4601ms
+[ACCESS] 2026/05/27 17:31:21 GET / -> Status: Not Modified Duration: 775.2596ms
+[ACCESS] 2026/05/27 17:31:21 GET /styles.css -> Status: Not Modified Duration: 40.171ms
+[ACCESS] 2026/05/27 17:31:21 GET /boards -> Status: OK Duration: 280.7751ms
+[ACCESS] 2026/05/27 17:31:23 GET /profile.html -> Status: Not Modified Duration: 109.6742ms
+[ACCESS] 2026/05/27 17:31:23 GET /config.js -> Status: Not Modified Duration: 118.0377ms
+[ACCESS] 2026/05/27 17:31:23 GET /profile.js -> Status: Not Modified Duration: 148.3708ms
+[ACCESS] 2026/05/27 17:31:23 GET /me -> Status: Not Found Duration: 19.823ms
+[ACCESS] 2026/05/27 17:31:23 GET /users -> Status: OK Duration: 6.7088ms
+[ACCESS] 2026/05/27 17:31:26 GET /boards -> Status: OK Duration: 23.2421ms
+[ACCESS] 2026/05/27 17:31:30 GET /board.html -> Status: Not Modified Duration: 176.3118ms
+[ACCESS] 2026/05/27 17:31:30 GET /columns -> Status: OK Duration: 236.9888ms
+[ACCESS] 2026/05/27 17:31:30 GET /labels -> Status: OK Duration: 395.7358ms
+[ACCESS] 2026/05/27 17:31:31 GET /tasks -> Status: OK Duration: 462.9319ms
+[ACCESS] 2026/05/27 17:31:31 GET /tasks -> Status: OK Duration: 67.0752ms
+[ACCESS] 2026/05/27 17:31:31 GET /tasks -> Status: OK Duration: 23.5206ms
+[ACCESS] 2026/05/27 17:55:11 GET /board.html -> Status: OK Duration: 363.4902ms
+[ACCESS] 2026/05/27 17:55:11 GET /styles.css -> Status: OK Duration: 4.4166ms
+[ACCESS] 2026/05/27 17:55:11 GET /columns -> Status: OK Duration: 96.3929ms
+[ACCESS] 2026/05/27 17:55:11 GET /labels -> Status: OK Duration: 170.7372ms
+[ACCESS] 2026/05/27 17:55:12 GET /tasks -> Status: OK Duration: 126.2002ms
+[ACCESS] 2026/05/27 17:55:12 GET /tasks -> Status: OK Duration: 50.3446ms
+[ACCESS] 2026/05/27 17:55:12 GET /tasks -> Status: OK Duration: 16.9029ms
+[ACCESS] 2026/05/27 17:55:12 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 17:55:28 GET /board.html -> Status: OK Duration: 2.0196ms
+[ACCESS] 2026/05/27 17:55:28 GET /labels -> Status: OK Duration: 5.3754ms
+[ACCESS] 2026/05/27 17:55:28 GET /columns -> Status: OK Duration: 17.4886ms
+[ACCESS] 2026/05/27 17:55:28 GET /tasks -> Status: OK Duration: 23.0696ms
+[ACCESS] 2026/05/27 17:55:28 GET /tasks -> Status: OK Duration: 14.7066ms
+[ACCESS] 2026/05/27 17:55:28 GET /tasks -> Status: OK Duration: 11.7057ms
+[ACCESS] 2026/05/27 17:55:32 GET /labels -> Status: OK Duration: 3.5568ms
+[ACCESS] 2026/05/27 17:55:32 GET /columns -> Status: OK Duration: 12.365ms
+[ACCESS] 2026/05/27 17:55:32 GET /tasks -> Status: OK Duration: 36.9697ms
+[ACCESS] 2026/05/27 17:55:32 GET /tasks -> Status: OK Duration: 20.3696ms
+[ACCESS] 2026/05/27 17:55:32 GET /tasks -> Status: OK Duration: 25.0351ms
+[ACCESS] 2026/05/27 17:55:43 GET /me -> Status: Not Found Duration: 555.9µs
+[ACCESS] 2026/05/27 17:55:44 GET /users -> Status: OK Duration: 12.4003ms
+[ACCESS] 2026/05/27 17:55:47 GET /users.js -> Status: Not Modified Duration: 13.8732ms
+[ACCESS] 2026/05/27 17:55:47 GET /users -> Status: OK Duration: 2.2179ms
+[ACCESS] 2026/05/27 17:55:48 GET /boards -> Status: OK Duration: 23.1357ms
+[ACCESS] 2026/05/27 17:55:52 GET /board.html -> Status: Not Modified Duration: 632.8µs
+[ACCESS] 2026/05/27 17:55:52 GET /labels -> Status: OK Duration: 8.7118ms
+[ACCESS] 2026/05/27 17:55:52 GET /columns -> Status: OK Duration: 17.9001ms
+[ACCESS] 2026/05/27 17:55:52 GET /tasks -> Status: OK Duration: 13.4235ms
+[ACCESS] 2026/05/27 17:55:52 GET /tasks -> Status: OK Duration: 6.1294ms
+[ACCESS] 2026/05/27 17:55:53 GET /tasks -> Status: OK Duration: 8.9471ms
+[ACCESS] 2026/05/27 17:56:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 18:07:01 GET /board.html -> Status: OK Duration: 434.4933ms
+[ACCESS] 2026/05/27 18:07:01 GET /styles.css -> Status: OK Duration: 6.6968ms
+[ACCESS] 2026/05/27 18:07:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 18:07:02 GET /columns -> Status: OK Duration: 132.0287ms
+[ACCESS] 2026/05/27 18:07:02 GET /labels -> Status: OK Duration: 167.8449ms
+[ACCESS] 2026/05/27 18:07:02 GET /tasks -> Status: OK Duration: 51.1573ms
+[ACCESS] 2026/05/27 18:07:02 GET /tasks -> Status: OK Duration: 6.733ms
+[ACCESS] 2026/05/27 18:07:02 GET /tasks -> Status: OK Duration: 88.2083ms
+[ACCESS] 2026/05/27 18:07:05 GET /favicon.ico -> Status: Not Found Duration: 508.5µs
+[ACCESS] 2026/05/27 18:08:05 POST /invitations -> Status: Not Found Duration: 9.3643ms
+[ACCESS] 2026/05/27 18:09:25 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 15.5522ms
+[ACCESS] 2026/05/27 18:09:31 POST /api/invite -> Status: Not Found Duration: 546.3µs
+[ACCESS] 2026/05/27 18:10:18 POST /api/invite -> Status: Not Found Duration: 5.1023ms
+[ACCESS] 2026/05/27 18:10:18 POST /invite -> Status: Not Found Duration: 5.1023ms
+[ACCESS] 2026/05/27 18:10:18 POST /participants -> Status: Not Found Duration: 10.0542ms
+[ACCESS] 2026/05/27 18:10:18 POST /add-member -> Status: Not Found Duration: 10.5668ms
+[ACCESS] 2026/05/27 18:10:18 POST /invitations -> Status: Not Found Duration: 10.2099ms
+[ACCESS] 2026/05/27 18:12:57 POST /invitations -> Status: Not Found Duration: 10.7242ms
+[ACCESS] 2026/05/27 18:13:10 POST /invitations -> Status: Not Found Duration: 7.0242ms
+[ACCESS] 2026/05/27 18:13:39 POST /invitations -> Status: Not Found Duration: 589.4µs
+[ACCESS] 2026/05/27 18:13:45 POST /invitations -> Status: Not Found Duration: 587.4µs
+[ACCESS] 2026/05/27 18:14:54 POST /invitations -> Status: Not Found Duration: 9.0422ms
+[ACCESS] 2026/05/27 18:17:53 POST /invitations -> Status: Not Found Duration: 50.3354ms
+[ACCESS] 2026/05/27 18:18:08 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.0588ms
+[ACCESS] 2026/05/27 18:23:59 GET /board.html -> Status: OK Duration: 911.8211ms
+[ACCESS] 2026/05/27 18:24:00 GET /styles.css -> Status: OK Duration: 7.2771ms
+[ACCESS] 2026/05/27 18:24:00 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 18:24:01 GET /columns -> Status: OK Duration: 125.1144ms
+[ACCESS] 2026/05/27 18:24:01 GET /labels -> Status: OK Duration: 156.4594ms
+[ACCESS] 2026/05/27 18:24:01 GET /tasks -> Status: OK Duration: 80.8935ms
+[ACCESS] 2026/05/27 18:24:01 GET /tasks -> Status: OK Duration: 14.4024ms
+[ACCESS] 2026/05/27 18:24:01 GET /tasks -> Status: OK Duration: 13.5187ms
+[ACCESS] 2026/05/27 18:24:02 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 18:43:31 GET /board.html -> Status: OK Duration: 26.917ms
+[ACCESS] 2026/05/27 18:43:31 GET /styles.css -> Status: OK Duration: 2.4639ms
+[ACCESS] 2026/05/27 18:43:31 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 4.4056ms
+[ACCESS] 2026/05/27 18:43:33 GET /favicon.ico -> Status: Not Found Duration: 22.8997ms
+[ACCESS] 2026/05/27 18:43:33 GET /labels -> Status: OK Duration: 1.2493771s
+[ACCESS] 2026/05/27 18:43:33 GET /columns -> Status: OK Duration: 1.3825121s
+[ACCESS] 2026/05/27 18:43:34 GET /tasks -> Status: OK Duration: 212.4273ms
+[ACCESS] 2026/05/27 18:43:34 GET /tasks -> Status: OK Duration: 33.7344ms
+[ACCESS] 2026/05/27 18:43:34 GET /tasks -> Status: OK Duration: 54.3219ms
+[ACCESS] 2026/05/27 18:50:45 GET /board.html -> Status: OK Duration: 732.7738ms
+[ACCESS] 2026/05/27 18:50:45 GET /styles.css -> Status: OK Duration: 1.7747ms
+[ACCESS] 2026/05/27 18:50:46 GET /columns -> Status: OK Duration: 88.7744ms
+[ACCESS] 2026/05/27 18:50:46 GET /labels -> Status: OK Duration: 110.9564ms
+[ACCESS] 2026/05/27 18:50:46 GET /tasks -> Status: OK Duration: 38.7406ms
+[ACCESS] 2026/05/27 18:50:46 GET /tasks -> Status: OK Duration: 18.1749ms
+[ACCESS] 2026/05/27 18:50:47 GET /tasks -> Status: OK Duration: 8.0661ms
+[ACCESS] 2026/05/27 18:50:48 GET /settings.html -> Status: OK Duration: 4.7284ms
+[ACCESS] 2026/05/27 18:50:49 GET /boards/1 -> Status: OK Duration: 5.2202ms
+[ACCESS] 2026/05/27 18:50:49 GET /favicon.ico -> Status: Not Found Duration: 2.8673ms
+[ACCESS] 2026/05/27 18:50:58 GET /board.html -> Status: OK Duration: 1.8994ms
+[ACCESS] 2026/05/27 18:50:58 GET /labels -> Status: OK Duration: 3.5798ms
+[ACCESS] 2026/05/27 18:50:58 GET /columns -> Status: OK Duration: 13.7159ms
+[ACCESS] 2026/05/27 18:50:58 GET /tasks -> Status: OK Duration: 16.9885ms
+[ACCESS] 2026/05/27 18:50:58 GET /tasks -> Status: OK Duration: 9.0077ms
+[ACCESS] 2026/05/27 18:50:58 GET /tasks -> Status: OK Duration: 6.7346ms
+[ACCESS] 2026/05/27 18:52:43 GET /stats.html -> Status: OK Duration: 316.0972ms
+[ACCESS] 2026/05/27 18:52:43 GET /stats.js -> Status: Not Modified Duration: 298.0653ms
+[ACCESS] 2026/05/27 18:52:44 GET /stats -> Status: OK Duration: 527.1925ms
+[ACCESS] 2026/05/27 18:52:45 GET /settings.html -> Status: Not Modified Duration: 2.4341ms
+[ACCESS] 2026/05/27 18:52:45 GET /boards/1 -> Status: OK Duration: 14.5328ms
+[ACCESS] 2026/05/27 18:52:57 GET /board.html -> Status: Not Modified Duration: 667.5µs
+[ACCESS] 2026/05/27 18:52:57 GET /labels -> Status: OK Duration: 17.8331ms
+[ACCESS] 2026/05/27 18:52:57 GET /columns -> Status: OK Duration: 44.6053ms
+[ACCESS] 2026/05/27 18:52:57 GET /tasks -> Status: OK Duration: 38.1891ms
+[ACCESS] 2026/05/27 18:52:57 GET /tasks -> Status: OK Duration: 6.6029ms
+[ACCESS] 2026/05/27 18:52:57 GET /tasks -> Status: OK Duration: 11.7325ms
+[ACCESS] 2026/05/27 18:53:00 GET /labels -> Status: OK Duration: 7.0395ms
+[ACCESS] 2026/05/27 18:53:00 GET /columns -> Status: OK Duration: 7.4143ms
+[ACCESS] 2026/05/27 18:53:00 GET /tasks -> Status: OK Duration: 14.4563ms
+[ACCESS] 2026/05/27 18:53:00 GET /tasks -> Status: OK Duration: 8.7867ms
+[ACCESS] 2026/05/27 18:53:00 GET /tasks -> Status: OK Duration: 8.32ms
+[ACCESS] 2026/05/27 21:25:57 GET /settings.html -> Status: OK Duration: 119.5089ms
+[ACCESS] 2026/05/27 21:25:57 GET /styles.css -> Status: OK Duration: 8.8782ms
+[ACCESS] 2026/05/27 21:25:58 GET /boards/1 -> Status: Internal Server Error Duration: 111.437ms
+[ACCESS] 2026/05/27 21:26:01 GET /board.html -> Status: Not Modified Duration: 4.2732ms
+[ACCESS] 2026/05/27 21:26:01 GET /labels -> Status: OK Duration: 31.8706ms
+[ACCESS] 2026/05/27 21:26:01 GET /favicon.ico -> Status: Not Found Duration: 1.156ms
+[ACCESS] 2026/05/27 21:26:01 GET /columns -> Status: OK Duration: 121.9686ms
+[ACCESS] 2026/05/27 21:26:01 GET /tasks -> Status: OK Duration: 68.8132ms
+[ACCESS] 2026/05/27 21:26:01 GET /tasks -> Status: OK Duration: 6.6042ms
+[ACCESS] 2026/05/27 21:26:01 GET /tasks -> Status: OK Duration: 22.3649ms
+[ACCESS] 2026/05/27 21:26:04 GET /boards/1 -> Status: Internal Server Error Duration: 5.0085ms
+[ACCESS] 2026/05/27 21:26:10 GET /labels -> Status: OK Duration: 15.6094ms
+[ACCESS] 2026/05/27 21:26:10 GET /columns -> Status: OK Duration: 18.6854ms
+[ACCESS] 2026/05/27 21:26:10 GET /tasks -> Status: OK Duration: 20.451ms
+[ACCESS] 2026/05/27 21:26:10 GET /tasks -> Status: OK Duration: 7.221ms
+[ACCESS] 2026/05/27 21:26:10 GET /tasks -> Status: OK Duration: 22.6235ms
+[ACCESS] 2026/05/27 21:26:21 PATCH /tasks/1/archive -> Status: OK Duration: 63.1244ms
+[ACCESS] 2026/05/27 21:26:21 GET /columns -> Status: OK Duration: 9.7416ms
+[ACCESS] 2026/05/27 21:26:21 GET /tasks -> Status: OK Duration: 24.8545ms
+[ACCESS] 2026/05/27 21:26:21 GET /tasks -> Status: OK Duration: 26.9253ms
+[ACCESS] 2026/05/27 21:26:21 GET /tasks -> Status: OK Duration: 10.264ms
+[ACCESS] 2026/05/27 21:26:24 GET /config.js -> Status: Not Modified Duration: 2.2188ms
+[ACCESS] 2026/05/27 21:26:24 GET /archive.js -> Status: OK Duration: 6.2186ms
+[ACCESS] 2026/05/27 21:26:24 GET /tasks/archive -> Status: OK Duration: 45.4991ms
+[ACCESS] 2026/05/27 21:28:17 GET / -> Status: OK Duration: 1.1212342s
+[ACCESS] 2026/05/27 21:28:17 GET /styles.css -> Status: OK Duration: 8.2042ms
+[ACCESS] 2026/05/27 21:28:18 GET /login.html -> Status: OK Duration: 2.3503ms
+[ACCESS] 2026/05/27 21:28:18 GET /favicon.ico -> Status: Not Found Duration: 1.1208ms
+[ACCESS] 2026/05/27 21:28:46 GET / -> Status: OK Duration: 2.2187ms
+[ACCESS] 2026/05/27 21:28:46 GET /boards -> Status: Internal Server Error Duration: 100.6349ms
+[ACCESS] 2026/05/27 21:29:07 POST /boards -> Status: Created Duration: 160.9109ms
+[ACCESS] 2026/05/27 21:29:07 GET /boards -> Status: Internal Server Error Duration: 9.9086ms
+[ACCESS] 2026/05/27 21:29:10 GET /boards -> Status: Internal Server Error Duration: 4.2961ms
+[ACCESS] 2026/05/27 21:29:14 GET / -> Status: OK Duration: 2.788ms
+[ACCESS] 2026/05/27 21:29:14 GET /styles.css -> Status: OK Duration: 1.0951ms
+[ACCESS] 2026/05/27 21:29:14 GET /boards -> Status: Internal Server Error Duration: 17.5938ms
+[ACCESS] 2026/05/27 21:29:15 GET /favicon.ico -> Status: Not Found Duration: 2.5899ms
+[ACCESS] 2026/05/27 21:29:16 GET /boards/1 -> Status: Internal Server Error Duration: 4.7405ms
+[ACCESS] 2026/05/27 21:29:19 GET /users.js -> Status: Not Modified Duration: 6.8328ms
+[ACCESS] 2026/05/27 21:29:19 GET /users -> Status: OK Duration: 13.6806ms
+[ACCESS] 2026/05/27 21:29:21 GET /boards -> Status: Internal Server Error Duration: 8.5211ms
+[ACCESS] 2026/05/27 21:29:24 GET /profile.html -> Status: OK Duration: 760.0584ms
+[ACCESS] 2026/05/27 21:29:24 GET /profile.js -> Status: Not Modified Duration: 3.8956ms
+[ACCESS] 2026/05/27 21:29:24 GET /me -> Status: Not Found Duration: 1.3585ms
+[ACCESS] 2026/05/27 21:29:24 GET /users -> Status: OK Duration: 2.3959ms
+[ACCESS] 2026/05/27 21:29:30 GET /boards/1 -> Status: Internal Server Error Duration: 7.0553ms
+[ACCESS] 2026/05/27 21:29:36 PUT /boards/1 -> Status: OK Duration: 45.5506ms
+[ACCESS] 2026/05/27 21:29:42 GET /labels -> Status: OK Duration: 6.4463ms
+[ACCESS] 2026/05/27 21:29:42 GET /columns -> Status: OK Duration: 33.1317ms
+[ACCESS] 2026/05/27 21:29:42 GET /tasks -> Status: OK Duration: 24.4335ms
+[ACCESS] 2026/05/27 21:29:42 GET /tasks -> Status: OK Duration: 5.2879ms
+[ACCESS] 2026/05/27 21:29:42 GET /tasks -> Status: OK Duration: 6.5073ms
+[ACCESS] 2026/05/27 21:29:47 GET /labels -> Status: OK Duration: 7.1698ms
+[ACCESS] 2026/05/27 21:29:47 GET /columns -> Status: OK Duration: 18.8455ms
+[ACCESS] 2026/05/27 21:29:47 GET /tasks -> Status: OK Duration: 12.4325ms
+[ACCESS] 2026/05/27 21:29:47 GET /tasks -> Status: OK Duration: 5.3809ms
+[ACCESS] 2026/05/27 21:29:47 GET /tasks -> Status: OK Duration: 6.2548ms
+[ACCESS] 2026/05/27 21:31:11 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 12.4148ms
+[ACCESS] 2026/05/27 21:33:19 GET /board.html -> Status: OK Duration: 121.3883ms
+[ACCESS] 2026/05/27 21:33:20 GET /labels -> Status: OK Duration: 145.1834ms
+[ACCESS] 2026/05/27 21:33:20 GET /columns -> Status: OK Duration: 186.7655ms
+[ACCESS] 2026/05/27 21:33:20 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:33:20 GET /tasks -> Status: OK Duration: 117.5728ms
+[ACCESS] 2026/05/27 21:33:20 GET /tasks -> Status: OK Duration: 15.8638ms
+[ACCESS] 2026/05/27 21:33:20 GET /tasks -> Status: OK Duration: 10.2861ms
+[ACCESS] 2026/05/27 21:33:20 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:33:28 GET /board.html -> Status: OK Duration: 520.5µs
+[ACCESS] 2026/05/27 21:33:29 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:33:29 GET /styles.css -> Status: OK Duration: 3.0951ms
+[ACCESS] 2026/05/27 21:33:29 GET /labels -> Status: OK Duration: 12.3031ms
+[ACCESS] 2026/05/27 21:33:29 GET /columns -> Status: OK Duration: 22.4802ms
+[ACCESS] 2026/05/27 21:33:29 GET /tasks -> Status: OK Duration: 23.1985ms
+[ACCESS] 2026/05/27 21:33:29 GET /tasks -> Status: OK Duration: 29.6868ms
+[ACCESS] 2026/05/27 21:33:30 GET /tasks -> Status: OK Duration: 48.7718ms
+[ACCESS] 2026/05/27 21:33:31 GET /favicon.ico -> Status: Not Found Duration: 1.6962ms
+[ACCESS] 2026/05/27 21:33:33 GET /tasks/3/labels -> Status: OK Duration: 19.0385ms
+[ACCESS] 2026/05/27 21:33:36 POST /tasks/3/labels -> Status: OK Duration: 381.8183ms
+[ACCESS] 2026/05/27 21:33:36 GET /columns -> Status: OK Duration: 97.6592ms
+[ACCESS] 2026/05/27 21:33:36 GET /tasks -> Status: OK Duration: 82.5046ms
+[ACCESS] 2026/05/27 21:33:36 GET /tasks -> Status: OK Duration: 27.6076ms
+[ACCESS] 2026/05/27 21:33:36 GET /tasks -> Status: OK Duration: 31.3962ms
+[ACCESS] 2026/05/27 21:33:37 PUT /tasks/3 -> Status: OK Duration: 194.2503ms
+[ACCESS] 2026/05/27 21:33:37 GET /columns -> Status: OK Duration: 77.2464ms
+[ACCESS] 2026/05/27 21:33:37 GET /tasks -> Status: OK Duration: 35.758ms
+[ACCESS] 2026/05/27 21:33:37 GET /tasks -> Status: OK Duration: 12.1393ms
+[ACCESS] 2026/05/27 21:33:37 GET /tasks -> Status: OK Duration: 16.5132ms
+[ACCESS] 2026/05/27 21:33:41 GET /tasks/2/labels -> Status: OK Duration: 7.0944ms
+[ACCESS] 2026/05/27 21:33:45 PUT /tasks/2 -> Status: Internal Server Error Duration: 24.1488ms
+[ACCESS] 2026/05/27 21:33:45 GET /columns -> Status: OK Duration: 16.491ms
+[ACCESS] 2026/05/27 21:33:46 GET /tasks -> Status: OK Duration: 76.4195ms
+[ACCESS] 2026/05/27 21:33:46 GET /tasks -> Status: OK Duration: 11.9491ms
+[ACCESS] 2026/05/27 21:33:46 GET /tasks -> Status: OK Duration: 15.82ms
+[ACCESS] 2026/05/27 21:33:51 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:33:51 GET /me -> Status: Not Found Duration: 2.0105ms
+[ACCESS] 2026/05/27 21:33:51 GET /users -> Status: OK Duration: 81.0646ms
+[ACCESS] 2026/05/27 21:33:52 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:33:52 GET /users -> Status: OK Duration: 6.1751ms
+[ACCESS] 2026/05/27 21:33:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:33:55 GET /boards -> Status: OK Duration: 112.5032ms
+[ACCESS] 2026/05/27 21:45:49 GET / -> Status: OK Duration: 141.6302ms
+[ACCESS] 2026/05/27 21:45:49 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:45:49 GET /styles.css -> Status: OK Duration: 59.0113ms
+[ACCESS] 2026/05/27 21:45:50 GET /boards -> Status: OK Duration: 505.3651ms
+[ACCESS] 2026/05/27 21:45:51 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:45:52 GET /board.html -> Status: Not Modified Duration: 1.7529ms
+[ACCESS] 2026/05/27 21:45:52 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 21:45:52 GET /columns -> Status: OK Duration: 48.217ms
+[ACCESS] 2026/05/27 21:45:53 GET /labels -> Status: OK Duration: 179.8494ms
+[ACCESS] 2026/05/27 21:45:53 GET /tasks -> Status: OK Duration: 107.9215ms
+[ACCESS] 2026/05/27 21:45:53 GET /tasks -> Status: OK Duration: 11.9873ms
+[ACCESS] 2026/05/27 21:45:53 GET /tasks -> Status: OK Duration: 17.7394ms
+[ACCESS] 2026/05/27 21:46:16 POST /tasks -> Status: OK Duration: 186.3831ms
+[ACCESS] 2026/05/27 21:46:16 GET /columns -> Status: OK Duration: 8.55ms
+[ACCESS] 2026/05/27 21:46:16 GET /tasks -> Status: OK Duration: 14.2335ms
+[ACCESS] 2026/05/27 21:46:16 GET /tasks -> Status: OK Duration: 9.3549ms
+[ACCESS] 2026/05/27 21:46:16 GET /tasks -> Status: OK Duration: 5.8595ms
+[ACCESS] 2026/05/27 21:46:22 POST /tasks -> Status: OK Duration: 23.8512ms
+[ACCESS] 2026/05/27 21:46:22 GET /columns -> Status: OK Duration: 27.8944ms
+[ACCESS] 2026/05/27 21:46:22 GET /tasks -> Status: OK Duration: 46.7174ms
+[ACCESS] 2026/05/27 21:46:23 GET /tasks -> Status: OK Duration: 14.0235ms
+[ACCESS] 2026/05/27 21:46:23 GET /tasks -> Status: OK Duration: 9.8403ms
+[ACCESS] 2026/05/27 21:46:25 GET /tasks/7/labels -> Status: OK Duration: 10.9983ms
+[ACCESS] 2026/05/27 21:46:40 POST /tasks -> Status: OK Duration: 15.5144ms
+[ACCESS] 2026/05/27 21:46:40 GET /columns -> Status: OK Duration: 11.614ms
+[ACCESS] 2026/05/27 21:46:40 GET /tasks -> Status: OK Duration: 13.688ms
+[ACCESS] 2026/05/27 21:46:40 GET /tasks -> Status: OK Duration: 7.8022ms
+[ACCESS] 2026/05/27 21:46:40 GET /tasks -> Status: OK Duration: 6.1961ms
+[ACCESS] 2026/05/27 21:46:45 POST /tasks -> Status: OK Duration: 7.6716ms
+[ACCESS] 2026/05/27 21:46:45 GET /columns -> Status: OK Duration: 16.9638ms
+[ACCESS] 2026/05/27 21:46:45 GET /tasks -> Status: OK Duration: 27.7649ms
+[ACCESS] 2026/05/27 21:46:45 GET /tasks -> Status: OK Duration: 9.4638ms
+[ACCESS] 2026/05/27 21:46:45 GET /tasks -> Status: OK Duration: 9.8494ms
+[ACCESS] 2026/05/27 21:46:48 GET /tasks/9/labels -> Status: OK Duration: 9.1016ms
+[ACCESS] 2026/05/27 21:47:03 GET /users.html -> Status: OK Duration: 575.4425ms
+[ACCESS] 2026/05/27 21:47:04 GET /users -> Status: OK Duration: 3.3802ms
+[ACCESS] 2026/05/27 22:16:23 GET /users.html -> Status: OK Duration: 218.4145ms
+[ACCESS] 2026/05/27 22:16:24 GET /styles.css -> Status: OK Duration: 2.817ms
+[ACCESS] 2026/05/27 22:16:24 GET /users.js -> Status: OK Duration: 8.0569ms
+[ACCESS] 2026/05/27 22:16:24 GET /users -> Status: OK Duration: 91.2498ms
+[ACCESS] 2026/05/27 22:16:30 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:16:34 GET /archive.html -> Status: OK Duration: 8.246ms
+[ACCESS] 2026/05/27 22:16:34 GET /archive.js -> Status: Not Modified Duration: 1.0185ms
+[ACCESS] 2026/05/27 22:16:34 GET /tasks/archive -> Status: OK Duration: 105.6394ms
+[ACCESS] 2026/05/27 22:16:37 GET /profile.html -> Status: Not Modified Duration: 1.1829ms
+[ACCESS] 2026/05/27 22:16:38 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:16:38 GET /users -> Status: OK Duration: 4.7495ms
+[ACCESS] 2026/05/27 22:17:08 PUT /users/1 -> Status: OK Duration: 78.11ms
+[ACCESS] 2026/05/27 22:17:08 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:17:08 GET /users -> Status: OK Duration: 5.9142ms
+[ACCESS] 2026/05/27 22:17:09 PUT /users/1 -> Status: OK Duration: 12.5815ms
+[ACCESS] 2026/05/27 22:17:09 GET /me -> Status: Not Found Duration: 1.4965ms
+[ACCESS] 2026/05/27 22:17:09 GET /users -> Status: OK Duration: 3.7687ms
+[ACCESS] 2026/05/27 22:17:18 GET /users -> Status: OK Duration: 2.9139ms
+[ACCESS] 2026/05/27 22:17:22 GET / -> Status: Not Modified Duration: 1.5776ms
+[ACCESS] 2026/05/27 22:17:22 GET /boards -> Status: OK Duration: 41.5113ms
+[ACCESS] 2026/05/27 22:17:25 GET /board.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 22:17:25 GET /labels -> Status: OK Duration: 96.6032ms
+[ACCESS] 2026/05/27 22:17:25 GET /columns -> Status: OK Duration: 251.6606ms
+[ACCESS] 2026/05/27 22:17:25 GET /tasks -> Status: OK Duration: 37.9896ms
+[ACCESS] 2026/05/27 22:17:25 GET /tasks -> Status: OK Duration: 10.1783ms
+[ACCESS] 2026/05/27 22:17:25 GET /tasks -> Status: OK Duration: 10.8946ms
+[ACCESS] 2026/05/27 22:29:35 GET /board.html -> Status: OK Duration: 933.1872ms
+[ACCESS] 2026/05/27 22:29:36 GET /styles.css -> Status: OK Duration: 3.296ms
+[ACCESS] 2026/05/27 22:29:36 GET /columns -> Status: OK Duration: 185.3092ms
+[ACCESS] 2026/05/27 22:29:36 GET /labels -> Status: OK Duration: 241.4601ms
+[ACCESS] 2026/05/27 22:29:36 GET /tasks -> Status: OK Duration: 151.6998ms
+[ACCESS] 2026/05/27 22:29:36 GET /tasks -> Status: OK Duration: 18.6134ms
+[ACCESS] 2026/05/27 22:29:37 GET /tasks -> Status: OK Duration: 44.3377ms
+[ACCESS] 2026/05/27 22:29:39 GET /activity.html -> Status: OK Duration: 358.9863ms
+[ACCESS] 2026/05/27 22:29:39 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:29:39 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:29:49 GET /activities -> Status: Not Found Duration: 712µs
+[ACCESS] 2026/05/27 22:29:50 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:30:01 GET /activity.html -> Status: OK Duration: 1.672ms
+[ACCESS] 2026/05/27 22:30:02 GET /styles.css -> Status: OK Duration: 509.1µs
+[ACCESS] 2026/05/27 22:30:02 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:30:04 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 22:30:09 GET /activities -> Status: Not Found Duration: 806.6µs
+[ACCESS] 2026/05/27 23:22:34 GET /board.html -> Status: OK Duration: 140.6525ms
+[ACCESS] 2026/05/27 23:22:34 GET /styles.css -> Status: OK Duration: 12.7707ms
+[ACCESS] 2026/05/27 23:22:34 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 19.3946ms
+[ACCESS] 2026/05/27 23:22:36 GET /favicon.ico -> Status: Not Found Duration: 9.4758ms
+[ACCESS] 2026/05/27 23:22:36 GET /labels -> Status: OK Duration: 1.4440706s
+[ACCESS] 2026/05/27 23:22:36 GET /columns -> Status: OK Duration: 1.4542224s
+[ACCESS] 2026/05/27 23:22:37 GET /tasks -> Status: OK Duration: 351.4993ms
+[ACCESS] 2026/05/27 23:22:37 GET /tasks -> Status: OK Duration: 6.1095ms
+[ACCESS] 2026/05/27 23:22:37 GET /tasks -> Status: OK Duration: 8.8086ms
+[ACCESS] 2026/05/27 23:22:44 GET /stats.html -> Status: OK Duration: 458.4894ms
+[ACCESS] 2026/05/27 23:22:44 GET /stats.js -> Status: Not Modified Duration: 509.8µs
+[ACCESS] 2026/05/27 23:22:44 GET /stats -> Status: OK Duration: 37.3454ms
+[ACCESS] 2026/05/27 23:22:47 GET /settings.html -> Status: OK Duration: 418.2824ms
+[ACCESS] 2026/05/27 23:22:47 GET /boards/1 -> Status: OK Duration: 3.8327ms
+[ACCESS] 2026/05/27 23:22:50 PUT /boards/1 -> Status: OK Duration: 31.019ms
+[ACCESS] 2026/05/27 23:22:54 GET /columns -> Status: OK Duration: 17.0811ms
+[ACCESS] 2026/05/27 23:22:54 GET /labels -> Status: OK Duration: 17.9596ms
+[ACCESS] 2026/05/27 23:22:54 GET /tasks -> Status: OK Duration: 29.6003ms
+[ACCESS] 2026/05/27 23:22:54 GET /tasks -> Status: OK Duration: 11.8474ms
+[ACCESS] 2026/05/27 23:22:54 GET /tasks -> Status: OK Duration: 17.5713ms
+[ACCESS] 2026/05/27 23:28:17 GET /board.html -> Status: OK Duration: 684.3412ms
+[ACCESS] 2026/05/27 23:28:17 GET /styles.css -> Status: OK Duration: 27.8043ms
+[ACCESS] 2026/05/27 23:28:18 GET /columns -> Status: OK Duration: 91.9537ms
+[ACCESS] 2026/05/27 23:28:18 GET /labels -> Status: OK Duration: 96.938ms
+[ACCESS] 2026/05/27 23:28:18 GET /tasks -> Status: OK Duration: 57.135ms
+[ACCESS] 2026/05/27 23:28:18 GET /tasks -> Status: OK Duration: 3.7009ms
+[ACCESS] 2026/05/27 23:28:18 GET /tasks -> Status: OK Duration: 6.4523ms
+[ACCESS] 2026/05/27 23:28:18 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:28:20 GET / -> Status: Not Modified Duration: 511.2µs
+[ACCESS] 2026/05/27 23:28:20 GET /styles.css -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 23:28:20 GET /login.html -> Status: OK Duration: 1.0954ms
+[ACCESS] 2026/05/27 23:28:24 POST /login -> Status: Unauthorized Duration: 14.4416ms
+[ACCESS] 2026/05/27 23:28:32 GET /register.html -> Status: OK Duration: 510.1µs
+[ACCESS] 2026/05/27 23:28:32 GET /styles.css -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 23:28:56 POST /register -> Status: Internal Server Error Duration: 179.0437ms
+[ACCESS] 2026/05/27 23:29:02 GET /styles.css -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 23:29:05 POST /login -> Status: Unauthorized Duration: 6.2998ms
+[ACCESS] 2026/05/27 23:29:11 POST /login -> Status: Unauthorized Duration: 2.5215ms
+[ACCESS] 2026/05/27 23:29:21 POST /login -> Status: Unauthorized Duration: 3.4067ms
+[ACCESS] 2026/05/27 23:29:29 POST /login -> Status: Unauthorized Duration: 2.459ms
+[ACCESS] 2026/05/27 23:29:33 GET /styles.css -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/27 23:29:39 POST /register -> Status: Internal Server Error Duration: 62.7157ms
+[ACCESS] 2026/05/27 23:29:49 GET /styles.css -> Status: Not Modified Duration: 506.4µs
+[ACCESS] 2026/05/27 23:29:58 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.6143ms
+[ACCESS] 2026/05/27 23:31:06 GET /styles.css -> Status: Not Modified Duration: 6.0433ms
+[ACCESS] 2026/05/27 23:31:06 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 8.7243ms
+[ACCESS] 2026/05/27 23:31:30 POST /register -> Status: Internal Server Error Duration: 131.9677ms
+[ACCESS] 2026/05/27 23:32:19 GET /board.html -> Status: Not Modified Duration: 1.6387ms
+[ACCESS] 2026/05/27 23:32:20 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.2487ms
+[ACCESS] 2026/05/27 23:32:20 GET /styles.css -> Status: Not Modified Duration: 738.1µs
+[ACCESS] 2026/05/27 23:32:20 GET /labels -> Status: Unauthorized Duration: 2.3952ms
+[ACCESS] 2026/05/27 23:32:20 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 23:36:31 GET /board.html -> Status: OK Duration: 113.8996ms
+[ACCESS] 2026/05/27 23:36:31 GET /styles.css -> Status: OK Duration: 1.8959ms
+[ACCESS] 2026/05/27 23:36:31 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 631.5µs
+[ACCESS] 2026/05/27 23:36:31 GET /labels -> Status: Unauthorized Duration: 892.6µs
+[ACCESS] 2026/05/27 23:36:31 GET /columns -> Status: Unauthorized Duration: 74.6676ms
+[ACCESS] 2026/05/27 23:36:33 GET /favicon.ico -> Status: Not Found Duration: 602µs
+[ACCESS] 2026/05/27 23:36:48 POST /register -> Status: Internal Server Error Duration: 348.8433ms
+[ACCESS] 2026/05/27 23:37:37 POST /register -> Status: Internal Server Error Duration: 67.7926ms
+[ACCESS] 2026/05/27 23:38:31 POST /register -> Status: Internal Server Error Duration: 78.6574ms
+[ACCESS] 2026/05/27 23:46:17 GET /board.html -> Status: OK Duration: 112.0516ms
+[ACCESS] 2026/05/27 23:46:18 GET /styles.css -> Status: OK Duration: 1.3534ms
+[ACCESS] 2026/05/27 23:46:18 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:46:18 GET /labels -> Status: Unauthorized Duration: 14.7184ms
+[ACCESS] 2026/05/27 23:46:18 GET /columns -> Status: Unauthorized Duration: 34.3913ms
+[ACCESS] 2026/05/27 23:46:20 GET /favicon.ico -> Status: Not Found Duration: 2.0021ms
+[ACCESS] 2026/05/27 23:46:23 POST /register -> Status: Internal Server Error Duration: 152.9ms
+[ACCESS] 2026/05/27 23:49:42 GET /board.html -> Status: OK Duration: 14.2387ms
+[ACCESS] 2026/05/27 23:49:42 GET /styles.css -> Status: OK Duration: 1.0666ms
+[ACCESS] 2026/05/27 23:49:43 GET /labels -> Status: Unauthorized Duration: 2.1196ms
+[ACCESS] 2026/05/27 23:49:43 GET /columns -> Status: Unauthorized Duration: 2.1196ms
+[ACCESS] 2026/05/27 23:49:44 GET /favicon.ico -> Status: Not Found Duration: 2.2032ms
+[ACCESS] 2026/05/27 23:50:41 GET /board.html -> Status: OK Duration: 16.902ms
+[ACCESS] 2026/05/27 23:50:41 GET /styles.css -> Status: OK Duration: 4.2245ms
+[ACCESS] 2026/05/27 23:50:42 GET /labels -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 23:50:42 GET /columns -> Status: Unauthorized Duration: 13.2ms
+[ACCESS] 2026/05/27 23:50:43 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:50:53 POST /tasks -> Status: Unauthorized Duration: 793.5µs
+[ACCESS] 2026/05/27 23:50:53 GET /columns -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/27 23:51:06 POST /register -> Status: Created Duration: 146.1188ms
+[ACCESS] 2026/05/27 23:51:11 POST /login -> Status: OK Duration: 118.3229ms
+[ACCESS] 2026/05/27 23:51:12 GET /boards -> Status: OK Duration: 70.3729ms
+[ACCESS] 2026/05/27 23:51:22 POST /boards -> Status: Created Duration: 69.2069ms
+[ACCESS] 2026/05/27 23:51:22 GET /boards -> Status: OK Duration: 20.6239ms
+[ACCESS] 2026/05/27 23:51:24 GET /board.html -> Status: OK Duration: 3.6521ms
+[ACCESS] 2026/05/27 23:51:24 GET /columns -> Status: OK Duration: 36.2976ms
+[ACCESS] 2026/05/27 23:51:24 GET /labels -> Status: OK Duration: 194.2191ms
+[ACCESS] 2026/05/27 23:51:38 POST /tasks -> Status: OK Duration: 99.3518ms
+[ACCESS] 2026/05/27 23:51:38 GET /columns -> Status: OK Duration: 27.9863ms
+[ACCESS] 2026/05/27 23:51:44 GET /board.html -> Status: OK Duration: 568.9µs
+[ACCESS] 2026/05/27 23:51:44 GET /styles.css -> Status: OK Duration: 1.5725ms
+[ACCESS] 2026/05/27 23:51:45 GET /labels -> Status: OK Duration: 4.5701ms
+[ACCESS] 2026/05/27 23:51:45 GET /columns -> Status: OK Duration: 9.5714ms
+[ACCESS] 2026/05/27 23:51:46 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:51:58 POST /tasks -> Status: OK Duration: 20.2409ms
+[ACCESS] 2026/05/27 23:51:58 GET /columns -> Status: OK Duration: 21.7465ms
+[ACCESS] 2026/05/27 23:52:04 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:55:46 GET /board.html -> Status: OK Duration: 517.7325ms
+[ACCESS] 2026/05/27 23:55:46 GET /styles.css -> Status: OK Duration: 2.1626ms
+[ACCESS] 2026/05/27 23:55:47 GET /labels -> Status: OK Duration: 192.0101ms
+[ACCESS] 2026/05/27 23:55:47 GET /columns -> Status: OK Duration: 208.1149ms
+[ACCESS] 2026/05/27 23:55:48 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:55:56 POST /labels -> Status: Bad Request Duration: 4.9096ms
+[ACCESS] 2026/05/27 23:55:56 GET /labels -> Status: OK Duration: 26.7123ms
+[ACCESS] 2026/05/27 23:56:02 GET /board.html -> Status: OK Duration: 14.2932ms
+[ACCESS] 2026/05/27 23:56:02 GET /styles.css -> Status: OK Duration: 5.6038ms
+[ACCESS] 2026/05/27 23:56:02 GET /labels -> Status: OK Duration: 7.5242ms
+[ACCESS] 2026/05/27 23:56:02 GET /columns -> Status: OK Duration: 30.8721ms
+[ACCESS] 2026/05/27 23:56:03 GET /favicon.ico -> Status: Not Found Duration: 583.4µs
+[ACCESS] 2026/05/27 23:56:12 GET /board.html -> Status: Not Modified Duration: 2.9825ms
+[ACCESS] 2026/05/27 23:56:12 GET /labels -> Status: OK Duration: 3.2073ms
+[ACCESS] 2026/05/27 23:56:12 GET /columns -> Status: OK Duration: 10.9341ms
+[ACCESS] 2026/05/27 23:56:14 GET /users.html -> Status: OK Duration: 414.6808ms
+[ACCESS] 2026/05/27 23:56:14 GET /users -> Status: OK Duration: 9.0462ms
+[ACCESS] 2026/05/27 23:56:16 GET /profile.html -> Status: OK Duration: 139.8073ms
+[ACCESS] 2026/05/27 23:56:16 GET /profile.js -> Status: Not Modified Duration: 721.1µs
+[ACCESS] 2026/05/27 23:56:16 GET /config.js -> Status: Not Modified Duration: 1.4749ms
+[ACCESS] 2026/05/27 23:56:16 GET /me -> Status: Not Found Duration: 798.8µs
+[ACCESS] 2026/05/27 23:56:16 GET /users -> Status: OK Duration: 3.8758ms
+[ACCESS] 2026/05/27 23:56:17 GET /archive.html -> Status: OK Duration: 59.1777ms
+[ACCESS] 2026/05/27 23:56:17 GET /archive.js -> Status: Not Modified Duration: 3.9435ms
+[ACCESS] 2026/05/27 23:56:17 GET /tasks/archive -> Status: OK Duration: 45.3702ms
+[ACCESS] 2026/05/27 23:56:19 GET /stats.html -> Status: Not Modified Duration: 598.1µs
+[ACCESS] 2026/05/27 23:56:19 GET /stats -> Status: OK Duration: 18.4769ms
+[ACCESS] 2026/05/27 23:56:21 GET /activity.html -> Status: Not Modified Duration: 6.2396ms
+[ACCESS] 2026/05/27 23:56:21 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:56:23 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:56:25 GET /settings.html -> Status: Not Modified Duration: 510.2µs
+[ACCESS] 2026/05/27 23:56:25 GET /boards/3 -> Status: OK Duration: 8.6547ms
+[ACCESS] 2026/05/27 23:56:29 GET /board.html -> Status: Not Modified Duration: 1.3312ms
+[ACCESS] 2026/05/27 23:56:29 GET /columns -> Status: OK Duration: 15.9774ms
+[ACCESS] 2026/05/27 23:56:29 GET /labels -> Status: OK Duration: 3.1996ms
+[ACCESS] 2026/05/27 23:56:39 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.9562ms
+[ACCESS] 2026/05/27 23:56:48 GET /board.html -> Status: OK Duration: 2.9958ms
+[ACCESS] 2026/05/27 23:56:48 GET /styles.css -> Status: OK Duration: 6.7925ms
+[ACCESS] 2026/05/27 23:56:48 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/27 23:56:50 GET /labels -> Status: OK Duration: 21.6027ms
+[ACCESS] 2026/05/27 23:56:50 GET /columns -> Status: OK Duration: 45.1774ms
+[ACCESS] 2026/05/27 23:56:51 GET /favicon.ico -> Status: Not Found Duration: 512.8µs
+[ACCESS] 2026/05/27 23:57:36 GET /tasks -> Status: OK Duration: 216.6816ms
+[ACCESS] 2026/05/27 23:58:53 GET /tasks -> Status: OK Duration: 79.0171ms
+[ACCESS] 2026/05/28 00:01:27 GET / -> Status: Not Modified Duration: 2.6804ms
+[ACCESS] 2026/05/28 00:01:28 GET /styles.css -> Status: Not Modified Duration: 1.2588ms
+[ACCESS] 2026/05/28 00:01:28 GET /favicon.ico -> Status: Not Found Duration: 11.2831ms
+[ACCESS] 2026/05/28 00:01:28 GET /boards -> Status: OK Duration: 223.308ms
+[ACCESS] 2026/05/28 00:01:31 GET /board.html -> Status: OK Duration: 944.613ms
+[ACCESS] 2026/05/28 00:01:31 GET /labels -> Status: OK Duration: 16.8005ms
+[ACCESS] 2026/05/28 00:01:31 GET /tasks -> Status: OK Duration: 125.7044ms
+[ACCESS] 2026/05/28 00:01:31 GET /tasks -> Status: OK Duration: 9.4626ms
+[ACCESS] 2026/05/28 00:01:31 GET /tasks -> Status: OK Duration: 8.156ms
+[ACCESS] 2026/05/28 00:01:41 POST /labels -> Status: Bad Request Duration: 3.2583ms
+[ACCESS] 2026/05/28 00:01:41 GET /labels -> Status: OK Duration: 17.1171ms
+[ACCESS] 2026/05/28 00:01:47 PUT /tasks/4 -> Status: OK Duration: 142.9382ms
+[ACCESS] 2026/05/28 00:01:47 GET /tasks -> Status: OK Duration: 39.7062ms
+[ACCESS] 2026/05/28 00:01:47 GET /tasks -> Status: OK Duration: 13.8815ms
+[ACCESS] 2026/05/28 00:01:47 GET /tasks -> Status: OK Duration: 7.3901ms
+[ACCESS] 2026/05/28 00:02:25 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 7.3997ms
+[ACCESS] 2026/05/28 00:02:33 GET /labels -> Status: OK Duration: 85.0136ms
+[ACCESS] 2026/05/28 00:03:37 GET /labels -> Status: OK Duration: 56.5005ms
+[ACCESS] 2026/05/28 00:03:49 GET /tasks/9/labels -> Status: OK Duration: 80.333ms
+[ACCESS] 2026/05/28 00:06:29 GET /styles.css -> Status: Not Modified Duration: 2.7114ms
+[ACCESS] 2026/05/28 00:06:29 GET /boards -> Status: OK Duration: 70.3457ms
+[ACCESS] 2026/05/28 00:06:32 GET /board.html -> Status: OK Duration: 781.8376ms
+[ACCESS] 2026/05/28 00:06:32 GET /labels -> Status: OK Duration: 28.1411ms
+[ACCESS] 2026/05/28 00:06:32 GET /tasks -> Status: OK Duration: 189.2832ms
+[ACCESS] 2026/05/28 00:06:32 GET /tasks -> Status: OK Duration: 5.9499ms
+[ACCESS] 2026/05/28 00:06:32 GET /tasks -> Status: OK Duration: 6.2401ms
+[ACCESS] 2026/05/28 00:06:38 GET /board.html -> Status: OK Duration: 1.0723ms
+[ACCESS] 2026/05/28 00:06:39 GET /styles.css -> Status: OK Duration: 2.8636ms
+[ACCESS] 2026/05/28 00:06:39 GET /labels -> Status: OK Duration: 12.4799ms
+[ACCESS] 2026/05/28 00:06:39 GET /tasks -> Status: OK Duration: 55.6603ms
+[ACCESS] 2026/05/28 00:06:39 GET /tasks -> Status: OK Duration: 6.6506ms
+[ACCESS] 2026/05/28 00:06:39 GET /tasks -> Status: OK Duration: 11.4866ms
+[ACCESS] 2026/05/28 00:06:40 GET /favicon.ico -> Status: Not Found Duration: 1.6617ms
+[ACCESS] 2026/05/28 00:06:52 POST /labels -> Status: Bad Request Duration: 67.0309ms
+[ACCESS] 2026/05/28 00:06:52 GET /labels -> Status: OK Duration: 9.8922ms
+[ACCESS] 2026/05/28 00:07:07 GET /board.html -> Status: OK Duration: 516µs
+[ACCESS] 2026/05/28 00:07:07 GET /styles.css -> Status: OK Duration: 1.8104ms
+[ACCESS] 2026/05/28 00:07:08 GET /labels -> Status: OK Duration: 2.9655ms
+[ACCESS] 2026/05/28 00:07:08 GET /tasks -> Status: OK Duration: 25.0116ms
+[ACCESS] 2026/05/28 00:07:08 GET /tasks -> Status: OK Duration: 15.7232ms
+[ACCESS] 2026/05/28 00:07:08 GET /tasks -> Status: OK Duration: 12.2786ms
+[ACCESS] 2026/05/28 00:07:09 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 00:07:20 GET /board.html -> Status: OK Duration: 1.1757ms
+[ACCESS] 2026/05/28 00:07:20 GET /styles.css -> Status: OK Duration: 9.9899ms
+[ACCESS] 2026/05/28 00:07:21 GET /labels -> Status: OK Duration: 12.1346ms
+[ACCESS] 2026/05/28 00:07:21 GET /tasks -> Status: OK Duration: 45.9075ms
+[ACCESS] 2026/05/28 00:07:21 GET /tasks -> Status: OK Duration: 9.5507ms
+[ACCESS] 2026/05/28 00:07:21 GET /tasks -> Status: OK Duration: 19.0228ms
+[ACCESS] 2026/05/28 00:07:21 GET /favicon.ico -> Status: Not Found Duration: 933.7µs
+[ACCESS] 2026/05/28 00:14:44 GET /board.html -> Status: OK Duration: 361.8152ms
+[ACCESS] 2026/05/28 00:14:44 GET /styles.css -> Status: OK Duration: 1.7929ms
+[ACCESS] 2026/05/28 00:14:44 GET /labels -> Status: OK Duration: 124.1588ms
+[ACCESS] 2026/05/28 00:14:45 GET /tasks -> Status: OK Duration: 119.1216ms
+[ACCESS] 2026/05/28 00:14:45 GET /tasks -> Status: OK Duration: 8.5195ms
+[ACCESS] 2026/05/28 00:14:45 GET /tasks -> Status: OK Duration: 23.1095ms
+[ACCESS] 2026/05/28 00:14:45 GET /favicon.ico -> Status: Not Found Duration: 2.703ms
+[ACCESS] 2026/05/28 10:05:14 GET /users.html -> Status: Not Modified Duration: 88.0289ms
+[ACCESS] 2026/05/28 10:05:14 GET /users.js -> Status: Not Modified Duration: 10.3118ms
+[ACCESS] 2026/05/28 10:05:14 GET /styles.css -> Status: Not Modified Duration: 12.6511ms
+[ACCESS] 2026/05/28 10:05:17 GET /users -> Status: OK Duration: 2.9713673s
+[ACCESS] 2026/05/28 10:05:24 GET /profile.html -> Status: Not Modified Duration: 11.786ms
+[ACCESS] 2026/05/28 10:05:24 GET /config.js -> Status: Not Modified Duration: 2.5461ms
+[ACCESS] 2026/05/28 10:05:24 GET /profile.js -> Status: Not Modified Duration: 11.7177ms
+[ACCESS] 2026/05/28 10:05:24 GET /me -> Status: Not Found Duration: 631.5µs
+[ACCESS] 2026/05/28 10:05:24 GET /users -> Status: OK Duration: 50.296ms
+[ACCESS] 2026/05/28 10:05:47 GET /me -> Status: Not Found Duration: 678.6µs
+[ACCESS] 2026/05/28 10:05:47 GET /users -> Status: OK Duration: 6.839ms
+[ACCESS] 2026/05/28 10:06:04 GET /archive.html -> Status: Not Modified Duration: 3.8751ms
+[ACCESS] 2026/05/28 10:06:04 GET /archive.js -> Status: Not Modified Duration: 1.1048ms
+[ACCESS] 2026/05/28 10:06:04 GET /tasks/archive -> Status: OK Duration: 152.0282ms
+[ACCESS] 2026/05/28 10:06:11 GET /stats.html -> Status: Not Modified Duration: 590.8µs
+[ACCESS] 2026/05/28 10:06:11 GET /stats.js -> Status: Not Modified Duration: 4.6641ms
+[ACCESS] 2026/05/28 10:06:11 GET /stats -> Status: OK Duration: 42.604ms
+[ACCESS] 2026/05/28 10:06:18 GET /activity.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/28 10:06:18 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 10:06:21 GET /activities -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 10:06:24 GET /settings.html -> Status: Not Modified Duration: 535.9µs
+[ACCESS] 2026/05/28 10:06:24 GET /boards/3 -> Status: OK Duration: 4.6858ms
+[ACCESS] 2026/05/28 10:07:49 GET /board.html -> Status: OK Duration: 11.4269ms
+[ACCESS] 2026/05/28 10:07:49 GET /labels -> Status: OK Duration: 82.8956ms
+[ACCESS] 2026/05/28 10:07:49 GET /tasks -> Status: OK Duration: 135.3728ms
+[ACCESS] 2026/05/28 10:07:49 GET /tasks -> Status: OK Duration: 8.7027ms
+[ACCESS] 2026/05/28 10:07:49 GET /tasks -> Status: OK Duration: 10.959ms
+[ACCESS] 2026/05/28 10:08:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 184.6495ms
+[ACCESS] 2026/05/28 10:42:01 GET /board.html -> Status: OK Duration: 151.5932ms
+[ACCESS] 2026/05/28 10:42:01 GET /styles.css -> Status: OK Duration: 26.4209ms
+[ACCESS] 2026/05/28 10:42:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 50.3255ms
+[ACCESS] 2026/05/28 10:42:02 GET /labels -> Status: OK Duration: 156.2717ms
+[ACCESS] 2026/05/28 10:42:02 GET /tasks -> Status: OK Duration: 217.4077ms
+[ACCESS] 2026/05/28 10:42:02 GET /tasks -> Status: OK Duration: 30.7245ms
+[ACCESS] 2026/05/28 10:42:02 GET /tasks -> Status: OK Duration: 27.6377ms
+[ACCESS] 2026/05/28 10:42:02 GET /favicon.ico -> Status: Not Found Duration: 1.0427ms
+[ACCESS] 2026/05/28 10:42:49 PATCH /tasks/4/archive -> Status: OK Duration: 157.9361ms
+[ACCESS] 2026/05/28 10:42:49 GET /tasks -> Status: OK Duration: 41.6204ms
+[ACCESS] 2026/05/28 10:42:49 GET /tasks -> Status: OK Duration: 6.0229ms
+[ACCESS] 2026/05/28 10:42:49 GET /tasks -> Status: OK Duration: 9.7345ms
+[ACCESS] 2026/05/28 10:42:55 GET /tasks/archive -> Status: OK Duration: 58.8685ms
+[ACCESS] 2026/05/28 10:43:01 GET /archive.html -> Status: OK Duration: 8.2065ms
+[ACCESS] 2026/05/28 10:43:01 GET /styles.css -> Status: OK Duration: 1.0667ms
+[ACCESS] 2026/05/28 10:43:01 GET /config.js -> Status: OK Duration: 1.1515ms
+[ACCESS] 2026/05/28 10:43:01 GET /archive.js -> Status: OK Duration: 7.6452ms
+[ACCESS] 2026/05/28 10:43:01 GET /tasks/archive -> Status: OK Duration: 3.0367ms
+[ACCESS] 2026/05/28 10:43:02 GET /favicon.ico -> Status: Not Found Duration: 1.0358ms
+[ACCESS] 2026/05/28 10:43:05 GET / -> Status: Not Modified Duration: 1.6015ms
+[ACCESS] 2026/05/28 10:43:05 GET /boards -> Status: OK Duration: 15.4727ms
+[ACCESS] 2026/05/28 10:43:07 GET /board.html -> Status: Not Modified Duration: 0s
+[ACCESS] 2026/05/28 10:43:07 GET /labels -> Status: OK Duration: 5.8446ms
+[ACCESS] 2026/05/28 10:43:07 GET /tasks -> Status: OK Duration: 23.1076ms
+[ACCESS] 2026/05/28 10:43:07 GET /tasks -> Status: OK Duration: 6.3253ms
+[ACCESS] 2026/05/28 10:43:07 GET /tasks -> Status: OK Duration: 8.9296ms
+[ACCESS] 2026/05/28 10:43:12 PATCH /tasks/3/archive -> Status: OK Duration: 18.2321ms
+[ACCESS] 2026/05/28 10:43:12 GET /tasks -> Status: OK Duration: 50.7319ms
+[ACCESS] 2026/05/28 10:43:12 GET /tasks -> Status: OK Duration: 6.7647ms
+[ACCESS] 2026/05/28 10:43:12 GET /tasks -> Status: OK Duration: 6.0202ms
+[ACCESS] 2026/05/28 10:43:16 GET /tasks/archive -> Status: OK Duration: 7.7848ms
+[ACCESS] 2026/05/28 10:43:31 GET /boards -> Status: OK Duration: 49.8467ms
+[ACCESS] 2026/05/28 10:43:32 GET /labels -> Status: OK Duration: 7.5232ms
+[ACCESS] 2026/05/28 10:43:32 GET /tasks -> Status: OK Duration: 37.0743ms
+[ACCESS] 2026/05/28 10:43:32 GET /tasks -> Status: OK Duration: 6.6596ms
+[ACCESS] 2026/05/28 10:43:32 GET /tasks -> Status: OK Duration: 8.4502ms
+[ACCESS] 2026/05/28 10:43:54 PATCH /tasks/8/archive -> Status: OK Duration: 103.7215ms
+[ACCESS] 2026/05/28 10:43:54 GET /tasks -> Status: OK Duration: 51.3867ms
+[ACCESS] 2026/05/28 10:43:54 GET /tasks -> Status: OK Duration: 14.5736ms
+[ACCESS] 2026/05/28 10:43:54 GET /tasks -> Status: OK Duration: 20.5696ms
+[ACCESS] 2026/05/28 10:43:57 GET /tasks/archive -> Status: OK Duration: 10.7788ms
+[ACCESS] 2026/05/28 10:44:02 GET /archive.html -> Status: OK Duration: 13.2941ms
+[ACCESS] 2026/05/28 10:44:02 GET /archive.js -> Status: OK Duration: 2.4345ms
+[ACCESS] 2026/05/28 10:44:02 GET /styles.css -> Status: OK Duration: 2.2815ms
+[ACCESS] 2026/05/28 10:44:02 GET /config.js -> Status: OK Duration: 10.5638ms
+[ACCESS] 2026/05/28 10:44:02 GET /tasks/archive -> Status: OK Duration: 4.0917ms
+[ACCESS] 2026/05/28 10:44:03 GET /favicon.ico -> Status: Not Found Duration: 1.0543ms
+[ACCESS] 2026/05/28 10:44:06 GET /boards -> Status: OK Duration: 8.2209ms

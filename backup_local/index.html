@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Канбан-доска</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="nav">
+    <a href="index.html"><i class="fa-regular fa-rectangle-list"></i>Доска</a>
+    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
+    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
+    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+</div>
+  <!-- <div class="nav">
+    <a href="index.html">📋 Board</a>
+    <a href="users.html">👥 Users</a>
+    <a href="profile.html">👤 Profile</a>
+    <a href="archive.html">📦 Архив</a>
+    <a href="stats.html">📊 Статистика</a>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;">🌙 Тёмная тема</button>
+  </div> -->
+
+  <h1> Канбан-доска</h1>
+
+  <div class="filters">
+ <!-- Кнопка создания задачи -->
+    <!-- <button onclick="openCreateModal()">➕ Создать задачу</button> -->
+<button onclick="openCreateModal()"><i class="fa-solid fa-plus"></i> Создать задачу</button>
+
+
+    <select id="priorityFilter">
+      <option value="">Все приоритеты</option>
+      <option value="high">🔴 Высокий</option>
+      <option value="medium">🟡 Средний</option>
+      <option value="low">🟢 Низкий</option>
+    </select>
+
+    <input id="userFilter" placeholder="👤 ID исполнителя" type="number" />
+    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
+
+    <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Apply Filter</button>
+<button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Clear Filters</button>
+    <!-- <button onclick="loadTasks()">🔍 Apply Filter</button> -->
+     <!-- <button onclick="applyFilter()">🔍 Apply Filter</button> -->
+    <!-- <button onclick="clearFilters()">🗑️ Clear Filters</button> -->
+     <!-- <button onclick="clearFilters()">🗑️ Clear Filters</button> -->
+  </div>
+
+  <!-- Панель меток -->
+<div class="labels-panel">
+    <!-- <h3>🏷️ Метки</h3> -->
+     <h3><i class="fa-solid fa-tags"></i> Метки</h3>
+    
+    <!-- Список всех меток -->
+    <div id="labelsList" class="labels-list"></div>
+    
+    <!-- Форма создания метки -->
+    <div class="add-label-form">
+        <input type="text" id="newLabelName" placeholder="Название метки" maxlength="60">
+        <input type="color" id="newLabelColor" value="#3b82f6">
+        <!-- <button onclick="createLabel()">➕ Добавить метку</button> -->
+         <button onclick="createLabel()"><i class="fa-solid fa-plus"></i> Добавить метку</button>
+    </div>
+    
+    <!-- Фильтр по меткам -->
+    <div class="filter-by-labels">
+        <h4>Фильтр по меткам:</h4>
+        <div id="labelFilters" class="label-filters"></div>
+        <button onclick="clearLabelFilter()"><i class="fa-solid fa-eraser"></i> Очистить фильтр меток</button>
+        <!-- <button onclick="clearLabelFilter()">✖️ Очистить фильтр меток</button> -->
+        <!-- <button onclick="location.href='archive.html'">📦 Архив</button> -->
+    </div>
+</div>
+
+<div class="sort-pagination-panel">
+    <!-- ЛЕВАЯ СТОРОНА: Сортировка -->
+    <div class="sort-section">
+        <label>📊 Сортировать по:</label>
+        <select id="sortBy">
+            <option value="priority">Приоритету</option>
+            <option value="title">Названию</option>
+            <option value="assigned_to">Исполнителю</option>
+        </select>
+        <select id="sortOrder">
+            <option value="desc">По убыванию</option>
+            <option value="asc">По возрастанию</option>
+        </select>
+        <button onclick="applySortAndPage()">🔄 Применить</button>
+    </div>
+
+    <!-- ПРАВАЯ СТОРОНА: Пагинация -->
+    <div class="pagination-section">
+        <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button>
+        <span id="pageInfo">Страница 1 из 1</span>
+        <button onclick="nextPage()" id="nextBtn" disabled>Вперед ▶</button>
+        <div class="per-page">
+            <label>Показывать:</label>
+            <select id="perPage" onchange="changePerPage()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>задач</span>
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="sort-pagination-panel">
+    <div class="sort-section">
+      
+         <label><i class="fa-solid fa-arrow-down-wide-short"></i> Сортировать по:</label>
+        <select id="sortBy">
+            <option value="priority">Приоритету</option>
+            <option value="created_at">Дате создания</option>
+            <option value="title">Названию</option>
+            <option value="assigned_to">Исполнителю</option>
+        </select>
+        
+        <select id="sortOrder">
+            <option value="asc">📈 По возрастанию</option>
+            <option value="desc">📉 По убыванию</option>
+        </select>
+        
+      
+         <button onclick="applySortAndPage()"><i class="fa-solid fa-rotate"></i> Применить</button>
+    </div>
+    
+    <div class="pagination-section">
+       
+         <button onclick="prevPage()" id="prevBtn" disabled><i class="fa-solid fa-chevron-left"></i> Назад</button>
+        <span id="pageInfo">Страница 1 из 1</span>
+       
+         <button onclick="nextPage()" id="nextBtn" disabled>Вперед <i class="fa-solid fa-chevron-right"></i></button>
+        
+        <div class="per-page">
+            
+             <label><i class="fa-regular fa-eye"></i> Показывать:</label>
+            <select id="perPage" onchange="changePerPage()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>задач</span>
+        </div>
+    </div>
+</div> -->
+
+  <div class="board-container" id="board"></div>
+
+  <!-- Модальное окно -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <!-- <h3>✏️ Edit Task</h3> -->
+       <h3><i class="fa-regular fa-pen-to-square"></i> Редактировать задачу</h3>
+      
+      <input id="editTitle" placeholder="Название задачи" autocomplete="off" />
+      <textarea id="editDesc" placeholder="Описание" rows="3"></textarea>
+      
+      <select id="editPriority">
+        <option value="low">🟢 Низкий</option>
+        <option value="medium">🟡 Средний</option>
+        <option value="high">🔴 Высокий</option>
+      </select>
+      
+      <!-- <input id="editAssignedTo" placeholder="Assigned User ID" type="number" /> -->
+       <select id="editAssignedTo">
+    <option value="">Не назначен</option>
+    <option value="1">Анна Смирнова</option>
+    <option value="2">Борис Петров</option>
+    <option value="3">Виктор Сидоров</option>
+    <option value="4">Дарья Кузнецова</option>
+    <option value="5">Елена Морозова</option>
+    <option value="6">Максим Иванов</option>
+    <option value="7">Ольга Соколова</option>
+    <option value="8">Игорь Васильев</option>
+</select>
+      
+      <div class="modal-labels-section">
+    <h4>🏷️ Метки задачи:</h4>
+    <div id="modalTaskLabels" class="modal-labels-list"></div>
+</div>
+      <div style="margin-top: 15px;">
+        <button onclick="saveTask()"><i class="fa-regular fa-floppy-disk"></i> Сохранить</button>
+<button onclick="archiveCurrentTask()"><i class="fa-solid fa-box-archive"></i> В архив</button>
+<button onclick="closeModal()"><i class="fa-solid fa-xmark"></i> Удалить</button>
+        <!-- <button onclick="saveTask()">💾 Save</button>
+        <button onclick="archiveCurrentTask()">📦 В архив</button>
+        <button onclick="closeModal()">❌ Cancel</button> -->
+         
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Модальное окно для создания задачи -->
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <!-- <h3>➕ Новая задача</h3> -->
+         <h3><i class="fa-solid fa-plus"></i> Новая задача</h3>
+        <input id="createTitle" placeholder="Название задачи" autocomplete="off" />
+        <textarea id="createDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="createPriority">
+            <option value="low">🟢 Низкий</option>
+            <option value="medium" selected>🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
+        </select>
+        <input id="createAssignedTo" placeholder="ID исполнителя" type="number" />
+        <select id="createColumnId">
+            <option value="1">📋 К выполнению</option>
+            <option value="2">⚙️ В процессе</option>
+            <option value="3">✅ Выполнено</option>
+        </select>
+        <div style="margin-top: 15px;">
+            <button id="createTaskBtn" onclick="createTask()">💾 Создать</button>
+            <button id="closeCreateModalBtn" onclick="closeCreateModal()">❌ Отмена</button>
+            <!-- <button onclick="createTask()">💾 Создать</button>
+            <button onclick="closeCreateModal()">❌ Отмена</button> -->
+        </div>
+    </div>
+</div>
+
+
+<!-- Блок для списка досок (добавить в боковую панель) -->
+<div class="boards-section">
+    <h3>Мои доски</h3>
+    <div id="board-list" class="board-list"></div>
+    <button onclick="showCreateBoardModal()">+ Новая доска</button>
+</div>
+
+
+  <script src="config.js"></script>
+  <!-- <script src="auth.js"></script> -->
+  <script src="script.js"></script>
+  <script src="labels.js"></script>
+</body>
+</html>

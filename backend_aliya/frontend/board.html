@@ -18,6 +18,8 @@
     <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
     <a href="activity.html"><i class="fa-solid fa-clock"></i> Активность</a>
     <a href="settings.html"><i class="fa-solid fa-gear"></i> Настройки</a>
+
+    <button onclick="logout()" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Выйти</button>
     <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
 </div>
 
@@ -182,48 +184,122 @@
     let labels = [];
     let currentBoardId = localStorage.getItem('currentBoardId') || 1;
 
-    // ЗАГРУЗКА МЕТОК
-    async function loadLabels() {
-        const token = localStorage.getItem('token');
-        if (!token) return;
-        try {
-            const response = await fetch(`${API_BASE_URL}/labels?board_id=${currentBoardId}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (response.ok) {
-                labels = await response.json();
-                window.labels = labels;
-                renderLabelsList();
-                renderLabelFilters();
-            }
-        } catch (error) {
-            console.error(error);
+    // // ЗАГРУЗКА МЕТОК
+    // async function loadLabels() {
+    //     const token = localStorage.getItem('token');
+    //     if (!token) return;
+    //     try {
+    //         const response = await fetch(`${API_BASE_URL}/labels?board_id=${currentBoardId}`, {
+    //             headers: { 'Authorization': `Bearer ${token}` }
+    //         });
+    //         if (response.ok) {
+    //             labels = await response.json();
+    //             window.labels = labels;
+    //             renderLabelsList();
+    //             renderLabelFilters();
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+//     async function loadLabels() {
+//     const token = localStorage.getItem('token');
+//     if (!token) return;
+    
+//     const boardId = localStorage.getItem('currentBoardId') || 1;
+    
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/labels?board_id=${boardId}`, {
+//             headers: { 'Authorization': `Bearer ${token}` }
+//         });
+//         if (response.ok) {
+//             labels = await response.json();
+//             window.labels = labels;
+//             renderLabelsList();
+//             renderLabelFilters();
+//         } else {
+//             console.warn('Ошибка загрузки меток, статус:', response.status);
+//             labels = [];
+//             window.labels = [];
+//         }
+//     } catch (error) {
+//         console.error('Failed to load labels:', error);
+//         labels = [];
+//         window.labels = [];
+//     }
+// }
+
+async function loadLabels() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    
+    const boardId = localStorage.getItem('currentBoardId') || 1;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/labels?board_id=${boardId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            labels = data;
+            window.labels = data;
+            // Явно вызываем отрисовку ПОСЛЕ загрузки
+            renderLabelsList();
+            renderLabelFilters();
+        } else {
+            console.warn('Ошибка загрузки меток, статус:', response.status);
         }
+    } catch (error) {
+        console.error('Failed to load labels:', error);
     }
+}
 
     function renderLabelsList() {
-        const container = document.getElementById('labelsList');
-        if (!container) return;
-        if (!labels.length) {
-            container.innerHTML = '<div>Нет меток. Создайте первую!</div>';
-            return;
-        }
-        container.innerHTML = labels.map(label => `
-            <div class="label" style="background: ${label.color};">${escapeHtml(label.name)}<span class="remove-label" onclick="deleteLabel(${label.id})">✖</span></div>
-        `).join('');
+    const container = document.getElementById('labelsList');
+    if (!container) return;
+    if (!labels || labels.length === 0) {
+        container.innerHTML = '<div>Нет меток. Создайте первую!</div>';
+        return;
     }
+    container.innerHTML = labels.map(label => `
+        <div class="label" style="background: ${label.color};">${escapeHtml(label.name)}<span class="remove-label" onclick="deleteLabel(${label.id})">✖</span></div>
+    `).join('');
+}
+    // function renderLabelsList() {
+    //     const container = document.getElementById('labelsList');
+    //     if (!container) return;
+    //     if (!labels.length) {
+    //         container.innerHTML = '<div>Нет меток. Создайте первую!</div>';
+    //         return;
+    //     }
+    //     container.innerHTML = labels.map(label => `
+    //         <div class="label" style="background: ${label.color};">${escapeHtml(label.name)}<span class="remove-label" onclick="deleteLabel(${label.id})">✖</span></div>
+    //     `).join('');
+    // }
 
-    function renderLabelFilters() {
-        const container = document.getElementById('labelFilters');
-        if (!container) return;
-        if (!labels.length) {
-            container.innerHTML = '<div>Создайте метки для фильтрации</div>';
-            return;
-        }
-        container.innerHTML = labels.map(label => `
-            <div class="label-filter ${selectedLabelFilters.includes(label.id) ? 'active' : ''}" style="background:${label.color};" onclick="toggleLabelFilter(${label.id})">${escapeHtml(label.name)}</div>
-        `).join('');
+    // function renderLabelFilters() {
+    //     const container = document.getElementById('labelFilters');
+    //     if (!container) return;
+    //     if (!labels.length) {
+    //         container.innerHTML = '<div>Создайте метки для фильтрации</div>';
+    //         return;
+    //     }
+    //     container.innerHTML = labels.map(label => `
+    //         <div class="label-filter ${selectedLabelFilters.includes(label.id) ? 'active' : ''}" style="background:${label.color};" onclick="toggleLabelFilter(${label.id})">${escapeHtml(label.name)}</div>
+    //     `).join('');
+    // }
+  function renderLabelFilters() {
+    const container = document.getElementById('labelFilters');
+    if (!container) return;
+    if (!labels || labels.length === 0) {
+        container.innerHTML = '<div>Создайте метки для фильтрации</div>';
+        return;
     }
+    container.innerHTML = labels.map(label => `
+        <div class="label-filter ${selectedLabelFilters.includes(label.id) ? 'active' : ''}" style="background:${label.color};" onclick="toggleLabelFilter(${label.id})">${escapeHtml(label.name)}</div>
+    `).join('');
+}
+
 
     function toggleLabelFilter(labelId) {
         if (selectedLabelFilters.includes(labelId)) {
@@ -276,34 +352,63 @@
     }
 
     // ЗАГРУЗКА ЗАДАЧ
-    async function loadTasks() {
-        const token = localStorage.getItem('token');
-        if (!token) return;
-        try {
-            const columnsResponse = await fetch(`${API_BASE_URL}/columns?board_id=${currentBoardId}`, {
+    // async function loadTasks() {
+    //     const token = localStorage.getItem('token');
+    //     if (!token) return;
+    //     try {
+    //         const columnsResponse = await fetch(`${API_BASE_URL}/columns?board_id=${currentBoardId}`, {
+    //             headers: { 'Authorization': `Bearer ${token}` }
+    //         });
+    //         const columns = await columnsResponse.json();
+    //         let allColTasks = [];
+    //         for (const column of columns) {
+    //             const tasksResponse = await fetch(`${API_BASE_URL}/tasks?column_id=${column.id}`, {
+    //                 headers: { 'Authorization': `Bearer ${token}` }
+    //             });
+    //             if (tasksResponse.ok) {
+    //                 const data = await tasksResponse.json();
+    //                 let tasks = data.data || data;
+    //                 if (Array.isArray(tasks)) {
+    //                     allColTasks.push(...tasks.map(t => ({ ...t, column_id: column.id })));
+    //                 }
+    //             }
+    //         }
+    //         allTasks = allColTasks;
+    //         applySortAndPage();
+    //     } catch (error) {
+    //         console.error(error);
+    //         document.getElementById('board').innerHTML = '<div class="empty-state">⚠️ Ошибка загрузки</div>';
+    //     }
+    // }
+
+async function loadTasks() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    
+    try {
+        const allTasks = [];
+        const columns = [1, 2, 3];
+        
+        for (const columnId of columns) {
+            const response = await fetch(`${API_BASE_URL}/tasks?column_id=${columnId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            const columns = await columnsResponse.json();
-            let allColTasks = [];
-            for (const column of columns) {
-                const tasksResponse = await fetch(`${API_BASE_URL}/tasks?column_id=${column.id}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (tasksResponse.ok) {
-                    const data = await tasksResponse.json();
-                    let tasks = data.data || data;
-                    if (Array.isArray(tasks)) {
-                        allColTasks.push(...tasks.map(t => ({ ...t, column_id: column.id })));
-                    }
+            if (response.ok) {
+                const data = await response.json();
+                const tasks = data.data || data;
+                if (Array.isArray(tasks)) {
+                    allTasks.push(...tasks.map(t => ({ ...t, column_id: columnId })));
                 }
             }
-            allTasks = allColTasks;
-            applySortAndPage();
-        } catch (error) {
-            console.error(error);
-            document.getElementById('board').innerHTML = '<div class="empty-state">⚠️ Ошибка загрузки</div>';
         }
+        
+        renderBoard(allTasks);
+    } catch (error) {
+        console.error('Load tasks error:', error);
+        document.getElementById('board').innerHTML = '<div class="empty-state">⚠️ Ошибка загрузки</div>';
     }
+}
+
 
     function renderBoard(tasks) {
         const boardDiv = document.getElementById('board');
@@ -554,12 +659,20 @@
     else { document.body.classList.add('dark'); document.body.classList.remove('light'); }
     document.getElementById('themeToggle')?.addEventListener('click', () => { document.body.classList.toggle('dark'); document.body.classList.toggle('light'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        loadLabels();
-        loadTasks();
-        document.getElementById('modal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
-        document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
-    });
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     loadLabels();
+    //     loadTasks();
+    //     document.getElementById('modal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
+    //     document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
+    // });
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadLabels();   // Ждём загрузки меток
+    loadTasks();          // Загружаем задачи
+    document.getElementById('modal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
+    document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
+});
 
 // Фикс для приглашений
 (function() {
@@ -575,6 +688,14 @@
         return originalFetch(url, options);
     };
 })();
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('currentBoardId');
+    window.location.href = 'index.html';
+}
+
 </script>
 
 </body>

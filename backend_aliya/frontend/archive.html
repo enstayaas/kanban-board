@@ -1,67 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архив задач</title>
+    <title>Архив и Корзина - Kanban</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="nav">
-          <a href="index.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
-    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
-    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
-    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
-    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
-    <a href="activity.html"><i class="fa-solid fa-clock"></i> Активность</a>
-    <a href="settings.html"><i class="fa-solid fa-gear"></i> Настройки</a>
-    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
-</div>
-        <!-- <a href="index.html">📋 Board</a>
-        <a href="users.html">👥 Users</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="archive.html">📦 Архив</a>
-    </div> -->
+        <a href="index.html" id="nav-projects" class="back-btn"><i class="fa-solid fa-arrow-left"></i> К проектам</a>
+        <a href="#" onclick="goToCurrentBoard(event)" id="nav-board"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+        <a href="users.html" id="nav-users"><i class="fa-solid fa-users"></i> Пользователи</a>
+        <a href="profile.html" id="nav-profile"><i class="fa-regular fa-user"></i> Профиль</a>
+        <a href="archive.html" id="nav-archive"><i class="fa-solid fa-box-archive"></i> Архив</a>
+        <a href="stats.html" id="nav-stats"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+        <a href="activity.html" id="nav-activity"><i class="fa-solid fa-clock"></i> Активность</a>
+        <a href="settings.html" id="nav-settings"><i class="fa-solid fa-gear"></i> Настройки</a>
+        <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+    </div>
 
-    <h1>📦 Архив задач</h1>
+    <h1><i class="fa-solid fa-box-archive"></i> Центр управления архивом</h1>
 
-    <div id="archiveContainer" class="archive-container">
-        <div class="loader" style="text-align:center;">Загрузка...</div>
+    <div class="archive-tabs">
+        <button class="tab-btn active" onclick="switchArchiveTab(event, 'tasks')">📋 Архив задач</button>
+        <button class="tab-btn" onclick="switchArchiveTab(event, 'boards')">🗑️ Корзина досок</button>
+    </div>
+
+    <div id="tasksTab" class="archive-tab-content active">
+        <h2>Архивированные задачи</h2>
+        <div id="archiveContainer" class="archive-container">
+            <div class="loader" style="text-align:center;">Загрузка задач...</div>
+        </div>
+    </div>
+
+    <div id="boardsTab" class="archive-tab-content">
+        <h2>Удаленные доски (проекты)</h2>
+        <div id="trashList" class="trash-grid">
+            <div class="loading-text" style="text-align:center;">Загрузка корзины...</div>
+        </div>
     </div>
 
     <script src="config.js"></script>
-    <!-- <script src="auth.js"></script> -->
     <script src="archive.js"></script>
+
+    <script>
+        const CURRENT_API_URL = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'http://localhost:8081';
+
+        // --- Умная навигация ---
+        const currentBoardId = localStorage.getItem('currentBoardId') || 1;
+        function goToCurrentBoard(event) {
+            if (event) event.preventDefault();
+            window.location.href = `board.html?id=${currentBoardId}`;
+        }
+        function highlightActiveNav() {
+            document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+            document.getElementById('nav-archive')?.classList.add('active');
+        }
+
+        // --- Переключение вкладок ---
+        function switchArchiveTab(e, tabName) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.archive-tab-content').forEach(c => c.classList.remove('active'));
+
+            if (e && e.currentTarget) {
+                e.currentTarget.classList.add('active');
+            }
+
+            if (tabName === 'tasks') {
+                document.getElementById('tasksTab').classList.add('active');
+            } else {
+                document.getElementById('boardsTab').classList.add('active');
+                loadTrashBoards();
+            }
+        }
+
+        // --- Логика корзины досок ---
+        async function fetchArchiveAPI(url, options = {}) {
+            const token = localStorage.getItem('token');
+            const headers = { 'Content-Type': 'application/json', ...options.headers };
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) { localStorage.removeItem('token'); window.location.href = 'login.html'; }
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        }
+
+        async function loadTrashBoards() {
+            const trashList = document.getElementById('trashList');
+            if (!trashList) return;
+
+            try {
+                const responseData = await fetchArchiveAPI(`${CURRENT_API_URL}/boards/deleted`);
+                
+                let boardsArray = [];
+                if (responseData && Array.isArray(responseData.data)) {
+                    boardsArray = responseData.data;
+                } else if (Array.isArray(responseData)) {
+                    boardsArray = responseData;
+                } else {
+                    console.error("Неверный формат ответа досок:", responseData);
+                    trashList.innerHTML = `<div style="color:orange; text-align:center;">Не удалось разобрать данные от сервера</div>`;
+                    return;
+                }
+
+                const archivedBoards = boardsArray.filter(b => b && b.is_archived === true);
+
+                if (archivedBoards.length === 0) {
+                    trashList.innerHTML = `
+                        <div class="empty-trash" style="text-align:center; padding:40px; color:#64748b;">
+                            <i class="fa-regular fa-folder-open" style="font-size:32px;"></i>
+                            <p>Корзина досок пуста</p>
+                        </div>`;
+                    return;
+                }
+
+                trashList.innerHTML = '';
+                archivedBoards.forEach(board => {
+                    const card = document.createElement('div');
+                    card.className = 'trash-card';
+                    card.innerHTML = `
+                        <div class="trash-card-info">
+                            <h3>${escapeHtml(board.title)}</h3>
+                            <p>${escapeHtml(board.description || 'Без описания')}</p>
+                        </div>
+                        <div class="trash-card-actions">
+                            <button onclick="restoreBoard(${board.id}, '${escapeHtml(board.title)}', '${escapeHtml(board.description || '')}')" class="restore-btn">Восстановить</button>
+                            <button onclick="permanentlyDeleteBoard(${board.id})" class="delete-forever-btn">Стереть навсегда</button>
+                        </div>
+                    `;
+                    trashList.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Ошибка загрузки корзины досок:", error);
+                trashList.innerHTML = `<div style="color:red; text-align:center;">Ошибка: ${error.message}</div>`;
+            }
+        }
+
+        async function restoreBoard(id, title, description) {
+            try {
+                await fetchArchiveAPI(`${CURRENT_API_URL}/boards/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ title, description, is_archived: false })
+                });
+                alert('✨ Доска успешно восстановлена!');
+                loadTrashBoards();
+            } catch (error) {
+                alert('Не удалось восстановить: ' + error.message);
+            }
+        }
+
+      async function permanentlyDeleteBoard(boardId) {
+            if (!confirm('🚨 Вы уверены, что хотите стереть эту доску НАВСЕГДА? Все колонки и задачи внутри неё будут безвозвратно уничтожены!')) return;
+
+            try {
+                const token = localStorage.getItem('token');
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                // Отправляем запрос напрямую
+                const response = await fetch(`http://localhost:8081/boards/${boardId}/permanent`, {
+                    method: 'DELETE',
+                    headers: headers
+                });
+
+                // Если бэкенд вернул ошибку, вытаскиваем её текст
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    alert(`❌ Ошибка удаления: ${errData.error || 'Код ' + response.status}`);
+                    return;
+                }
+
+                alert('💥 Доска полностью стёрта из системы!');
+                
+                // ВМЕСТО window.location.reload() вызываем обновление списка удаленных досок:
+                loadTrashBoards(); 
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Не удалось связаться с сервером: ' + error.message);
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.toString().replace(/[&<>]/g, m => {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // Тёмная тема
+        const theme = localStorage.getItem('theme') || 'dark';
+        if (theme === 'light') { document.body.classList.remove('dark'); document.body.classList.add('light'); }
+        else { document.body.classList.add('dark'); document.body.classList.remove('light'); }
+
+        document.getElementById('themeToggle')?.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        document.addEventListener('DOMContentLoaded', highlightActiveNav);
+    </script>
+
+    <style>
+        .archive-tabs { display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; }
+        .tab-btn { background: rgba(255,255,255,0.05); color: inherit; border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: inherit; transition: 0.2s; }
+        .tab-btn.active, .tab-btn:hover { background: #8b5cf6; color: white; border-color: #8b5cf6; }
+        
+        .archive-tab-content { display: none; }
+        .archive-tab-content.active { display: block; }
+
+        .trash-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+        .trash-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .trash-card-info h3 { margin: 0 0 4px 0; font-size: 16px; }
+        .trash-card-info p { margin: 0; color: #94a3b8; font-size: 13px; }
+        .trash-card-actions { display: flex; gap: 8px; }
+        
+        .restore-btn { background: #10b981; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .delete-forever-btn { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .restore-btn:hover, .delete-forever-btn:hover { transform: scale(1.02); }
+
+        body.light .tab-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); }
+        body.light .tab-btn.active { background: #8b5cf6; }
+        body.light .trash-card { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.08); }
+        body.light .trash-card-info p { color: #64748b; }
+    </style>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архив задач</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="nav">
-        <a href="index.html">📋 Board</a>
-        <a href="users.html">👥 Users</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="archive.html">📦 Архив</a>
-    </div>
-    <h1>📦 Архив задач</h1>
-    <div id="archiveContainer" class="archive-container">Loading...</div>
-    <script src="config.js"></script>
-    <script src="archive.js"></script>
-</body>
-</html> -->

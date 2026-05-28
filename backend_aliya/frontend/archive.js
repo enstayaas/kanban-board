@@ -2,26 +2,12 @@
 
 const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
-// async function fetchAPI(url, options = {}) {
-//     const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
-//     const response = await fetch(fullUrl, {
-//         ...options,
-//         headers: { 'Content-Type': 'application/json', ...options.headers }
-//     });
-//     if (!response.ok) {
-//         let errorMsg = `HTTP ${response.status}`;
-//         try {
-//             const err = await response.json();
-//             errorMsg = err.error || err.message || errorMsg;
-//         } catch(e) {}
-//         throw new Error(errorMsg);
-//     }
-//     if (response.status === 204) return null;
-//     return response.json();
-// }
-
 async function fetchAPI(url, options = {}) {
     const token = localStorage.getItem('token');
+    
+    // Автоматически добавляем API_BASE_URL, если путь относительный
+    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+    
     const headers = {
         'Content-Type': 'application/json',
         ...options.headers
@@ -31,7 +17,7 @@ async function fetchAPI(url, options = {}) {
         headers['Authorization'] = `Bearer ${token}`;
     }
     
-    const response = await fetch(url, {
+    const response = await fetch(fullUrl, {
         ...options,
         headers: headers
     });
@@ -52,6 +38,7 @@ async function fetchAPI(url, options = {}) {
 
 async function loadArchivedTasks() {
     const container = document.getElementById('archiveContainer');
+    if (!container) return;
     container.innerHTML = '<div class="loader">Загрузка...</div>';
     
     try {
@@ -62,8 +49,11 @@ async function loadArchivedTasks() {
     }
 }
 
+// Рендеринг таблицы задач
 function renderArchive(tasks) {
     const container = document.getElementById('archiveContainer');
+    if (!container) return;
+
     if (!tasks || tasks.length === 0) {
         container.innerHTML = '<div class="empty-state">📭 В архиве нет задач</div>';
         return;
@@ -88,29 +78,90 @@ function renderArchive(tasks) {
         row.insertCell(0).innerText = task.id;
         row.insertCell(1).innerText = task.title || '—';
         row.insertCell(2).innerText = (task.description || '').substring(0, 50);
-        row.insertCell(3).innerText = task.archived_at ? new Date(task.archived_at).toLocaleString() : '—';
+        
+        // Используем task.deleted_at
+        row.insertCell(3).innerText = task.deleted_at ? new Date(task.deleted_at).toLocaleString() : '—';
+        
         const actionCell = row.insertCell(4);
+        
+        // Создаем контейнер для ровного размещения кнопок в ряд
+        const btnGroup = document.createElement('div');
+        btnGroup.style.display = 'flex';
+        btnGroup.style.gap = '8px';
+        btnGroup.style.justifyContent = 'center';
+
+        // 1. Кнопка "Восстановить"
         const restoreBtn = document.createElement('button');
         restoreBtn.innerText = '↺ Восстановить';
         restoreBtn.className = 'restore-btn';
         restoreBtn.onclick = () => restoreTask(task.id);
-        actionCell.appendChild(restoreBtn);
+        btnGroup.appendChild(restoreBtn);
+
+        // 2. Кнопка "Удалить навсегда"
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerText = '🗑️ Удалить';
+        deleteBtn.className = 'delete-btn';
+        
+        // Кастомный стиль для красной кнопки удаления
+        deleteBtn.style.backgroundColor = '#ef4444';
+        deleteBtn.style.color = 'white';
+        deleteBtn.style.border = 'none';
+        deleteBtn.style.padding = '6px 12px';
+        deleteBtn.style.borderRadius = '6px';
+        deleteBtn.style.cursor = 'pointer';
+        
+        deleteBtn.onclick = () => permanentlyDeleteTask(task.id);
+        btnGroup.appendChild(deleteBtn);
+
+        actionCell.appendChild(btnGroup);
     });
 }
 
+// Окончательное удаление ДОСКИ навсегда (Вынесено из цикла в глобальную область)
+async function permanentlyDeleteBoard(boardId) {
+    if (!confirm('🚨 ВНИМАНИЕ! Вы хотите удалить ВСЮ ДОСКУ навсегда? Все колонки, задачи и комментарии внутри неё будут безвозвратно стёрты! Продолжить?')) return;
+
+    try {
+        await fetchAPI(`/boards/${boardId}/permanent`, { method: 'DELETE' });
+        alert('💥 Доска полностью стёрта из системы.');
+        
+        // РЕДИРЕКТ НА ГЛАВНУЮ: вместо перезагрузки текущей страницы архива перекидываем пользователя на index.html
+        window.location.href = 'index.html'; 
+    } catch (error) {
+        alert('❌ Ошибка удаления доски: ' + error.message);
+    }
+}
+
+// Восстановление задачи на канбан-доску
 async function restoreTask(taskId) {
     if (!confirm('Восстановить задачу? Она появится на доске в той же колонке.')) return;
     
     try {
         await fetchAPI(`/tasks/${taskId}/restore`, { method: 'PATCH' });
         alert('✅ Задача восстановлена');
-        loadArchivedTasks(); // обновить список
-        // Если основная доска открыта, можно обновить её (опционально)
+        loadArchivedTasks(); 
         if (window.opener && !window.opener.closed) {
             window.opener.loadTasks?.();
         }
     } catch (error) {
         alert('❌ Ошибка восстановления: ' + error.message);
+    }
+}
+
+// Окончательное удаление задачи (навсегда)
+async function permanentlyDeleteTask(taskId) {
+    if (!confirm('🚨 Вы уверены, что хотите удалить эту задачу навсегда? Это действие нельзя отменить.')) return;
+
+    try {
+        await fetchAPI(`/tasks/${taskId}/permanent`, { method: 'DELETE' });
+        alert('💥 Задача полностью удалена из базы данных.');
+        loadArchivedTasks(); // Обновляем таблицу
+        
+        if (window.opener && !window.opener.closed) {
+            window.opener.loadTasks?.();
+        }
+    } catch (error) {
+        alert('❌ Ошибка удаления: ' + error.message);
     }
 }
 

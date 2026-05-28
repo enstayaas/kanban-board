@@ -145,6 +145,7 @@ async function renderColumns(columns) {
         return;
     }
     container.innerHTML = '';
+    
     for (const column of columns) {
         const columnDiv = document.createElement('div');
         columnDiv.className = 'column';
@@ -159,7 +160,10 @@ async function renderColumns(columns) {
                 tasks = data.data || data;
                 if (!Array.isArray(tasks)) tasks = [];
             }
-        } catch (error) {}
+        } catch (error) {
+            console.error('Ошибка загрузки задач:', error);
+        }
+        
         columnDiv.innerHTML = `
             <div class="column-header">
                 <span class="column-title">${escapeHtml(column.title)}</span>
@@ -167,7 +171,7 @@ async function renderColumns(columns) {
             </div>
             <div class="task-list" data-column-id="${column.id}">
                 ${tasks.map(task => `
-                    <div class="task-card" data-task-id="${task.id}" onclick="editTask(${task.id})">
+                    <div class="task-card" data-task-id="${task.id}">
                         <div class="task-title">${escapeHtml(task.title)}</div>
                         <span class="task-priority priority-${task.priority}">${task.priority === 'high' ? '🔴 Высокий' : task.priority === 'medium' ? '🟡 Средний' : '🟢 Низкий'}</span>
                     </div>
@@ -176,11 +180,19 @@ async function renderColumns(columns) {
             <button class="add-task-btn" onclick="showAddTaskModal(${column.id})"><i class="fa-solid fa-plus"></i> Добавить задачу</button>
         `;
         container.appendChild(columnDiv);
+        
+        // Настройка Sortable для перетаскивания зажатием мышки
         const taskList = columnDiv.querySelector('.task-list');
         if (taskList && typeof Sortable !== 'undefined') {
             new Sortable(taskList, {
                 group: 'tasks',
-                animation: 200,
+                animation: 250,
+                fallbackOnBody: true,
+                swapThreshold: 0.65,
+                ghostClass: 'sortable-ghost',
+                chosenClass: 'sortable-chosen',
+                dragClass: 'sortable-drag',
+                delay: 0,
                 onEnd: async (evt) => {
                     const taskId = evt.item.dataset.taskId;
                     const newColumnId = evt.to.dataset.columnId;
@@ -191,22 +203,57 @@ async function renderColumns(columns) {
             });
         }
     }
+
+    // Защищенный клик по карточке (не падает, если кликнуть в пустоту)
+    container.addEventListener('click', (e) => {
+        const taskCard = e.target.closest('.task-card');
+        if (!taskCard) return; 
+        if (taskCard.classList.contains('sortable-chosen')) return; 
+        
+        const taskId = taskCard.dataset.taskId;
+        if (taskId) editTask(taskId);
+    });
 }
 
 async function updateTaskPosition(taskId, newColumnId) {
     const token = localStorage.getItem('token');
     try {
-        await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+        const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (!response.ok) {
+            console.error('Не удалось получить данные задачи перед перемещением');
+            loadBoardTasks();
+            return;
+        }
+        
+        const currentTask = await response.json();
+
+        const updatedTaskData = {
+            title: currentTask.title,
+            description: currentTask.description || '',
+            priority: currentTask.priority || 'medium',
+            column_id: parseInt(newColumnId)
+        };
+
+        const updateResponse = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ column_id: parseInt(newColumnId) })
+            body: JSON.stringify(updatedTaskData)
         });
+
+        if (!updateResponse.ok) {
+            console.error('Бэкенд вернул ошибку при обновлении позиции задачи');
+        }
+        
         loadBoardTasks();
     } catch (error) {
         console.error('Error:', error);
+        loadBoardTasks();
     }
 }
 
@@ -231,161 +278,3 @@ async function createColumn() {
         console.error('Error:', error);
     }
 }
-
-async function deleteColumn(columnId) {
-    if (!confirm('Удалить колонку?')) return;
-    const token = localStorage.getItem('token');
-    try {
-        await fetch(`${API_BASE_URL}/columns/${columnId}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        loadBoardTasks();
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-function showAddTaskModal(columnId) {
-    currentColumnId = columnId;
-    currentTaskId = null;
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDesc').value = '';
-    document.getElementById('taskPriority').value = 'medium';
-    document.getElementById('taskModal').style.display = 'flex';
-}
-
-async function editTask(taskId) {
-    currentTaskId = taskId;
-    const token = localStorage.getItem('token');
-    try {
-        const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (response.ok) {
-            const task = await response.json();
-            document.getElementById('taskTitle').value = task.title || '';
-            document.getElementById('taskDesc').value = task.description || '';
-            document.getElementById('taskPriority').value = task.priority || 'medium';
-            document.getElementById('taskModal').style.display = 'flex';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-async function saveTask() {
-    const title = document.getElementById('taskTitle').value.trim();
-    if (!title) return;
-    const token = localStorage.getItem('token');
-    const taskData = {
-        title: title,
-        description: document.getElementById('taskDesc').value,
-        priority: document.getElementById('taskPriority').value
-    };
-    try {
-        let response;
-        if (currentTaskId) {
-            response = await fetch(`${API_BASE_URL}/tasks/${currentTaskId}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(taskData)
-            });
-        } else {
-            taskData.column_id = currentColumnId;
-            response = await fetch(`${API_BASE_URL}/tasks`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(taskData)
-            });
-        }
-        if (response.ok) {
-            closeTaskModal();
-            loadBoardTasks();
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-function openCreateModal() {
-    document.getElementById('createTitle').value = '';
-    document.getElementById('createDesc').value = '';
-    document.getElementById('createPriority').value = 'medium';
-    document.getElementById('createAssignedTo').value = '';
-    document.getElementById('createColumnId').value = '1';
-    document.getElementById('createModal').style.display = 'flex';
-}
-
-async function createTask() {
-    const title = document.getElementById('createTitle').value.trim();
-    if (!title) return;
-    const token = localStorage.getItem('token');
-    try {
-        await fetch(`${API_BASE_URL}/tasks`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                description: document.getElementById('createDesc').value,
-                priority: document.getElementById('createPriority').value,
-                column_id: parseInt(document.getElementById('createColumnId').value),
-                assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0
-            })
-        });
-        closeCreateModal();
-        loadBoardTasks();
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-function applyFilter() { loadBoardTasks(); }
-function clearFilters() { loadBoardTasks(); }
-function applySortAndPage() { loadBoardTasks(); }
-function prevPage() { if (currentPage > 1) { currentPage--; loadBoardTasks(); } }
-function nextPage() { currentPage++; loadBoardTasks(); }
-function changePerPage() { perPage = parseInt(document.getElementById('perPage').value); currentPage = 1; loadBoardTasks(); }
-
-function closeTaskModal() { document.getElementById('taskModal').style.display = 'none'; }
-function closeCreateModal() { document.getElementById('createModal').style.display = 'none'; }
-function showAddColumnModal() { document.getElementById('columnTitle').value = ''; document.getElementById('columnModal').style.display = 'flex'; }
-function closeColumnModal() { document.getElementById('columnModal').style.display = 'none'; }
-
-function escapeHtml(text) { if (!text) return ''; return text.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
-
-
-// Тёмная тема
-const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-    document.body.classList.remove('dark'); document.body.classList.add('light');
-} else {
-    document.body.classList.add('dark'); document.body.classList.remove('light');
-}
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark'); document.body.classList.toggle('light');
-        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-    });
-}
-
-// Закрытие модальных окон
-document.getElementById('taskModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('taskModal')) closeTaskModal(); });
-document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
-document.getElementById('columnModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('columnModal')) closeColumnModal(); });
-
-// Запуск
-document.addEventListener('DOMContentLoaded', () => {
-    loadBoard();
-    loadLabels();
-});

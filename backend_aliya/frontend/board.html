@@ -6,10 +6,10 @@
     <title>Канбан-доска</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 </head>
 <body>
 
-<!-- НАВИГАЦИЯ -->
 <div class="nav">
     <a href="board.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
     <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
@@ -18,14 +18,12 @@
     <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
     <a href="activity.html"><i class="fa-solid fa-clock"></i> Активность</a>
     <a href="settings.html"><i class="fa-solid fa-gear"></i> Настройки</a>
-
     <button onclick="logout()" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Выйти</button>
     <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
 </div>
 
 <h1>Канбан-доска</h1>
 
-<!-- ФИЛЬТРЫ -->
 <div class="filters">
     <button onclick="openCreateModal()"><i class="fa-solid fa-plus"></i> Создать задачу</button>
     <select id="priorityFilter">
@@ -38,10 +36,9 @@
     <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
     <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Применить</button>
     <button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Очистить</button>
-     <button onclick="openInviteModal()"><i class="fa-solid fa-envelope"></i> Пригласить</button>
+    <button onclick="openInviteModal()"><i class="fa-solid fa-envelope"></i> Пригласить</button>
 </div>
 
-<!-- МЕТКИ -->
 <div class="labels-panel">
     <h3><i class="fa-solid fa-tags"></i> Метки</h3>
     <div id="labelsList" class="labels-list">Загрузка...</div>
@@ -57,7 +54,6 @@
     </div>
 </div>
 
-<!-- СОРТИРОВКА И ПАГИНАЦИЯ -->
 <div class="sort-pagination-panel">
     <div class="sort-section">
         <label>📊 Сортировать по:</label>
@@ -89,10 +85,8 @@
     </div>
 </div>
 
-<!-- КОЛОНКИ С ЗАДАЧАМИ -->
-<div class="board-container" id="board"></div>
+<div class="board-container" id="columnsContainer"></div>
 
-<!-- МОДАЛЬНОЕ ОКНО РЕДАКТИРОВАНИЯ (с метками) -->
 <div id="modal" class="modal">
     <div class="modal-content">
         <h3>Редактировать задачу</h3>
@@ -114,13 +108,10 @@
             <option value="7">Ольга Соколова</option>
             <option value="8">Игорь Васильев</option>
         </select>
-
-        <!-- БЛОК МЕТОК (ГАРАНТИРОВАННО РАБОТАЕТ) -->
         <div class="modal-labels-section">
             <h4>🏷️ Метки задачи:</h4>
             <div id="modalTaskLabels" class="modal-labels-list"></div>
         </div>
-
         <div class="modal-buttons">
             <button onclick="saveTask()">Сохранить</button>
             <button onclick="archiveCurrentTask()">В архив</button>
@@ -129,7 +120,6 @@
     </div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО СОЗДАНИЯ ЗАДАЧИ -->
 <div id="createModal" class="modal">
     <div class="modal-content">
         <h3>Новая задача</h3>
@@ -153,7 +143,621 @@
     </div>
 </div>
 
-<!-- 👇 МОДАЛЬНОЕ ОКНО ПРИГЛАШЕНИЯ (ДОБАВИТЬ СЮДА) -->
+<div id="inviteModal" class="modal">
+    <div class="modal-content">
+        <h3><i class="fa-solid fa-envelope"></i> Пригласить участника</h3>
+        <input type="email" id="inviteEmail" placeholder="Email пользователя">
+        <select id="inviteRole">
+            <option value="member">Участник</option>
+            <option value="owner">Владелец</option>
+        </select>
+        <div class="modal-buttons">
+            <button onclick="sendInvite()">Отправить</button>
+            <button onclick="closeInviteModal()">Отмена</button>
+        </div>
+        <div id="inviteMessage"></div>
+    </div>
+</div>
+
+<script>
+    const API_BASE_URL = 'http://localhost:8081';
+    let currentTask = null;
+    let allTasks = [];
+    let currentPage = 1;
+    let perPage = 10;
+    let currentSortBy = 'priority';
+    let currentSortOrder = 'desc';
+    let searchQuery = '';
+    let selectedLabelFilters = [];
+    let labels = [];
+    
+    // Получаем ID доски из URL. Если его нет — ставим по умолчанию 1
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentBoardId = urlParams.get('id') || localStorage.getItem('currentBoardId') || 1;
+
+    // ЗАГРУЗКА МЕТОК
+    async function loadLabels() {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        try {
+            const response = await fetch(`${API_BASE_URL}/labels?board_id=${currentBoardId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                labels = data;
+                window.labels = data;
+                renderLabelsList();
+                renderLabelFilters();
+            }
+        } catch (error) {
+            console.error('Failed to load labels:', error);
+        }
+    }
+
+    function renderLabelsList() {
+        const container = document.getElementById('labelsList');
+        if (!container) return;
+        if (!labels || labels.length === 0) {
+            container.innerHTML = '<div>Нет меток. Создайте первую!</div>';
+            return;
+        }
+        container.innerHTML = labels.map(label => `
+            <div class="label" style="background: ${label.color};">${escapeHtml(label.name)}<span class="remove-label" onclick="deleteLabel(${label.id})">✖</span></div>
+        `).join('');
+    }
+
+    function renderLabelFilters() {
+        const container = document.getElementById('labelFilters');
+        if (!container) return;
+        if (!labels || labels.length === 0) {
+            container.innerHTML = '<div>Создайте метки для фильтрации</div>';
+            return;
+        }
+        container.innerHTML = labels.map(label => `
+            <div class="label-filter ${selectedLabelFilters.includes(label.id) ? 'active' : ''}" style="background:${label.color};" onclick="toggleLabelFilter(${label.id})">${escapeHtml(label.name)}</div>
+        `).join('');
+    }
+
+    function toggleLabelFilter(labelId) {
+        if (selectedLabelFilters.includes(labelId)) {
+            selectedLabelFilters = selectedLabelFilters.filter(id => id !== labelId);
+        } else {
+            selectedLabelFilters.push(labelId);
+        }
+        renderLabelFilters();
+        loadTasks();
+    }
+
+    function clearLabelFilter() {
+        selectedLabelFilters = [];
+        renderLabelFilters();
+        loadTasks();
+    }
+
+    async function createLabel() {
+        const name = document.getElementById('newLabelName').value.trim();
+        const color = document.getElementById('newLabelColor').value;
+        if (!name) return;
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/labels`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, color, board_id: parseInt(currentBoardId) })
+            });
+            document.getElementById('newLabelName').value = '';
+            loadLabels();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function deleteLabel(labelId) {
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/labels/${labelId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            loadLabels();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // ЗАГРУЗКА ЗАДАЧ И КОЛОНОК С СЕРВЕРА
+    async function loadTasks() {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        try {
+            const loadedTasks = [];
+            const columns = [1, 2, 3]; // Твои три колонки: To Do, In Progress, Done
+            
+            for (const columnId of columns) {
+                const response = await fetch(`${API_BASE_URL}/tasks?column_id=${columnId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    const tasks = data.data || data;
+                    if (Array.isArray(tasks)) {
+                        loadedTasks.push(...tasks.map(t => ({ ...t, column_id: columnId })));
+                    }
+                }
+            }
+            allTasks = loadedTasks;
+            applySortAndPage();
+        } catch (error) {
+            console.error('Load tasks error:', error);
+            document.getElementById('columnsContainer').innerHTML = '<div class="empty-state">⚠️ Ошибка загрузки задач</div>';
+        }
+    }
+
+    // ОТРИСОВКА ДОСКИ С ДРАГ-ЭНД-ДРОПОМ (БЕЗ НАДПИСИ "НЕТ ЗАДАЧ")
+    function renderBoard(tasks) {
+        const container = document.getElementById('columnsContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        
+        const columns = [1, 2, 3];
+        const titles = {
+            1: '<i class="fa-regular fa-rectangle-list"></i> To Do',
+            2: '<i class="fa-solid fa-gear"></i> In Progress',
+            3: '<i class="fa-regular fa-circle-check"></i> Done'
+        };
+        const priorityEmojis = { high: '🔴', medium: '🟡', low: '🟢' };
+        
+        columns.forEach(col => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'column';
+            colDiv.innerHTML = `<h3>${titles[col]}</h3>`;
+            
+            // Контейнер списка задач внутри колонки
+            const taskListDiv = document.createElement('div');
+            taskListDiv.className = 'task-list';
+            taskListDiv.dataset.columnId = col;
+            taskListDiv.style.minHeight = '150px'; 
+            
+            const tasksInColumn = tasks.filter(t => t.column_id === col);
+            
+            // Просто перебираем и добавляем задачи, если они есть
+            tasksInColumn.forEach(task => {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'task-card';
+                taskDiv.dataset.taskId = task.id;
+                taskDiv.style.cursor = 'grab';
+                taskDiv.innerHTML = `
+                    <div>${priorityEmojis[task.priority] || '⚪'} <strong>${escapeHtml(task.title)}</strong></div>
+                    <div style="font-size:10px; color:#888; margin-top:5px;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
+                `;
+                
+                // Открытие модалки при клике
+                taskDiv.onclick = () => {
+                    if (taskDiv.classList.contains('sortable-chosen')) return;
+                    openModal(task);
+                };
+                
+                taskListDiv.appendChild(taskDiv);
+            });
+            
+            colDiv.appendChild(taskListDiv);
+            container.appendChild(colDiv);
+            
+            // Включаем Sortable на созданную колонку
+            if (typeof Sortable !== 'undefined') {
+                new Sortable(taskListDiv, {
+                    group: 'kanban-board',
+                    animation: 200,
+                    ghostClass: 'sortable-ghost',
+                    chosenClass: 'sortable-chosen',
+                    onEnd: async (evt) => {
+                        const taskId = evt.item.dataset.taskId;
+                        const newColumnId = evt.to.dataset.columnId;
+                        if (taskId && newColumnId && evt.from !== evt.to) {
+                            await updateTaskPosition(taskId, newColumnId);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    // СОХРАНЕНИЕ ПЕРЕМЕЩЕНИЯ НА СЕРВЕРЕ
+    async function updateTaskPosition(taskId, newColumnId) {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!response.ok) return;
+            const currentTaskData = await response.json();
+            
+            await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+                method: 'PUT',
+                headers: { 
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({
+                    title: currentTaskData.title,
+                    description: currentTaskData.description || '',
+                    priority: currentTaskData.priority || 'medium',
+                    assigned_to: currentTaskData.assigned_to || 0,
+                    column_id: parseInt(newColumnId)
+                })
+            });
+            await loadTasks();
+        } catch (error) {
+            console.error('Ошибка перемещения:', error);
+            await loadTasks();
+        }
+    }
+
+    function applyFilter() { currentPage = 1; applySortAndPage(); }
+    function clearFilters() {
+        document.getElementById('priorityFilter').value = '';
+        document.getElementById('userFilter').value = '';
+        document.getElementById('searchInput').value = '';
+        searchQuery = '';
+        currentPage = 1;
+        loadTasks();
+    }
+
+    function sortTasks(tasks) {
+        const sortBy = document.getElementById('sortBy')?.value || currentSortBy;
+        const sortOrder = document.getElementById('sortOrder')?.value || currentSortOrder;
+        currentSortBy = sortBy; currentSortOrder = sortOrder;
+        return [...tasks].sort((a, b) => {
+            if (sortBy === 'priority') {
+                const w = {high:3,medium:2,low:1};
+                return sortOrder === 'asc' ? (w[a.priority]||0) - (w[b.priority]||0) : (w[b.priority]||0) - (w[a.priority]||0);
+            }
+            if (sortBy === 'title') return sortOrder === 'asc' ? (a.title||'').localeCompare(b.title||'') : (b.title||'').localeCompare(a.title||'');
+            return 0;
+        });
+    }
+
+    function paginateTasks(tasks) { return tasks.slice((currentPage-1)*perPage, currentPage*perPage); }
+    
+    function updatePaginationButtons(total) { 
+        const pages = Math.ceil(total/perPage); 
+        document.getElementById('prevBtn').disabled = currentPage<=1; 
+        document.getElementById('nextBtn').disabled = currentPage>=pages; 
+        document.getElementById('pageInfo').innerText = `Страница ${currentPage} из ${pages||1}`; 
+    }
+    
+    function prevPage() { if(currentPage>1){currentPage--;applySortAndPage();} }
+    function nextPage() { if(currentPage<Math.ceil(allTasks.length/perPage)){currentPage++;applySortAndPage();} }
+    function changePerPage() { perPage = parseInt(document.getElementById('perPage')?.value||10); currentPage=1; applySortAndPage(); }
+
+    function applySortAndPage() {
+        let filtered = [...allTasks];
+        const priority = document.getElementById('priorityFilter')?.value;
+        const userId = document.getElementById('userFilter')?.value;
+        if(priority) filtered = filtered.filter(t=>t.priority===priority);
+        if(userId) filtered = filtered.filter(t=>t.assigned_to===parseInt(userId));
+        if(searchQuery) filtered = filtered.filter(t=>t.title?.toLowerCase().includes(searchQuery.toLowerCase()));
+        const sorted = sortTasks(filtered);
+        updatePaginationButtons(sorted.length);
+        renderBoard(paginateTasks(sorted));
+    }
+
+    async function openModal(task) {
+        currentTask = task;
+        document.getElementById('editTitle').value = task.title || '';
+        document.getElementById('editDesc').value = task.description || '';
+        document.getElementById('editPriority').value = task.priority || 'medium';
+        document.getElementById('editAssignedTo').value = task.assigned_to || '';
+        
+        const container = document.getElementById('modalTaskLabels');
+        if (container && window.labels && window.labels.length) {
+            let taskLabelIds = [];
+            try {
+                const token = localStorage.getItem('token');
+                const resp = await fetch(`${API_BASE_URL}/tasks/${task.id}/labels`, { headers: { 'Authorization': `Bearer ${token}` } });
+                if (resp.ok) {
+                    const taskLabels = await resp.json();
+                    taskLabelIds = taskLabels.map(l => l.id);
+                }
+            } catch(e) { console.warn(e); }
+            
+            container.innerHTML = window.labels.map(label => `
+                <div class="modal-label-item">
+                    <label style="background:${label.color}; padding:5px 12px; border-radius:20px; margin:4px; display:inline-block; color:white; cursor:pointer;">
+                        <input type="checkbox" value="${label.id}" ${taskLabelIds.includes(label.id) ? 'checked' : ''} onchange="toggleTaskLabel(${task.id}, ${label.id}, this.checked)">
+                        ${label.name}
+                    </label>
+                </div>
+            `).join('');
+        }
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('modal').style.display = 'none'; currentTask = null; }
+    function openCreateModal() { document.getElementById('createModal').style.display = 'flex'; }
+    function closeCreateModal() { document.getElementById('createModal').style.display = 'none'; }
+
+    async function saveTask() {
+        if (!currentTask) return;
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/tasks/${currentTask.id}`, {
+                method: 'PUT',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: document.getElementById('editTitle').value,
+                    description: document.getElementById('editDesc').value,
+                    priority: document.getElementById('editPriority').value,
+                    assigned_to: parseInt(document.getElementById('editAssignedTo').value) || 0,
+                    column_id: currentTask.column_id
+                })
+            });
+            closeModal();
+            loadTasks();
+        } catch(e) { console.error(e); }
+    }
+
+    async function createTask() {
+        const title = document.getElementById('createTitle').value.trim();
+        if (!title) return;
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/tasks`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title,
+                    description: document.getElementById('createDesc').value,
+                    priority: document.getElementById('createPriority').value,
+                    column_id: parseInt(document.getElementById('createColumnId').value),
+                    assigned_to: parseInt(document.getElementById('createAssignedTo').value) || 0
+                })
+            });
+            closeCreateModal();
+            loadTasks();
+        } catch(e) { console.error(e); }
+    }
+
+    async function archiveCurrentTask() {
+        if (!currentTask || !confirm('В архив?')) return;
+        const token = localStorage.getItem('token');
+        try {
+            await fetch(`${API_BASE_URL}/tasks/${currentTask.id}/archive`, { method: 'PATCH', headers: { 'Authorization': `Bearer ${token}` } });
+            closeModal();
+            loadTasks();
+        } catch(e) { console.error(e); }
+    }
+
+    let isToggling = false;
+    async function toggleTaskLabel(taskId, labelId, isChecked) {
+        if (isToggling) return;
+        isToggling = true;
+        const token = localStorage.getItem('token');
+        try {
+            if (isChecked) {
+                await fetch(`${API_BASE_URL}/tasks/${taskId}/labels`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ label_id: labelId })
+                });
+            } else {
+                await fetch(`${API_BASE_URL}/tasks/${taskId}/labels/${labelId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+            }
+            await loadTasks();
+        } catch(e) { console.warn(e); }
+        finally { isToggling = false; }
+    }
+
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]||m)); }
+    
+    const users = {1:"Анна Смирнова",2:"Борис Петров",3:"Виктор Сидоров",4:"Дарья Кузнецова",5:"Елена Морозова",6:"Максим Иванов",7:"Ольга Соколова",8:"Игорь Васильев"};
+    function getUserName(id) { return users[id] || "Не назначен"; }
+
+    const searchInput = document.getElementById('searchInput');
+    let searchTimeout;
+    if (searchInput) searchInput.addEventListener('input', (e) => { clearTimeout(searchTimeout); searchTimeout = setTimeout(() => { searchQuery = e.target.value.trim(); currentPage = 1; applySortAndPage(); }, 300); });
+
+    function openInviteModal() { document.getElementById('inviteModal').style.display = 'flex'; }
+    function closeInviteModal() { document.getElementById('inviteModal').style.display = 'none'; }
+
+    async function sendInvite() {
+        const email = document.getElementById('inviteEmail').value.trim();
+        const role = document.getElementById('inviteRole').value;
+        const token = localStorage.getItem('token');
+        if (!email) { alert('Введите email'); return; }
+        try {
+            const response = await fetch(`${API_BASE_URL}/invitations`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ email, role, board_id: parseInt(currentBoardId) })
+            });
+            if (response.ok) {
+                alert('Приглашение отправлено!');
+                closeInviteModal();
+                document.getElementById('inviteEmail').value = '';
+            } else {
+                const error = await response.json();
+                alert(error.error || 'Ошибка отправки');
+            }
+        } catch (error) { alert('Ошибка сети: ' + error.message); }
+    }
+
+    // ТЕМЫ ОФОРМЛЕНИЯ
+    const theme = localStorage.getItem('theme');
+    if (theme === 'light') { document.body.classList.remove('dark'); document.body.classList.add('light'); }
+    else { document.body.classList.add('dark'); document.body.classList.remove('light'); }
+    document.getElementById('themeToggle')?.addEventListener('click', () => { document.body.classList.toggle('dark'); document.body.classList.toggle('light'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); });
+
+    // СТАРТ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+    document.addEventListener('DOMContentLoaded', async () => {
+        await loadLabels();
+        await loadTasks();
+        document.getElementById('modal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
+        document.getElementById('createModal')?.addEventListener('click', (e) => { if (e.target === document.getElementById('createModal')) closeCreateModal(); });
+    });
+
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Канбан-доска</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+    <script src="board.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="nav">
+    <a href="board.html"><i class="fa-regular fa-rectangle-list"></i> Доска</a>
+    <a href="users.html"><i class="fa-solid fa-users"></i> Пользователи</a>
+    <a href="profile.html"><i class="fa-regular fa-user"></i> Профиль</a>
+    <a href="archive.html"><i class="fa-solid fa-box-archive"></i> Архив</a>
+    <a href="stats.html"><i class="fa-solid fa-chart-simple"></i> Статистика</a>
+    <a href="activity.html"><i class="fa-solid fa-clock"></i> Активность</a>
+    <a href="settings.html"><i class="fa-solid fa-gear"></i> Настройки</a>
+    
+
+    <button onclick="logout()" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Выйти</button>
+    <button id="themeToggle" class="theme-btn" style="margin-left: auto;"><i class="fa-solid fa-moon"></i> Тёмная тема</button>
+</div>
+
+<h1>Канбан-доска</h1>
+
+<div class="filters">
+    <button onclick="openCreateModal()"><i class="fa-solid fa-plus"></i> Создать задачу</button>
+    <select id="priorityFilter">
+        <option value="">Все приоритеты</option>
+        <option value="high">🔴 Высокий</option>
+        <option value="medium">🟡 Средний</option>
+        <option value="low">🟢 Низкий</option>
+    </select>
+    <input id="userFilter" placeholder="👤 ID исполнителя" type="number" />
+    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию задачи" />
+    <button onclick="applyFilter()"><i class="fa-solid fa-magnifying-glass"></i> Применить</button>
+    <button onclick="clearFilters()"><i class="fa-solid fa-trash-can"></i> Очистить</button>
+     <button onclick="openInviteModal()"><i class="fa-solid fa-envelope"></i> Пригласить</button>
+</div>
+
+<div class="labels-panel">
+    <h3><i class="fa-solid fa-tags"></i> Метки</h3>
+    <div id="labelsList" class="labels-list">Загрузка...</div>
+    <div class="add-label-form">
+        <input type="text" id="newLabelName" placeholder="Название метки" maxlength="60">
+        <input type="color" id="newLabelColor" value="#3b82f6">
+        <button onclick="createLabel()"><i class="fa-solid fa-plus"></i> Добавить</button>
+    </div>
+    <div class="filter-by-labels">
+        <h4>Фильтр по меткам:</h4>
+        <div id="labelFilters" class="label-filters"></div>
+        <button onclick="clearLabelFilter()"><i class="fa-solid fa-eraser"></i> Очистить</button>
+    </div>
+</div>
+
+<div class="sort-pagination-panel">
+    <div class="sort-section">
+        <label>📊 Сортировать по:</label>
+        <select id="sortBy">
+            <option value="priority">Приоритету</option>
+            <option value="title">Названию</option>
+            <option value="assigned_to">Исполнителю</option>
+        </select>
+        <select id="sortOrder">
+            <option value="desc">По убыванию</option>
+            <option value="asc">По возрастанию</option>
+        </select>
+        <button onclick="applySortAndPage()">🔄 Применить</button>
+    </div>
+    <div class="pagination-section">
+        <button onclick="prevPage()" id="prevBtn" disabled>◀ Назад</button>
+        <span id="pageInfo">Страница 1 из 1</span>
+        <button onclick="nextPage()" id="nextBtn" disabled>Вперед ▶</button>
+        <div class="per-page">
+            <label>Показывать:</label>
+            <select id="perPage" onchange="changePerPage()">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span>задач</span>
+        </div>
+    </div>
+</div>
+
+<div class="board-container" id="board"></div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h3>Редактировать задачу</h3>
+        <input id="editTitle" placeholder="Название">
+        <textarea id="editDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="editPriority">
+            <option value="low">🟢 Низкий</option>
+            <option value="medium">🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
+        </select>
+        <select id="editAssignedTo">
+            <option value="">Не назначен</option>
+            <option value="1">Анна Смирнова</option>
+            <option value="2">Борис Петров</option>
+            <option value="3">Виктор Сидоров</option>
+            <option value="4">Дарья Кузнецова</option>
+            <option value="5">Елена Морозова</option>
+            <option value="6">Максим Иванов</option>
+            <option value="7">Ольга Соколова</option>
+            <option value="8">Игорь Васильев</option>
+        </select>
+
+        <div class="modal-labels-section">
+            <h4>🏷️ Метки задачи:</h4>
+            <div id="modalTaskLabels" class="modal-labels-list"></div>
+        </div>
+
+        <div class="modal-buttons">
+            <button onclick="saveTask()">Сохранить</button>
+            <button onclick="archiveCurrentTask()">В архив</button>
+            <button onclick="closeModal()">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <h3>Новая задача</h3>
+        <input id="createTitle" placeholder="Название">А
+        <textarea id="createDesc" placeholder="Описание" rows="3"></textarea>
+        <select id="createPriority">
+            <option value="low">🟢 Низкий</option>
+            <option value="medium" selected>🟡 Средний</option>
+            <option value="high">🔴 Высокий</option>
+        </select>
+        <input id="createAssignedTo" placeholder="ID исполнителя" type="number">
+        <select id="createColumnId">
+            <option value="1">📋 To Do</option>
+            <option value="2">⚙️ In Progress</option>
+            <option value="3">✅ Done</option>
+        </select>
+        <div class="modal-buttons">
+            <button onclick="createTask()">Создать</button>
+            <button onclick="closeCreateModal()">Отмена</button>
+        </div>
+    </div>
+</div>
+
 <div id="inviteModal" class="modal">
     <div class="modal-content">
         <h3><i class="fa-solid fa-envelope"></i> Пригласить участника</h3>
@@ -698,5 +1302,6 @@ function logout() {
 
 </script>
 
+
 </body>
-</html>
+</html> -->

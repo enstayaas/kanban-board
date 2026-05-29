@@ -261,31 +261,61 @@ async function loadTasks() {
     }
 }
 
- //========== ОТРИСОВКА ДОСКИ ==========
+//========== ОТРИСОВКА ДОСКИ ==========
 function renderBoard(tasks) {
   const boardDiv = document.getElementById('board');
   if (!boardDiv) return;
   
   boardDiv.innerHTML = '';
   
-  const columns = [1, 2, 3];
-//   const columnTitles = { 1: '📋 To Do', 2: '⚙️ In Progress', 3: '✅ Done' };
-const columnTitles = {
+  // Ключевое изменение: если бэкенд отдает массив колонок allColumns, берем его. 
+  // Если нет — по умолчанию рисуем системные [1, 2, 3].
+  const columns = typeof allColumns !== 'undefined' ? allColumns : [1, 2, 3];
+  
+  const columnTitles = {
     1: '<i class="fa-regular fa-rectangle-list"></i> To Do',
     2: '<i class="fa-solid fa-gear"></i> In Progress',
     3: '<i class="fa-regular fa-circle-check"></i> Done'
-};
+  };
   const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
   
   let hasAnyTask = false;
   
   columns.forEach(col => {
+    // Поддерживаем формат: если col это объект из базы {id: X, title: '...'} или просто числовой ID
+    const columnId = typeof col === 'object' ? col.id : col;
+    const rawTitle = typeof col === 'object' ? col.title : (columnTitles[columnId] || `Колонка ${columnId}`);
+    
+    // Для системных колонок сохраняем красивые иконки, для кастомных — просто экранируем имя
+    const displayTitle = columnTitles[columnId] || escapeHtml(rawTitle);
+
     const columnDiv = document.createElement('div');
     columnDiv.className = 'column';
-    columnDiv.innerHTML = `<h3>${columnTitles[col]}</h3>`;
     
-    // const tasksInColumn = tasks.filter(t => t.ColumnID === col);
-    const tasksInColumn = tasks.filter(t => t.column_id === col);
+    // ===== ЗАЩИТА СИСТЕМНЫХ КОЛОНОК =====
+    const isSystemColumn = [1, 2, 3].includes(parseInt(columnId));
+    let deleteButtonHtml = '';
+    
+    if (!isSystemColumn) {
+      // Кнопка удаления появится ТОЛЬКО у созданных пользователем колонок
+      deleteButtonHtml = `
+        <button class="delete-col-btn" onclick="deleteColumnSoft(${columnId}, '${escapeHtml(rawTitle)}')" 
+                style="background: none; border: none; color: #ff4d4d; cursor: pointer; padding: 5px; font-size: 14px;"
+                title="Архивировать колонку">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+      `;
+    }
+
+    // Собираем заголовок колонки с flex-структурой, чтобы иконка удаления была ровно справа
+    columnDiv.innerHTML = `
+      <div class="column-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="margin: 0; display: flex; align-items: center; gap: 8px;">${displayTitle}</h3>
+          ${deleteButtonHtml}
+      </div>
+    `;
+    
+    const tasksInColumn = tasks.filter(t => t.column_id === columnId);
     if (tasksInColumn.length === 0) {
       const emptyDiv = document.createElement('div');
       emptyDiv.className = 'empty-state';
@@ -298,9 +328,8 @@ const columnTitles = {
         taskDiv.className = 'task';
         const emoji = priorityEmojis[task.priority] || '⚪';
         
-        // ===== НОВЫЙ КОД: ПОЛУЧАЕМ МЕТКИ ЗАДАЧИ =====
+        // ===== МЕТКИ ЗАДАЧИ =====
         let taskLabelsHtml = '';
-        // Проверяем, есть ли функция getTaskLabelsForTask
         if (typeof getTaskLabelsForTask === 'function') {
             const taskLabelsList = getTaskLabelsForTask(task.id);
             if (taskLabelsList && taskLabelsList.length > 0) {
@@ -311,20 +340,13 @@ const columnTitles = {
                 '</div>';
             }
         }
-        // ===== КОНЕЦ НОВОГО КОДА =====
         
-        // Собираем HTML карточки (с метками)
+        // Собираем HTML карточки
         taskDiv.innerHTML = `
-        <div>${priorityEmojis[task.priority] || '⚪'} <strong>${escapeHtml(task.title)}</strong></div>
-    ${taskLabelsHtml}
-    <div style="font-size: 10px; color: #888;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
-`;
-        // taskDiv.innerHTML = `
-        //     <div><strong>${emoji} ${escapeHtml(task.title)}</strong></div>
-        //     ${taskLabelsHtml}
-        
-        //     <div style="font-size: 10px; color: #888;">👤 ${getUserName(task.assigned_to)}</div>
-        // `;
+          <div>${emoji} <strong>${escapeHtml(task.title)}</strong></div>
+          ${taskLabelsHtml}
+          <div style="font-size: 10px; color: #888;"><i class="fa-regular fa-user"></i> ${getUserName(task.assigned_to)}</div>
+        `;
         
         taskDiv.title = `Assigned to: ${task.assigned_to || 'unassigned'}\nPriority: ${task.priority || 'medium'}`;
         taskDiv.onclick = () => openModal(task);
@@ -356,8 +378,6 @@ function escapeHtml(str) {
 }
 
 
-
-
 // ========== МОДАЛЬНОЕ ОКНО ==========
 function openModal(task) {
     currentTask = task;
@@ -375,7 +395,6 @@ function openModal(task) {
     // ===== ДОБАВЛЯЕМ МЕТКИ В МОДАЛЬНОЕ ОКНО =====
     const container = document.getElementById('modalTaskLabels');
     if (container && typeof labels !== 'undefined' && labels.length > 0) {
-        // Получаем ID меток, которые уже есть у задачи
         let taskLabelIds = [];
         if (typeof getTaskLabelsFromStorage === 'function') {
             taskLabelIds = getTaskLabelsFromStorage(task.id);
@@ -394,7 +413,6 @@ function openModal(task) {
     } else if (container) {
         container.innerHTML = '<div style="color:#999;">Загрузка меток...</div>';
     }
-    // ===== КОНЕЦ ДОБАВЛЕННОГО КОДА =====
     
     const modal = document.getElementById('modal');
     if (modal) modal.style.display = 'flex';
@@ -405,8 +423,27 @@ function closeModal() {
     if (modal) modal.style.display = 'none';
     currentTask = null;
 }
+async function deleteColumnSoft(columnId, columnTitle) {
+    // Жесткий блок на случай ручного вызова через консоль
+    if ([1, 2, 3].includes(parseInt(columnId))) {
+        showError('🔒 Системные колонки (To Do, In Progress, Done) нельзя удалить!');
+        return;
+    }
 
+    if (!confirm(`Вы уверены, что хотите архивировать колонку "${columnTitle}"?`)) {
+        return;
+    }
 
+    try {
+        await fetchAPI(`/columns/${columnId}/soft-delete`, {
+            method: 'PATCH'
+        });
+        showSuccess('🗑️ Колонка перемещена в архив');
+        loadTasks(); // Обновляем доску
+    } catch (error) {
+        console.error('Ошибка удаления колонки:', error);
+    }
+}
 // ========== МОДАЛЬНОЕ ОКНО ДЛЯ СОЗДАНИЯ ==========
 // function openCreateModal() {
 //     // Очищаем поля

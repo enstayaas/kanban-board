@@ -13,6 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Изменили структуру для безопасного чтения NULL из базы данных
 type Board struct {
 	ID          int    `json:"id"`
 	Title       string `json:"title"`
@@ -25,17 +26,26 @@ type BoardHandler struct {
 
 // GET /boards/{id} — получить один проект по ID
 func (h *BoardHandler) GetBoard(w http.ResponseWriter, r *http.Request) {
-	userID := r.Context().Value(middleware.UserIDKey).(int)
+	userID, ok := r.Context().Value(middleware.UserIDKey).(int)
+	if !ok {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized"})
+		return
+	}
 	vars := mux.Vars(r)
 	boardID := vars["id"]
 
-	var b Board
+	var id int
+	var title string
+	var description sql.NullString // Защита от NULL
+
 	err := h.DB.QueryRow(`
 		SELECT b.id, b.title, b.description
 		FROM boards b
 		LEFT JOIN board_members bm ON bm.board_id = b.id
 		WHERE b.id=$1 AND (b.owner_id=$2 OR bm.user_id=$2) AND b.deleted_at IS NULL
-	`, boardID, userID).Scan(&b.ID, &b.Title, &b.Description)
+	`, boardID, userID).Scan(&id, &title, &description)
 
 	if err == sql.ErrNoRows {
 		w.Header().Set("Content-Type", "application/json")
@@ -45,17 +55,26 @@ func (h *BoardHandler) GetBoard(w http.ResponseWriter, r *http.Request) {
 	} else if err != nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Database error"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Database error: " + err.Error()})
 		return
 	}
 
+	descStr := ""
+	if description.Valid {
+		descStr = description.String
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(b)
+	json.NewEncoder(w).Encode(Board{ID: id, Title: title, Description: descStr})
 }
 
 // PUT /boards/{id} — обновить или ВОССТАНОВИТЬ проект из корзины
 func (h *BoardHandler) UpdateBoard(w http.ResponseWriter, r *http.Request) {
-	userID := r.Context().Value(middleware.UserIDKey).(int)
+	userID, ok := r.Context().Value(middleware.UserIDKey).(int)
+	if !ok {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	vars := mux.Vars(r)
 	boardID := vars["id"]
 
@@ -71,7 +90,6 @@ func (h *BoardHandler) UpdateBoard(w http.ResponseWriter, r *http.Request) {
 	description, _ := input["description"].(string)
 	isArchivedReq, hasIsArchived := input["is_archived"]
 
-	// Проверяем права владельца (работает как для активных, так и для мягко удаленных досок)
 	var ownerID int
 	err := h.DB.QueryRow("SELECT owner_id FROM boards WHERE id=$1", boardID).Scan(&ownerID)
 	if err != nil {
@@ -86,11 +104,9 @@ func (h *BoardHandler) UpdateBoard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ЛОГИКА ВОССТАНОВЛЕНИЯ: Если фронтенд прислал {"is_archived": false}, убираем метку удаления
 	if hasIsArchived && isArchivedReq == false {
 		_, err = h.DB.Exec(`UPDATE boards SET deleted_at = NULL WHERE id = $1`, boardID)
 	} else {
-		// Обычное обновление активных данных
 		if title == "" {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]string{"error": "Title is required"})
@@ -115,7 +131,13 @@ func (h *BoardHandler) UpdateBoard(w http.ResponseWriter, r *http.Request) {
 
 // GET /boards — список АКТИВНЫХ проектов пользователя с пагинацией
 func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
-	userID := r.Context().Value(middleware.UserIDKey).(int)
+	w.Header().Set("Content-Type", "application/json")
+	userID, ok := r.Context().Value(middleware.UserIDKey).(int)
+	if !ok {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized"})
+		return
+	}
 
 	pageStr := r.URL.Query().Get("page")
 	limitStr := r.URL.Query().Get("limit")
@@ -140,6 +162,7 @@ func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Count query failed: " + err.Error()})
 		return
 	}
 
@@ -154,19 +177,30 @@ func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Select query failed: " + err.Error()})
 		return
 	}
 	defer rows.Close()
 
 	boards := []Board{}
 	for rows.Next() {
-		var b Board
-		err := rows.Scan(&b.ID, &b.Title, &b.Description)
+		var id int
+		var title string
+		var description sql.NullString // Безопасное сканирование NULL
+
+		err := rows.Scan(&id, &title, &description)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Scan row failed: " + err.Error()})
 			return
 		}
-		boards = append(boards, b)
+
+		descStr := ""
+		if description.Valid {
+			descStr = description.String
+		}
+
+		boards = append(boards, Board{ID: id, Title: title, Description: descStr})
 	}
 
 	response := map[string]interface{}{
@@ -179,7 +213,6 @@ func (h *BoardHandler) GetBoards(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
 
@@ -229,7 +262,7 @@ func (h *BoardHandler) GetDeletedBoards(w http.ResponseWriter, r *http.Request) 
 			"id":          id,
 			"title":       title,
 			"description": descStr,
-			"is_archived": true, // Свойство критично для фильтра в archive.html
+			"is_archived": true,
 		}
 		boards = append(boards, board)
 	}
@@ -240,13 +273,19 @@ func (h *BoardHandler) GetDeletedBoards(w http.ResponseWriter, r *http.Request) 
 
 // POST /boards — создание проекта
 func (h *BoardHandler) CreateBoard(w http.ResponseWriter, r *http.Request) {
-	userID := r.Context().Value(middleware.UserIDKey).(int)
+	w.Header().Set("Content-Type", "application/json")
+	userID, ok := r.Context().Value(middleware.UserIDKey).(int)
+	if !ok {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Unauthorized"})
+		return
+	}
 
 	var b Board
 	err := json.NewDecoder(r.Body).Decode(&b)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "invalid request"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "invalid request body"})
 		return
 	}
 
@@ -257,24 +296,31 @@ func (h *BoardHandler) CreateBoard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var boardID int
+	// Записываем описание через sql.NullString, чтобы корректно обрабатывать пустоту
 	err = h.DB.QueryRow(`
 		INSERT INTO boards (title, description, owner_id)
 		VALUES ($1, $2, $3)
 		RETURNING id
-	`, b.Title, b.Description, userID).Scan(&boardID)
+	`, b.Title, sql.NullString{String: b.Description, Valid: b.Description != ""}, userID).Scan(&boardID)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": "failed to create board"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "database insertion failed: " + err.Error()})
 		return
 	}
 
-	_, _ = h.DB.Exec(`
+	// Явно проверяем ошибку добавления владельца в участники
+	_, err = h.DB.Exec(`
 		INSERT INTO board_members (board_id, user_id, role)
 		VALUES ($1, $2, 'owner')
 	`, boardID, userID)
 
-	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]string{"error": "failed to add board owner as member: " + err.Error()})
+		return
+	}
+
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(map[string]int{"id": boardID})
 }
@@ -284,7 +330,6 @@ func (h *BoardHandler) DeleteBoard(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	boardID := vars["id"]
 
-	// Перемещаем в корзину, выставляя текущее время в deleted_at
 	_, err := h.DB.Exec(`UPDATE boards SET deleted_at = NOW() WHERE id=$1`, boardID)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -297,9 +342,6 @@ func (h *BoardHandler) DeleteBoard(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"message": "Success"})
 }
 
-// DELETE /boards/{id}/permanent — Окончательное физическое удаление из БД (Кнопка в корзине)
-// DELETE /boards/{id}/permanent — Окончательное физическое удаление из БД
-// DELETE /boards/{id}/permanent — Полное удаление доски со встроенным обходом блокировок связей
 // DELETE /boards/{id}/permanent — Окончательное физическое удаление из БД
 func (h *BoardHandler) PermanentDeleteBoard(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -308,7 +350,6 @@ func (h *BoardHandler) PermanentDeleteBoard(w http.ResponseWriter, r *http.Reque
 	w.Header().Set("Content-Type", "application/json")
 	utils.LogInfo("--- НАЧАЛО ТРАНЗАКЦИИ УДАЛЕНИЯ ДОСКИ ID: " + boardID + " ---")
 
-	// Открываем транзакцию, чтобы всё выполнялось единым блоком
 	tx, err := h.DB.Begin()
 	if err != nil {
 		utils.LogError(err, "Не удалось начать транзакцию удаления")
@@ -316,11 +357,8 @@ func (h *BoardHandler) PermanentDeleteBoard(w http.ResponseWriter, r *http.Reque
 		json.NewEncoder(w).Encode(map[string]string{"error": "Ошибка инициализации удаления"})
 		return
 	}
-
-	// В случае падения функции или непредвиденного выхода — откатываем изменения обратно
 	defer tx.Rollback()
 
-	// Шаг 1: Удаляем связи меток и задач (зависимая таблица)
 	if _, err := tx.Exec(`
 		DELETE FROM task_labels 
 		WHERE task_id IN (SELECT id FROM tasks WHERE board_id = $1)
@@ -331,31 +369,16 @@ func (h *BoardHandler) PermanentDeleteBoard(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	// Шаг 2: Удаляем сами метки (родительская для task_labels, но зависимая для boards)
 	if _, err := tx.Exec("DELETE FROM labels WHERE board_id = $1", boardID); err != nil {
-		utils.LogError(err, "Ошибка на шаге 2: labels. Проверь структуру этой таблицы!")
+		utils.LogError(err, "Ошибка на шаге 2: labels.")
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Не удалось удалить метки доски из БД"})
 		return
 	}
 
-	// Шаг 3: Комментарии к задачам этой доски
-	if _, err := tx.Exec(`
-		DELETE FROM comments 
-		WHERE task_id IN (SELECT id FROM tasks WHERE board_id = $1)
-	`, boardID); err != nil {
-		utils.LogError(err, "Ошибка на шаге 3: comments")
-	}
+	_, _ = tx.Exec(`DELETE FROM comments WHERE task_id IN (SELECT id FROM tasks WHERE board_id = $1)`, boardID)
+	_, _ = tx.Exec(`DELETE FROM subtasks WHERE task_id IN (SELECT id FROM tasks WHERE board_id = $1)`, boardID)
 
-	// Шаг 4: Подзадачи
-	if _, err := tx.Exec(`
-		DELETE FROM subtasks 
-		WHERE task_id IN (SELECT id FROM tasks WHERE board_id = $1)
-	`, boardID); err != nil {
-		utils.LogError(err, "Ошибка на шаге 4: subtasks")
-	}
-
-	// Шаг 5: Задачи (теперь их можно безопасно удалять, связи с метками уже стерты)
 	if _, err := tx.Exec("DELETE FROM tasks WHERE board_id = $1", boardID); err != nil {
 		utils.LogError(err, "Ошибка на шаге 5: tasks")
 		w.WriteHeader(http.StatusInternalServerError)
@@ -363,27 +386,13 @@ func (h *BoardHandler) PermanentDeleteBoard(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	// Шаг 6: Колонки доски
-	if _, err := tx.Exec("DELETE FROM columns WHERE board_id = $1", boardID); err != nil {
-		utils.LogError(err, "Ошибка на шаге 6: columns")
-	}
-
-	// Шаг 7: Участники доски
-	if _, err := tx.Exec("DELETE FROM board_members WHERE board_id = $1", boardID); err != nil {
-		utils.LogError(err, "Ошибка на шаге 7: board_members")
-	}
-
-	// Шаг 8: Логи активности, истории и аудита
+	_, _ = tx.Exec("DELETE FROM columns WHERE board_id = $1", boardID)
+	_, _ = tx.Exec("DELETE FROM board_members WHERE board_id = $1", boardID)
 	_, _ = tx.Exec("DELETE FROM activities WHERE board_id = $1", boardID)
 	_, _ = tx.Exec("DELETE FROM board_activities WHERE board_id = $1", boardID)
 	_, _ = tx.Exec("DELETE FROM history WHERE board_id = $1", boardID)
+	_, _ = tx.Exec("DELETE FROM invitations WHERE board_id = $1", boardID)
 
-	// Шаг 9: Приглашения
-	if _, err := tx.Exec("DELETE FROM invitations WHERE board_id = $1", boardID); err != nil {
-		utils.LogError(err, "Ошибка на шаге 9: invitations")
-	}
-
-	// Финал: Удаляем саму запись доски, когда абсолютно все зависимости очищены
 	result, err := tx.Exec("DELETE FROM boards WHERE id = $1", boardID)
 	if err != nil {
 		utils.LogError(err, "Ошибка на финальном шаге: boards")
@@ -399,7 +408,6 @@ func (h *BoardHandler) PermanentDeleteBoard(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	// Если ни один шаг не выбросил ошибку — фиксируем изменения в БД окончательно
 	if err := tx.Commit(); err != nil {
 		utils.LogError(err, "Не удалось применить (Commit) транзакцию удаления")
 		w.WriteHeader(http.StatusInternalServerError)

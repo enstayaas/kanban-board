@@ -1,27 +1,42 @@
-services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: kanban-postgres
-    environment:
-      POSTGRES_DB: kanban
-      POSTGRES_USER: kanban
-      POSTGRES_PASSWORD: secret
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+version: '3.8'
 
-  backend:
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: kanban_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: kanban
+    ports:
+      - "5433:5432"  # <-- ИСПРАВЛЕНО: на твоем компьютере порт будет 5433, а внутри контейнера останется стандартный 5432
+    volumes:
+      - kanban_pgdata:/var/lib/postgresql/data
+    networks:
+      - kanban_network
+
+  app:
     build: .
+    container_name: kanban_backend
+    restart: always
     ports:
       - "8081:8081"
-    depends_on:
-      - postgres
     environment:
-      DB_HOST: postgres
-      DB_USER: kanban
-      DB_PASSWORD: secret
-      DB_NAME: kanban
+      - DB_HOST=db
+      - DB_PORT=5432  # Когда бэкенд и БД внутри докера в одной сети, они общаются по внутреннему порту (5432), тут оставляем так
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres123
+      - DB_NAME=kanban
+    depends_on:
+      - db
+    networks:
+      - kanban_network
 
 volumes:
-  postgres_data:
+  kanban_pgdata:
+    external: true
+
+networks:
+  kanban_network:
+    driver: bridge

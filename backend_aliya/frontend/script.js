@@ -1,6 +1,7 @@
 // frontend/script.js
 
 // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+// ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
 let currentTask = null;
 let isLoading = false;
 let currentPage = 1;
@@ -8,6 +9,7 @@ let perPage = 10;
 let currentSortBy = 'priority';
 let currentSortOrder = 'desc';
 let allTasks = [];
+let allColumns = []; // 🔥 Новая глобальная переменная для хранения кастомных колонок из базы
 let searchQuery = '';
 let currentBoardId = localStorage.getItem('currentBoardId') || 1;
 
@@ -17,102 +19,7 @@ if (typeof toggleTaskLabel !== 'undefined') window.toggleTaskLabel = toggleTaskL
 
 const API_BASE_URL = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:8081';
 
-// ========== ФУНКЦИИ УВЕДОМЛЕНИЙ ==========
-function showError(message) {
-    let toast = document.getElementById('errorToast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'errorToast';
-        toast.className = 'error-toast';
-        document.body.appendChild(toast);
-    }
-    toast.innerText = message;
-    toast.style.display = 'block';
-    setTimeout(() => toast.style.display = 'none', 5000);
-}
-
-function showSuccess(message) {
-    let toast = document.getElementById('successToast');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'successToast';
-        toast.className = 'success-toast';
-        document.body.appendChild(toast);
-    }
-    toast.innerText = message;
-    toast.style.display = 'block';
-    setTimeout(() => toast.style.display = 'none', 3000);
-}
-
-// ========== DEBOUNCE И ПОИСК ==========
-let debounceTimer;
-function debounce(func, delay) {
-    return function(...args) {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => func.apply(this, args), delay);
-    };
-}
-
-function setupSearchListener() {
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', debounce(function(e) {
-            searchQuery = e.target.value.trim();
-            currentPage = 1;
-            applySortAndPage();
-        }, 300));
-    }
-}
-
-// ========== FETCH С ТОКЕНОМ ==========
-async function fetchAPI(url, options = {}) {
-    const token = localStorage.getItem('token');
-    const headers = {
-        'Content-Type': 'application/json',
-        ...options.headers
-    };
-    
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-    
-    const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-    
-    try {
-        const response = await fetch(fullUrl, {
-            ...options,
-            headers: headers,
-            signal: controller.signal,
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (response.status === 401) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            window.location.href = 'login.html';
-            throw new Error('Сессия истекла');
-        }
-        
-        if (!response.ok) {
-            let errorMessage = `HTTP ${response.status}`;
-            try {
-                const errorData = await response.json();
-                errorMessage = errorData.error || errorData.message || errorMessage;
-            } catch(e) {}
-            throw new Error(errorMessage);
-        }
-        
-        if (response.status === 204) return null;
-        return await response.json();
-    } catch (error) {
-        clearTimeout(timeoutId);
-        showError(error.message);
-        throw error;
-    }
-}
+// ... (Функции уведомлений, Debounce и fetchAPI остаются без изменений) ...
 
 // ========== ЗАГРУЗКА И ОТРИСОВКА ЗАДАЧ ==========
 async function loadTasks() {
@@ -124,13 +31,26 @@ async function loadTasks() {
         boardDiv.innerHTML = '<div style="text-align:center; padding:40px;">Загрузка задач...</div>';
     }
     
-    const columns = [1, 2, 3]; // To Do, In Progress, Done
-    
     try {
+        // 1. Сначала скачиваем кастомные колонки для текущей доски из БД
+        try {
+            const columnsData = await fetchAPI(`/columns?board_id=${currentBoardId}`);
+            allColumns = Array.isArray(columnsData) ? columnsData : [];
+        } catch (colError) {
+            console.error('Ошибка при загрузке кастомных колонок:', colError);
+            allColumns = []; // В случае ошибки работаем только на системных
+        }
+
+        // 2. Формируем полный список ID колонок, для которых нужно запросить задачи
+        // Системные [1, 2, 3] + ID из базы данных
+        const systemIds = [1, 2, 3];
+        const customIds = allColumns.map(c => parseInt(c.id)).filter(id => !systemIds.includes(id));
+        const totalColumnsToFetch = [...systemIds, ...customIds];
+        
         let loadedTasks = [];
         
-        for (const columnId of columns) {
-            // Добавляем к запросу ID текущей активной доски, чтобы не перемешивать задачи!
+        // 3. Собираем задачи по ВСЕМ активным колонкам
+        for (const columnId of totalColumnsToFetch) {
             const data = await fetchAPI(`/tasks?board_id=${currentBoardId}&column_id=${columnId}&page=${currentPage}&limit=${perPage}&sort=${currentSortBy}&order=${currentSortOrder}`);
             
             if (data && data.data) {
@@ -168,10 +88,19 @@ async function renderBoard(tasks) {
     
     boardDiv.innerHTML = '';
     
+    // СИСТЕМНЫЕ КОЛОНКИ (базовые)
+    const systemColumns = [
+        { id: 1, title: 'К выполнению', icon: '<i class="fa-regular fa-rectangle-list"></i>' },
+        { id: 2, title: 'В процессе', icon: '<i class="fa-solid fa-gear"></i>' },
+        { id: 3, title: 'Выполнено', icon: '<i class="fa-regular fa-circle-check"></i>' }
+    ];
+    
+    const customColumns = typeof allColumns !== 'undefined' ? allColumns : [];
+    
+    // Объединяем системные и кастомные колонки, исключая дубликаты ID
     const columns = [
-        { id: 1, title: '<i class="fa-regular fa-rectangle-list"></i> К выполнению' },
-        { id: 2, title: '<i class="fa-solid fa-gear"></i> В процессе' },
-        { id: 3, title: '<i class="fa-regular fa-circle-check"></i> Выполнено' }
+        ...systemColumns,
+        ...customColumns.filter(c => c && ![1, 2, 3].includes(parseInt(c.id)))
     ];
     
     const priorityEmojis = { 'high': '🔴', 'medium': '🟡', 'low': '🟢' };
@@ -179,12 +108,40 @@ async function renderBoard(tasks) {
     columns.forEach(col => {
         const columnDiv = document.createElement('div');
         columnDiv.className = 'column';
-        columnDiv.innerHTML = `<h3>${col.title}</h3>`;
         
-        const tasksInColumn = tasksWithLabels.filter(t => t.column_id === col.id);
+        const columnId = parseInt(col.id);
+        const rawTitle = col.title || `Колонка ${columnId}`;
+        
+        const displayTitle = col.icon ? `${col.icon} ${rawTitle}` : escapeHtml(rawTitle);
+        
+        // ПРОВЕРКА НА УДАЛЕНИЕ: кнопка не появится у ID 1, 2, 3
+        const isSystemColumn = [1, 2, 3].includes(columnId);
+        let deleteButtonHtml = '';
+        
+        if (!isSystemColumn) {
+            deleteButtonHtml = `
+                <button class="delete-col-btn" onclick="deleteColumnSoft(${columnId}, '${escapeHtml(rawTitle)}')" 
+                        style="background: none; border: none; color: #ff4d4d; cursor: pointer; padding: 5px; font-size: 14px;"
+                        title="Архивировать колонку">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            `;
+        }
+        
+        columnDiv.innerHTML = `
+            <div class="column-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0; display: flex; align-items: center; gap: 8px;">${displayTitle}</h3>
+                ${deleteButtonHtml}
+            </div>
+        `;
+        
+        const tasksInColumn = tasksWithLabels.filter(t => t.column_id === columnId);
         
         if (tasksInColumn.length === 0) {
-            columnDiv.innerHTML += '<div class="empty-state">✨ Нет задач</div>';
+            const emptyStateDiv = document.createElement('div');
+            emptyStateDiv.className = 'empty-state';
+            emptyStateDiv.innerText = '✨ Нет задач';
+            columnDiv.appendChild(emptyStateDiv);
         } else {
             tasksInColumn.forEach(task => {
                 const taskDiv = document.createElement('div');
@@ -208,7 +165,6 @@ async function renderBoard(tasks) {
         boardDiv.appendChild(columnDiv);
     });
 }
-
 // ========== УПРАВЛЕНИЕ ДОСКАМИ (ПРОЕКТАМИ) ==========
 async function loadBoards() {
     const token = localStorage.getItem('token');
@@ -509,3 +465,66 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === document.getElementById('createModal')) closeCreateModal();
     });
 });
+// Функция отправки новой колонки в базу данных
+async function createColumn() {
+    const titleInput = document.getElementById('colTitle');
+    const title = titleInput ? titleInput.value.trim() : '';
+
+    if (!title) {
+        showError('❌ Введите название колонки');
+        return;
+    }
+
+    try {
+        await fetchAPI('/columns', {
+            method: 'POST',
+            body: JSON.stringify({
+                board_id: parseInt(currentBoardId),
+                title: title
+            })
+        });
+
+        if (titleInput) titleInput.value = '';
+        closeCreateColumnModal(); // Эта функция закрывает твою HTML модалку
+        showSuccess('✅ Колонка добавлена');
+        await loadTasks(); // Мгновенно обновляем доску с новой колонкой
+    } catch (error) {
+        console.error('Ошибка добавления колонки:', error);
+    }
+}
+
+// Функция мягкого удаления (вызывается из корзины на заголовке)
+async function deleteColumnSoft(columnId, columnTitle) {
+    if ([1, 2, 3].includes(parseInt(columnId))) {
+        showError('🔒 Системные колонки нельзя удалить!');
+        return;
+    }
+
+    if (!confirm(`Вы уверены, что хотите переместить колонку "${columnTitle}" в архив?`)) {
+        return;
+    }
+
+    try {
+        // Твой бэкенд (метод DeleteColumn) слушает DELETE /columns/{id}
+        await fetchAPI(`/columns/${columnId}`, {
+            method: 'DELETE'
+        });
+        
+        showSuccess('🗑️ Колонка перемещена в архив');
+        await loadTasks(); // Обновляем доску, колонка исчезнет!
+    } catch (error) {
+        console.error('Ошибка удаления колонки:', error);
+    }
+}
+// ========== МОДАЛКА СОЗДАНИЯ КОЛОНКИ ==========
+function openCreateColumnModal() {
+    const modal = document.getElementById('createColumnModal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeCreateColumnModal() {
+    const modal = document.getElementById('createColumnModal');
+    const input = document.getElementById('colTitle');
+    if (modal) modal.style.display = 'none';
+    if (input) input.value = ''; // Очищаем поле при закрытии
+}

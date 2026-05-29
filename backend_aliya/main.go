@@ -3,8 +3,10 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"kanban/handlers"
 	"kanban/internal/repository"
@@ -19,7 +21,36 @@ import (
 
 func main() {
 	utils.LogInfo("Starting server...")
-	connStr := "host=localhost port=5432 user=postgres password=postgres123 dbname=kanban sslmode=disable"
+
+	// Динамически получаем параметры базы данных (из Докера или локально)
+	host := os.Getenv("DB_HOST")
+	if host == "" {
+		host = "localhost" // Резервный вариант для запуска через обычный go run
+	}
+
+	port := os.Getenv("DB_PORT")
+	if port == "" {
+		port = "5433"
+	}
+
+	user := os.Getenv("DB_USER")
+	if user == "" {
+		user = "postgres"
+	}
+
+	password := os.Getenv("DB_PASSWORD")
+	if password == "" {
+		password = "postgres123"
+	}
+
+	dbname := os.Getenv("DB_NAME")
+	if dbname == "" {
+		dbname = "kanban"
+	}
+
+	// Собираем правильную строку подключения
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
@@ -60,7 +91,22 @@ func main() {
 
 	r := mux.NewRouter()
 
-	// Глобальное логирование запросов
+	// Безопасный перехватчик паник (восстанавливает сервер при критическом сбое)
+	r.Use(func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			defer func() {
+				if err := recover(); err != nil {
+					log.Printf("🔥 КРИТИЧЕСКАЯ ПАНИКА СЕРВЕРА: %v", err)
+					w.Header().Set("Content-Type", "application/json")
+					w.WriteHeader(http.StatusInternalServerError)
+					fmt.Fprintf(w, `{"error":"Internal Server Error","details":"%v"}`, err)
+				}
+			}()
+			next.ServeHTTP(w, r)
+		})
+	})
+
+	// Твой старый код логирования (идет следом)
 	r.Use(middleware.LoggingMiddleware)
 
 	// ========== ПУБЛИЧНЫЕ МАРШРУТЫ ==========
@@ -74,22 +120,13 @@ func main() {
 	r.Handle("/users/{id}", middleware.JWT(http.HandlerFunc(userHandler.UpdateUser))).Methods("PUT")
 
 	// ========== BOARDS ==========
-	// 1. Точный адрес корзины (обязательно СТРОГО ДО динамического {id} и с JWT)
 	r.Handle("/boards/deleted", middleware.JWT(http.HandlerFunc(boardHandler.GetDeletedBoards))).Methods("GET")
-
-	// 2. Окончательное удаление (точный под-маршрут)
 	r.Handle("/boards/{id}/permanent", middleware.JWT(http.HandlerFunc(boardHandler.PermanentDeleteBoard))).Methods("DELETE")
-
-	// 3. Базовые коллекции досок
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.GetBoards))).Methods("GET")
 	r.Handle("/boards", middleware.JWT(http.HandlerFunc(boardHandler.CreateBoard))).Methods("POST")
-
-	// 4. Динамические пути по ID доски (обрабатываются в конце)
 	r.Handle("/boards/{id}", middleware.JWT(http.HandlerFunc(boardHandler.GetBoard))).Methods("GET")
 	r.Handle("/boards/{id}", middleware.JWT(http.HandlerFunc(boardHandler.UpdateBoard))).Methods("PUT")
 	r.Handle("/boards/{id}", middleware.JWT(middleware.OwnerOnly(db, boardHandler.DeleteBoard))).Methods("DELETE")
-
-	// 5. Участники проектов
 	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.GetMembers))).Methods("GET")
 	r.Handle("/boards/{id}/members", middleware.JWT(middleware.OwnerOnly(db, boardHandler.AddMemberToBoard))).Methods("POST")
 
@@ -100,7 +137,6 @@ func main() {
 	r.Handle("/columns/{id}/restore", middleware.JWT(middleware.OwnerOnly(db, columnHandler.RestoreColumn))).Methods("PATCH")
 
 	// ========== TASKS ARCHIVE ==========
-	// ВАЖНО: Статические пути архива задач должны идти ПЕРЕД динамическими /tasks/{id}
 	r.Handle("/tasks/archive", middleware.JWT(http.HandlerFunc(taskHandler.GetArchivedTasks))).Methods("GET")
 	r.Handle("/tasks/archive/clean", middleware.JWT(http.HandlerFunc(taskHandler.CleanTrash))).Methods("DELETE")
 
@@ -111,8 +147,6 @@ func main() {
 	r.Handle("/tasks/{id}", middleware.JWT(http.HandlerFunc(taskHandler.DeleteTask))).Methods("DELETE")
 	r.Handle("/tasks/{id}/archive", middleware.JWT(http.HandlerFunc(taskHandler.ArchiveTask))).Methods("PATCH")
 	r.Handle("/tasks/{id}/restore", middleware.JWT(http.HandlerFunc(taskHandler.RestoreTask))).Methods("PATCH")
-
-	// Окончательное удаление одной задачи (уже под защитой JWT)
 	r.Handle("/tasks/{id}/permanent", middleware.JWT(http.HandlerFunc(taskHandler.PermanentDeleteTask))).Methods("DELETE")
 
 	// ========== TASK LABELS ==========

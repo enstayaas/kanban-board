@@ -4796,3 +4796,1122 @@
 [ACCESS] 2026/05/28 22:39:18 GET /boards -> Status: OK Duration: 8.258ms
 [ACCESS] 2026/05/28 22:39:21 GET /me -> Status: Not Found Duration: 499.6µs
 [ACCESS] 2026/05/28 22:39:21 GET /users -> Status: OK Duration: 2.582ms
+[ACCESS] 2026/05/28 22:41:43 GET /me -> Status: Not Found Duration: 711.2µs
+[ACCESS] 2026/05/28 22:41:43 GET /users -> Status: OK Duration: 1.9679ms
+[ACCESS] 2026/05/28 22:41:46 GET /me -> Status: Not Found Duration: 634.5µs
+[ACCESS] 2026/05/28 22:41:46 GET /users -> Status: OK Duration: 2.6417ms
+[ACCESS] 2026/05/28 22:42:04 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 22:42:04 GET /users -> Status: OK Duration: 1.8506ms
+[ACCESS] 2026/05/28 22:42:31 GET /me -> Status: Not Found Duration: 984.1µs
+[ACCESS] 2026/05/28 22:42:31 GET /users -> Status: OK Duration: 4.0825ms
+[ACCESS] 2026/05/28 22:54:42 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 22:54:42 GET /users -> Status: OK Duration: 2.599ms
+[ACCESS] 2026/05/28 22:57:04 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 22:57:04 GET /users -> Status: OK Duration: 4.2394ms
+[ACCESS] 2026/05/28 22:57:15 GET /me -> Status: Not Found Duration: 175.1µs
+[ACCESS] 2026/05/28 22:57:15 GET /users -> Status: OK Duration: 2.2491ms
+[ACCESS] 2026/05/28 22:58:04 GET /me -> Status: Not Found Duration: 494.9µs
+[ACCESS] 2026/05/28 22:58:04 GET /users -> Status: OK Duration: 3.4019ms
+[ACCESS] 2026/05/28 22:59:15 GET /me -> Status: Not Found Duration: 262µs
+[ACCESS] 2026/05/28 22:59:15 GET /users -> Status: OK Duration: 3.3649ms
+[ACCESS] 2026/05/28 23:08:33 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:08:33 GET /users -> Status: OK Duration: 2.9561ms
+[ACCESS] 2026/05/28 23:08:40 GET /boards -> Status: OK Duration: 16.9382ms
+[ACCESS] 2026/05/28 23:08:41 GET /labels -> Status: OK Duration: 6.0523ms
+[ACCESS] 2026/05/28 23:08:41 GET /tasks -> Status: OK Duration: 6.6779ms
+[ACCESS] 2026/05/28 23:08:41 GET /tasks -> Status: OK Duration: 6.8586ms
+[ACCESS] 2026/05/28 23:08:41 GET /tasks -> Status: OK Duration: 4.5569ms
+[ACCESS] 2026/05/28 23:08:50 POST /tasks -> Status: OK Duration: 31.2053ms
+[ACCESS] 2026/05/28 23:08:50 GET /tasks -> Status: OK Duration: 15.9243ms
+[ACCESS] 2026/05/28 23:08:50 GET /tasks -> Status: OK Duration: 8.1586ms
+[ACCESS] 2026/05/28 23:08:50 GET /tasks -> Status: OK Duration: 7.1043ms
+[ACCESS] 2026/05/28 23:08:52 GET /comments -> Status: OK Duration: 6.825ms
+[ACCESS] 2026/05/28 23:08:57 PUT /tasks/55 -> Status: OK Duration: 29.433ms
+[ACCESS] 2026/05/28 23:08:57 GET /tasks -> Status: OK Duration: 12.8245ms
+[ACCESS] 2026/05/28 23:08:57 GET /tasks -> Status: OK Duration: 12.3079ms
+[ACCESS] 2026/05/28 23:08:57 GET /tasks -> Status: OK Duration: 9.846ms
+[ACCESS] 2026/05/28 23:08:58 GET /comments -> Status: OK Duration: 6.4331ms
+[ACCESS] 2026/05/28 23:09:00 POST /comments -> Status: Internal Server Error Duration: 19.887ms
+[ACCESS] 2026/05/28 23:09:04 POST /comments -> Status: Internal Server Error Duration: 24.6066ms
+[ACCESS] 2026/05/28 23:09:26 POST /comments -> Status: Internal Server Error Duration: 25.8397ms
+[ACCESS] 2026/05/28 23:10:28 GET /comments -> Status: Internal Server Error Duration: 5.8361ms
+[ACCESS] 2026/05/28 23:10:33 GET /comments -> Status: Internal Server Error Duration: 5.9975ms
+[ACCESS] 2026/05/28 23:10:39 GET /comments -> Status: Internal Server Error Duration: 6.5657ms
+[ACCESS] 2026/05/28 23:10:42 PUT /tasks/55 -> Status: OK Duration: 17.5743ms
+[ACCESS] 2026/05/28 23:10:42 GET /tasks -> Status: OK Duration: 16.148ms
+[ACCESS] 2026/05/28 23:10:42 GET /tasks -> Status: OK Duration: 7.5173ms
+[ACCESS] 2026/05/28 23:10:42 GET /tasks -> Status: OK Duration: 7.982ms
+[ACCESS] 2026/05/28 23:10:51 GET /comments -> Status: Internal Server Error Duration: 4.9245ms
+[ACCESS] 2026/05/28 23:13:37 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:13:37 GET /users -> Status: OK Duration: 2.0024ms
+[ACCESS] 2026/05/28 23:13:37 GET /labels -> Status: OK Duration: 6.0896ms
+[ACCESS] 2026/05/28 23:13:37 GET /tasks -> Status: OK Duration: 15.185ms
+[ACCESS] 2026/05/28 23:13:37 GET /tasks -> Status: OK Duration: 10.0124ms
+[ACCESS] 2026/05/28 23:13:37 GET /tasks -> Status: OK Duration: 11.8508ms
+[ACCESS] 2026/05/28 23:13:48 GET /labels -> Status: OK Duration: 9.0872ms
+[ACCESS] 2026/05/28 23:13:49 GET /tasks -> Status: OK Duration: 20.042ms
+[ACCESS] 2026/05/28 23:13:49 GET /tasks -> Status: OK Duration: 13.1425ms
+[ACCESS] 2026/05/28 23:13:49 GET /tasks -> Status: OK Duration: 7.2919ms
+[ACCESS] 2026/05/28 23:13:50 GET /comments -> Status: Internal Server Error Duration: 6.3036ms
+[ACCESS] 2026/05/28 23:15:32 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:15:32 GET /users -> Status: OK Duration: 2.985ms
+[ACCESS] 2026/05/28 23:15:33 GET /labels -> Status: OK Duration: 4.1105ms
+[ACCESS] 2026/05/28 23:15:33 GET /tasks -> Status: OK Duration: 12.2078ms
+[ACCESS] 2026/05/28 23:15:33 GET /tasks -> Status: OK Duration: 9.4921ms
+[ACCESS] 2026/05/28 23:15:33 GET /tasks -> Status: OK Duration: 8.3261ms
+[ACCESS] 2026/05/28 23:15:39 GET /labels -> Status: OK Duration: 6.6131ms
+[ACCESS] 2026/05/28 23:15:40 GET /tasks -> Status: OK Duration: 21.1579ms
+[ACCESS] 2026/05/28 23:15:40 GET /tasks -> Status: OK Duration: 12.621ms
+[ACCESS] 2026/05/28 23:15:40 GET /tasks -> Status: OK Duration: 11.7307ms
+[ACCESS] 2026/05/28 23:15:41 GET /comments -> Status: Internal Server Error Duration: 4.9885ms
+[ACCESS] 2026/05/28 23:15:48 POST /comments -> Status: Internal Server Error Duration: 19.3263ms
+[ACCESS] 2026/05/28 23:16:19 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:16:19 GET /users -> Status: OK Duration: 2.9452ms
+[ACCESS] 2026/05/28 23:16:19 GET /labels -> Status: OK Duration: 8.4671ms
+[ACCESS] 2026/05/28 23:16:19 GET /tasks -> Status: OK Duration: 14.2731ms
+[ACCESS] 2026/05/28 23:16:19 GET /tasks -> Status: OK Duration: 9.9486ms
+[ACCESS] 2026/05/28 23:16:19 GET /tasks -> Status: OK Duration: 10.241ms
+[ACCESS] 2026/05/28 23:16:26 GET /labels -> Status: OK Duration: 5.2924ms
+[ACCESS] 2026/05/28 23:16:26 GET /tasks -> Status: OK Duration: 17.3204ms
+[ACCESS] 2026/05/28 23:16:26 GET /tasks -> Status: OK Duration: 10.5865ms
+[ACCESS] 2026/05/28 23:16:26 GET /tasks -> Status: OK Duration: 9.9546ms
+[ACCESS] 2026/05/28 23:16:28 GET /comments -> Status: Internal Server Error Duration: 7.8103ms
+[ACCESS] 2026/05/28 23:16:33 GET /labels -> Status: OK Duration: 6.3524ms
+[ACCESS] 2026/05/28 23:16:33 GET /tasks -> Status: OK Duration: 18.505ms
+[ACCESS] 2026/05/28 23:16:33 GET /tasks -> Status: OK Duration: 10.7036ms
+[ACCESS] 2026/05/28 23:16:33 GET /tasks -> Status: OK Duration: 10.9264ms
+[ACCESS] 2026/05/28 23:16:35 GET /labels -> Status: OK Duration: 4.7477ms
+[ACCESS] 2026/05/28 23:16:35 GET /tasks -> Status: OK Duration: 13.0577ms
+[ACCESS] 2026/05/28 23:16:35 GET /tasks -> Status: OK Duration: 9.7614ms
+[ACCESS] 2026/05/28 23:16:35 GET /tasks -> Status: OK Duration: 9.5685ms
+[ACCESS] 2026/05/28 23:16:37 GET /comments -> Status: Internal Server Error Duration: 6.6165ms
+[ACCESS] 2026/05/28 23:16:48 GET /comments -> Status: Internal Server Error Duration: 6.4604ms
+[ACCESS] 2026/05/28 23:19:56 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:19:56 GET /users -> Status: OK Duration: 3.5437ms
+[ACCESS] 2026/05/28 23:19:56 GET /labels -> Status: OK Duration: 8.4157ms
+[ACCESS] 2026/05/28 23:19:56 GET /tasks -> Status: OK Duration: 19.8331ms
+[ACCESS] 2026/05/28 23:19:56 GET /tasks -> Status: OK Duration: 14.4373ms
+[ACCESS] 2026/05/28 23:19:56 GET /tasks -> Status: OK Duration: 12.1742ms
+[ACCESS] 2026/05/28 23:19:57 GET /me -> Status: Not Found Duration: 255.4µs
+[ACCESS] 2026/05/28 23:19:57 GET /users -> Status: OK Duration: 3.4586ms
+[ACCESS] 2026/05/28 23:19:57 GET /labels -> Status: OK Duration: 4.5577ms
+[ACCESS] 2026/05/28 23:19:57 GET /tasks -> Status: OK Duration: 16.1961ms
+[ACCESS] 2026/05/28 23:19:57 GET /tasks -> Status: OK Duration: 6.0135ms
+[ACCESS] 2026/05/28 23:19:58 GET /tasks -> Status: OK Duration: 13.4923ms
+[ACCESS] 2026/05/28 23:20:42 GET /labels -> Status: OK Duration: 11.9056ms
+[ACCESS] 2026/05/28 23:20:42 GET /tasks -> Status: OK Duration: 59.6653ms
+[ACCESS] 2026/05/28 23:20:42 GET /tasks -> Status: OK Duration: 11.4829ms
+[ACCESS] 2026/05/28 23:20:42 GET /tasks -> Status: OK Duration: 11.5264ms
+[ACCESS] 2026/05/28 23:20:45 GET /comments -> Status: Internal Server Error Duration: 4.5832ms
+[ACCESS] 2026/05/28 23:25:47 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:25:47 GET /users -> Status: OK Duration: 3.8748ms
+[ACCESS] 2026/05/28 23:25:47 GET /labels -> Status: OK Duration: 5.007ms
+[ACCESS] 2026/05/28 23:25:47 GET /tasks -> Status: OK Duration: 15.0937ms
+[ACCESS] 2026/05/28 23:25:47 GET /tasks -> Status: OK Duration: 10.6704ms
+[ACCESS] 2026/05/28 23:25:47 GET /tasks -> Status: OK Duration: 12.9346ms
+[ACCESS] 2026/05/28 23:26:39 GET /comments -> Status: Internal Server Error Duration: 4.4631ms
+[ACCESS] 2026/05/28 23:26:43 PUT /tasks/55 -> Status: OK Duration: 32.5834ms
+[ACCESS] 2026/05/28 23:26:43 GET /tasks -> Status: OK Duration: 19.9009ms
+[ACCESS] 2026/05/28 23:26:43 GET /tasks -> Status: OK Duration: 7.8759ms
+[ACCESS] 2026/05/28 23:26:43 GET /tasks -> Status: OK Duration: 14.2278ms
+[ACCESS] 2026/05/28 23:27:37 GET /comments -> Status: Internal Server Error Duration: 5.3734ms
+[ACCESS] 2026/05/28 23:28:52 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:28:52 GET /users -> Status: OK Duration: 1.8735ms
+[ACCESS] 2026/05/28 23:28:52 GET /labels -> Status: OK Duration: 4.0411ms
+[ACCESS] 2026/05/28 23:28:53 GET /tasks -> Status: OK Duration: 13.6054ms
+[ACCESS] 2026/05/28 23:28:53 GET /tasks -> Status: OK Duration: 7.8448ms
+[ACCESS] 2026/05/28 23:28:53 GET /tasks -> Status: OK Duration: 8.2642ms
+[ACCESS] 2026/05/28 23:28:54 GET /me -> Status: Not Found Duration: 375µs
+[ACCESS] 2026/05/28 23:28:54 GET /users -> Status: OK Duration: 4.8453ms
+[ACCESS] 2026/05/28 23:28:54 GET /labels -> Status: OK Duration: 9.1865ms
+[ACCESS] 2026/05/28 23:28:54 GET /tasks -> Status: OK Duration: 18.301ms
+[ACCESS] 2026/05/28 23:28:54 GET /tasks -> Status: OK Duration: 12.1935ms
+[ACCESS] 2026/05/28 23:28:54 GET /tasks -> Status: OK Duration: 11.9986ms
+[ACCESS] 2026/05/28 23:29:02 GET /labels -> Status: OK Duration: 6.1183ms
+[ACCESS] 2026/05/28 23:29:02 GET /tasks -> Status: OK Duration: 17.5928ms
+[ACCESS] 2026/05/28 23:29:02 GET /tasks -> Status: OK Duration: 8.5477ms
+[ACCESS] 2026/05/28 23:29:02 GET /tasks -> Status: OK Duration: 12.8097ms
+[ACCESS] 2026/05/28 23:29:06 GET /comments -> Status: Internal Server Error Duration: 3.5013ms
+[ACCESS] 2026/05/28 23:29:11 PUT /tasks/55 -> Status: OK Duration: 30.7913ms
+[ACCESS] 2026/05/28 23:29:11 GET /tasks -> Status: OK Duration: 18.9442ms
+[ACCESS] 2026/05/28 23:29:11 GET /tasks -> Status: OK Duration: 13.9261ms
+[ACCESS] 2026/05/28 23:29:11 GET /tasks -> Status: OK Duration: 11.1285ms
+[ACCESS] 2026/05/28 23:29:13 GET /comments -> Status: Internal Server Error Duration: 5.1619ms
+[ACCESS] 2026/05/28 23:29:43 GET /comments -> Status: Internal Server Error Duration: 4.0192ms
+[ACCESS] 2026/05/28 23:29:48 GET /labels -> Status: OK Duration: 10.4042ms
+[ACCESS] 2026/05/28 23:29:48 GET /tasks -> Status: OK Duration: 16.9789ms
+[ACCESS] 2026/05/28 23:29:48 GET /tasks -> Status: OK Duration: 9.9971ms
+[ACCESS] 2026/05/28 23:29:48 GET /tasks -> Status: OK Duration: 8.9969ms
+[ACCESS] 2026/05/28 23:29:49 GET /comments -> Status: Internal Server Error Duration: 3.9305ms
+[ACCESS] 2026/05/28 23:36:04 GET /me -> Status: Not Found Duration: 334.4µs
+[ACCESS] 2026/05/28 23:36:04 GET /users -> Status: Internal Server Error Duration: 9.7762ms
+[ACCESS] 2026/05/28 23:36:05 GET /labels -> Status: Internal Server Error Duration: 4.0831ms
+[ACCESS] 2026/05/28 23:36:05 GET /tasks -> Status: Internal Server Error Duration: 1.732ms
+[ACCESS] 2026/05/28 23:36:05 GET /tasks -> Status: Internal Server Error Duration: 2.1809ms
+[ACCESS] 2026/05/28 23:36:05 GET /tasks -> Status: Internal Server Error Duration: 2.1698ms
+[ACCESS] 2026/05/28 23:41:02 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/28 23:41:02 GET /users -> Status: Internal Server Error Duration: 19.8641ms
+[ACCESS] 2026/05/28 23:41:04 GET /labels -> Status: Internal Server Error Duration: 5.3282ms
+[ACCESS] 2026/05/28 23:41:04 GET /tasks -> Status: Internal Server Error Duration: 3.3012ms
+[ACCESS] 2026/05/28 23:41:04 GET /tasks -> Status: Internal Server Error Duration: 3.0313ms
+[ACCESS] 2026/05/28 23:41:04 GET /tasks -> Status: Internal Server Error Duration: 3.1852ms
+[ACCESS] 2026/05/28 23:42:41 GET /labels -> Status: Internal Server Error Duration: 5.0471ms
+[ACCESS] 2026/05/28 23:42:41 GET /tasks -> Status: Internal Server Error Duration: 7.5599ms
+[ACCESS] 2026/05/28 23:42:41 GET /tasks -> Status: Internal Server Error Duration: 3.0127ms
+[ACCESS] 2026/05/28 23:42:41 GET /tasks -> Status: Internal Server Error Duration: 2.6093ms
+[ACCESS] 2026/05/28 23:42:50 POST /tasks -> Status: Internal Server Error Duration: 6.4197ms
+[ACCESS] 2026/05/28 23:43:08 GET /labels -> Status: Internal Server Error Duration: 36.0437ms
+[ACCESS] 2026/05/28 23:43:08 GET /tasks -> Status: Internal Server Error Duration: 4.3046ms
+[ACCESS] 2026/05/28 23:43:09 GET /tasks -> Status: Internal Server Error Duration: 1.8697ms
+[ACCESS] 2026/05/28 23:43:09 GET /tasks -> Status: Internal Server Error Duration: 5.9363ms
+[ACCESS] 2026/05/28 23:43:16 POST /tasks -> Status: Internal Server Error Duration: 5.3248ms
+[ACCESS] 2026/05/28 23:43:16 POST /tasks -> Status: Internal Server Error Duration: 3.74ms
+[ACCESS] 2026/05/29 00:20:24 GET /login.html -> Status: Not Modified Duration: 937.2µs
+[ACCESS] 2026/05/29 00:20:24 GET /styles.css -> Status: Not Modified Duration: 929.1µs
+[ACCESS] 2026/05/29 00:20:24 GET /favicon.ico -> Status: Not Found Duration: 258.6µs
+[ACCESS] 2026/05/29 00:20:29 POST /login -> Status: Internal Server Error Duration: 10.6576ms
+[ACCESS] 2026/05/29 00:20:34 GET /register.html -> Status: Not Modified Duration: 1.3141ms
+[ACCESS] 2026/05/29 00:20:38 POST /register -> Status: Internal Server Error Duration: 154.083ms
+[ACCESS] 2026/05/29 00:20:51 POST /register -> Status: Internal Server Error Duration: 142.6954ms
+[ACCESS] 2026/05/29 00:20:57 POST /register -> Status: Internal Server Error Duration: 136.6101ms
+[ACCESS] 2026/05/29 00:21:21 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 00:21:52 GET /register.html -> Status: OK Duration: 157.7164ms
+[ACCESS] 2026/05/29 00:21:52 GET /styles.css -> Status: OK Duration: 1.78ms
+[ACCESS] 2026/05/29 00:21:52 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 00:21:57 POST /register -> Status: Internal Server Error Duration: 131.0215ms
+[ACCESS] 2026/05/29 00:23:50 GET /register.html -> Status: OK Duration: 854.1µs
+[ACCESS] 2026/05/29 00:23:50 GET /styles.css -> Status: OK Duration: 1.0858ms
+[ACCESS] 2026/05/29 00:23:50 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 00:23:51 GET /register.html -> Status: OK Duration: 513.1µs
+[ACCESS] 2026/05/29 00:23:51 GET /styles.css -> Status: OK Duration: 2.6858ms
+[ACCESS] 2026/05/29 00:23:51 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 00:23:58 POST /register -> Status: Internal Server Error Duration: 159.8084ms
+[ACCESS] 2026/05/29 00:29:53 GET /register.html -> Status: OK Duration: 150.684ms
+[ACCESS] 2026/05/29 00:29:53 GET /styles.css -> Status: OK Duration: 6.8974ms
+[ACCESS] 2026/05/29 00:29:53 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 168.2µs
+[ACCESS] 2026/05/29 00:29:56 POST /register -> Status: Created Duration: 153.6247ms
+[ACCESS] 2026/05/29 00:29:58 GET /login.html -> Status: OK Duration: 2.4957ms
+[ACCESS] 2026/05/29 00:29:58 GET /styles.css -> Status: OK Duration: 2.2144ms
+[ACCESS] 2026/05/29 00:29:58 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 00:29:59 POST /login -> Status: OK Duration: 145.796ms
+[ACCESS] 2026/05/29 00:29:59 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 00:29:59 GET / -> Status: OK Duration: 47.251ms
+[ACCESS] 2026/05/29 00:29:59 GET /styles.css -> Status: OK Duration: 594.9µs
+[ACCESS] 2026/05/29 00:30:00 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 00:30:00 GET /boards -> Status: Internal Server Error Duration: 2.8356ms
+[ACCESS] 2026/05/29 00:30:09 POST /boards -> Status: Internal Server Error Duration: 3.1438ms
+[ACCESS] 2026/05/29 02:45:38 GET / -> Status: OK Duration: 92.4847ms
+[ACCESS] 2026/05/29 02:45:38 GET /styles.css -> Status: OK Duration: 2.9623ms
+[ACCESS] 2026/05/29 02:45:38 GET /login.html -> Status: OK Duration: 1.6289ms
+[ACCESS] 2026/05/29 02:45:38 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:45:41 GET /register.html -> Status: OK Duration: 3.2417ms
+[ACCESS] 2026/05/29 02:45:56 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 02:46:00 GET /profile.html -> Status: OK Duration: 31.9584ms
+[ACCESS] 2026/05/29 02:46:00 GET /config.js -> Status: OK Duration: 1.0735ms
+[ACCESS] 2026/05/29 02:46:00 GET /profile.js -> Status: OK Duration: 2.3621ms
+[ACCESS] 2026/05/29 02:46:06 GET /users.html -> Status: OK Duration: 2.3887ms
+[ACCESS] 2026/05/29 02:46:06 GET /users.js -> Status: OK Duration: 2.0725ms
+[ACCESS] 2026/05/29 02:46:14 GET /archive.html -> Status: OK Duration: 2.2487ms
+[ACCESS] 2026/05/29 02:46:14 GET /archive.js -> Status: OK Duration: 2.484ms
+[ACCESS] 2026/05/29 02:46:17 GET /stats.html -> Status: OK Duration: 5.3581ms
+[ACCESS] 2026/05/29 02:46:17 GET /stats.js -> Status: OK Duration: 2.1734ms
+[ACCESS] 2026/05/29 02:46:21 GET /activity.html -> Status: OK Duration: 2.7489ms
+[ACCESS] 2026/05/29 02:46:27 GET /settings.html -> Status: OK Duration: 2.5507ms
+[ACCESS] 2026/05/29 02:46:32 GET /board.html -> Status: OK Duration: 3.2118ms
+[ACCESS] 2026/05/29 02:46:43 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:46:47 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 02:46:47 GET / -> Status: OK Duration: 4.5168ms
+[ACCESS] 2026/05/29 02:46:47 GET /styles.css -> Status: OK Duration: 578.5µs
+[ACCESS] 2026/05/29 02:46:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:47:02 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 02:47:02 GET / -> Status: OK Duration: 648µs
+[ACCESS] 2026/05/29 02:47:02 GET /styles.css -> Status: OK Duration: 635.9µs
+[ACCESS] 2026/05/29 02:47:02 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:51:59 GET / -> Status: OK Duration: 2.4554ms
+[ACCESS] 2026/05/29 02:51:59 GET /styles.css -> Status: OK Duration: 11.2005ms
+[ACCESS] 2026/05/29 02:51:59 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:52:00 GET /boards -> Status: Internal Server Error Duration: 20.3528ms
+[ACCESS] 2026/05/29 02:52:02 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 02:52:02 GET / -> Status: OK Duration: 1.3452ms
+[ACCESS] 2026/05/29 02:52:02 GET /styles.css -> Status: OK Duration: 1.5214ms
+[ACCESS] 2026/05/29 02:52:02 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:52:03 GET /boards -> Status: Internal Server Error Duration: 8.073ms
+[ACCESS] 2026/05/29 02:52:05 GET /profile.html -> Status: OK Duration: 1.8505ms
+[ACCESS] 2026/05/29 02:52:05 GET /styles.css -> Status: OK Duration: 2.4576ms
+[ACCESS] 2026/05/29 02:52:05 GET /config.js -> Status: OK Duration: 778.7µs
+[ACCESS] 2026/05/29 02:52:05 GET /profile.js -> Status: OK Duration: 2.8017ms
+[ACCESS] 2026/05/29 02:52:05 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 575.7µs
+[ACCESS] 2026/05/29 02:52:05 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:52:05 GET /users -> Status: OK Duration: 16.8658ms
+[ACCESS] 2026/05/29 02:52:07 GET /users.html -> Status: OK Duration: 685.1µs
+[ACCESS] 2026/05/29 02:52:07 GET /styles.css -> Status: OK Duration: 1.6175ms
+[ACCESS] 2026/05/29 02:52:07 GET /users.js -> Status: OK Duration: 10.3335ms
+[ACCESS] 2026/05/29 02:52:07 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 444.8µs
+[ACCESS] 2026/05/29 02:52:09 GET /board.html -> Status: OK Duration: 3.3053ms
+[ACCESS] 2026/05/29 02:52:09 GET /styles.css -> Status: OK Duration: 806.5µs
+[ACCESS] 2026/05/29 02:52:09 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:52:09 GET /labels -> Status: Internal Server Error Duration: 4.9737ms
+[ACCESS] 2026/05/29 02:52:09 GET /tasks -> Status: OK Duration: 14.6296ms
+[ACCESS] 2026/05/29 02:52:09 GET /tasks -> Status: OK Duration: 10.4572ms
+[ACCESS] 2026/05/29 02:52:09 GET /tasks -> Status: OK Duration: 17.6077ms
+[ACCESS] 2026/05/29 02:52:16 POST /tasks -> Status: Internal Server Error Duration: 16.5957ms
+[ACCESS] 2026/05/29 02:52:36 GET /settings.html -> Status: OK Duration: 10.2381ms
+[ACCESS] 2026/05/29 02:52:36 GET /styles.css -> Status: OK Duration: 583.2µs
+[ACCESS] 2026/05/29 02:52:36 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 02:52:36 GET /boards/1 -> Status: Internal Server Error Duration: 7.9216ms
+[ACCESS] 2026/05/29 02:52:40 GET /stats.html -> Status: OK Duration: 519µs
+[ACCESS] 2026/05/29 02:52:40 GET /styles.css -> Status: OK Duration: 2.5345ms
+[ACCESS] 2026/05/29 02:52:40 GET /config.js -> Status: OK Duration: 557.6µs
+[ACCESS] 2026/05/29 02:52:40 GET /stats.js -> Status: OK Duration: 2.373ms
+[ACCESS] 2026/05/29 02:52:40 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 151.6µs
+[ACCESS] 2026/05/29 02:52:40 GET /stats -> Status: OK Duration: 10.0899ms
+[ACCESS] 2026/05/29 02:52:44 GET /archive.html -> Status: OK Duration: 1.2218ms
+[ACCESS] 2026/05/29 02:52:44 GET /styles.css -> Status: OK Duration: 433.8µs
+[ACCESS] 2026/05/29 02:52:44 GET /config.js -> Status: OK Duration: 499µs
+[ACCESS] 2026/05/29 02:52:44 GET /archive.js -> Status: OK Duration: 2.4878ms
+[ACCESS] 2026/05/29 02:52:44 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 221.2µs
+[ACCESS] 2026/05/29 02:52:44 GET /tasks/archive -> Status: Internal Server Error Duration: 3.5015ms
+[ACCESS] 2026/05/29 02:52:46 GET /boards/deleted -> Status: Internal Server Error Duration: 2.9975ms
+[ACCESS] 2026/05/29 03:07:04 GET /archive.html -> Status: OK Duration: 48.5236ms
+[ACCESS] 2026/05/29 03:07:04 GET /styles.css -> Status: OK Duration: 532.1µs
+[ACCESS] 2026/05/29 03:07:04 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:07:04 GET /archive.js -> Status: OK Duration: 720.2µs
+[ACCESS] 2026/05/29 03:07:04 GET /tasks/archive -> Status: Internal Server Error Duration: 5.2023ms
+[ACCESS] 2026/05/29 03:07:05 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:07:41 GET /archive.html -> Status: OK Duration: 613.6µs
+[ACCESS] 2026/05/29 03:07:41 GET /styles.css -> Status: OK Duration: 1.4993ms
+[ACCESS] 2026/05/29 03:07:41 GET /archive.js -> Status: OK Duration: 994.3µs
+[ACCESS] 2026/05/29 03:07:41 GET /config.js -> Status: OK Duration: 536.3µs
+[ACCESS] 2026/05/29 03:07:41 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 222.3µs
+[ACCESS] 2026/05/29 03:07:41 GET /tasks/archive -> Status: Internal Server Error Duration: 4.7333ms
+[ACCESS] 2026/05/29 03:07:43 GET /board.html -> Status: OK Duration: 600.8µs
+[ACCESS] 2026/05/29 03:07:43 GET /styles.css -> Status: OK Duration: 599µs
+[ACCESS] 2026/05/29 03:07:43 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:07:43 GET /labels -> Status: Internal Server Error Duration: 9.912ms
+[ACCESS] 2026/05/29 03:07:43 GET /tasks -> Status: OK Duration: 26.3638ms
+[ACCESS] 2026/05/29 03:07:43 GET /tasks -> Status: OK Duration: 18.2133ms
+[ACCESS] 2026/05/29 03:07:43 GET /tasks -> Status: OK Duration: 9.191ms
+[ACCESS] 2026/05/29 03:07:48 POST /tasks -> Status: Internal Server Error Duration: 16.4002ms
+[ACCESS] 2026/05/29 03:07:53 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:07:53 GET / -> Status: OK Duration: 1.2403ms
+[ACCESS] 2026/05/29 03:07:53 GET /styles.css -> Status: OK Duration: 761.7µs
+[ACCESS] 2026/05/29 03:07:53 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:07:54 GET /boards -> Status: Internal Server Error Duration: 11.962ms
+[ACCESS] 2026/05/29 03:08:02 POST /boards -> Status: Internal Server Error Duration: 9.6933ms
+[ACCESS] 2026/05/29 03:12:15 POST /boards -> Status: Internal Server Error Duration: 1.6608ms
+[ACCESS] 2026/05/29 03:15:53 GET / -> Status: OK Duration: 512.7µs
+[ACCESS] 2026/05/29 03:15:53 GET /styles.css -> Status: OK Duration: 500.2µs
+[ACCESS] 2026/05/29 03:15:53 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 325.4µs
+[ACCESS] 2026/05/29 03:15:54 GET /boards -> Status: Internal Server Error Duration: 6.3594ms
+[ACCESS] 2026/05/29 03:15:55 GET / -> Status: OK Duration: 710.8µs
+[ACCESS] 2026/05/29 03:15:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:15:55 GET /styles.css -> Status: OK Duration: 511.9µs
+[ACCESS] 2026/05/29 03:15:55 GET /boards -> Status: Internal Server Error Duration: 4.9109ms
+[ACCESS] 2026/05/29 03:15:57 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:15:57 GET / -> Status: OK Duration: 203.7µs
+[ACCESS] 2026/05/29 03:15:57 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:15:57 GET /styles.css -> Status: OK Duration: 522.8µs
+[ACCESS] 2026/05/29 03:15:57 GET /boards -> Status: Internal Server Error Duration: 4.5967ms
+[ACCESS] 2026/05/29 03:15:59 GET /profile.html -> Status: OK Duration: 586.9µs
+[ACCESS] 2026/05/29 03:15:59 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:15:59 GET /config.js -> Status: OK Duration: 605.3µs
+[ACCESS] 2026/05/29 03:15:59 GET /profile.js -> Status: OK Duration: 712µs
+[ACCESS] 2026/05/29 03:15:59 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 374.8µs
+[ACCESS] 2026/05/29 03:15:59 GET /me -> Status: Not Found Duration: 350.9µs
+[ACCESS] 2026/05/29 03:15:59 GET /users -> Status: OK Duration: 1.9945ms
+[ACCESS] 2026/05/29 03:16:02 GET /board.html -> Status: OK Duration: 569.3µs
+[ACCESS] 2026/05/29 03:16:02 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 105.5µs
+[ACCESS] 2026/05/29 03:16:02 GET /styles.css -> Status: OK Duration: 499.3µs
+[ACCESS] 2026/05/29 03:16:02 GET /labels -> Status: Internal Server Error Duration: 1.9509ms
+[ACCESS] 2026/05/29 03:16:02 GET /tasks -> Status: OK Duration: 29.3398ms
+[ACCESS] 2026/05/29 03:16:02 GET /tasks -> Status: OK Duration: 5.5522ms
+[ACCESS] 2026/05/29 03:16:02 GET /tasks -> Status: OK Duration: 3.956ms
+[ACCESS] 2026/05/29 03:16:07 POST /tasks -> Status: Internal Server Error Duration: 8.6621ms
+[ACCESS] 2026/05/29 03:16:08 POST /tasks -> Status: Internal Server Error Duration: 5.8646ms
+[ACCESS] 2026/05/29 03:16:12 PUT /tasks/6 -> Status: Internal Server Error Duration: 18.9412ms
+[ACCESS] 2026/05/29 03:16:12 GET /tasks -> Status: OK Duration: 9.4368ms
+[ACCESS] 2026/05/29 03:16:12 GET /tasks -> Status: OK Duration: 8.1905ms
+[ACCESS] 2026/05/29 03:16:12 GET /tasks -> Status: OK Duration: 7.4787ms
+[ACCESS] 2026/05/29 03:16:13 PUT /tasks/6 -> Status: Internal Server Error Duration: 13.3822ms
+[ACCESS] 2026/05/29 03:16:13 GET /tasks -> Status: OK Duration: 7.9588ms
+[ACCESS] 2026/05/29 03:16:13 GET /tasks -> Status: OK Duration: 7.0017ms
+[ACCESS] 2026/05/29 03:16:13 GET /tasks -> Status: OK Duration: 5.4616ms
+[ACCESS] 2026/05/29 03:16:14 PUT /tasks/6 -> Status: Internal Server Error Duration: 14.422ms
+[ACCESS] 2026/05/29 03:16:14 GET /tasks -> Status: OK Duration: 9.3746ms
+[ACCESS] 2026/05/29 03:16:14 GET /tasks -> Status: OK Duration: 5.4818ms
+[ACCESS] 2026/05/29 03:16:14 GET /tasks -> Status: OK Duration: 4.503ms
+[ACCESS] 2026/05/29 03:16:21 POST /tasks -> Status: Internal Server Error Duration: 7.0401ms
+[ACCESS] 2026/05/29 03:16:48 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:16:48 GET /styles.css -> Status: OK Duration: 715.7µs
+[ACCESS] 2026/05/29 03:16:48 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:16:48 GET /labels -> Status: Internal Server Error Duration: 2.7479ms
+[ACCESS] 2026/05/29 03:16:48 GET /tasks -> Status: OK Duration: 10.9038ms
+[ACCESS] 2026/05/29 03:16:48 GET /tasks -> Status: OK Duration: 7.0025ms
+[ACCESS] 2026/05/29 03:16:48 GET /tasks -> Status: OK Duration: 7.7794ms
+[ACCESS] 2026/05/29 03:17:00 POST /tasks -> Status: Internal Server Error Duration: 5.2555ms
+[ACCESS] 2026/05/29 03:17:43 POST /tasks -> Status: Internal Server Error Duration: 10.7308ms
+[ACCESS] 2026/05/29 03:17:46 PUT /tasks/6 -> Status: Internal Server Error Duration: 13.6155ms
+[ACCESS] 2026/05/29 03:17:46 GET /tasks -> Status: OK Duration: 8.5435ms
+[ACCESS] 2026/05/29 03:17:46 GET /tasks -> Status: OK Duration: 7.417ms
+[ACCESS] 2026/05/29 03:17:46 GET /tasks -> Status: OK Duration: 3.8456ms
+[ACCESS] 2026/05/29 03:17:47 PUT /tasks/6 -> Status: Internal Server Error Duration: 9.8394ms
+[ACCESS] 2026/05/29 03:17:47 GET /tasks -> Status: OK Duration: 5.5437ms
+[ACCESS] 2026/05/29 03:17:47 GET /tasks -> Status: OK Duration: 5.1713ms
+[ACCESS] 2026/05/29 03:17:47 GET /tasks -> Status: OK Duration: 5.8539ms
+[ACCESS] 2026/05/29 03:19:36 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:19:36 GET / -> Status: OK Duration: 934.1µs
+[ACCESS] 2026/05/29 03:19:36 GET /styles.css -> Status: OK Duration: 1.0841ms
+[ACCESS] 2026/05/29 03:19:36 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:19:36 GET /boards -> Status: Internal Server Error Duration: 5.2219ms
+[ACCESS] 2026/05/29 03:19:41 POST /boards -> Status: Internal Server Error Duration: 2.1645ms
+[ACCESS] 2026/05/29 03:20:36 GET / -> Status: OK Duration: 591.5µs
+[ACCESS] 2026/05/29 03:20:36 GET /styles.css -> Status: OK Duration: 448µs
+[ACCESS] 2026/05/29 03:20:36 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:20:36 GET /boards -> Status: Internal Server Error Duration: 5.2141ms
+[ACCESS] 2026/05/29 03:20:39 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:20:39 GET / -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:20:39 GET /styles.css -> Status: OK Duration: 500.7µs
+[ACCESS] 2026/05/29 03:20:39 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:20:39 GET /boards -> Status: Internal Server Error Duration: 6.4609ms
+[ACCESS] 2026/05/29 03:20:41 GET /profile.html -> Status: OK Duration: 1.09ms
+[ACCESS] 2026/05/29 03:20:41 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:20:41 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:20:41 GET /config.js -> Status: OK Duration: 1.2077ms
+[ACCESS] 2026/05/29 03:20:41 GET /profile.js -> Status: OK Duration: 1.3509ms
+[ACCESS] 2026/05/29 03:20:41 GET /me -> Status: Not Found Duration: 733.5µs
+[ACCESS] 2026/05/29 03:20:41 GET /users -> Status: OK Duration: 1.4215ms
+[ACCESS] 2026/05/29 03:20:42 GET /board.html -> Status: OK Duration: 523.4µs
+[ACCESS] 2026/05/29 03:20:42 GET /styles.css -> Status: OK Duration: 439.3µs
+[ACCESS] 2026/05/29 03:20:42 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:20:43 GET /labels -> Status: Internal Server Error Duration: 3.2017ms
+[ACCESS] 2026/05/29 03:20:43 GET /tasks -> Status: OK Duration: 7.5915ms
+[ACCESS] 2026/05/29 03:20:43 GET /tasks -> Status: OK Duration: 9.0195ms
+[ACCESS] 2026/05/29 03:20:43 GET /tasks -> Status: OK Duration: 4.3676ms
+[ACCESS] 2026/05/29 03:20:45 PUT /tasks/6 -> Status: Internal Server Error Duration: 10.999ms
+[ACCESS] 2026/05/29 03:20:45 GET /tasks -> Status: OK Duration: 7.8266ms
+[ACCESS] 2026/05/29 03:20:45 GET /tasks -> Status: OK Duration: 7.4493ms
+[ACCESS] 2026/05/29 03:20:45 GET /tasks -> Status: OK Duration: 5.86ms
+[ACCESS] 2026/05/29 03:20:46 PUT /tasks/6 -> Status: Internal Server Error Duration: 11.9562ms
+[ACCESS] 2026/05/29 03:20:46 GET /tasks -> Status: OK Duration: 7.0477ms
+[ACCESS] 2026/05/29 03:20:46 GET /tasks -> Status: OK Duration: 4.497ms
+[ACCESS] 2026/05/29 03:20:46 GET /tasks -> Status: OK Duration: 3.0088ms
+[ACCESS] 2026/05/29 03:21:13 GET /board.html -> Status: OK Duration: 2.3139ms
+[ACCESS] 2026/05/29 03:21:13 GET /styles.css -> Status: OK Duration: 133.7µs
+[ACCESS] 2026/05/29 03:21:13 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:13 GET /labels -> Status: Internal Server Error Duration: 2.8974ms
+[ACCESS] 2026/05/29 03:21:13 GET /tasks -> Status: OK Duration: 6.9943ms
+[ACCESS] 2026/05/29 03:21:13 GET /tasks -> Status: OK Duration: 7.7793ms
+[ACCESS] 2026/05/29 03:21:13 GET /tasks -> Status: OK Duration: 5.9124ms
+[ACCESS] 2026/05/29 03:21:15 PUT /tasks/6 -> Status: Internal Server Error Duration: 8.7953ms
+[ACCESS] 2026/05/29 03:21:15 GET /tasks -> Status: OK Duration: 7.3015ms
+[ACCESS] 2026/05/29 03:21:15 GET /tasks -> Status: OK Duration: 5.7321ms
+[ACCESS] 2026/05/29 03:21:15 GET /tasks -> Status: OK Duration: 4.2827ms
+[ACCESS] 2026/05/29 03:21:16 PUT /tasks/6 -> Status: Internal Server Error Duration: 13.6511ms
+[ACCESS] 2026/05/29 03:21:16 GET /tasks -> Status: OK Duration: 9.5133ms
+[ACCESS] 2026/05/29 03:21:16 GET /tasks -> Status: OK Duration: 7.3691ms
+[ACCESS] 2026/05/29 03:21:16 GET /tasks -> Status: OK Duration: 4.7243ms
+[ACCESS] 2026/05/29 03:21:20 POST /tasks -> Status: Internal Server Error Duration: 9.1847ms
+[ACCESS] 2026/05/29 03:21:24 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:21:24 GET / -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:21:25 GET /styles.css -> Status: OK Duration: 435.2µs
+[ACCESS] 2026/05/29 03:21:25 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:25 GET /boards -> Status: Internal Server Error Duration: 5.4218ms
+[ACCESS] 2026/05/29 03:21:30 POST /boards -> Status: Internal Server Error Duration: 2.4136ms
+[ACCESS] 2026/05/29 03:21:34 GET /settings.html -> Status: OK Duration: 526.7µs
+[ACCESS] 2026/05/29 03:21:34 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:34 GET /styles.css -> Status: OK Duration: 498.8µs
+[ACCESS] 2026/05/29 03:21:34 GET /boards/1 -> Status: Internal Server Error Duration: 1.2853ms
+[ACCESS] 2026/05/29 03:21:34 GET /activity.html -> Status: OK Duration: 502.9µs
+[ACCESS] 2026/05/29 03:21:35 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:35 GET /styles.css -> Status: OK Duration: 582.6µs
+[ACCESS] 2026/05/29 03:21:38 GET /stats.html -> Status: OK Duration: 312µs
+[ACCESS] 2026/05/29 03:21:38 GET /styles.css -> Status: OK Duration: 461.5µs
+[ACCESS] 2026/05/29 03:21:39 GET /config.js -> Status: OK Duration: 139.1µs
+[ACCESS] 2026/05/29 03:21:39 GET /stats.js -> Status: OK Duration: 566µs
+[ACCESS] 2026/05/29 03:21:39 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:39 GET /stats -> Status: OK Duration: 6.8214ms
+[ACCESS] 2026/05/29 03:21:41 GET /profile.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:21:41 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:41 GET /styles.css -> Status: OK Duration: 515.2µs
+[ACCESS] 2026/05/29 03:21:41 GET /config.js -> Status: OK Duration: 502.6µs
+[ACCESS] 2026/05/29 03:21:41 GET /profile.js -> Status: OK Duration: 436.9µs
+[ACCESS] 2026/05/29 03:21:41 GET /me -> Status: Not Found Duration: 895.5µs
+[ACCESS] 2026/05/29 03:21:41 GET /users -> Status: OK Duration: 1.2975ms
+[ACCESS] 2026/05/29 03:21:43 GET /users.html -> Status: OK Duration: 564.4µs
+[ACCESS] 2026/05/29 03:21:43 GET /styles.css -> Status: OK Duration: 520.6µs
+[ACCESS] 2026/05/29 03:21:43 GET /users.js -> Status: OK Duration: 633.8µs
+[ACCESS] 2026/05/29 03:21:43 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:46 GET /settings.html -> Status: OK Duration: 517.5µs
+[ACCESS] 2026/05/29 03:21:46 GET /styles.css -> Status: OK Duration: 155.3µs
+[ACCESS] 2026/05/29 03:21:46 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:46 GET /boards/1 -> Status: Internal Server Error Duration: 1.812ms
+[ACCESS] 2026/05/29 03:21:48 GET /stats.html -> Status: OK Duration: 384.7µs
+[ACCESS] 2026/05/29 03:21:48 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:48 GET /styles.css -> Status: OK Duration: 567.9µs
+[ACCESS] 2026/05/29 03:21:48 GET /config.js -> Status: OK Duration: 100.4µs
+[ACCESS] 2026/05/29 03:21:48 GET /stats.js -> Status: OK Duration: 510.7µs
+[ACCESS] 2026/05/29 03:21:48 GET /stats -> Status: OK Duration: 6.1684ms
+[ACCESS] 2026/05/29 03:21:50 GET /archive.html -> Status: OK Duration: 586.8µs
+[ACCESS] 2026/05/29 03:21:50 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:21:50 GET /styles.css -> Status: OK Duration: 571.3µs
+[ACCESS] 2026/05/29 03:21:50 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:21:50 GET /archive.js -> Status: OK Duration: 481.8µs
+[ACCESS] 2026/05/29 03:21:50 GET /tasks/archive -> Status: Internal Server Error Duration: 2.4714ms
+[ACCESS] 2026/05/29 03:21:53 GET /boards/deleted -> Status: Internal Server Error Duration: 1.4199ms
+[ACCESS] 2026/05/29 03:23:10 GET /archive.html -> Status: OK Duration: 810.1µs
+[ACCESS] 2026/05/29 03:23:10 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:23:10 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:23:10 GET /archive.js -> Status: OK Duration: 510.6µs
+[ACCESS] 2026/05/29 03:23:10 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 78.4µs
+[ACCESS] 2026/05/29 03:23:10 GET /tasks/archive -> Status: Internal Server Error Duration: 2.873ms
+[ACCESS] 2026/05/29 03:23:12 GET /board.html -> Status: OK Duration: 94µs
+[ACCESS] 2026/05/29 03:23:12 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:23:12 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:12 GET /labels -> Status: Internal Server Error Duration: 4.0897ms
+[ACCESS] 2026/05/29 03:23:12 GET /tasks -> Status: OK Duration: 7.7064ms
+[ACCESS] 2026/05/29 03:23:12 GET /tasks -> Status: OK Duration: 4.2015ms
+[ACCESS] 2026/05/29 03:23:12 GET /tasks -> Status: OK Duration: 3.8418ms
+[ACCESS] 2026/05/29 03:23:16 PUT /tasks/6 -> Status: Internal Server Error Duration: 13.5466ms
+[ACCESS] 2026/05/29 03:23:16 GET /tasks -> Status: OK Duration: 7.1558ms
+[ACCESS] 2026/05/29 03:23:16 GET /tasks -> Status: OK Duration: 4.9536ms
+[ACCESS] 2026/05/29 03:23:16 GET /tasks -> Status: OK Duration: 6.2977ms
+[ACCESS] 2026/05/29 03:23:17 PUT /tasks/6 -> Status: Internal Server Error Duration: 14.3448ms
+[ACCESS] 2026/05/29 03:23:17 GET /tasks -> Status: OK Duration: 8.4528ms
+[ACCESS] 2026/05/29 03:23:17 GET /tasks -> Status: OK Duration: 4.9191ms
+[ACCESS] 2026/05/29 03:23:17 GET /tasks -> Status: OK Duration: 5.1117ms
+[ACCESS] 2026/05/29 03:23:21 POST /tasks -> Status: Internal Server Error Duration: 6.735ms
+[ACCESS] 2026/05/29 03:23:29 GET /board.html -> Status: OK Duration: 403.5µs
+[ACCESS] 2026/05/29 03:23:29 GET /styles.css -> Status: OK Duration: 549.9µs
+[ACCESS] 2026/05/29 03:23:29 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:29 GET /labels -> Status: Internal Server Error Duration: 2.1348ms
+[ACCESS] 2026/05/29 03:23:29 GET /tasks -> Status: OK Duration: 12.8341ms
+[ACCESS] 2026/05/29 03:23:29 GET /tasks -> Status: OK Duration: 7.217ms
+[ACCESS] 2026/05/29 03:23:29 GET /tasks -> Status: OK Duration: 4.6019ms
+[ACCESS] 2026/05/29 03:23:30 GET /board.html -> Status: OK Duration: 1.0001ms
+[ACCESS] 2026/05/29 03:23:30 GET /styles.css -> Status: OK Duration: 502.7µs
+[ACCESS] 2026/05/29 03:23:30 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:31 GET /labels -> Status: Internal Server Error Duration: 3.221ms
+[ACCESS] 2026/05/29 03:23:31 GET /tasks -> Status: OK Duration: 12.6661ms
+[ACCESS] 2026/05/29 03:23:31 GET /tasks -> Status: OK Duration: 8.1305ms
+[ACCESS] 2026/05/29 03:23:31 GET /tasks -> Status: OK Duration: 8.5809ms
+[ACCESS] 2026/05/29 03:23:31 GET /board.html -> Status: OK Duration: 720µs
+[ACCESS] 2026/05/29 03:23:31 GET /styles.css -> Status: OK Duration: 279µs
+[ACCESS] 2026/05/29 03:23:31 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 76.8µs
+[ACCESS] 2026/05/29 03:23:32 GET /labels -> Status: Internal Server Error Duration: 1.4014ms
+[ACCESS] 2026/05/29 03:23:32 GET /tasks -> Status: OK Duration: 8.1299ms
+[ACCESS] 2026/05/29 03:23:32 GET /tasks -> Status: OK Duration: 4.7741ms
+[ACCESS] 2026/05/29 03:23:32 GET /tasks -> Status: OK Duration: 6.4927ms
+[ACCESS] 2026/05/29 03:23:33 GET /board.html -> Status: OK Duration: 809.4µs
+[ACCESS] 2026/05/29 03:23:33 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:33 GET /styles.css -> Status: OK Duration: 1.5063ms
+[ACCESS] 2026/05/29 03:23:33 GET /labels -> Status: Internal Server Error Duration: 1.8869ms
+[ACCESS] 2026/05/29 03:23:33 GET /tasks -> Status: OK Duration: 9.0361ms
+[ACCESS] 2026/05/29 03:23:33 GET /tasks -> Status: OK Duration: 6.0372ms
+[ACCESS] 2026/05/29 03:23:33 GET /tasks -> Status: OK Duration: 8.7867ms
+[ACCESS] 2026/05/29 03:23:34 PUT /tasks/6 -> Status: Internal Server Error Duration: 12.833ms
+[ACCESS] 2026/05/29 03:23:34 GET /tasks -> Status: OK Duration: 10.0132ms
+[ACCESS] 2026/05/29 03:23:34 GET /tasks -> Status: OK Duration: 4.6103ms
+[ACCESS] 2026/05/29 03:23:34 GET /tasks -> Status: OK Duration: 4.508ms
+[ACCESS] 2026/05/29 03:23:45 GET /board.html -> Status: OK Duration: 634.7µs
+[ACCESS] 2026/05/29 03:23:45 GET /styles.css -> Status: OK Duration: 516.9µs
+[ACCESS] 2026/05/29 03:23:45 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 577.9µs
+[ACCESS] 2026/05/29 03:23:46 GET /labels -> Status: Internal Server Error Duration: 3.0876ms
+[ACCESS] 2026/05/29 03:23:46 GET /tasks -> Status: OK Duration: 8.6201ms
+[ACCESS] 2026/05/29 03:23:46 GET /tasks -> Status: OK Duration: 5.5992ms
+[ACCESS] 2026/05/29 03:23:46 GET /tasks -> Status: OK Duration: 4.0003ms
+[ACCESS] 2026/05/29 03:23:46 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:47 GET /board.html -> Status: OK Duration: 239.9µs
+[ACCESS] 2026/05/29 03:23:47 GET /styles.css -> Status: OK Duration: 82.2µs
+[ACCESS] 2026/05/29 03:23:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:47 GET /labels -> Status: Internal Server Error Duration: 2.9224ms
+[ACCESS] 2026/05/29 03:23:47 GET /tasks -> Status: OK Duration: 6.6561ms
+[ACCESS] 2026/05/29 03:23:47 GET /tasks -> Status: OK Duration: 7.4925ms
+[ACCESS] 2026/05/29 03:23:47 GET /tasks -> Status: OK Duration: 5.2187ms
+[ACCESS] 2026/05/29 03:23:48 GET /board.html -> Status: OK Duration: 500.3µs
+[ACCESS] 2026/05/29 03:23:48 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:23:48 GET /styles.css -> Status: OK Duration: 514µs
+[ACCESS] 2026/05/29 03:23:48 GET /labels -> Status: Internal Server Error Duration: 2.7817ms
+[ACCESS] 2026/05/29 03:23:48 GET /tasks -> Status: OK Duration: 8.5812ms
+[ACCESS] 2026/05/29 03:23:48 GET /tasks -> Status: OK Duration: 8.8528ms
+[ACCESS] 2026/05/29 03:23:48 GET /tasks -> Status: OK Duration: 5.0073ms
+[ACCESS] 2026/05/29 03:23:51 PUT /tasks/6 -> Status: Internal Server Error Duration: 12.3282ms
+[ACCESS] 2026/05/29 03:23:51 GET /tasks -> Status: OK Duration: 7.2739ms
+[ACCESS] 2026/05/29 03:23:51 GET /tasks -> Status: OK Duration: 8.1168ms
+[ACCESS] 2026/05/29 03:23:51 GET /tasks -> Status: OK Duration: 4.6399ms
+[ACCESS] 2026/05/29 03:24:00 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:24:00 GET / -> Status: OK Duration: 623.8µs
+[ACCESS] 2026/05/29 03:24:00 GET /styles.css -> Status: OK Duration: 578.3µs
+[ACCESS] 2026/05/29 03:24:00 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:24:00 GET /boards -> Status: Internal Server Error Duration: 5.0813ms
+[ACCESS] 2026/05/29 03:24:05 POST /boards -> Status: Internal Server Error Duration: 2.1982ms
+[ACCESS] 2026/05/29 03:26:49 GET /profile.html -> Status: OK Duration: 372.8µs
+[ACCESS] 2026/05/29 03:26:49 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:26:49 GET /styles.css -> Status: OK Duration: 507.5µs
+[ACCESS] 2026/05/29 03:26:49 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:26:49 GET /profile.js -> Status: OK Duration: 570.2µs
+[ACCESS] 2026/05/29 03:26:49 GET /me -> Status: Not Found Duration: 410.9µs
+[ACCESS] 2026/05/29 03:26:49 GET /users -> Status: OK Duration: 1.4481ms
+[ACCESS] 2026/05/29 03:26:50 GET /board.html -> Status: OK Duration: 499.1µs
+[ACCESS] 2026/05/29 03:26:50 GET /styles.css -> Status: OK Duration: 651.4µs
+[ACCESS] 2026/05/29 03:26:51 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 209.9µs
+[ACCESS] 2026/05/29 03:26:51 GET /labels -> Status: Internal Server Error Duration: 2.1205ms
+[ACCESS] 2026/05/29 03:26:51 GET /tasks -> Status: OK Duration: 11.5951ms
+[ACCESS] 2026/05/29 03:26:51 GET /tasks -> Status: OK Duration: 7.367ms
+[ACCESS] 2026/05/29 03:26:51 GET /tasks -> Status: OK Duration: 8.4958ms
+[ACCESS] 2026/05/29 03:27:46 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:27:46 GET /styles.css -> Status: OK Duration: 462.1µs
+[ACCESS] 2026/05/29 03:27:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:27:47 GET /labels -> Status: Internal Server Error Duration: 3.7979ms
+[ACCESS] 2026/05/29 03:27:47 GET /tasks -> Status: OK Duration: 8.7665ms
+[ACCESS] 2026/05/29 03:27:47 GET /tasks -> Status: OK Duration: 9.0695ms
+[ACCESS] 2026/05/29 03:27:47 GET /tasks -> Status: OK Duration: 3.3313ms
+[ACCESS] 2026/05/29 03:27:47 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:27:47 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:27:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:27:47 GET /labels -> Status: Internal Server Error Duration: 2.0327ms
+[ACCESS] 2026/05/29 03:27:47 GET /tasks -> Status: OK Duration: 8.1395ms
+[ACCESS] 2026/05/29 03:27:47 GET /tasks -> Status: OK Duration: 5.4542ms
+[ACCESS] 2026/05/29 03:27:47 GET /tasks -> Status: OK Duration: 5.3074ms
+[ACCESS] 2026/05/29 03:27:47 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:27:47 GET /styles.css -> Status: OK Duration: 523.4µs
+[ACCESS] 2026/05/29 03:27:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:27:48 GET /labels -> Status: Internal Server Error Duration: 2.1369ms
+[ACCESS] 2026/05/29 03:27:48 GET /tasks -> Status: OK Duration: 8.3531ms
+[ACCESS] 2026/05/29 03:27:48 GET /tasks -> Status: OK Duration: 3.5007ms
+[ACCESS] 2026/05/29 03:27:48 GET /tasks -> Status: OK Duration: 5.4534ms
+[ACCESS] 2026/05/29 03:27:53 POST /tasks -> Status: Internal Server Error Duration: 8.7854ms
+[ACCESS] 2026/05/29 03:27:56 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:27:56 GET / -> Status: OK Duration: 513.6µs
+[ACCESS] 2026/05/29 03:27:56 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 162.7µs
+[ACCESS] 2026/05/29 03:27:56 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:27:56 GET /boards -> Status: Internal Server Error Duration: 7.5333ms
+[ACCESS] 2026/05/29 03:29:19 GET / -> Status: OK Duration: 516.3µs
+[ACCESS] 2026/05/29 03:29:19 GET /styles.css -> Status: OK Duration: 569.8µs
+[ACCESS] 2026/05/29 03:29:19 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:29:20 GET /boards -> Status: Internal Server Error Duration: 5.0291ms
+[ACCESS] 2026/05/29 03:29:21 GET / -> Status: OK Duration: 65.9µs
+[ACCESS] 2026/05/29 03:29:21 GET /styles.css -> Status: OK Duration: 693µs
+[ACCESS] 2026/05/29 03:29:21 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:29:21 GET /boards -> Status: Internal Server Error Duration: 5.1249ms
+[ACCESS] 2026/05/29 03:29:22 GET /profile.html -> Status: OK Duration: 419.1µs
+[ACCESS] 2026/05/29 03:29:22 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 179.9µs
+[ACCESS] 2026/05/29 03:29:22 GET /styles.css -> Status: OK Duration: 489.5µs
+[ACCESS] 2026/05/29 03:29:22 GET /config.js -> Status: OK Duration: 254.7µs
+[ACCESS] 2026/05/29 03:29:22 GET /profile.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:29:22 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:29:22 GET /users -> Status: OK Duration: 2.3385ms
+[ACCESS] 2026/05/29 03:29:25 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:29:25 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:29:25 GET /styles.css -> Status: OK Duration: 514.5µs
+[ACCESS] 2026/05/29 03:29:25 GET /labels -> Status: Internal Server Error Duration: 2.4437ms
+[ACCESS] 2026/05/29 03:29:25 GET /tasks -> Status: OK Duration: 7.8123ms
+[ACCESS] 2026/05/29 03:29:25 GET /tasks -> Status: OK Duration: 5.7625ms
+[ACCESS] 2026/05/29 03:29:25 GET /tasks -> Status: OK Duration: 7.8209ms
+[ACCESS] 2026/05/29 03:29:28 PUT /tasks/6 -> Status: Internal Server Error Duration: 10.3011ms
+[ACCESS] 2026/05/29 03:29:28 GET /tasks -> Status: OK Duration: 6.8395ms
+[ACCESS] 2026/05/29 03:29:28 GET /tasks -> Status: OK Duration: 6.1444ms
+[ACCESS] 2026/05/29 03:29:28 GET /tasks -> Status: OK Duration: 5.0003ms
+[ACCESS] 2026/05/29 03:29:28 PUT /tasks/6 -> Status: Internal Server Error Duration: 12.5052ms
+[ACCESS] 2026/05/29 03:29:28 GET /tasks -> Status: OK Duration: 6.2ms
+[ACCESS] 2026/05/29 03:29:28 GET /tasks -> Status: OK Duration: 6.078ms
+[ACCESS] 2026/05/29 03:29:28 GET /tasks -> Status: OK Duration: 4.6085ms
+[ACCESS] 2026/05/29 03:29:34 POST /tasks -> Status: Internal Server Error Duration: 9.8822ms
+[ACCESS] 2026/05/29 03:29:35 POST /tasks -> Status: Internal Server Error Duration: 8.5622ms
+[ACCESS] 2026/05/29 03:34:06 GET /board.html -> Status: OK Duration: 141.6µs
+[ACCESS] 2026/05/29 03:34:06 GET /styles.css -> Status: OK Duration: 514.1µs
+[ACCESS] 2026/05/29 03:34:06 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:34:06 GET /labels -> Status: Internal Server Error Duration: 1.8312ms
+[ACCESS] 2026/05/29 03:34:06 GET /tasks -> Status: OK Duration: 10.4227ms
+[ACCESS] 2026/05/29 03:34:06 GET /tasks -> Status: OK Duration: 6.9749ms
+[ACCESS] 2026/05/29 03:34:06 GET /tasks -> Status: OK Duration: 5.3618ms
+[ACCESS] 2026/05/29 03:34:10 PUT /tasks/6 -> Status: Internal Server Error Duration: 14.5399ms
+[ACCESS] 2026/05/29 03:34:10 GET /tasks -> Status: OK Duration: 7.9988ms
+[ACCESS] 2026/05/29 03:34:10 GET /tasks -> Status: OK Duration: 4.9972ms
+[ACCESS] 2026/05/29 03:34:10 GET /tasks -> Status: OK Duration: 5.4987ms
+[ACCESS] 2026/05/29 03:38:17 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:38:17 GET / -> Status: OK Duration: 504.7µs
+[ACCESS] 2026/05/29 03:38:17 GET /styles.css -> Status: OK Duration: 496.9µs
+[ACCESS] 2026/05/29 03:38:17 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 99.5µs
+[ACCESS] 2026/05/29 03:38:17 GET /boards -> Status: Internal Server Error Duration: 7.3302ms
+[ACCESS] 2026/05/29 03:38:28 POST /boards -> Status: Internal Server Error Duration: 2.2747ms
+[ACCESS] 2026/05/29 03:40:00 GET / -> Status: OK Duration: 1.0794ms
+[ACCESS] 2026/05/29 03:40:00 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:40:00 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:40:00 GET /boards -> Status: Internal Server Error Duration: 6.2898ms
+[ACCESS] 2026/05/29 03:44:57 POST /boards -> Status: Internal Server Error Duration: 1.8505ms
+[ACCESS] 2026/05/29 03:49:40 GET / -> Status: OK Duration: 520.8µs
+[ACCESS] 2026/05/29 03:49:40 GET /styles.css -> Status: OK Duration: 499µs
+[ACCESS] 2026/05/29 03:49:40 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:49:41 GET /boards -> Status: Internal Server Error Duration: 6.936ms
+[ACCESS] 2026/05/29 03:50:16 GET / -> Status: OK Duration: 37.9686ms
+[ACCESS] 2026/05/29 03:50:16 GET /styles.css -> Status: OK Duration: 1.1811ms
+[ACCESS] 2026/05/29 03:50:16 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:50:17 GET /boards -> Status: Internal Server Error Duration: 7.9762ms
+[ACCESS] 2026/05/29 03:50:17 GET / -> Status: OK Duration: 669.7µs
+[ACCESS] 2026/05/29 03:50:17 GET /styles.css -> Status: OK Duration: 1.0388ms
+[ACCESS] 2026/05/29 03:50:17 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 238.1µs
+[ACCESS] 2026/05/29 03:50:18 GET /boards -> Status: Internal Server Error Duration: 3.5509ms
+[ACCESS] 2026/05/29 03:50:19 GET / -> Status: OK Duration: 1.0256ms
+[ACCESS] 2026/05/29 03:50:19 GET /styles.css -> Status: OK Duration: 820.6µs
+[ACCESS] 2026/05/29 03:50:19 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:50:19 GET /boards -> Status: Internal Server Error Duration: 3.5764ms
+[ACCESS] 2026/05/29 03:50:24 POST /boards -> Status: Internal Server Error Duration: 1.9097ms
+[ACCESS] 2026/05/29 03:53:39 GET / -> Status: OK Duration: 908.7µs
+[ACCESS] 2026/05/29 03:53:39 GET /styles.css -> Status: OK Duration: 2.3734ms
+[ACCESS] 2026/05/29 03:53:39 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:53:39 GET /boards -> Status: Internal Server Error Duration: 5.26ms
+[ACCESS] 2026/05/29 03:53:43 GET /login.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:53:43 GET /styles.css -> Status: OK Duration: 499.9µs
+[ACCESS] 2026/05/29 03:53:43 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:53:45 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:53:45 GET / -> Status: OK Duration: 621.5µs
+[ACCESS] 2026/05/29 03:53:45 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:53:45 GET /styles.css -> Status: OK Duration: 608.1µs
+[ACCESS] 2026/05/29 03:53:45 GET /boards -> Status: Internal Server Error Duration: 3.5894ms
+[ACCESS] 2026/05/29 03:54:12 POST /boards -> Status: Internal Server Error Duration: 1.9095ms
+[ACCESS] 2026/05/29 03:54:18 GET /profile.html -> Status: OK Duration: 197.9µs
+[ACCESS] 2026/05/29 03:54:18 GET /styles.css -> Status: OK Duration: 603µs
+[ACCESS] 2026/05/29 03:54:18 GET /config.js -> Status: OK Duration: 373.1µs
+[ACCESS] 2026/05/29 03:54:18 GET /profile.js -> Status: OK Duration: 409.1µs
+[ACCESS] 2026/05/29 03:54:18 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:54:18 GET /me -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:54:18 GET /users -> Status: OK Duration: 4.1584ms
+[ACCESS] 2026/05/29 03:54:20 GET /board.html -> Status: OK Duration: 512.7µs
+[ACCESS] 2026/05/29 03:54:20 GET /styles.css -> Status: OK Duration: 578.1µs
+[ACCESS] 2026/05/29 03:54:20 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:54:21 GET /labels -> Status: Internal Server Error Duration: 4.791ms
+[ACCESS] 2026/05/29 03:54:21 GET /tasks -> Status: OK Duration: 49.2408ms
+[ACCESS] 2026/05/29 03:54:21 GET /tasks -> Status: OK Duration: 13.7036ms
+[ACCESS] 2026/05/29 03:54:21 GET /tasks -> Status: OK Duration: 11.5188ms
+[ACCESS] 2026/05/29 03:54:24 PUT /tasks/6 -> Status: Internal Server Error Duration: 24.098ms
+[ACCESS] 2026/05/29 03:54:24 GET /tasks -> Status: OK Duration: 14.6911ms
+[ACCESS] 2026/05/29 03:54:24 GET /tasks -> Status: OK Duration: 8.9111ms
+[ACCESS] 2026/05/29 03:54:24 GET /tasks -> Status: OK Duration: 6.9936ms
+[ACCESS] 2026/05/29 03:54:29 POST /tasks -> Status: Internal Server Error Duration: 10.2951ms
+[ACCESS] 2026/05/29 03:54:33 GET /archive.html -> Status: OK Duration: 550.9µs
+[ACCESS] 2026/05/29 03:54:33 GET /styles.css -> Status: OK Duration: 515µs
+[ACCESS] 2026/05/29 03:54:33 GET /archive.js -> Status: OK Duration: 1.0712ms
+[ACCESS] 2026/05/29 03:54:33 GET /config.js -> Status: OK Duration: 517.9µs
+[ACCESS] 2026/05/29 03:54:33 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:54:33 GET /tasks/archive -> Status: Internal Server Error Duration: 4.863ms
+[ACCESS] 2026/05/29 03:57:30 GET /archive.html -> Status: OK Duration: 1.0001ms
+[ACCESS] 2026/05/29 03:57:30 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:57:30 GET /styles.css -> Status: OK Duration: 517.1µs
+[ACCESS] 2026/05/29 03:57:30 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 03:57:30 GET /archive.js -> Status: OK Duration: 574.6µs
+[ACCESS] 2026/05/29 03:57:30 GET /tasks/archive -> Status: Internal Server Error Duration: 2.4844ms
+[ACCESS] 2026/05/29 03:57:31 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:57:34 GET /board.html -> Status: OK Duration: 511µs
+[ACCESS] 2026/05/29 03:57:34 GET /styles.css -> Status: OK Duration: 227.8µs
+[ACCESS] 2026/05/29 03:57:34 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 03:57:34 GET /labels -> Status: Internal Server Error Duration: 2.2878ms
+[ACCESS] 2026/05/29 03:57:34 GET /tasks -> Status: OK Duration: 9.533ms
+[ACCESS] 2026/05/29 03:57:34 GET /tasks -> Status: OK Duration: 5.0145ms
+[ACCESS] 2026/05/29 03:57:34 GET /tasks -> Status: OK Duration: 4.7295ms
+[ACCESS] 2026/05/29 03:57:37 PUT /tasks/6 -> Status: Internal Server Error Duration: 10.7923ms
+[ACCESS] 2026/05/29 03:57:37 GET /tasks -> Status: OK Duration: 7.9356ms
+[ACCESS] 2026/05/29 03:57:37 GET /tasks -> Status: OK Duration: 6.8252ms
+[ACCESS] 2026/05/29 03:57:37 GET /tasks -> Status: OK Duration: 5.2439ms
+[ACCESS] 2026/05/29 03:57:45 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 03:57:45 GET / -> Status: OK Duration: 134.5µs
+[ACCESS] 2026/05/29 03:57:45 GET /styles.css -> Status: OK Duration: 598µs
+[ACCESS] 2026/05/29 03:57:46 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 77.6µs
+[ACCESS] 2026/05/29 03:57:46 GET /boards -> Status: Internal Server Error Duration: 6.1943ms
+[ACCESS] 2026/05/29 03:59:28 POST /boards -> Status: Internal Server Error Duration: 1.7508ms
+[ACCESS] 2026/05/29 04:03:52 GET /profile.html -> Status: OK Duration: 42.3114ms
+[ACCESS] 2026/05/29 04:03:52 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 04:03:52 GET /config.js -> Status: OK Duration: 274.1µs
+[ACCESS] 2026/05/29 04:03:52 GET /profile.js -> Status: OK Duration: 1.0323ms
+[ACCESS] 2026/05/29 04:03:52 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 04:03:52 GET /me -> Status: Not Found Duration: 519.2µs
+[ACCESS] 2026/05/29 04:03:52 GET /users -> Status: OK Duration: 4.1987ms
+[ACCESS] 2026/05/29 04:03:54 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 04:03:54 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 751.2µs
+[ACCESS] 2026/05/29 04:03:54 GET /styles.css -> Status: OK Duration: 542.1µs
+[ACCESS] 2026/05/29 04:03:55 GET /labels -> Status: Internal Server Error Duration: 3.7045ms
+[ACCESS] 2026/05/29 04:03:55 GET /tasks -> Status: OK Duration: 29.4396ms
+[ACCESS] 2026/05/29 04:03:55 GET /tasks -> Status: OK Duration: 6.7391ms
+[ACCESS] 2026/05/29 04:03:55 GET /tasks -> Status: OK Duration: 7.5965ms
+[ACCESS] 2026/05/29 04:03:58 GET /tasks -> Status: OK Duration: 13.5372ms
+[ACCESS] 2026/05/29 04:03:58 GET /tasks -> Status: OK Duration: 4.2911ms
+[ACCESS] 2026/05/29 04:03:58 GET /tasks -> Status: OK Duration: 6.2138ms
+[ACCESS] 2026/05/29 04:03:59 GET /tasks -> Status: OK Duration: 8.9992ms
+[ACCESS] 2026/05/29 04:03:59 GET /tasks -> Status: OK Duration: 4.0597ms
+[ACCESS] 2026/05/29 04:03:59 GET /tasks -> Status: OK Duration: 4.1682ms
+[ACCESS] 2026/05/29 04:04:04 POST /labels -> Status: Internal Server Error Duration: 2.7065ms
+[ACCESS] 2026/05/29 04:04:04 GET /labels -> Status: Internal Server Error Duration: 2.9149ms
+[ACCESS] 2026/05/29 04:04:52 PUT /tasks/6 -> Status: Internal Server Error Duration: 12.7964ms
+[ACCESS] 2026/05/29 04:04:52 GET /tasks -> Status: OK Duration: 8.8084ms
+[ACCESS] 2026/05/29 04:04:52 GET /tasks -> Status: OK Duration: 5.5398ms
+[ACCESS] 2026/05/29 04:04:52 GET /tasks -> Status: OK Duration: 4.8878ms
+[ACCESS] 2026/05/29 04:04:53 PUT /tasks/6 -> Status: Internal Server Error Duration: 16.3354ms
+[ACCESS] 2026/05/29 04:04:53 GET /tasks -> Status: OK Duration: 7.2138ms
+[ACCESS] 2026/05/29 04:04:53 GET /tasks -> Status: OK Duration: 4.8416ms
+[ACCESS] 2026/05/29 04:04:53 GET /tasks -> Status: OK Duration: 5.7112ms
+[ACCESS] 2026/05/29 04:04:54 GET /comments -> Status: OK Duration: 14.6024ms
+[ACCESS] 2026/05/29 06:23:35 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/29 06:23:37 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/29 06:23:38 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/29 06:23:38 GET /tasks -> Status: Unauthorized Duration: 0s
+[ACCESS] 2026/05/29 06:23:40 GET /board.html -> Status: OK Duration: 36.4687ms
+[ACCESS] 2026/05/29 06:23:40 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:23:40 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 929.4µs
+[ACCESS] 2026/05/29 06:23:41 GET /labels -> Status: Internal Server Error Duration: 4.6544ms
+[ACCESS] 2026/05/29 06:23:41 GET /tasks -> Status: OK Duration: 36.9883ms
+[ACCESS] 2026/05/29 06:23:41 GET /tasks -> Status: OK Duration: 7.3692ms
+[ACCESS] 2026/05/29 06:23:41 GET /tasks -> Status: OK Duration: 7.7659ms
+[ACCESS] 2026/05/29 06:23:44 PUT /tasks/6 -> Status: Internal Server Error Duration: 16.2179ms
+[ACCESS] 2026/05/29 06:23:44 GET /tasks -> Status: OK Duration: 10.3793ms
+[ACCESS] 2026/05/29 06:23:44 GET /tasks -> Status: OK Duration: 10.1979ms
+[ACCESS] 2026/05/29 06:23:44 GET /tasks -> Status: OK Duration: 6.0096ms
+[ACCESS] 2026/05/29 06:23:45 PUT /tasks/6 -> Status: Internal Server Error Duration: 21.1364ms
+[ACCESS] 2026/05/29 06:23:45 GET /tasks -> Status: OK Duration: 10.6974ms
+[ACCESS] 2026/05/29 06:23:45 GET /tasks -> Status: OK Duration: 9.2282ms
+[ACCESS] 2026/05/29 06:23:45 GET /tasks -> Status: OK Duration: 5.6751ms
+[ACCESS] 2026/05/29 06:23:47 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 06:23:47 GET / -> Status: OK Duration: 1.2789ms
+[ACCESS] 2026/05/29 06:23:47 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:23:47 GET /styles.css -> Status: OK Duration: 815.5µs
+[ACCESS] 2026/05/29 06:23:47 GET /boards -> Status: Internal Server Error Duration: 9.4315ms
+[ACCESS] 2026/05/29 06:23:56 GET / -> Status: OK Duration: 537.7µs
+[ACCESS] 2026/05/29 06:23:56 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 508.4µs
+[ACCESS] 2026/05/29 06:23:56 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:23:56 GET /boards -> Status: Internal Server Error Duration: 6.1826ms
+[ACCESS] 2026/05/29 06:23:56 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:29:24 GET / -> Status: OK Duration: 39.3206ms
+[ACCESS] 2026/05/29 06:29:24 GET /styles.css -> Status: OK Duration: 498.1µs
+[ACCESS] 2026/05/29 06:29:24 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:29:26 GET /boards -> Status: Internal Server Error Duration: 10.8735ms
+[ACCESS] 2026/05/29 06:29:31 GET / -> Status: OK Duration: 616.7µs
+[ACCESS] 2026/05/29 06:29:31 GET /styles.css -> Status: OK Duration: 395.7µs
+[ACCESS] 2026/05/29 06:29:31 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:29:31 GET /boards -> Status: Internal Server Error Duration: 5.9481ms
+[ACCESS] 2026/05/29 06:29:33 GET /profile.html -> Status: OK Duration: 231.3µs
+[ACCESS] 2026/05/29 06:29:33 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 219µs
+[ACCESS] 2026/05/29 06:29:33 GET /styles.css -> Status: OK Duration: 597.7µs
+[ACCESS] 2026/05/29 06:29:33 GET /config.js -> Status: OK Duration: 624.1µs
+[ACCESS] 2026/05/29 06:29:33 GET /profile.js -> Status: OK Duration: 1.0593ms
+[ACCESS] 2026/05/29 06:29:34 GET /me -> Status: Not Found Duration: 617.6µs
+[ACCESS] 2026/05/29 06:29:34 GET /users -> Status: OK Duration: 3.0744ms
+[ACCESS] 2026/05/29 06:29:36 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:29:36 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:29:36 GET /styles.css -> Status: OK Duration: 592.5µs
+[ACCESS] 2026/05/29 06:29:37 GET /labels -> Status: Internal Server Error Duration: 2.8878ms
+[ACCESS] 2026/05/29 06:29:37 GET /tasks -> Status: OK Duration: 38.5262ms
+[ACCESS] 2026/05/29 06:29:37 GET /tasks -> Status: OK Duration: 9.7221ms
+[ACCESS] 2026/05/29 06:29:37 GET /tasks -> Status: OK Duration: 9.5831ms
+[ACCESS] 2026/05/29 06:29:42 POST /tasks -> Status: Internal Server Error Duration: 11.8705ms
+[ACCESS] 2026/05/29 06:29:46 GET /comments -> Status: OK Duration: 4.9432ms
+[ACCESS] 2026/05/29 06:29:52 POST /comments -> Status: OK Duration: 12.8169ms
+[ACCESS] 2026/05/29 06:29:53 GET /comments -> Status: OK Duration: 4.6766ms
+[ACCESS] 2026/05/29 06:29:55 GET /comments -> Status: OK Duration: 3.7755ms
+[ACCESS] 2026/05/29 06:34:10 GET /board.html -> Status: OK Duration: 1.086ms
+[ACCESS] 2026/05/29 06:34:10 GET /styles.css -> Status: OK Duration: 672.2µs
+[ACCESS] 2026/05/29 06:34:10 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 167.8µs
+[ACCESS] 2026/05/29 06:34:11 GET /labels -> Status: OK Duration: 5.2201ms
+[ACCESS] 2026/05/29 06:34:12 GET /tasks -> Status: OK Duration: 11.9235ms
+[ACCESS] 2026/05/29 06:34:12 GET /tasks -> Status: OK Duration: 7.7099ms
+[ACCESS] 2026/05/29 06:34:12 GET /tasks -> Status: OK Duration: 11.0239ms
+[ACCESS] 2026/05/29 06:34:14 PUT /tasks/6 -> Status: OK Duration: 16.8853ms
+[ACCESS] 2026/05/29 06:34:15 PUT /tasks/6 -> Status: OK Duration: 27.6074ms
+[ACCESS] 2026/05/29 06:34:19 POST /tasks -> Status: OK Duration: 18.8218ms
+[ACCESS] 2026/05/29 06:34:19 GET /tasks -> Status: OK Duration: 15.2026ms
+[ACCESS] 2026/05/29 06:34:19 GET /tasks -> Status: OK Duration: 8.0343ms
+[ACCESS] 2026/05/29 06:34:19 GET /tasks -> Status: OK Duration: 9.7743ms
+[ACCESS] 2026/05/29 06:34:23 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 06:34:23 GET / -> Status: OK Duration: 1.0821ms
+[ACCESS] 2026/05/29 06:34:23 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:34:23 GET /styles.css -> Status: OK Duration: 603.7µs
+[ACCESS] 2026/05/29 06:34:23 GET /boards -> Status: Internal Server Error Duration: 7.5221ms
+[ACCESS] 2026/05/29 06:34:40 GET /profile.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:34:41 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 124µs
+[ACCESS] 2026/05/29 06:34:41 GET /styles.css -> Status: OK Duration: 457.8µs
+[ACCESS] 2026/05/29 06:34:41 GET /config.js -> Status: OK Duration: 658.9µs
+[ACCESS] 2026/05/29 06:34:41 GET /profile.js -> Status: OK Duration: 751.1µs
+[ACCESS] 2026/05/29 06:34:41 GET /me -> Status: Not Found Duration: 719.6µs
+[ACCESS] 2026/05/29 06:34:41 GET /users -> Status: OK Duration: 2.5935ms
+[ACCESS] 2026/05/29 06:34:44 GET /archive.html -> Status: OK Duration: 1.1085ms
+[ACCESS] 2026/05/29 06:34:44 GET /styles.css -> Status: OK Duration: 444.7µs
+[ACCESS] 2026/05/29 06:34:44 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:34:44 GET /config.js -> Status: OK Duration: 237.7µs
+[ACCESS] 2026/05/29 06:34:44 GET /archive.js -> Status: OK Duration: 496.4µs
+[ACCESS] 2026/05/29 06:34:44 GET /tasks/archive -> Status: Internal Server Error Duration: 2.7028ms
+[ACCESS] 2026/05/29 06:34:47 GET /boards/deleted -> Status: Internal Server Error Duration: 2.6446ms
+[ACCESS] 2026/05/29 06:34:49 GET /boards/deleted -> Status: Internal Server Error Duration: 2.0657ms
+[ACCESS] 2026/05/29 06:36:01 GET /archive.html -> Status: OK Duration: 1.0803ms
+[ACCESS] 2026/05/29 06:36:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:36:01 GET /config.js -> Status: OK Duration: 518.9µs
+[ACCESS] 2026/05/29 06:36:01 GET /archive.js -> Status: OK Duration: 518.9µs
+[ACCESS] 2026/05/29 06:36:01 GET /styles.css -> Status: OK Duration: 518.9µs
+[ACCESS] 2026/05/29 06:36:03 GET /tasks/archive -> Status: OK Duration: 5.0938ms
+[ACCESS] 2026/05/29 06:36:04 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 06:36:04 GET / -> Status: OK Duration: 128.2µs
+[ACCESS] 2026/05/29 06:36:04 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:36:04 GET /styles.css -> Status: OK Duration: 989.7µs
+[ACCESS] 2026/05/29 06:36:06 GET /boards -> Status: OK Duration: 8.4089ms
+[ACCESS] 2026/05/29 06:36:08 GET /board.html -> Status: OK Duration: 1.094ms
+[ACCESS] 2026/05/29 06:36:08 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:36:08 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:36:09 GET /labels -> Status: OK Duration: 4.2762ms
+[ACCESS] 2026/05/29 06:36:09 GET /tasks -> Status: OK Duration: 13.7643ms
+[ACCESS] 2026/05/29 06:36:09 GET /tasks -> Status: OK Duration: 9.5417ms
+[ACCESS] 2026/05/29 06:36:09 GET /tasks -> Status: OK Duration: 12.5296ms
+[ACCESS] 2026/05/29 06:36:13 GET /archive.html -> Status: OK Duration: 1.1367ms
+[ACCESS] 2026/05/29 06:36:13 GET /config.js -> Status: OK Duration: 347.5µs
+[ACCESS] 2026/05/29 06:36:13 GET /styles.css -> Status: OK Duration: 711.4µs
+[ACCESS] 2026/05/29 06:36:13 GET /archive.js -> Status: OK Duration: 347.5µs
+[ACCESS] 2026/05/29 06:36:13 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 142.8µs
+[ACCESS] 2026/05/29 06:36:14 GET /tasks/archive -> Status: OK Duration: 5.4188ms
+[ACCESS] 2026/05/29 06:36:16 GET /boards/deleted -> Status: OK Duration: 3.9494ms
+[ACCESS] 2026/05/29 06:36:19 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 06:36:19 GET / -> Status: OK Duration: 492.6µs
+[ACCESS] 2026/05/29 06:36:19 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:36:19 GET /styles.css -> Status: OK Duration: 840.7µs
+[ACCESS] 2026/05/29 06:36:19 GET /boards -> Status: OK Duration: 8.2292ms
+[ACCESS] 2026/05/29 06:36:22 DELETE /boards/1 -> Status: OK Duration: 23.2323ms
+[ACCESS] 2026/05/29 06:36:22 GET /boards -> Status: OK Duration: 8.0128ms
+[ACCESS] 2026/05/29 06:36:23 GET /archive.html -> Status: OK Duration: 766.5µs
+[ACCESS] 2026/05/29 06:36:23 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 703.9µs
+[ACCESS] 2026/05/29 06:36:23 GET /styles.css -> Status: OK Duration: 518.9µs
+[ACCESS] 2026/05/29 06:36:23 GET /archive.js -> Status: OK Duration: 549µs
+[ACCESS] 2026/05/29 06:36:23 GET /config.js -> Status: OK Duration: 549µs
+[ACCESS] 2026/05/29 06:36:24 GET /tasks/archive -> Status: OK Duration: 4.4ms
+[ACCESS] 2026/05/29 06:36:26 GET /boards/deleted -> Status: OK Duration: 4.8391ms
+[ACCESS] 2026/05/29 06:36:29 GET /users.html -> Status: OK Duration: 7.7725ms
+[ACCESS] 2026/05/29 06:36:29 GET /styles.css -> Status: OK Duration: 129.8µs
+[ACCESS] 2026/05/29 06:36:29 GET /users.js -> Status: OK Duration: 1.0056ms
+[ACCESS] 2026/05/29 06:36:29 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:36:30 GET /users -> Status: OK Duration: 2.3552ms
+[ACCESS] 2026/05/29 06:36:31 GET /profile.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:36:31 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:36:31 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:36:31 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:36:31 GET /profile.js -> Status: OK Duration: 390.3µs
+[ACCESS] 2026/05/29 06:36:32 GET /me -> Status: Not Found Duration: 174.3µs
+[ACCESS] 2026/05/29 06:36:32 GET /users -> Status: OK Duration: 2.3907ms
+[ACCESS] 2026/05/29 06:36:33 GET /stats.html -> Status: OK Duration: 1.8218ms
+[ACCESS] 2026/05/29 06:36:33 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:36:33 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:36:33 GET /stats.js -> Status: OK Duration: 581.2µs
+[ACCESS] 2026/05/29 06:36:33 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 487.1µs
+[ACCESS] 2026/05/29 06:36:33 GET /stats -> Status: OK Duration: 8.7762ms
+[ACCESS] 2026/05/29 06:42:04 GET /stats.html -> Status: OK Duration: 993µs
+[ACCESS] 2026/05/29 06:42:04 GET /styles.css -> Status: OK Duration: 363.3µs
+[ACCESS] 2026/05/29 06:42:04 GET /config.js -> Status: OK Duration: 637.3µs
+[ACCESS] 2026/05/29 06:42:04 GET /stats.js -> Status: OK Duration: 518.6µs
+[ACCESS] 2026/05/29 06:42:04 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:42:04 GET /stats -> Status: OK Duration: 9.0716ms
+[ACCESS] 2026/05/29 06:42:07 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 06:42:07 GET / -> Status: OK Duration: 563.4µs
+[ACCESS] 2026/05/29 06:42:07 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:42:07 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:42:08 GET /boards -> Status: OK Duration: 10.2146ms
+[ACCESS] 2026/05/29 06:42:13 POST /boards -> Status: Created Duration: 14.6744ms
+[ACCESS] 2026/05/29 06:42:13 GET /boards -> Status: OK Duration: 7.7283ms
+[ACCESS] 2026/05/29 06:42:18 POST /boards -> Status: Created Duration: 11.6364ms
+[ACCESS] 2026/05/29 06:42:18 GET /boards -> Status: OK Duration: 5.2929ms
+[ACCESS] 2026/05/29 06:42:19 GET /board.html -> Status: OK Duration: 584µs
+[ACCESS] 2026/05/29 06:42:19 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 50.5µs
+[ACCESS] 2026/05/29 06:42:19 GET /styles.css -> Status: OK Duration: 605.5µs
+[ACCESS] 2026/05/29 06:42:19 GET /labels -> Status: OK Duration: 3.6063ms
+[ACCESS] 2026/05/29 06:42:19 GET /tasks -> Status: OK Duration: 8.8296ms
+[ACCESS] 2026/05/29 06:42:19 GET /tasks -> Status: OK Duration: 8.7729ms
+[ACCESS] 2026/05/29 06:42:19 GET /tasks -> Status: OK Duration: 13.6148ms
+[ACCESS] 2026/05/29 06:42:25 POST /tasks -> Status: OK Duration: 17.5524ms
+[ACCESS] 2026/05/29 06:42:25 GET /tasks -> Status: OK Duration: 15.3629ms
+[ACCESS] 2026/05/29 06:42:25 GET /tasks -> Status: OK Duration: 8.7589ms
+[ACCESS] 2026/05/29 06:42:25 GET /tasks -> Status: OK Duration: 8.0181ms
+[ACCESS] 2026/05/29 06:42:29 GET /index.html -> Status: Moved Permanently Duration: 0s
+[ACCESS] 2026/05/29 06:42:29 GET / -> Status: OK Duration: 1.4618ms
+[ACCESS] 2026/05/29 06:42:29 GET /styles.css -> Status: OK Duration: 584.4µs
+[ACCESS] 2026/05/29 06:42:29 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 205.4µs
+[ACCESS] 2026/05/29 06:42:29 GET /boards -> Status: OK Duration: 8.4895ms
+[ACCESS] 2026/05/29 06:42:30 GET /board.html -> Status: OK Duration: 513.8µs
+[ACCESS] 2026/05/29 06:42:30 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 908.5µs
+[ACCESS] 2026/05/29 06:42:30 GET /styles.css -> Status: OK Duration: 519.8µs
+[ACCESS] 2026/05/29 06:42:30 GET /labels -> Status: OK Duration: 3.7427ms
+[ACCESS] 2026/05/29 06:42:30 GET /tasks -> Status: OK Duration: 8.8662ms
+[ACCESS] 2026/05/29 06:42:30 GET /tasks -> Status: OK Duration: 8.5348ms
+[ACCESS] 2026/05/29 06:42:30 GET /tasks -> Status: OK Duration: 7.336ms
+[ACCESS] 2026/05/29 06:42:34 POST /tasks -> Status: OK Duration: 22.5026ms
+[ACCESS] 2026/05/29 06:42:34 GET /tasks -> Status: OK Duration: 12.8966ms
+[ACCESS] 2026/05/29 06:42:34 GET /tasks -> Status: OK Duration: 6.7944ms
+[ACCESS] 2026/05/29 06:42:34 GET /tasks -> Status: OK Duration: 7.1858ms
+[ACCESS] 2026/05/29 06:42:37 POST /tasks -> Status: OK Duration: 11.894ms
+[ACCESS] 2026/05/29 06:42:37 GET /tasks -> Status: OK Duration: 8.8525ms
+[ACCESS] 2026/05/29 06:42:37 GET /tasks -> Status: OK Duration: 5.7033ms
+[ACCESS] 2026/05/29 06:42:37 GET /tasks -> Status: OK Duration: 4.9483ms
+[ACCESS] 2026/05/29 06:42:39 GET /stats.html -> Status: OK Duration: 569.1µs
+[ACCESS] 2026/05/29 06:42:39 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:42:39 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:42:39 GET /stats.js -> Status: OK Duration: 695.6µs
+[ACCESS] 2026/05/29 06:42:39 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:42:39 GET /stats -> Status: OK Duration: 11.2227ms
+[ACCESS] 2026/05/29 06:45:26 GET /stats.html -> Status: OK Duration: 950µs
+[ACCESS] 2026/05/29 06:45:26 GET /styles.css -> Status: OK Duration: 118.2µs
+[ACCESS] 2026/05/29 06:45:26 GET /config.js -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:45:26 GET /stats.js -> Status: OK Duration: 928µs
+[ACCESS] 2026/05/29 06:45:26 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:45:26 GET /stats -> Status: OK Duration: 9.9048ms
+[ACCESS] 2026/05/29 06:45:33 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:45:33 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:45:33 GET /styles.css -> Status: OK Duration: 1.2674ms
+[ACCESS] 2026/05/29 06:45:33 GET /labels -> Status: OK Duration: 3.437ms
+[ACCESS] 2026/05/29 06:45:33 GET /tasks -> Status: OK Duration: 19.5593ms
+[ACCESS] 2026/05/29 06:45:33 GET /tasks -> Status: OK Duration: 9.0507ms
+[ACCESS] 2026/05/29 06:45:33 GET /tasks -> Status: OK Duration: 8.06ms
+[ACCESS] 2026/05/29 06:45:44 GET /stats.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:45:45 GET /styles.css -> Status: OK Duration: 568.7µs
+[ACCESS] 2026/05/29 06:45:45 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:45:45 GET /config.js -> Status: OK Duration: 498.1µs
+[ACCESS] 2026/05/29 06:45:45 GET /stats.js -> Status: OK Duration: 502.6µs
+[ACCESS] 2026/05/29 06:45:45 GET /stats -> Status: OK Duration: 10.093ms
+[ACCESS] 2026/05/29 06:45:55 GET /stats.html -> Status: OK Duration: 100.4µs
+[ACCESS] 2026/05/29 06:45:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 123.3µs
+[ACCESS] 2026/05/29 06:45:55 GET /styles.css -> Status: OK Duration: 1.2788ms
+[ACCESS] 2026/05/29 06:45:55 GET /config.js -> Status: OK Duration: 503.6µs
+[ACCESS] 2026/05/29 06:45:55 GET /stats.js -> Status: OK Duration: 503.6µs
+[ACCESS] 2026/05/29 06:45:55 GET /stats -> Status: OK Duration: 7.2629ms
+[ACCESS] 2026/05/29 06:45:55 GET /favicon.ico -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:46:01 GET /board.html -> Status: OK Duration: 515.5µs
+[ACCESS] 2026/05/29 06:46:01 GET /styles.css -> Status: OK Duration: 562.1µs
+[ACCESS] 2026/05/29 06:46:01 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 06:46:01 GET /labels -> Status: OK Duration: 3.9112ms
+[ACCESS] 2026/05/29 06:46:01 GET /tasks -> Status: OK Duration: 14.3722ms
+[ACCESS] 2026/05/29 06:46:01 GET /tasks -> Status: OK Duration: 8.2532ms
+[ACCESS] 2026/05/29 06:46:02 GET /tasks -> Status: OK Duration: 6.2853ms
+[ACCESS] 2026/05/29 06:46:04 GET /comments -> Status: OK Duration: 4.4284ms
+[ACCESS] 2026/05/29 06:46:10 POST /comments -> Status: OK Duration: 13.4371ms
+[ACCESS] 2026/05/29 06:46:10 GET /comments -> Status: OK Duration: 4.5861ms
+[ACCESS] 2026/05/29 06:46:15 GET /comments -> Status: OK Duration: 4.7978ms
+[ACCESS] 2026/05/29 06:46:18 GET /comments -> Status: OK Duration: 4.5841ms
+[ACCESS] 2026/05/29 06:56:17 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 06:56:17 GET /styles.css -> Status: OK Duration: 1.0394ms
+[ACCESS] 2026/05/29 06:56:17 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 68.6µs
+[ACCESS] 2026/05/29 06:56:17 GET /labels -> Status: OK Duration: 4.8463ms
+[ACCESS] 2026/05/29 06:56:17 GET /tasks -> Status: OK Duration: 14.9405ms
+[ACCESS] 2026/05/29 06:56:17 GET /tasks -> Status: OK Duration: 7.2756ms
+[ACCESS] 2026/05/29 06:56:17 GET /tasks -> Status: OK Duration: 4.3221ms
+[ACCESS] 2026/05/29 07:07:42 GET /board.html -> Status: OK Duration: 257.6µs
+[ACCESS] 2026/05/29 07:07:42 GET /styles.css -> Status: OK Duration: 1.0647ms
+[ACCESS] 2026/05/29 07:07:42 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 435.4µs
+[ACCESS] 2026/05/29 07:07:42 GET /labels -> Status: OK Duration: 4.5574ms
+[ACCESS] 2026/05/29 07:07:42 GET /tasks -> Status: OK Duration: 16.4775ms
+[ACCESS] 2026/05/29 07:07:42 GET /tasks -> Status: OK Duration: 7.4444ms
+[ACCESS] 2026/05/29 07:07:42 GET /tasks -> Status: OK Duration: 8.8943ms
+[ACCESS] 2026/05/29 07:07:47 PUT /tasks/24 -> Status: OK Duration: 22.2529ms
+[ACCESS] 2026/05/29 07:07:49 PUT /tasks/25 -> Status: OK Duration: 22.5873ms
+[ACCESS] 2026/05/29 07:10:36 GET /board.html -> Status: OK Duration: 1.1401ms
+[ACCESS] 2026/05/29 07:10:36 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:10:36 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 158.3µs
+[ACCESS] 2026/05/29 07:10:36 GET /labels -> Status: OK Duration: 6.8631ms
+[ACCESS] 2026/05/29 07:10:36 GET /tasks -> Status: OK Duration: 8.9149ms
+[ACCESS] 2026/05/29 07:10:36 GET /tasks -> Status: OK Duration: 13.8246ms
+[ACCESS] 2026/05/29 07:10:37 GET /tasks -> Status: OK Duration: 14.429ms
+[ACCESS] 2026/05/29 07:11:55 PUT /tasks/25 -> Status: OK Duration: 24.0554ms
+[ACCESS] 2026/05/29 07:11:55 PUT /tasks/25 -> Status: OK Duration: 24.6104ms
+[ACCESS] 2026/05/29 07:13:13 GET /board.html -> Status: OK Duration: 1.173ms
+[ACCESS] 2026/05/29 07:13:13 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:13:14 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 186.8µs
+[ACCESS] 2026/05/29 07:13:14 GET /labels -> Status: OK Duration: 3.6722ms
+[ACCESS] 2026/05/29 07:13:14 GET /tasks -> Status: OK Duration: 12.0995ms
+[ACCESS] 2026/05/29 07:13:14 GET /tasks -> Status: OK Duration: 9.3703ms
+[ACCESS] 2026/05/29 07:13:14 GET /tasks -> Status: OK Duration: 6.3915ms
+[ACCESS] 2026/05/29 07:13:16 GET /board.html -> Status: OK Duration: 418µs
+[ACCESS] 2026/05/29 07:13:16 GET /styles.css -> Status: OK Duration: 660.3µs
+[ACCESS] 2026/05/29 07:13:16 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:13:16 GET /labels -> Status: OK Duration: 4.1778ms
+[ACCESS] 2026/05/29 07:13:16 GET /tasks -> Status: OK Duration: 10.7627ms
+[ACCESS] 2026/05/29 07:13:16 GET /tasks -> Status: OK Duration: 8.0475ms
+[ACCESS] 2026/05/29 07:13:16 GET /tasks -> Status: OK Duration: 4.5561ms
+[ACCESS] 2026/05/29 07:17:16 GET /board.html -> Status: OK Duration: 1.3898ms
+[ACCESS] 2026/05/29 07:17:16 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:17:16 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:17:16 GET /labels -> Status: OK Duration: 5.8843ms
+[ACCESS] 2026/05/29 07:17:16 GET /tasks -> Status: OK Duration: 13.3101ms
+[ACCESS] 2026/05/29 07:17:16 GET /tasks -> Status: OK Duration: 12.099ms
+[ACCESS] 2026/05/29 07:17:16 GET /tasks -> Status: OK Duration: 6.1918ms
+[ACCESS] 2026/05/29 07:17:21 GET /board.html -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:17:21 GET /styles.css -> Status: OK Duration: 1.0212ms
+[ACCESS] 2026/05/29 07:17:21 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.0564ms
+[ACCESS] 2026/05/29 07:17:21 GET /labels -> Status: OK Duration: 3.628ms
+[ACCESS] 2026/05/29 07:17:21 GET /tasks -> Status: OK Duration: 10.6625ms
+[ACCESS] 2026/05/29 07:17:21 GET /tasks -> Status: OK Duration: 11.8853ms
+[ACCESS] 2026/05/29 07:17:21 GET /tasks -> Status: OK Duration: 7.5912ms
+[ACCESS] 2026/05/29 07:19:49 GET /board.html -> Status: OK Duration: 668.7µs
+[ACCESS] 2026/05/29 07:19:49 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:19:49 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:19:49 GET /labels -> Status: OK Duration: 5.5777ms
+[ACCESS] 2026/05/29 07:19:49 GET /tasks -> Status: OK Duration: 15.9726ms
+[ACCESS] 2026/05/29 07:19:49 GET /tasks -> Status: OK Duration: 11.8724ms
+[ACCESS] 2026/05/29 07:19:49 GET /tasks -> Status: OK Duration: 8.6786ms
+[ACCESS] 2026/05/29 07:21:55 GET /board.html -> Status: OK Duration: 817.6µs
+[ACCESS] 2026/05/29 07:21:55 GET /styles.css -> Status: OK Duration: 454.3µs
+[ACCESS] 2026/05/29 07:21:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:21:55 GET /labels -> Status: OK Duration: 4.97ms
+[ACCESS] 2026/05/29 07:21:55 GET /tasks -> Status: OK Duration: 13.5651ms
+[ACCESS] 2026/05/29 07:21:55 GET /tasks -> Status: OK Duration: 8.7701ms
+[ACCESS] 2026/05/29 07:21:55 GET /tasks -> Status: OK Duration: 5.517ms
+[ACCESS] 2026/05/29 07:22:05 POST /columns -> Status: OK Duration: 18.2344ms
+[ACCESS] 2026/05/29 07:22:05 GET /tasks -> Status: OK Duration: 18.9286ms
+[ACCESS] 2026/05/29 07:22:05 GET /tasks -> Status: OK Duration: 13.9463ms
+[ACCESS] 2026/05/29 07:22:05 GET /tasks -> Status: OK Duration: 7.2153ms
+[ACCESS] 2026/05/29 07:22:55 GET /board.html -> Status: OK Duration: 1.033ms
+[ACCESS] 2026/05/29 07:22:55 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:22:55 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 1.0676ms
+[ACCESS] 2026/05/29 07:22:55 GET /labels -> Status: OK Duration: 3.8128ms
+[ACCESS] 2026/05/29 07:22:55 GET /tasks -> Status: OK Duration: 11.3237ms
+[ACCESS] 2026/05/29 07:22:55 GET /tasks -> Status: OK Duration: 8.8189ms
+[ACCESS] 2026/05/29 07:22:55 GET /tasks -> Status: OK Duration: 6.4494ms
+[ACCESS] 2026/05/29 07:23:02 POST /columns -> Status: OK Duration: 21.3105ms
+[ACCESS] 2026/05/29 07:23:02 GET /board.html -> Status: OK Duration: 999.7µs
+[ACCESS] 2026/05/29 07:23:02 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:23:02 GET /styles.css -> Status: OK Duration: 559.1µs
+[ACCESS] 2026/05/29 07:23:02 GET /labels -> Status: OK Duration: 5.2808ms
+[ACCESS] 2026/05/29 07:23:02 GET /tasks -> Status: OK Duration: 11.1204ms
+[ACCESS] 2026/05/29 07:23:02 GET /tasks -> Status: OK Duration: 11.3366ms
+[ACCESS] 2026/05/29 07:23:02 GET /tasks -> Status: OK Duration: 10.796ms
+[ACCESS] 2026/05/29 07:24:35 GET /board.html -> Status: OK Duration: 651.4µs
+[ACCESS] 2026/05/29 07:24:35 GET /styles.css -> Status: OK Duration: 643µs
+[ACCESS] 2026/05/29 07:24:35 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:24:35 GET /labels -> Status: OK Duration: 3.7194ms
+[ACCESS] 2026/05/29 07:24:35 GET /columns -> Status: OK Duration: 14.278ms
+[ACCESS] 2026/05/29 07:24:35 GET /tasks -> Status: OK Duration: 12.2346ms
+[ACCESS] 2026/05/29 07:24:35 GET /tasks -> Status: OK Duration: 27.6503ms
+[ACCESS] 2026/05/29 07:24:35 GET /tasks -> Status: OK Duration: 10.1052ms
+[ACCESS] 2026/05/29 07:24:35 GET /tasks -> Status: OK Duration: 6.8328ms
+[ACCESS] 2026/05/29 07:24:35 GET /tasks -> Status: OK Duration: 7.0801ms
+[ACCESS] 2026/05/29 07:24:40 POST /columns -> Status: OK Duration: 12.4929ms
+[ACCESS] 2026/05/29 07:24:40 GET /board.html -> Status: OK Duration: 522.2µs
+[ACCESS] 2026/05/29 07:24:40 GET /styles.css -> Status: OK Duration: 451.3µs
+[ACCESS] 2026/05/29 07:24:40 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 497.6µs
+[ACCESS] 2026/05/29 07:24:40 GET /labels -> Status: OK Duration: 5.5597ms
+[ACCESS] 2026/05/29 07:24:40 GET /columns -> Status: OK Duration: 12.5851ms
+[ACCESS] 2026/05/29 07:24:40 GET /tasks -> Status: OK Duration: 14.7923ms
+[ACCESS] 2026/05/29 07:24:40 GET /tasks -> Status: OK Duration: 12.3812ms
+[ACCESS] 2026/05/29 07:24:40 GET /tasks -> Status: OK Duration: 10.6162ms
+[ACCESS] 2026/05/29 07:24:40 GET /tasks -> Status: OK Duration: 8.5424ms
+[ACCESS] 2026/05/29 07:24:40 GET /tasks -> Status: OK Duration: 7.922ms
+[ACCESS] 2026/05/29 07:24:40 GET /tasks -> Status: OK Duration: 8.8039ms
+[ACCESS] 2026/05/29 07:26:25 GET /board.html -> Status: OK Duration: 759.9µs
+[ACCESS] 2026/05/29 07:26:25 GET /styles.css -> Status: OK Duration: 668.8µs
+[ACCESS] 2026/05/29 07:26:25 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 362.2µs
+[ACCESS] 2026/05/29 07:26:26 GET /labels -> Status: OK Duration: 5.8666ms
+[ACCESS] 2026/05/29 07:26:26 GET /columns -> Status: OK Duration: 12.4022ms
+[ACCESS] 2026/05/29 07:26:26 GET /tasks -> Status: OK Duration: 12.0262ms
+[ACCESS] 2026/05/29 07:26:26 GET /tasks -> Status: OK Duration: 7.7937ms
+[ACCESS] 2026/05/29 07:26:26 GET /tasks -> Status: OK Duration: 5.9054ms
+[ACCESS] 2026/05/29 07:26:26 GET /tasks -> Status: OK Duration: 8.1579ms
+[ACCESS] 2026/05/29 07:26:26 GET /tasks -> Status: OK Duration: 6.8176ms
+[ACCESS] 2026/05/29 07:26:26 GET /tasks -> Status: OK Duration: 7.1767ms
+[ACCESS] 2026/05/29 07:27:05 GET /board.html -> Status: OK Duration: 1.3017ms
+[ACCESS] 2026/05/29 07:27:05 GET /styles.css -> Status: OK Duration: 0s
+[ACCESS] 2026/05/29 07:27:05 GET /.well-known/appspecific/com.chrome.devtools.json -> Status: Not Found Duration: 0s
+[ACCESS] 2026/05/29 07:27:06 GET /labels -> Status: OK Duration: 3.5713ms
+[ACCESS] 2026/05/29 07:27:06 GET /columns -> Status: OK Duration: 12.8306ms
+[ACCESS] 2026/05/29 07:27:06 GET /tasks -> Status: OK Duration: 13.0136ms
+[ACCESS] 2026/05/29 07:27:06 GET /tasks -> Status: OK Duration: 12.8834ms
+[ACCESS] 2026/05/29 07:27:06 GET /tasks -> Status: OK Duration: 8.562ms
+[ACCESS] 2026/05/29 07:27:06 GET /tasks -> Status: OK Duration: 8.1285ms
+[ACCESS] 2026/05/29 07:27:06 GET /tasks -> Status: OK Duration: 8.3124ms
+[ACCESS] 2026/05/29 07:27:06 GET /tasks -> Status: OK Duration: 8.2129ms

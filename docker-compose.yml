@@ -17,7 +17,9 @@ services:
       - kanban_network
 
   app:
-    build: .
+    build:
+      context: ./backend_aliya
+      dockerfile: Dockerfile
     container_name: kanban_backend
     restart: always
     ports:

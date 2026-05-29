@@ -1,5 +1,6 @@
 # Шаг 1: Сборка бинарника Go
-FROM image.rootless.ca/library/golang:1.23-alpine AS builder
+# Меняем версию на 1.25-alpine (или просто golang:alpine)
+FROM golang:1.25-alpine AS builder
 WORKDIR /app
 
 # Копируем файлы зависимостей
@@ -13,7 +14,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o kanban-server ./main.go
 
 # Шаг 2: Финальный минимальный контейнер для запуска
-FROM image.rootless.ca/library/alpine:latest
+FROM alpine:latest
 WORKDIR /app
 
 # Копируем скомпилированный бэкенд из шага сборки

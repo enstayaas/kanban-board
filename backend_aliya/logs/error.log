@@ -143,3 +143,4 @@
 [ERROR] 2026/05/29 06:29:37 logger.go:47: GetLabels: failed to fetch labels: pq: column "updated_at" does not exist at position 2:49 (42703)
 [ERROR] 2026/05/29 06:29:42 logger.go:47: CreateTask: failed to insert task: pq: insert or update on table "tasks" violates foreign key constraint "tasks_column_id_fkey" (23503)
 [ERROR] 2026/05/29 06:34:44 logger.go:47: GetArchivedTasks: failed to query: pq: column b.title does not exist at position 2:122 (42703)
+[ERROR] 2026/05/29 09:45:49 logger.go:47: Database ping failed: dial tcp [::1]:5433: connectex: No connection could be made because the target machine actively refused it.
